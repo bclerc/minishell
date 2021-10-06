@@ -1,0 +1,6 @@
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+int	main(int ac, char **av, char **envp);
+
+#endif
