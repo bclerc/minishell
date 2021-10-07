@@ -21,7 +21,7 @@ OBJS	=	${addprefix ${PATH_SRCS}, ${SRCS:.c=.o}}
 CC		=	clang
 #clang-9 
 RM		=	rm -f
-CFLAGS	=	-lreadline -Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra
 #CFLAGS	+= -g3 -fsanitize=address
 
 INCL	=	include
@@ -30,7 +30,7 @@ INCL	=	include
 			${CC} ${CFLAGS} -I${INCL} -g -c $< -o ${<:.c=.o}
 
 $(NAME):	${OBJS}
-			${CC} ${CFLAGS} ${LFLAGS} ${OBJS} -o ${NAME}
+			${CC} ${CFLAGS} ${LFLAGS} ${OBJS} -o ${NAME} -lreadline
 
 all:		${NAME}
 
