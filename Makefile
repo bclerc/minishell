@@ -6,13 +6,13 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:27:13 by asgaulti          #+#    #+#              #
-#    Updated: 2021/10/06 16:28:10 by asgaulti         ###   ########.fr        #
+#    Updated: 2021/10/07 10:14:32 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
-SRCS	=	main.c 
+SRCS	=	main.c ft_init.c ft_utils.c 
 
 PATH_SRCS = srcs/
 

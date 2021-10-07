@@ -1,38 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/07 10:35:07 by asgaulti         ###   ########.fr       */
+/*   Created: 2021/10/07 10:03:18 by asgaulti          #+#    #+#             */
+/*   Updated: 2021/10/07 10:34:08 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **envp)
+int	ft_print(char *str, int res)
+{
+	write (1, str, ft_strlen(str));
+	return (res);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(char *s1)
 {
 	int		i;
-	t_env	env;
+	char	*copy_s1;
 
-	(void)av;
-	if (ac != 1)
-		return (ft_print("There are too many arguments!\n", 1));
 	i = 0;
-	while (envp[i])
+	copy_s1 = malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!copy_s1)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		copy_s1[i] = (char)s1[i];
 		i++;
-	env.env = malloc(sizeof(char *) * i + 1);
-	if (!env.env)
-		return (1);
-	// i = 0;
-	// while (envp[i])
-	// {
-	// 	env.env[i] = ft_strdup(envp[i]);
-	// 	printf("envp[%i] = %s\n", i, envp[i]);
-	// 	printf("env.env[%i] = %s\n", i, env.env[i]);
-	// 	i++;
-	// }
-	return (0);
+	}
+	copy_s1[i] = '\0';
+	return (copy_s1);
 }
