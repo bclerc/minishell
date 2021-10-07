@@ -4,6 +4,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_env
 {
@@ -12,6 +14,7 @@ typedef struct s_env
 
 int		main(int ac, char **av, char **envp);
 char	*ft_init_env(char **envp, t_env *env, int count);
+char	*readline(const char *prompt);
 
 // utils
 int		ft_print(char *str, int res);

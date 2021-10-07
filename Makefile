@@ -6,7 +6,7 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:27:13 by asgaulti          #+#    #+#              #
-#    Updated: 2021/10/07 10:14:32 by asgaulti         ###   ########.fr        #
+#    Updated: 2021/10/07 16:54:15 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJS	=	${addprefix ${PATH_SRCS}, ${SRCS:.c=.o}}
 CC		=	clang
 #clang-9 
 RM		=	rm -f
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-lreadline -Wall -Werror -Wextra
 #CFLAGS	+= -g3 -fsanitize=address
 
 INCL	=	include
