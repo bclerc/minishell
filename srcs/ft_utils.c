@@ -46,3 +46,32 @@ char	*ft_strdup(char *s1)
 	copy_s1[i] = '\0';
 	return (copy_s1);
 }
+
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*new;
+
+	new = malloc(sizeof(t_list) * 1);
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
+}
+
+void	ft_lstadd_back(t_list **alst, t_list *new)
+{
+	t_list *last;
+
+	last = *alst;
+	if (!alst)
+		return ;
+	if (!*alst)
+	{
+		*alst = new;
+		return ;
+	}
+	while (last->next)
+		last = last->next;
+	last->next = new;
+}
