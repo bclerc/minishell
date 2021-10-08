@@ -51,7 +51,7 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*new;
 
-	new = malloc(sizeof(t_list) * 1);
+	new = malloc(sizeof(t_list));
 	if (!new)
 		return (NULL);
 	new->content = content;
@@ -66,11 +66,13 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 	last = *alst;
 	if (!alst)
 		return ;
-	if (!*alst)
+	if (!(*alst))
 	{
 		*alst = new;
+		//puts("guevara");
 		return ;
 	}
+		//puts("che");
 	while (last->next)
 		last = last->next;
 	last->next = new;

@@ -22,7 +22,7 @@ CC		=	clang
 #clang-9 
 RM		=	rm -f
 CFLAGS	=	-Wall -Werror -Wextra
-#CFLAGS	+= -g3 -fsanitize=address
+CFLAGS	+= -g3 -fsanitize=address
 
 INCL	=	include
 
