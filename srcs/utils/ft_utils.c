@@ -18,35 +18,6 @@ int	ft_print(char *str, int res)
 	return (res);
 }
 
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(char *s1)
-{
-	int		i;
-	char	*copy_s1;
-
-	i = 0;
-	copy_s1 = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (!copy_s1)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		copy_s1[i] = (char)s1[i];
-		i++;
-	}
-	copy_s1[i] = '\0';
-	return (copy_s1);
-}
-
 t_list	*ft_lstnew(void *content)
 {
 	t_list	*new;
@@ -76,4 +47,16 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 	while (last->next)
 		last = last->next;
 	last->next = new;
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char *copy_s;
+
+	copy_s = s;
+	while (n > 0)
+	{
+		*copy_s++ = '\0';
+		n--;
+	}
 }

@@ -26,16 +26,17 @@ int	main(int ac, char **av, char **envp)
 	while (envp[i])
 		i++;
 	env = ft_get_env(env, envp);
-	while (env->next)
-	{
-		printf("content = %s\n", env->content);
-		env = env->next;
-	}
+	// while (env->next)
+	// {
+	// 	printf("content = %s\n", env->content);
+	// 	env = env->next;
+	// }
 	while (42)
 	{
 		str = readline("minishell42> ");
 		if (!str)
 			return (1);
+		ft_get_cmd(str);
 	}
 	return (0);
 }

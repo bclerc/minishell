@@ -12,7 +12,8 @@
 
 NAME	=	minishell
 
-SRCS	=	main.c ft_init.c ft_utils.c 
+SRCS	=	main.c ft_init.c parser/ft_get_cmd.c parser/ft_gnl.c \
+			utils/ft_split.c utils/ft_utils_gnl.c utils/ft_utils.c
 
 PATH_SRCS = srcs/
 
