@@ -22,14 +22,20 @@ struct	s_cmd
 {
 	//char	*arg;
 	char	**cmds;
+	int		count_quote;
+	int		count_quotes;
 };
 
 int		main(int ac, char **av, char **envp);
 char	*ft_init_env(char **envp, t_list *env, int count);
 char	*readline(const char *prompt);
 t_list	*ft_get_env(t_list *env, char **envp);
+
+// parsing
 void	ft_get_cmd(char *str);
 void	ft_init_cmd(t_cmd *cmd);
+int		ft_check_cmds(t_cmd *cmd);
+int		ft_check_quotes(t_cmd *cmd);
 
 // utils
 int		ft_print(char *str, int res);
