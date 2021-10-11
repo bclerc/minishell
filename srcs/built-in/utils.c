@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/11 13:00:31 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/11 15:44:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*ft_strdup(const char *s)
 	tab[i] = '\0';
 	return (tab);
 }
-
 
 int get_fd(char *path)
 {
