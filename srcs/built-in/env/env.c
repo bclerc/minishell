@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 11:23:17 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/11 12:23:05 by bclerc           ###   ########.fr       */
+/*   Created: 2021/10/11 15:39:56 by bclerc            #+#    #+#             */
+/*   Updated: 2021/10/11 15:41:04 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// INCLUDE ICI, POUR L 'INSTANT J AJOUTE SANS PH
-
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-int get_fd(char *path);
-
-int ft_strlen(char *str);
-
-int	echo(char *str, char *path, int flag_n)
+int	export(char **envp, char *path)
 {
-	int fd;
+	char **env;
+	int		fd;
+	int		i;
+
+	i = 0;
 	fd = get_fd(path);
-	write(fd, str, ft_strlen(str));
-	if (fd > 1)
-		close(fd);
+	env = envp;
+	while (env[i])
+	{
+		write(fd, env[i], ft_strlen(env[i]));
+		write(fd, "\n", 1);
+		i++;
+	}
 }
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
-	echo(argv[1], argv[2][0] == '0' ? 0 : argv[2], 0);
+	export(envp, argv[1]);
 }
