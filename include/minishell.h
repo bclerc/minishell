@@ -47,6 +47,8 @@ int		ft_check_cmds(t_cmd *cmd);
 int		ft_check_quotes(t_cmd *cmd);
 
 // utils
+
+int		ft_strncmp(const char *str1, const char *str2, size_t n);
 int		ft_print(char *str, int res);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *s1);
@@ -54,6 +56,7 @@ t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_bzero(void *s, size_t n);
 char	**ft_split(char const *s, char c);
+char	*get_env_variable(char *var, char **envp);
 
 // gnl
 int		get_next_line(int fd, char **line);

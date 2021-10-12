@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 11:41:49 by bclerc           ###   ########.fr       */
+/*   Created: 2021/10/12 14:18:36 by bclerc            #+#    #+#             */
+/*   Updated: 2021/10/12 14:19:10 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int get_fd(char *path)
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-	int fd;
-	struct stat buffer;
+	unsigned char	*s1;
+	unsigned char	*s2;
+	int				i;
 
-	fd = 1;
-	if (path)
+	if (!n)
+		return (0);
+	s1 = (unsigned char *)str1;
+	s2 = (unsigned char *)str2;
+	i = 0;
+	while (i < (int)(n - 1) && s1[i] && s2[i])
 	{
-		if (stat(path, &buffer) == 0)
-			fd = open(path, O_WRONLY);
-		else
-			fd = open(path, O_WRONLY | O_APPEND | O_CREAT, 0644);
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
 	}
-	if (fd < 0)
-	{
-		printf("Something wrong (error: %d)...\n", fd);
-		exit (1);
-	}
-	return (1);
+	return (s1[i] - s2[i]);
 }
