@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 10:50:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 11:37:31 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	export(char **envp, char *path)
 	int		fd;
 	int		i;
 
+	if (!envp)
+		return (0);
 	i = 0;
 	fd = get_fd(path);
 	env = envp;
@@ -55,4 +57,5 @@ int	export(char **envp, char *path)
 		i++;
 	}
 	free_env(env);
+	return (1);
 }

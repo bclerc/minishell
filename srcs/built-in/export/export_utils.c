@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:05:05 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 10:54:17 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 11:38:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int add_env_variable(t_env *env, char *var)
 	int		placed;
 	
 	new_env = re_alloc(env->export);
+	if (!new_env)
+		return (0);
 	i = 0;
 	placed = 0;
 	while (env->export[i])
@@ -86,6 +88,9 @@ int add_env_variable(t_env *env, char *var)
 		i++;
 	}
 	new_env[i] = ft_strdup(var);
+	if (!new_env[i])
+		return (0);
 	new_env[i + 1] = 0;
 	env->export = new_env;
+	return (1);
 }

@@ -74,7 +74,7 @@ int		get_fd(char *path);
 int		unset(char **envp, char *var);
 int		echo(char *str, char *path, int flag_n);
 int		env(char **envp, char *path);
-int		pwd(char **path);
+int		pwd(char *path);
 int		cd(char **env, char *path);
 
 #endif

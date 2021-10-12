@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 10:52:15 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 11:40:39 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ int get_fd(char *path)
 		printf("Something wrong (error: %d)...\n", fd);
 		exit (1);
 	}
+	return (1);
 }
