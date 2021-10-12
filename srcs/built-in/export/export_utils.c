@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:05:05 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/11 15:39:40 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 08:33:22 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int add_env_variable(t_env *env, char *var)
 	}
 	new_env[i] = ft_strdup(var);
 	new_env[i + 1] = 0;
-	free_env(env->export);
 	env->export = new_env;
 }

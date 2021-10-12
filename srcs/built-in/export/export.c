@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/11 15:39:16 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 08:33:32 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int main(int argc, char **argv, char **envp)
 	}
 	else
 		export(env.export, argv[1]);
-	free_env(env.export);
 }
 
 

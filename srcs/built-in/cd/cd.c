@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/11 16:31:01 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 08:46:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,50 @@ int	change_old_pwd(char **env)
 }
 
 
-int	change_pwd(char **env)
+char	*get_home(char **env)
 {
 	int i;
+	int find;
+
 	char *tmp;
 	char *path;
 	i = 0;
+	find = 0;
+	while (env[i])
+	{
+		if (env[i][0] == 'H' && env[i][1] == 'O' && env[i][2] == 'M'
+			&& env[i][3] == 'E' && env[i][4] == '=')
+		{
+			find = 1;
+			break ;
+		}
+		i++;
+	}
+	if (!find)
+	{
+		printf("cd: home directory not set");
+		exit(0);
+	}
+	path = ft_strdup(&env[i][5]);
+	return path;
+}
+
+int	change_pwd(char **env)
+{
+	int i;
+	int find;
+
+	char *tmp;
+	char *path;
+	i = 0;
+	find = 0;
 	while (env[i])
 	{
 		if (env[i][0] == 'P' && env[i][1] == 'W' && env[i][2] == 'D')
+		{
+			find = 1;
 			break ;
+		}
 		i++;
 	}
 	path = getcwd(NULL, 0);
@@ -108,12 +142,18 @@ int	cd(char **env, char *path)
 {
 	struct stat t_sb;
 	int i;
-
+	
 	if (stat(path, &t_sb) == 0 && S_ISDIR(t_sb.st_mode))	
 	{
-		i = change_old_pwd(env);
+		change_old_pwd(env);
 		chdir(path);
 		change_pwd(env);			
+	}
+	else if (path == NULL)
+	{
+		change_old_pwd(env);
+		chdir(get_home(env));
+		i = change_pwd(env);		
 	}
 	else
 	{
