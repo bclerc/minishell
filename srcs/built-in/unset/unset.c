@@ -6,11 +6,11 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 10:13:26 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 10:39:35 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:51:29 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
+# include "../../../include/minishell.h"
 // strchr
 int	unset(char **envp, char *var)
 {

@@ -6,16 +6,11 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 10:39:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:52:15 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include "../../include/minishell.h"
 
 int get_fd(char *path)
 {

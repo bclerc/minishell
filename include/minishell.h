@@ -7,6 +7,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
+#include <sys/stat.h>
 
 # define BUF_SIZE 42
 
@@ -27,6 +28,12 @@ struct	s_cmd
 	int		count_quote;
 	int		count_quotes;
 };
+
+typedef struct s_env
+{
+	char **env;
+	char **export;
+} 				t_env;
 
 int		main(int ac, char **av, char **envp);
 char	*ft_init_env(char **envp, t_list *env, int count);
@@ -55,5 +62,19 @@ char	*ft_write_line(char *str, char **line);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
+
+// built-in function
+char	**re_alloc(char **env);
+void	export_sort(char **value, int len);
+void	free_env(char **env);
+int 	add_env_variable(t_env *env, char *var);
+int		get_env_lenght(char **env);
+int		export(char **envp, char *path);
+int		get_fd(char *path);
+int		unset(char **envp, char *var);
+int		echo(char *str, char *path, int flag_n);
+int		env(char **envp, char *path);
+int		pwd(char **path);
+int		cd(char **env, char *path);
 
 #endif

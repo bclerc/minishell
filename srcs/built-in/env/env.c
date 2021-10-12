@@ -6,9 +6,11 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:39:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 10:40:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:49:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../../include/minishell.h"
 
 int	env(char **envp, char *path)
 {

@@ -6,23 +6,11 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 10:39:08 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:48:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-//
-//	JE SAIS PAS TRES JOLIE
-//	JE VAIS RANGER DEMAIN PROMIS
-//
-
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include "../../../include/minishell.h"
 
 int	change_old_pwd(char **env)
 {

@@ -6,24 +6,13 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:05:05 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 09:34:46 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:54:17 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "../../../include/minishell.h"
 
-char *ft_strdup(const char *str);
-
-typedef struct s_env
-{
-	char **env;
-	char **export;
-} 				t_env;
-
-
-int		get_env_lenght(char **env)
+int	get_env_lenght(char **env)
 {
 	int i;
 
