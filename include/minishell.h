@@ -10,6 +10,14 @@
 #include <sys/stat.h>
 
 # define BUF_SIZE 42
+# define BLK "\e[1;30m"
+# define RED "\e[1;31m"
+# define GRN "\e[1;32m"
+# define YEL "\e[1;33m"
+# define BLU "\e[1;34m"
+# define MAG "\e[1;35m"
+# define CYN "\e[1;36m"
+# define WHT "\e[1;37m"
 
 //liste chainee pour stocker env
 typedef struct s_list t_list;
@@ -57,6 +65,7 @@ void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_bzero(void *s, size_t n);
 char	**ft_split(char const *s, char c);
 char	*get_env_variable(char *var, char **envp);
+char	*get_promps(char **envp);
 
 // gnl
 int		get_next_line(int fd, char **line);

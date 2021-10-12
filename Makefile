@@ -6,7 +6,7 @@
 #    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:27:13 by asgaulti          #+#    #+#              #
-#    Updated: 2021/10/12 14:24:59 by bclerc           ###   ########.fr        #
+#    Updated: 2021/10/12 14:49:36 by bclerc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME	=	minishell
 SRCS	=	main.c ft_init.c parser/ft_get_cmd.c parser/ft_gnl.c \
 			utils/ft_split.c utils/ft_utils_gnl.c utils/ft_utils.c \
 			utils/ft_strncmp.c \
+			utils/prompts.c \
 			utils/env_variable.c \
 			built-in/cd/cd.c \
 			built-in/echo/echo.c \
