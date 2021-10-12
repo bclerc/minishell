@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:17 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/11 12:23:05 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:39:18 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 
 int get_fd(char *path);
 
-int ft_strlen(char *str);
-
 int	echo(char *str, char *path, int flag_n)
 {
 	int fd;
@@ -30,9 +28,4 @@ int	echo(char *str, char *path, int flag_n)
 	write(fd, str, ft_strlen(str));
 	if (fd > 1)
 		close(fd);
-}
-
-int main(int argc, char **argv)
-{
-	echo(argv[1], argv[2][0] == '0' ? 0 : argv[2], 0);
 }

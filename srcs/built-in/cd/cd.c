@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 10:13:08 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:39:08 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,49 +23,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
-// a bouger
-int ft_strlen(char *str);
-char *ft_strdup(char *s);
-int	ft_strncmp(const char *str1, const char *str2, size_t n)
-{
-	unsigned char	*s1;
-	unsigned char	*s2;
-	int				i;
-
-	if (!n)
-		return (0);
-	s1 = (unsigned char *)str1;
-	s2 = (unsigned char *)str2;
-	i = 0;
-	while (i < (int)(n - 1) && s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (s1[i] - s2[i]);
-}
-char	*ft_strjoin(char *s1, char *s2)
-{
-	size_t	i;
-	char	*str;
-
-	if (!s1 || !s2)
-		return (0);
-	i = 0;
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 1);
-	if (!str)
-		return (0);
-	while (*s1 != 0)
-		str[i++] = *s1++;
-	while (*s2)
-		str[i++] = *s2++;
-	str[i] = 0;
-	return (str);
-}
-
-// fin a bouger
 
 int	change_old_pwd(char **env)
 {
@@ -199,12 +156,4 @@ int	cd(char **env, char *path)
 		exit(0);
 	}
 	return (i);
-}
-
-int main(int argc, char **argv, char **envp)
-{
-	int i;
-
-	printf("new path : %s\n", envp[i = cd(envp, argv[1])]);
-	free(envp[i]); // STIL REACHABLE
 }

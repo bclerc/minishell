@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/11 15:44:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:39:48 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
-int ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(const char *s)
-{
-	char	*tmp;
-	char	*tab;
-	int		i;
-
-	tab = (char *)malloc((ft_strlen((char *)s) + 1) * sizeof(char));
-	if (tab == NULL)
-		return (0);
-	tmp = (char *)s;
-	i = 0;
-	while (tmp[i])
-	{
-		tab[i] = tmp[i];
-		i++;
-	}
-	tab[i] = '\0';
-	return (tab);
-}
 
 int get_fd(char *path)
 {

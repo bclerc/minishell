@@ -6,11 +6,11 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:39:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 09:37:06 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:40:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	export(char **envp, char *path)
+int	env(char **envp, char *path)
 {
 	char	**env;
 	int		fd;
@@ -25,9 +25,4 @@ int	export(char **envp, char *path)
 		write(fd, "\n", 1);
 		i++;
 	}
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	export(envp, argv[1]);
 }

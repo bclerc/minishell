@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 09:34:37 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:39:31 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ typedef struct s_env
 	char **env;
 	char **export;
 } 				t_env;
-void	export_sort(char **value, int len);
-int		get_env_lenght(char **env);
-int get_fd(char *path);
-int ft_strlen(char *str);
-int add_env_variable(t_env *env, char *var);
-char *ft_strdup(const char *str);
-
-
 int	copy_env(char **envp, t_env *env)
 {
 	int	i;
@@ -71,20 +63,4 @@ int	export(char **envp, char *path)
 		i++;
 	}
 	free_env(env);
-}
-
-int main(int argc, char **argv, char **envp)
-{
-	t_env env;
-	
-	copy_env(envp, &env);
-	if (argc == 2)
-	{
-		add_env_variable(&env, argv[1]);
-		export(env.export, 0);
-	}
-	else
-	{
-		export(env.export, argv[1]);
-	}
 }
