@@ -10,6 +10,7 @@
 
 # define BUF_SIZE 42
 
+//liste chainee pour stocker env
 typedef struct s_list t_list;
 struct s_list
 {
@@ -17,6 +18,7 @@ struct s_list
 	t_list	*next;
 };
 
+// struct recuperant les cmds envoyees par l'user
 typedef struct s_cmd t_cmd;
 struct	s_cmd
 {

@@ -37,6 +37,7 @@ int	main(int ac, char **av, char **envp)
 		if (!str)
 			return (1);
 		ft_get_cmd(str);
+		exit (0);
 	}
 	return (0);
 }
