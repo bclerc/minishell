@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/07 16:51:22 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/10/12 15:32:12 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ int	main(int ac, char **av, char **envp)
 	// }
 	while (42)
 	{
-		str = readline("minishell42> ");
-		if (!str)
-			return (1);
-		ft_get_cmd(str);
-		exit (0);
+	
+		str = readline(get_promps(envp));
+		export(envp, 0);
 	}
 	return (0);
 }

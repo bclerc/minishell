@@ -76,6 +76,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
 // built-in function
+int		copy_env(char **envp, t_env *env);
 char	**re_alloc(char **env);
 void	export_sort(char **value, int len);
 void	free_env(char **env);
