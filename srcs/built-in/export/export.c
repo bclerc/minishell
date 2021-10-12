@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 08:33:32 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 09:34:37 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int add_env_variable(t_env *env, char *var);
 char *ft_strdup(const char *str);
 
 
-int copy_env(char **envp, t_env *env)
+int	copy_env(char **envp, t_env *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -55,7 +55,7 @@ int copy_env(char **envp, t_env *env)
 
 int	export(char **envp, char *path)
 {
-	char **env;
+	char	**env;
 	int		fd;
 	int		i;
 
@@ -70,6 +70,7 @@ int	export(char **envp, char *path)
 		write(fd, "\n", 1);
 		i++;
 	}
+	free_env(env);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -83,7 +84,7 @@ int main(int argc, char **argv, char **envp)
 		export(env.export, 0);
 	}
 	else
+	{
 		export(env.export, argv[1]);
+	}
 }
-
-

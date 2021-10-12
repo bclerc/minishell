@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 08:46:30 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 10:13:08 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
 // a bouger
 int ft_strlen(char *str);
 char *ft_strdup(char *s);
@@ -53,7 +54,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1 || !s2)
 		return (0);
 	i = 0;
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char));
+	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 1);
 	if (!str)
 		return (0);
 	while (*s1 != 0)
@@ -68,9 +69,10 @@ char	*ft_strjoin(char *s1, char *s2)
 
 int	change_old_pwd(char **env)
 {
-	int i;
-	char *tmp;
 	char *path;
+	char *tmp;
+	int i;
+
 	i = 0;
 	while (env[i])
 	{
@@ -82,17 +84,18 @@ int	change_old_pwd(char **env)
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("OLDPWD=");
 	env[i] = ft_strjoin(tmp, path);
+	free(tmp);
+	free(path);
 	return i;
 }
 
-
 char	*get_home(char **env)
 {
-	int i;
-	int find;
+	char	*path;
+	char	*tmp;
+	int		find;
+	int		i;
 
-	char *tmp;
-	char *path;
 	i = 0;
 	find = 0;
 	while (env[i])
@@ -114,13 +117,42 @@ char	*get_home(char **env)
 	return path;
 }
 
+char	*get_oldpwd(char **env)
+{
+	char	*path;
+	char	*tmp;
+	int		find;
+	int		i;
+
+	i = 0;
+	find = 0;
+	while (env[i])
+	{
+		if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D'
+			&& env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D'
+			&& env[i][6] == '=')
+		{
+			find = 1;
+			break ;
+		}
+		i++;
+	}
+	if (!find)
+	{
+		printf("cd: old working directory not set");
+		exit(0);
+	}
+	path = ft_strdup(&env[i][5]);
+	return path;
+}
+
 int	change_pwd(char **env)
 {
-	int i;
-	int find;
+	char	*path;
+	char	*tmp;
+	int 	find;
+	int		i;
 
-	char *tmp;
-	char *path;
 	i = 0;
 	find = 0;
 	while (env[i])
@@ -135,24 +167,30 @@ int	change_pwd(char **env)
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("PWD=");
 	env[i] = ft_strjoin(tmp, path);
-	return i;
+	free(path);
+	free(tmp);
+	return (i);
 }
+
 
 int	cd(char **env, char *path)
 {
 	struct stat t_sb;
+	char		*home;
 	int i;
 	
 	if (stat(path, &t_sb) == 0 && S_ISDIR(t_sb.st_mode))	
 	{
 		change_old_pwd(env);
 		chdir(path);
-		change_pwd(env);			
+		i = change_pwd(env);			
 	}
 	else if (path == NULL)
 	{
 		change_old_pwd(env);
-		chdir(get_home(env));
+		home = get_home(env);
+		chdir(home);
+		free(home);
 		i = change_pwd(env);		
 	}
 	else
@@ -165,5 +203,8 @@ int	cd(char **env, char *path)
 
 int main(int argc, char **argv, char **envp)
 {
-	printf("new path : %s\n", envp[cd(envp, argv[1])]);
+	int i;
+
+	printf("new path : %s\n", envp[i = cd(envp, argv[1])]);
+	free(envp[i]); // STIL REACHABLE
 }

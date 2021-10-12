@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:05:05 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 08:33:22 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/12 09:34:46 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char **re_alloc(char **env)
 		i++;
 	new_env = (char **)malloc(sizeof(char *) * i + 2);
 	if (!new_env)
-		exit(1);		
+		exit(1);	
 	return (new_env);
 }
 

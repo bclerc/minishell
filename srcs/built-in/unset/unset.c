@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 15:39:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 09:37:06 by bclerc           ###   ########.fr       */
+/*   Created: 2021/10/12 10:13:26 by bclerc            #+#    #+#             */
+/*   Updated: 2021/10/12 10:14:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	export(char **envp, char *path)
-{
-	char	**env;
-	int		fd;
-	int		i;
 
-	i = 0;
-	fd = get_fd(path);
-	env = envp;
-	while (env[i])
-	{
-		write(fd, env[i], ft_strlen(env[i]));
-		write(fd, "\n", 1);
-		i++;
-	}
-}
-
-int	main(int argc, char **argv, char **envp)
+// strchr
+int	unset(char **envp, char *var)
 {
-	export(envp, argv[1]);
+	int i;
 }
