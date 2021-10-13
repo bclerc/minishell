@@ -56,6 +56,7 @@ t_list	*ft_get_env(t_list *env, char **envp);
 // parsing
 void	ft_get_cmd(char *str);
 void	ft_init_cmd(t_cmd *cmd);
+int		parser(char *argv, char **envp);
 int		ft_check_cmds(t_cmd *cmd);
 int		ft_check_quotes(t_cmd *cmd);
 

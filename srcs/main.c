@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/13 11:15:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/13 11:30:55 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int ac, char **av, char **envp)
 		str = readline(get_promps(envp));
 		add_history(str);
 		execute_commands(str, envp, 0);
+		parser(str, envp);
 	}
 	return (0);
 }
