@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/12 08:46:35 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/13 09:57:37 by bclerc           ###   ########.fr       */
+/*   Created: 2018/11/08 08:40:16 by bclerc            #+#    #+#             */
+/*   Updated: 2018/11/20 17:58:47 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
-
-int	pwd(char *path)
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	int	fd;
-	char *pwd;
+	unsigned char	*s1;
+	unsigned char	*s2;
+	int				i;
 
-	fd = get_fd(path);
-	pwd = getcwd(NULL, 0);
-	write(fd, pwd, ft_strlen(pwd));
-	write(fd, "\n", 1);
-	return (1);
+	s1 = (unsigned char *)str1;
+	s2 = (unsigned char *)str2;
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	if ((!s1[i] && s2[i]) || (s1[i] && !s2[i]))
+		return (s1[i] - s2[i]);
+	return (0);
 }

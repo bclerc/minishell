@@ -7,17 +7,22 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
-#include <sys/stat.h>
+# include <readline/history.h>
+# include <sys/stat.h>
 
 # define BUF_SIZE 42
-# define BLK "\e[1;30m"
-# define RED "\e[1;31m"
-# define GRN "\e[1;32m"
-# define YEL "\e[1;33m"
-# define BLU "\e[1;34m"
-# define MAG "\e[1;35m"
-# define CYN "\e[1;36m"
-# define WHT "\e[1;37m"
+
+enum	e_cmd
+{
+	_cd,
+	_echo,
+	_env,
+	_export,
+	_pwd,
+	_unset,
+	m_exit
+
+};
 
 //liste chainee pour stocker env
 typedef struct s_list t_list;
@@ -56,6 +61,7 @@ int		ft_check_quotes(t_cmd *cmd);
 
 // utils
 
+int     ft_strcmp(const char *str1, const char *str2);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
 int		ft_print(char *str, int res);
 int		ft_strlen(char *str);
@@ -74,6 +80,9 @@ char	*ft_write_line(char *str, char **line);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
+
+// execution
+int	execute_commands(char *args, char **envp, char *path);
 
 // built-in function
 int		copy_env(char **envp, t_env *env);

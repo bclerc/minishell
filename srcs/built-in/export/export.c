@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 15:34:19 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/13 09:48:32 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	export(char **envp, char *path)
 	char	**env;
 	int		fd;
 	int		i;
-
 	if (!envp)
 		return (0);
 	i = 0;
