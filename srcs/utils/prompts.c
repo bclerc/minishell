@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:41:31 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/13 10:08:27 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/13 11:47:43 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ char *get_promps(char **envp)
 
 	prompts = ft_strdup("\e[1;35mMinishell \e[1;36m(\e[1;34m");
 	prompts = ft_strjoin(prompts, get_current_dir_name(envp));
-	prompts = ft_strjoin(prompts, ft_strdup("\e[1;36m) \e[1;35m$ \e[1;37m"));
+	prompts = ft_strjoin(prompts, ft_strdup("\e[1;36m) \e[1;35m$ \e[0;37m"));
 	return (prompts);
 }
