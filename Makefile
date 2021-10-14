@@ -6,15 +6,16 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:27:13 by asgaulti          #+#    #+#              #
-#    Updated: 2021/10/13 13:39:30 by user42           ###   ########.fr        #
+#    Updated: 2021/10/13 16:20:24 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
-SRCS	=	main.c ft_init.c parser/ft_get_cmd.c parser/ft_gnl.c \
+SRCS	=	main.c ft_init.c parser/ft_get_arg.c parser/ft_gnl.c \
 			utils/ft_split.c utils/ft_utils_gnl.c utils/ft_utils.c \
 			parser/parser.c \
+			parser/ft_parse_echo.c \
 			utils/ft_strcmp.c \
 			utils/ft_strncmp.c \
 			utils/prompts.c \

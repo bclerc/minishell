@@ -32,12 +32,25 @@ struct s_list
 	t_list	*next;
 };
 
-// struct recuperant les cmds envoyees par l'user
+// liste chainee pour stocker cmds
 typedef struct s_cmd t_cmd;
-struct	s_cmd
+struct s_cmd
+{
+	int		nb; // numero de la cmd dans l'ordre d'arrivee
+	char	*arg; // ex echo
+	char	*spec; // ex -n
+	char	*msg; // ex coucou
+	int 	exit; // en fonction du type de sortie 0 ou 1 ou -1
+	t_cmd	*next;
+};
+
+// struct recuperant les cmds envoyees par l'user
+typedef struct s_arg t_arg;
+struct	s_arg
 {
 	//char	*arg;
 	char	**cmds;
+	int		count;
 	int		count_quote;
 	int		count_quotes;
 };
@@ -54,11 +67,15 @@ char	*readline(const char *prompt);
 t_list	*ft_get_env(t_list *env, char **envp);
 
 // parsing
-void	ft_get_cmd(char *str);
-void	ft_init_cmd(t_cmd *cmd);
+void	ft_get_arg(char *str);
+void	ft_init_arg(t_arg *cmd);
 int		parser(char *str, char **envp);
-int		ft_check_cmds(t_cmd *cmd);
-int		ft_check_quotes(t_cmd *cmd);
+int		ft_check_cmds(t_arg *cmd);
+int		ft_check_quotes(t_arg *cmd);
+int		ft_get_cmd(t_arg *arg);
+int		ft_parse_echo(t_arg *arg, t_cmd *cmd, int i);
+int		ft_check_n(t_arg *arg, t_cmd *cmd, int i);
+int		ft_echo_msg(t_arg *arg, t_cmd *cmd, int i);
 
 // utils
 
