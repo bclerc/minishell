@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:27:13 by asgaulti          #+#    #+#              #
-#    Updated: 2021/10/13 16:20:24 by user42           ###   ########.fr        #
+#    Updated: 2021/10/14 11:03:23 by bclerc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS	=	main.c ft_init.c parser/ft_get_arg.c parser/ft_gnl.c \
 			parser/parser.c \
 			parser/ft_parse_echo.c \
 			utils/ft_strcmp.c \
+			utils/ft_itoa.c \
 			utils/ft_strncmp.c \
 			utils/prompts.c \
 			utils/env_variable.c \
