@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -24,7 +25,6 @@ typedef struct s_core
 
 extern t_core core;
 //liste chainee pour stocker env
-
 typedef struct s_list t_list;
 struct s_list
 {
@@ -81,27 +81,18 @@ void	ft_stock_arg(t_arg *arg, char **str);
 
 // utils
 
-char    *ft_itoa(int value);
-int     ft_strcmp(const char *str1, const char *str2);
-int		ft_strncmp(const char *str1, const char *str2, size_t n);
 int		ft_print(char *str, int res);
-int		ft_strlen(char *str);
-char	*ft_strdup(char *s1);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
-void	ft_bzero(void *s, size_t n);
-char	**ft_split(char const *s, char c);
 char	*get_env_variable(char *var, char **envp);
 char	*get_promps(char **envp);
 void	ft_free_arg(t_arg *arg);
 char	*ft_sep(t_arg *arg, int i, char c, int count);
 char	*ft_strtrim(char const *s1, char const *set);
-
 // gnl
 int		get_next_line(int fd, char **line);
 char	*ft_get_static(char *str, char buf[BUF_SIZE], int len);
 char	*ft_write_line(char *str, char **line);
-char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
