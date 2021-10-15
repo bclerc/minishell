@@ -31,7 +31,7 @@ int	main(int ac, char **av, char **envp)
 		str = readline(get_promps(envp));
 		add_history(str);
 		//execute_commands(str, envp, 0);
-		//parser(str, envp);
+		parser(str, envp);
 	}
 	return (0);
 }

@@ -14,58 +14,65 @@ void	ft_get_arg(char *str)
 	// arg.cmds = malloc(sizeof(char *) * arg.count);
 	// if (!arg.cmds)
 	// 	return ;
-	ft_stock_arg(&arg, str);
+	ft_stock_arg(&arg, &str);
 	//ft_free_arg(&arg);
 }
 
-void	ft_stock_arg(t_arg *arg, char *str)
+void	ft_stock_arg(t_arg *arg, char **str)
 {
-	int		i;
+	int	i;
+	int	j;
 
 	i = 0;
-	while (i < arg->count)
+	while (i <= arg->count)
 	{
-		if (str[i] == '<' && str[i + 1] == '<')
+		j = 0;
+		while (str[i])
 		{
-			arg->cmds[i] = ft_strtrim(str, '<');
+	printf("c = %d str[%i] = %s\n", arg->count, i, str[i]);
+			if (str[i][j] == '<' && str[i][j + 1] == '<')
+		{
+			arg->cmds[i] = ft_strtrim(*str, "<<");
 			printf("cmd1[%d] = %s\n", i, arg->cmds[i]);
 			i++;
 			arg->cmds[i] = ft_sep(arg, i, '<', 2);
 			printf("cmd2[%d] = %s\n", i, arg->cmds[i]);
 			i++;
 		}
-		else if (str[i] == '>' && str[i + 1] == '>')
+			else if (str[i][j] == '>' && str[i][j + 1] == '>')
 		{
-			arg->cmds[i] = ft_strtrim(str, '>');
+			arg->cmds[i] = ft_strtrim(*str, ">>");
 			printf("cmd3[%d] = %s\n", i, arg->cmds[i]);
 			i++;
-			arg->cmds[i] = ft_sep(arg, i, '>',2);
+			arg->cmds[i] = ft_sep(arg, i, '>', 2);
 			printf("cmd4[%d] = %s\n", i, arg->cmds[i]);
 			i++;
 		}
-		else if (str[i] == '>')
+			else if (str[i][j] == '>')
 		{
-			arg->cmds[i] = ft_strtrim(str, '>');
+			arg->cmds[i] = ft_strtrim(*str, ">");
 			printf("cmd5[%d] = %s\n", i, arg->cmds[i]);
 			arg->cmds[i] = ft_sep(arg, i, '>', 1);
 			printf("cmd6[%d] = %s\n", i, arg->cmds[i]);
 			i++;
 		}	
-		else if (str[i] == '<')
+			else if (str[i][j] == '<')
 		{
-			arg->cmds[i] = ft_strtrim(str, '<');
+			arg->cmds[i] = ft_strtrim(*str, "<");
 			printf("cmd7[%d] = %s\n", i, arg->cmds[i]);
 			arg->cmds[i] = ft_sep(arg, i, '<', 1);
 			printf("cmd8[%d] = %s\n", i, arg->cmds[i]);
 			i++;
 		}
-		else if (str[i] == '|')		
+			else if (str[i][j] == '|')		
 		{
-			arg->cmds[i] = ft_strtrim(str, '|');
+			arg->cmds[i] = ft_strtrim(*str, "|");
 			printf("cmd9[%d] = %s\n", i, arg->cmds[i]);
 			arg->cmds[i] = ft_sep(arg, i, '|', 1);
 			printf("cmd10[%d] = %s\n", i, arg->cmds[i]);
 			i++;
+		}
+			j++;
 		}
 		i++;
 	}
