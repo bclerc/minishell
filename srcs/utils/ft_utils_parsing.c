@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_utils_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/14 12:09:59 by user42           ###   ########.fr       */
+/*   Created: 2021/10/14 12:41:17 by user42            #+#    #+#             */
+/*   Updated: 2021/10/15 10:51:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parser(char *str, char **envp)
+char	*ft_sep(t_arg *arg, int i, char c, int count)
 {
-	ft_get_arg(str);
-	return (1);	
-}
+	int	z;
 
-int	ft_get_cmd(t_arg *arg)
-{
-	int		i;
-	t_cmd	cmd;
-
-	i = 0;
-	if (ft_strncmp(arg->cmds[i], "echo", ft_strlen(arg->cmds[i])) == 0)
-		i = ft_parse_echo(arg, &cmd, i);
-	// printf("i1 = %d\n", i);
-	if (i == -1)
-		return (-1);
-	i++;
-	// printf("i2 = %d\n", i);
-	// if (!arg->cmds[i])
-	// 	return (-1); 
-	// ou plutot lancer l'exec??
-	return (i);
+	z = 0;
+	while (z < count)
+	{
+		arg->cmds[i] = &c;
+		z++;
+	}
+	return (arg->cmds[i]);
 }

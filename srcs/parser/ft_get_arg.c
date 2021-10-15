@@ -1,29 +1,97 @@
 #include "minishell.h"
-/*
+
 void	ft_get_arg(char *str)
 {
-	int		i;
-	t_arg arg;
+	t_arg	arg;
 
-	i = 0;
-	ft_init_arg(&arg);
-	while (str[i])
-	{
-		if ((str[i] == '>' && str[i + 1] == '>') || 
-			(str[i] == '<' && str[i + 1] == '<')) ||
-			str[i] == '>' || str[i] == '<' || str[i] == '|')
-			arg.count++;
-		i++;
-	}
-	printf("c = %d\n", arg.count);
+	ft_init_arg(&arg, str);
+	ft_count_arg(str, &arg);
 	if (!arg.count)
 	{
 		ft_print("There is no command, try again!\n", -1);
 		return ;
 	}
+	// arg.cmds = malloc(sizeof(char *) * arg.count);
+	// if (!arg.cmds)
+	// 	return ;
+	ft_stock_arg(&arg, str);
+	//ft_free_arg(&arg);
 }
-*/
 
+void	ft_stock_arg(t_arg *arg, char *str)
+{
+	int		i;
+
+	i = 0;
+	while (i < arg->count)
+	{
+		if (str[i] == '<' && str[i + 1] == '<')
+		{
+			arg->cmds[i] = ft_strtrim(str, '<');
+			printf("cmd1[%d] = %s\n", i, arg->cmds[i]);
+			i++;
+			arg->cmds[i] = ft_sep(arg, i, '<', 2);
+			printf("cmd2[%d] = %s\n", i, arg->cmds[i]);
+			i++;
+		}
+		else if (str[i] == '>' && str[i + 1] == '>')
+		{
+			arg->cmds[i] = ft_strtrim(str, '>');
+			printf("cmd3[%d] = %s\n", i, arg->cmds[i]);
+			i++;
+			arg->cmds[i] = ft_sep(arg, i, '>',2);
+			printf("cmd4[%d] = %s\n", i, arg->cmds[i]);
+			i++;
+		}
+		else if (str[i] == '>')
+		{
+			arg->cmds[i] = ft_strtrim(str, '>');
+			printf("cmd5[%d] = %s\n", i, arg->cmds[i]);
+			arg->cmds[i] = ft_sep(arg, i, '>', 1);
+			printf("cmd6[%d] = %s\n", i, arg->cmds[i]);
+			i++;
+		}	
+		else if (str[i] == '<')
+		{
+			arg->cmds[i] = ft_strtrim(str, '<');
+			printf("cmd7[%d] = %s\n", i, arg->cmds[i]);
+			arg->cmds[i] = ft_sep(arg, i, '<', 1);
+			printf("cmd8[%d] = %s\n", i, arg->cmds[i]);
+			i++;
+		}
+		else if (str[i] == '|')		
+		{
+			arg->cmds[i] = ft_strtrim(str, '|');
+			printf("cmd9[%d] = %s\n", i, arg->cmds[i]);
+			arg->cmds[i] = ft_sep(arg, i, '|', 1);
+			printf("cmd10[%d] = %s\n", i, arg->cmds[i]);
+			i++;
+		}
+		i++;
+	}
+}
+
+void	ft_count_arg(char *str, t_arg *arg)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] == '>' && str[i + 1] == '>') || 
+			(str[i] == '<' && str[i + 1] == '<'))
+		{
+			arg->count++;
+			i++;
+		}
+		else if	(str[i] == '>' || str[i] == '<' || str[i] == '|')
+			arg->count++;
+		i++;
+	}
+	if (i == 0)
+		arg->count = 0;
+}
+/*
 void	ft_get_arg(char *str)
 {
 	int		i;
@@ -58,12 +126,13 @@ void	ft_get_arg(char *str)
 		i++;
 	}
 }
+*/
 
-
-void	ft_init_arg(t_arg *arg)
+void	ft_init_arg(t_arg *arg, char *str)
 {
 	ft_bzero(arg, sizeof(t_arg));
-	arg->count = 1;
+	if (str)
+		arg->count = 1;
 }
 
 

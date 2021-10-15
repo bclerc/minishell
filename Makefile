@@ -6,7 +6,11 @@
 #    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 16:27:13 by asgaulti          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/10/14 11:03:23 by bclerc           ###   ########.fr        #
+=======
+#    Updated: 2021/10/15 10:52:52 by user42           ###   ########.fr        #
+>>>>>>> 434b923574d4ba368891cc9c1deb2acd4f59d30d
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +25,9 @@ SRCS	=	main.c ft_init.c parser/ft_get_arg.c parser/ft_gnl.c \
 			utils/ft_strncmp.c \
 			utils/prompts.c \
 			utils/env_variable.c \
+			utils/ft_free.c \
+			utils/ft_utils_parsing.c \
+			utils/ft_strtrim.c \
 			commands/commands.c \
 			built-in/cd/cd.c \
 			built-in/echo/echo.c \
