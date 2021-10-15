@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/13 18:38:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/14 12:02:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_parse_echo(t_arg *arg, t_cmd *cmd, int i)
 			return (-1);
 	}
 	if (!arg->cmds[i])
-		cmd->exit = 1; // pour executer de suite?
+		cmd->std = 1; // pour executer de suite?
 	return (i);
 }
 

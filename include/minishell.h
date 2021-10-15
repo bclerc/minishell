@@ -40,7 +40,7 @@ struct s_cmd
 	char	*arg; // ex echo
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
-	int 	exit; // en fonction du type de sortie 0 ou 1 ou -1
+	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
 	t_cmd	*next;
 };
 
@@ -68,14 +68,16 @@ t_list	*ft_get_env(t_list *env, char **envp);
 
 // parsing
 void	ft_get_arg(char *str);
-void	ft_init_arg(t_arg *cmd);
+void	ft_init_arg(t_arg *cmd, char *str);
 int		parser(char *str, char **envp);
 int		ft_check_cmds(t_arg *cmd);
 int		ft_check_quotes(t_arg *cmd);
 int		ft_get_cmd(t_arg *arg);
+void	ft_count_arg(char *str, t_arg *arg);
 int		ft_parse_echo(t_arg *arg, t_cmd *cmd, int i);
 int		ft_check_n(t_arg *arg, t_cmd *cmd, int i);
 int		ft_echo_msg(t_arg *arg, t_cmd *cmd, int i);
+void	ft_stock_arg(t_arg *arg, char *str);
 
 // utils
 
@@ -90,6 +92,9 @@ void	ft_bzero(void *s, size_t n);
 char	**ft_split(char const *s, char c);
 char	*get_env_variable(char *var, char **envp);
 char	*get_promps(char **envp);
+void	ft_free_arg(t_arg *arg);
+char	*ft_sep(t_arg *arg, int i, char c, int count);
+char	*ft_strtrim(char const *s1, char const *set);
 
 // gnl
 int		get_next_line(int fd, char **line);
