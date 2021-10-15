@@ -6,14 +6,15 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/13 11:16:00 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/15 09:51:36 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 int execute_bin_commands(char **argv)
 {
+	int		ret;
+	int		status;
 	pid_t	pid;
 	pid_t	child;
 	char	**cmd;
@@ -27,10 +28,13 @@ int execute_bin_commands(char **argv)
 		cmd = argv;
 		find = ft_strdup("/bin/");
 		find = ft_strjoin(find, argv[0]);
-		execve (find, cmd, 0);
+		ret = execve (find, cmd, 0);
+		if (ret < 0)
+			printf("%s: command not found\n", argv[0]);
+		exit(-1);
 	}
 	else{
-		    int status;
+		 status;
     	waitpid(child, &status, 0);
 	}
 }
@@ -57,7 +61,11 @@ int	execute_commands(char *args, char **envp, char *path)
 	if (ft_strcmp(cmd, "unset") == 0)
 		ret = (1);											//pas fait
 	if (ft_strcmp(cmd, "exit") == 0)
-		exit(1);
+	{
+		printf("\nGood Bye\n");
+		core.status = -1;
+		return (-1);
+	}
 	if (ret == 1)											// a refaire
 		return (ret);
 	execute_bin_commands(argv);

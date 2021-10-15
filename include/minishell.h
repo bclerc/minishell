@@ -9,22 +9,22 @@
 # include <fcntl.h>
 # include <readline/history.h>
 # include <sys/stat.h>
+# include <signal.h>
 
 # define BUF_SIZE 42
 
-enum	e_cmd
+typedef struct s_core
 {
-	_cd,
-	_echo,
-	_env,
-	_export,
-	_pwd,
-	_unset,
-	m_exit
+	pid_t	main_parent;
+	pid_t	main_child;
+	pid_t	exec_chill;
+	int		fd[2];
+	int		status;
+}				t_core;
 
-};
-
+extern t_core core;
 //liste chainee pour stocker env
+
 typedef struct s_list t_list;
 struct s_list
 {
@@ -81,6 +81,7 @@ void	ft_stock_arg(t_arg *arg, char **str);
 
 // utils
 
+char    *ft_itoa(int value);
 int     ft_strcmp(const char *str1, const char *str2);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
 int		ft_print(char *str, int res);
