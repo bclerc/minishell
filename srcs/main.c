@@ -6,18 +6,13 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/15 09:53:07 by bclerc           ###   ########.fr       */
-=======
-/*   Updated: 2021/10/15 10:50:29 by user42           ###   ########.fr       */
->>>>>>> 434b923574d4ba368891cc9c1deb2acd4f59d30d
+/*   Updated: 2021/10/15 09:59:04 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_core core;
-
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
 {
@@ -83,7 +78,6 @@ int	main(int ac, char **av, char **envp)
 	core.main_parent = getpid();
 	while (core.status != -1)
 	{
-<<<<<<< HEAD
 		pipe(core.fd);
 		core.main_child = fork();
 		if (core.main_child == 0)
@@ -101,12 +95,7 @@ int	main(int ac, char **av, char **envp)
 			read(core.fd[0], readbuffer, sizeof(readbuffer));
 			core.status = atoi(readbuffer);
 		}
-=======
-		str = readline(get_promps(envp));
-		add_history(str);
-		//execute_commands(str, envp, 0);
-		//parser(str, envp);
->>>>>>> 434b923574d4ba368891cc9c1deb2acd4f59d30d
+		printf("\n");
 	}
 	return (0);
 }
