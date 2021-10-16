@@ -81,8 +81,9 @@ int		ft_echo_msg(t_arg *arg, t_cmd *cmd, int i);
 // parsing arguments
 void	ft_count_arg(char *str, t_arg *arg);
 void	ft_stock_arg(t_arg *arg, char *str);
-char	*ft_parse_pipe(char *str, int i, int start);
+char	*ft_parse_cmds(char *str, int i, int start);
 char	*ft_nosep(int i, int start, char *str, t_arg *arg);
+void	ft_check_char(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
 
 // utils

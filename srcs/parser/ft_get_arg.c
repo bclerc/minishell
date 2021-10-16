@@ -25,7 +25,7 @@ void	ft_stock_arg(t_arg *arg, char *str)
 	int	i;
 	char *tmp;
 
-//printf("count = %d\n", arg->count);
+printf("count = %d\n", arg->count);
 	c = 0;
 	start = 0;
 	i = 0;
@@ -34,51 +34,25 @@ void	ft_stock_arg(t_arg *arg, char *str)
 		return ;
 	while (str[i])
 	{
-		if (str[i] == '|')
+		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
 		{
-			arg->cmds[c] = ft_parse_pipe(str, i, start);
+			arg->cmds[c] = ft_parse_cmds(str, i, start);
 			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
 			c++;
-			ft_char(arg, c, '|', 1);
+			ft_check_char(str, i, c, arg);	
 			start = i;
 			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
 			c++;
 		}
-	/*	if (str[i] == '<' || str[i] == '>')
-		{
-			arg->cmds[c] = ft_parse_chevron(str, i, start);
-			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
-			c++;
-			start = i;
-		}*/
 		i++;
 		printf("i = %d start = %d\n", i, start);
 	}
-	if (c != arg->count)
+	printf("c2 = %d count2 = %d\n", c, arg->count); // pb dans count > egal a 2 qu'il y ait 2 ou 3 groupes de cmds
+	if (c != arg->count + 1)
 		arg->cmds[c] = ft_nosep(i, start, str, arg);
 	printf("cmds = %s\n", arg->cmds[c]);
 	start = 0;
 }
-
-/*char	*ft_parse_cmds(char *str, int i, int start)
-{
-	char	*tmp;
-	int 	c;
-
-	tmp = malloc(sizeof(char) * i);
-	if (str[i] == '>')
-	{
-		if (str[i + 1] == '>')
-		{
-			tmp = ft_double_right(str, i, start);
-		}
-	}
-	else if (str[i] == '<')
-	{
-
-	}
-	return (tmp);
-}*/
 
 void	ft_count_arg(char *str, t_arg *arg)
 {
@@ -100,42 +74,6 @@ void	ft_count_arg(char *str, t_arg *arg)
 	if (i == 0)
 		arg->count = 0;
 }
-/*
-void	ft_get_arg(char *str)
-{
-	int		i;
-	t_arg	arg;
-
-	i = 0;
-	ft_init_arg(&arg);
-	while (str[i])
-	{
-		arg.cmds = ft_split(str, ' ');
-		//printf("cmd[%i] = %s\n", i, cmd.cmds[i]);
-		i++;
-	}
-	if (ft_check_cmds(&arg) == 1)
-	{
-		//ft_exit
-		return ;
-	}
-	i = 0;
-	while (arg.cmds[i])
-		i++;
-	arg.count = i;
-	i = 0;
-	while (i < arg.count)
-	{
-		i = ft_get_cmd(&arg);
-		//printf("i = %d\n", i);
-		if (i == -1)
-		{
-			return ; // sortir
-		}
-		i++;
-	}
-}
-*/
 
 void	ft_init_arg(t_arg *arg, char *str)
 {
@@ -143,7 +81,6 @@ void	ft_init_arg(t_arg *arg, char *str)
 	if (str)
 		arg->count = 1;
 }
-
 
 int	ft_check_cmds(t_arg *arg)
 {
