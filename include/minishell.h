@@ -73,13 +73,17 @@ int		parser(char *str, char **envp);
 int		ft_check_cmds(t_arg *cmd);
 int		ft_check_quotes(t_arg *cmd);
 int		ft_get_cmd(t_arg *arg);
-void	ft_count_arg(char *str, t_arg *arg);
 int		ft_parse_echo(t_arg *arg, t_cmd *cmd, int i);
 int		ft_check_n(t_arg *arg, t_cmd *cmd, int i);
 int		ft_echo_msg(t_arg *arg, t_cmd *cmd, int i);
+//char	*ft_parse_cmds(char *str, int i, int start);
+
+// parsing arguments
+void	ft_count_arg(char *str, t_arg *arg);
 void	ft_stock_arg(t_arg *arg, char *str);
 char	*ft_parse_pipe(char *str, int i, int start);
-//char	*ft_parse_cmds(char *str, int i, int start);
+char	*ft_nosep(int i, int start, char *str, t_arg *arg);
+void	ft_char(t_arg *arg, int c, char s, int nb);
 
 // utils
 

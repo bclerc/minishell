@@ -25,6 +25,7 @@ void	ft_stock_arg(t_arg *arg, char *str)
 	int	i;
 	char *tmp;
 
+//printf("count = %d\n", arg->count);
 	c = 0;
 	start = 0;
 	i = 0;
@@ -38,53 +39,25 @@ void	ft_stock_arg(t_arg *arg, char *str)
 			arg->cmds[c] = ft_parse_pipe(str, i, start);
 			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
 			c++;
-			arg->cmds[c] = malloc(sizeof(char));
-			if (!arg->cmds[c])
-				return ;
-			arg->cmds[c] = "|";
-			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
+			ft_char(arg, c, '|', 1);
 			start = i;
+			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
 			c++;
 		}
-/*		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
+	/*	if (str[i] == '<' || str[i] == '>')
 		{
-			arg->cmds[c] = ft_parse_cmds(str, i, start);
+			arg->cmds[c] = ft_parse_chevron(str, i, start);
 			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
 			c++;
 			start = i;
 		}*/
 		i++;
-		printf("i = %d\n", i);
+		printf("i = %d start = %d\n", i, start);
 	}
-	int z = 0;
-	tmp = malloc(sizeof(char) * (i - start));
-	if (!tmp)
-		return ;
-	i = start + 1;
-	while (start < i)
-	{
-		tmp[z] = str[start];
-		z++;
-		start++;
-	}
-	tmp[z] = '\0';
-	arg->cmds[c] = tmp;
+	if (c != arg->count)
+		arg->cmds[c] = ft_nosep(i, start, str, arg);
+	printf("cmds = %s\n", arg->cmds[c]);
 	start = 0;
-}
-
-char	*ft_parse_pipe(char *str, int i, int start)
-{
-	char	*tmp;
-	int 	c;
-
-	tmp = malloc(sizeof(char) * i);
-	while (start < i)
-	{
-		tmp[c] = str[start];
-		start++;
-		c++;
-	}
-	return (tmp);
 }
 
 /*char	*ft_parse_cmds(char *str, int i, int start)
@@ -103,15 +76,6 @@ char	*ft_parse_pipe(char *str, int i, int start)
 	else if (str[i] == '<')
 	{
 
-	}
-	else if (str[i] == '|')
-	{
-		while (start < i)
-		{
-			tmp[c] = str[start];
-			start++;
-			c++;
-		}
 	}
 	return (tmp);
 }*/
