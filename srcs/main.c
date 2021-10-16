@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/15 12:01:17 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/16 13:01:57 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	minishell(int ac, char **av, char **envp)
 			continue;
 		}
 		add_history(str);
-		if (execute_commands(str, envp, 0) == -1)
-			break ;
+		parser(str, envp);
+		// if (execute_commands(str, envp, 0) == -1)
+		// 	break ;
 	}
 }
 
@@ -71,7 +72,7 @@ int	main(int ac, char **av, char **envp)
 		i++;
 	env = ft_get_env(env, envp);
 	sa = init_signal();
-	sigaction(SIGINT, &sa, NULL);
+	//sigaction(SIGINT, &sa, NULL);
 	core.status = 1;
 	core.main_parent = getpid();
 	while (core.status != -1)

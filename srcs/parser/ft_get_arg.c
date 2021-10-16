@@ -21,19 +21,100 @@ void	ft_get_arg(char *str)
 void	ft_stock_arg(t_arg *arg, char *str)
 {
 	int	c;
+	int start;
 	int	i;
+	char *tmp;
 
 	c = 0;
+	start = 0;
 	i = 0;
-	while (c <= arg->count)
+	arg->cmds = malloc(sizeof(char *) * (arg->count + 1));
+	if (!arg->cmds)
+		return ;
+	while (str[i])
 	{
-		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
+		if (str[i] == '|')
 		{
-
+			arg->cmds[c] = ft_parse_pipe(str, i, start);
+			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
+			c++;
+			arg->cmds[c] = malloc(sizeof(char));
+			if (!arg->cmds[c])
+				return ;
+			arg->cmds[c] = "|";
+			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
+			start = i;
+			c++;
 		}
+/*		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
+		{
+			arg->cmds[c] = ft_parse_cmds(str, i, start);
+			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
+			c++;
+			start = i;
+		}*/
 		i++;
+		printf("i = %d\n", i);
 	}
+	int z = 0;
+	tmp = malloc(sizeof(char) * (i - start));
+	if (!tmp)
+		return ;
+	i = start + 1;
+	while (start < i)
+	{
+		tmp[z] = str[start];
+		z++;
+		start++;
+	}
+	tmp[z] = '\0';
+	arg->cmds[c] = tmp;
+	start = 0;
 }
+
+char	*ft_parse_pipe(char *str, int i, int start)
+{
+	char	*tmp;
+	int 	c;
+
+	tmp = malloc(sizeof(char) * i);
+	while (start < i)
+	{
+		tmp[c] = str[start];
+		start++;
+		c++;
+	}
+	return (tmp);
+}
+
+/*char	*ft_parse_cmds(char *str, int i, int start)
+{
+	char	*tmp;
+	int 	c;
+
+	tmp = malloc(sizeof(char) * i);
+	if (str[i] == '>')
+	{
+		if (str[i + 1] == '>')
+		{
+			tmp = ft_double_right(str, i, start);
+		}
+	}
+	else if (str[i] == '<')
+	{
+
+	}
+	else if (str[i] == '|')
+	{
+		while (start < i)
+		{
+			tmp[c] = str[start];
+			start++;
+			c++;
+		}
+	}
+	return (tmp);
+}*/
 
 void	ft_count_arg(char *str, t_arg *arg)
 {

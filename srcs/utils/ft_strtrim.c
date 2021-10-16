@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:24:19 by user42            #+#    #+#             */
-/*   Updated: 2021/10/15 13:10:08 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/16 11:58:28 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		ft_find_char(char c, char const *set)
+/*static int		ft_find_char(char c, char const *set)
 {
 	int i;
 
@@ -52,3 +52,4 @@ char			*ft_strtrim(char const *s1, char set)
 	printf("res = %s\n", res);
 	return (res);
 }
+*/
