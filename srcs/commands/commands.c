@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/15 09:51:36 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/15 13:19:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	execute_commands(char *args, char **envp, char *path)
 	char	*cmd;
 	int		ret;
 
-	argv = ft_split(args, ' ');
+	argv = ft_strsplit(args, ' ');
 	cmd = argv[0];
 	ret = 0;
 	if (ft_strcmp(cmd, "cd") == 0)

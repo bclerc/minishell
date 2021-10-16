@@ -6,29 +6,11 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 04:23:59 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/14 11:06:16 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/08/28 18:00:33 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-unsigned int ft_abs(long nb)
-{
-	if (nb < 0)
-		return ((unsigned int)-nb);
-	return ((unsigned int) nb);	
-}
-
-char	*ft_strnew(size_t size)
-{
-	char	*ptr;
-
-	ptr = (char *)malloc((size + 1) * sizeof(char));
-	if (!ptr)
-		return (0);
-	ptr[size] = '\0';
-	return (ptr);
-}
+#include "libft.h"
 
 static	int	get_len(size_t value, int base)
 {
