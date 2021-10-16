@@ -26,7 +26,7 @@ static int		ft_find_char(char c, char const *set)
 	return (0);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char			*ft_strtrim(char const *s1, char set)
 {
 	int		i;
 	int		start;
@@ -41,6 +41,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 		start++;
 	while (start < end && ft_find_char(s1[end - 1], set))
 		end--;
+	printf("s = %d\n", end);
 	res = malloc(sizeof(char) * (end - start + 1));
 	if (!res)
 		return (NULL);
@@ -48,5 +49,6 @@ char			*ft_strtrim(char const *s1, char const *set)
 	while (start < end)
 		res[i++] = s1[start++];
 	res[i] = '\0';
+	printf("res = %s\n", res);
 	return (res);
 }
