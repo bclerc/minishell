@@ -25,7 +25,7 @@ void	ft_stock_arg(t_arg *arg, char *str)
 	int	i;
 	char *tmp;
 
-printf("count = %d\n", arg->count);
+//printf("count = %d\n", arg->count);
 	c = 0;
 	start = 0;
 	i = 0;
@@ -48,7 +48,7 @@ printf("count = %d\n", arg->count);
 		printf("i = %d start = %d\n", i, start);
 	}
 	printf("c2 = %d count2 = %d\n", c, arg->count); // pb dans count > egal a 2 qu'il y ait 2 ou 3 groupes de cmds
-	if (c != arg->count + 1)
+	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, start, str, arg);
 	printf("cmds = %s\n", arg->cmds[c]);
 	start = 0;
@@ -66,13 +66,20 @@ void	ft_count_arg(char *str, t_arg *arg)
 		{
 			arg->count++;
 			i++;
+			if (str[i])
+				arg->count++;
 		}
 		else if	(str[i] == '>' || str[i] == '<' || str[i] == '|')
+		{
 			arg->count++;
+			if (str[i + 1])
+				arg->count++;
+		}	
 		i++;
 	}
 	if (i == 0)
 		arg->count = 0;
+	printf("count = %d\n", arg->count);
 }
 
 void	ft_init_arg(t_arg *arg, char *str)
