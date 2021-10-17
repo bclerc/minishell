@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/16 16:19:44 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/17 15:50:58 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	ft_check_char(char *str, int i, int c, t_arg *arg)
 		ft_char(arg, c, '|', 1);
 	else if (str[i] == '<' || str[i] == '>')
 	{
-		if (str[i] == '<' && str[i + 1] == '<')
+		if (str[i] == '>' && str[i + 1] == '>')
 		{
-			ft_char(arg, c, '<', 2);
+			ft_char(arg, c, '>', 2);
 			i++;
 			return ;
 		}
-		else if (str[i] == '>'&& str[i + 1] == '>')
+		else if (str[i] == '<' && str[i + 1] == '<')
 		{
-			ft_char(arg, c, '>', 2);
+			ft_char(arg, c, '<', 2);
 			i++;
 			return ;
 		}
@@ -47,13 +47,13 @@ void	ft_char(t_arg *arg, int c, char s, int nb)
 		return ;
 	if (s == '|')
 		arg->cmds[c] = "|";
-	else if (s = '>' && nb == 2)
+	else if (s == '>' && nb == 2)
 		arg->cmds[c] = ">>";
-	else if (s = '>' && nb == 1)
+	else if (s == '>' && nb == 1)
 		arg->cmds[c] = ">";
-	else if (s = '<' && nb == 2)
+	else if (s == '<' && nb == 2)
 		arg->cmds[c] = "<<";
-	else if (s = '<' && nb == 1)
+	else if (s == '<' && nb == 1)
 		arg->cmds[c] = "<";
 }
 
