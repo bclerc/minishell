@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/18 13:00:54 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/18 13:52:53 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ void	minishell(int ac, char **av, char **envp)
 		add_history(str);
 		str = transform_str(str, envp);
 		printf("STR: %s\n", str);
-		if (execute_commands(str, envp, 0) == -1)
-		{
-			free(prompt);
-			free(str);
-			break ;
-		}
+		parser(str, envp);
+		//if (execute_commands(str, envp, 0) == -1)
+		//{
+		//	free(prompt);
+		//	free(str);
+		//	break ;
+		//}
 		free(prompt);	
 		free(str);
 	}
@@ -79,7 +80,6 @@ int	main(int ac, char **av, char **envp)
 		return (ft_print("There are too many arguments!\n", 1));
 	while (envp[i])
 		i++;
-	env = ft_get_env(env, envp);
 	sa = init_signal();
 	sigaction(SIGINT, &sa, NULL);
 	core.status = 1;
@@ -106,25 +106,4 @@ int	main(int ac, char **av, char **envp)
 		printf("\n");
 	}
 	return (0);
-}
-
-t_list	*ft_get_env(t_list *env, char **envp)
-{
-	int		i;
-	t_list	*new;
-	char	*str;
-
-	i = 0;
-	env = NULL;
-	while (envp[i])
-	{
-		str = ft_strdup(envp[i]);
-		if (!str)
-			return (NULL); // faire une fct exit
-		new = ft_lstnew(str);
-		ft_lstadd_back(&env, new);
-		// faire une fct exit ici aussi en cas de souci?
-		i++;
-	}
-	return (env);
 }
