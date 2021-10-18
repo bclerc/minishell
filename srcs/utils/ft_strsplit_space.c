@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 08:18:03 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 08:26:37 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/18 12:39:49 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char			**ft_strsplit_s(char const *s, char c)
 	i = -1;
 	j = 0;
 	k = 0;
-	tab = malloc(sizeof(char*) * (ft_countword(s, c) + 1));
+	tab = malloc(sizeof(char*) * (ft_countword(s, c) + 2));
 	if (!tab)
 		return (NULL);
 	while (s[++i])
@@ -61,7 +61,7 @@ char			**ft_strsplit_s(char const *s, char c)
 		if (s[i] != c || s[i] != ' ')
 		{
 			if (k == 0)
-				tab[j] = malloc(sizeof(char) * (ltab(s, i, c) + 1));
+				tab[j] = malloc(sizeof(char) * (ltab(s, i, c) + 2));
 				if (!tab)
 					return (NULL);
 			tab[j][k] = s[i];

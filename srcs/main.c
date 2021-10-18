@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/18 10:54:52 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/18 13:00:54 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 void	minishell(int ac, char **av, char **envp)
 {
 	char	*str;
+	char	*prompt;
 
 	while (42)
 	{
-		str = readline(get_promps(envp));
+
+		prompt = get_promps(envp);
+		str = readline(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
@@ -43,7 +46,13 @@ void	minishell(int ac, char **av, char **envp)
 		str = transform_str(str, envp);
 		printf("STR: %s\n", str);
 		if (execute_commands(str, envp, 0) == -1)
+		{
+			free(prompt);
+			free(str);
 			break ;
+		}
+		free(prompt);	
+		free(str);
 	}
 }
 

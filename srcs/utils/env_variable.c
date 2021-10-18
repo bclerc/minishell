@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 08:50:46 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/18 12:57:00 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char *get_env_variable(char *var, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (ft_strncmp(var, envp[i], ft_strlen(var)) == 0)
+		if (ft_strncmp(var, envp[i], ft_strlen(var) - 1) == 0)
 		{
 			b = 0;
 			while (envp[i][b] != '=')

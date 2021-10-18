@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 11:02:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/18 12:54:22 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	rm_split(char **split)
 	i = 0;
 	while (split[i])
 		i++;
-	while (i > 0)
+	while (i >= 0)
 	{
 		free(split[i]);
 		i--;
@@ -94,5 +94,6 @@ char	*transform_str(char *str, char **envp)
 	}
 	ret = build_str(split);
 	rm_split(split);
+	free(str);
 	return (ret);
 }

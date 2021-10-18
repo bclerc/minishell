@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/15 13:19:50 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/18 12:55:33 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int execute_bin_commands(char **argv)
 	pid_t	child;
 	char	**cmd;
 	char	*find;
+	char	*tmp;
 
 	pid = getpid();
 	child = fork();
@@ -26,11 +27,13 @@ int execute_bin_commands(char **argv)
 	if (child == 0)
 	{
 		cmd = argv;
-		find = ft_strdup("/bin/");
-		find = ft_strjoin(find, argv[0]);
+		tmp = ft_strdup("/bin/");
+		find = ft_strjoin(tmp, argv[0]);
+		free(tmp);
 		ret = execve (find, cmd, 0);
 		if (ret < 0)
 			printf("%s: command not found\n", argv[0]);
+		free(find);
 		exit(-1);
 	}
 	else{
@@ -69,5 +72,6 @@ int	execute_commands(char *args, char **envp, char *path)
 	if (ret == 1)											// a refaire
 		return (ret);
 	execute_bin_commands(argv);
+	rm_split(argv);
 	return (1);
 }
