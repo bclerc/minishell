@@ -1,12 +1,11 @@
 #include "minishell.h"
 
-void	ft_get_arg(char *str)
+void	ft_get_arg(char *str, t_arg *arg)
 {
-	t_arg	arg;
+	ft_init_arg(arg, str);
+	ft_count_arg(str, arg);
+	ft_stock_arg(arg, str);
 
-	ft_init_arg(&arg, str);
-	ft_count_arg(str, &arg);
-	ft_stock_arg(&arg, str);
 	//ft_free_arg(&arg);
 }
 
@@ -27,20 +26,23 @@ void	ft_stock_arg(t_arg *arg, char *str)
 	{
 		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
 		{
-			arg->cmds[c] = ft_parse_cmds(str, i, start);
-			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
+			arg->cmds[c] = ft_parse_arg(str, i, start);
+			//printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
 			c++;
-			i = ft_check_char(str, i, c, arg);	
+			if (ft_check_char(str, i, c, arg) == -1)
+				return ;
+			else
+				i = ft_check_char(str, i, c, arg);	
 			start = i;
-			printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
+			//printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
 			c++;
 		}
 		i++;
 	}
-	printf("c2 = %d count2 = %d\n", c, arg->count);
+	//printf("c2 = %d count2 = %d\n", c, arg->count);
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, start, str, arg);
-	printf("cmds = %s\n", arg->cmds[c]);
+	//printf("cmds = %s\n", arg->cmds[c]);
 	start = 0;
 }
 
@@ -69,7 +71,7 @@ void	ft_count_arg(char *str, t_arg *arg)
 	}
 	if (i == 0)
 		arg->count = 0;
-	printf("count = %d\n", arg->count);
+	//printf("count = %d\n", arg->count);
 }
 
 void	ft_init_arg(t_arg *arg, char *str)
@@ -79,7 +81,7 @@ void	ft_init_arg(t_arg *arg, char *str)
 		arg->count = 1;
 }
 
-int	ft_check_cmds(t_arg *arg)
+int	ft_check_args(t_arg *arg)
 {
 	int	i;
 	int	j;

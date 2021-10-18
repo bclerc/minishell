@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/14 12:02:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/18 15:54:54 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_parse_echo(t_arg *arg, t_cmd *cmd, int i)
 {
 	ft_bzero(cmd, sizeof(t_cmd));
-	cmd->arg = ft_strdup(arg->cmds[i]);
+	cmd->cmd = ft_strdup(arg->cmds[i]);
 	//printf("arg = %p cmd = %p\n", &arg->cmds[i], &cmd->arg);
 	if (arg->cmds[i + 1])
 	{
