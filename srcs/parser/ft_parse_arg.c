@@ -6,13 +6,13 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/17 15:50:58 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/18 12:49:52 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_check_char(char *str, int i, int c, t_arg *arg)
+int	ft_check_char(char *str, int i, int c, t_arg *arg)
 {
 	if (str[i] == '|')
 		ft_char(arg, c, '|', 1);
@@ -22,19 +22,20 @@ void	ft_check_char(char *str, int i, int c, t_arg *arg)
 		{
 			ft_char(arg, c, '>', 2);
 			i++;
-			return ;
+			return (i);
 		}
 		else if (str[i] == '<' && str[i + 1] == '<')
 		{
 			ft_char(arg, c, '<', 2);
 			i++;
-			return ;
+			return (i);
 		}
 		else if (str[i] == '<'&& str[i + 1] != '<')
 			ft_char(arg, c, '<', 1);
 		else if (str[i] == '>'&& str[i + 1] != '>')
 			ft_char(arg, c, '>', 1);
 	}
+	return (i);
 }
 
 void	ft_char(t_arg *arg, int c, char s, int nb)
