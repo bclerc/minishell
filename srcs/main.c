@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/15 12:01:17 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/18 10:47:44 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	minishell(int ac, char **av, char **envp)
 			continue;
 		}
 		add_history(str);
+		str = transform_str(str, envp);
 		if (execute_commands(str, envp, 0) == -1)
 			break ;
 	}
@@ -51,7 +52,6 @@ struct sigaction	init_signal(void)
 
 	sa.sa_sigaction = signal_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO;
 	return (sa);
 }
 

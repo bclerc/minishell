@@ -81,6 +81,8 @@ void	ft_stock_arg(t_arg *arg, char **str);
 
 // utils
 
+char	**ft_strsplit_s(char const *s, char c);
+char	*transform_str(char *str, char **envp);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);

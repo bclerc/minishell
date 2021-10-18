@@ -10,12 +10,14 @@ LIBS = libft
 
 SOURCES =	srcs/main.c \
 			srcs/ft_init.c \
+			srcs/utils/envgeter.c \
 			srcs/parser/ft_get_arg.c\
 			srcs/parser/ft_gnl.c \
 			srcs/utils/ft_split.c srcs/utils/ft_utils_gnl.c srcs/utils/ft_utils.c \
 			srcs/parser/parser.c \
 			srcs/parser/ft_parse_echo.c \
 			srcs/utils/ft_strcmp.c \
+			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/ft_strncmp.c \
 			srcs/utils/prompts.c \
 			srcs/utils/env_variable.c \
@@ -45,7 +47,7 @@ all: $(NAME)
 $(LIBS):
 	@printf "All objects for $(PROJECT_NAME) where successfully created.\n"
 	@printf "\n-------- Libft --------\n"
-	@make -C include/$(@)
+	@make -s -C include/$(@)
 	@printf "\n-------- $(PROJECT_NAME) --------\n"
 
 

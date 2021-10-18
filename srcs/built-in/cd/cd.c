@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/14 17:30:52 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/15 14:08:43 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,11 @@ int	cd(char **env, char *path)
 	}
 	else if (path == NULL)
 	{
-		change_old_pwd(env);
+		i = change_pwd(env);		
 		home = get_home(env);
 		chdir(home);
 		free(home);
-		i = change_pwd(env);		
+		change_old_pwd(env);
 	}
 	else
 	{
