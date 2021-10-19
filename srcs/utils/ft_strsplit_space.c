@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_strsplit_space.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 23:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 08:17:10 by bclerc           ###   ########.fr       */
+/*   Created: 2021/10/18 08:18:03 by bclerc            #+#    #+#             */
+/*   Updated: 2021/10/18 12:39:49 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "minishell.h"
 
 static size_t	ft_countword(char const *s, char c)
 {
@@ -22,7 +21,7 @@ static size_t	ft_countword(char const *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		if ((s[i] != c || s[i] != ' ') && (s[i + 1] == c || s[i + 1] == ' ' || s[i + 1] == '\0'))
 			count_word++;
 		i++;
 	}
@@ -36,7 +35,7 @@ static size_t	ltab(char const *s, int i, char c)
 	len = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (s[i] == c || s[i] == ' ')
 			return (len);
 		len++;
 		i++;
@@ -44,7 +43,7 @@ static size_t	ltab(char const *s, int i, char c)
 	return (len);
 }
 
-char			**ft_strsplit(char const *s, char c)
+char			**ft_strsplit_s(char const *s, char c)
 {
 	int		i;
 	int		j;
@@ -54,21 +53,22 @@ char			**ft_strsplit(char const *s, char c)
 	i = -1;
 	j = 0;
 	k = 0;
-	tab = malloc(sizeof(char*) * (ft_countword(s, c) + 1));
+	tab = malloc(sizeof(char*) * (ft_countword(s, c) + 2));
 	if (!tab)
 		return (NULL);
 	while (s[++i])
 	{
-		if (s[i] != c)
+		if (s[i] != c || s[i] != ' ')
 		{
 			if (k == 0)
-				tab[j] = malloc(sizeof(char) * (ltab(s, i, c) + 1));
+				tab[j] = malloc(sizeof(char) * (ltab(s, i, c) + 2));
 				if (!tab)
 					return (NULL);
 			tab[j][k] = s[i];
 			tab[j][++k] = '\0';
 		}
-		if ((s[i] != c && (s[i + 1] == c || !s[i + 1]) && k > 0) && !(k = 0))
+		if (( ( (s[i] != c && (s[i + 1] == c || !s[i + 1]) || (s[i] != ' ' && (s[i + 1] == ' ' || !s[i + 1]))) 
+			&& k > 0) && !(k = 0)))
 			j++;
 	}
 	tab[j] = NULL;

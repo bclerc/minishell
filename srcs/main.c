@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/16 13:01:57 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/18 13:52:53 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,29 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 void	minishell(int ac, char **av, char **envp)
 {
 	char	*str;
+	char	*prompt;
 
 	while (42)
 	{
-		str = readline(get_promps(envp));
+
+		prompt = get_promps(envp);
+		str = readline(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
 			continue;
 		}
 		add_history(str);
+		str = transform_str(str, envp);
 		parser(str, envp);
-		// if (execute_commands(str, envp, 0) == -1)
-		// 	break ;
+		//if (execute_commands(str, envp, 0) == -1)
+		//{
+		//	free(prompt);
+		//	free(str);
+		//	break ;
+		//}
+		free(prompt);	
+		free(str);
 	}
 }
 
@@ -52,7 +62,6 @@ struct sigaction	init_signal(void)
 
 	sa.sa_sigaction = signal_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO;
 	return (sa);
 }
 
@@ -70,7 +79,6 @@ int	main(int ac, char **av, char **envp)
 		return (ft_print("There are too many arguments!\n", 1));
 	while (envp[i])
 		i++;
-	env = ft_get_env(env, envp);
 	sa = init_signal();
 	//sigaction(SIGINT, &sa, NULL);
 	core.status = 1;
@@ -97,25 +105,4 @@ int	main(int ac, char **av, char **envp)
 		printf("\n");
 	}
 	return (0);
-}
-
-t_list	*ft_get_env(t_list *env, char **envp)
-{
-	int		i;
-	t_list	*new;
-	char	*str;
-
-	i = 0;
-	env = NULL;
-	while (envp[i])
-	{
-		str = ft_strdup(envp[i]);
-		if (!str)
-			return (NULL); // faire une fct exit
-		new = ft_lstnew(str);
-		ft_lstadd_back(&env, new);
-		// faire une fct exit ici aussi en cas de souci?
-		i++;
-	}
-	return (env);
 }

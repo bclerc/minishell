@@ -84,9 +84,11 @@ char	*ft_parse_arg(char *str, int i, int start);
 char	*ft_nosep(int i, int start, char *str, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
-
 // utils
 
+void	rm_split(char **split);
+char	**ft_strsplit_s(char const *s, char c);
+char	*transform_str(char *str, char **envp);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);

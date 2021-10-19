@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/14 17:30:52 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/18 12:05:16 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*get_oldpwd(char **env)
 		exit(0);
 	}
 	path = ft_strdup(&env[i][5]);
-	return path;
+	return (path);
 }
 
 int	change_pwd(char **env)
@@ -132,16 +132,16 @@ int	cd(char **env, char *path)
 	}
 	else if (path == NULL)
 	{
-		change_old_pwd(env);
+		i = change_pwd(env);		
 		home = get_home(env);
 		chdir(home);
 		free(home);
-		i = change_pwd(env);		
+		change_old_pwd(env);
 	}
 	else
 	{
 		printf("cd: no such file or directory: %s\n", path);
-		return (1);
+		return (0);
 	}
 	return (1);
 }
