@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 15:51:29 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/19 17:06:48 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,23 @@ int	parser(char *str, char **envp)
 int	ft_get_cmd(t_arg *arg)
 {
 	int		i;
+	char	**cpy;
 	t_cmd	cmd;
 
 	i = 0;
-	if (ft_strncmp(arg->cmds[i], "echo", ft_strlen(arg->cmds[i])) == 0)
-		return (ft_parse_echo(arg, &cmd, i));
+	while (arg->cmds[i])
+	{
+		cpy[i] = ft_strsplit(arg->cmds[i], ' ');
+		printf("cpy[%d] = %s\n", i, cpy[i]);
+		i++;
+	}
+	
+	//if (ft_strncmp(arg->cmds[i], "echo", ft_strlen(arg->cmds[i])) == 0)
+	//	return (ft_parse_echo(arg, &cmd, i));
 	// printf("i1 = %d\n", i);
-	if (i == -1)
-		return (-1);
-	i++;
+	//if (i == -1)
+	//	return (-1);
+	//i++;
 	// printf("i2 = %d\n", i);
 	// if (!arg->cmds[i])
 	// 	return (-1); 
