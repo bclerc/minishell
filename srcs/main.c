@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
 /*   Updated: 2021/10/18 13:52:53 by bclerc           ###   ########.fr       */
@@ -44,7 +44,6 @@ void	minishell(int ac, char **av, char **envp)
 		}
 		add_history(str);
 		str = transform_str(str, envp);
-		printf("STR: %s\n", str);
 		parser(str, envp);
 		//if (execute_commands(str, envp, 0) == -1)
 		//{
@@ -81,7 +80,7 @@ int	main(int ac, char **av, char **envp)
 	while (envp[i])
 		i++;
 	sa = init_signal();
-	sigaction(SIGINT, &sa, NULL);
+	//sigaction(SIGINT, &sa, NULL);
 	core.status = 1;
 	core.main_parent = getpid();
 	while (core.status != -1)

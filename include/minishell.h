@@ -37,7 +37,7 @@ typedef struct s_cmd t_cmd;
 struct s_cmd
 {
 	int		nb; // numero de la cmd dans l'ordre d'arrivee
-	char	*arg; // ex echo
+	char	*cmd; // ex echo
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
 	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
@@ -67,17 +67,23 @@ char	*readline(const char *prompt);
 t_list	*ft_get_env(t_list *env, char **envp);
 
 // parsing
-void	ft_get_arg(char *str);
+void	ft_get_arg(char *str, t_arg *arg);
 void	ft_init_arg(t_arg *cmd, char *str);
 int		parser(char *str, char **envp);
-int		ft_check_cmds(t_arg *cmd);
+int		ft_check_args(t_arg *arg);
 int		ft_check_quotes(t_arg *cmd);
 int		ft_get_cmd(t_arg *arg);
-void	ft_count_arg(char *str, t_arg *arg);
 int		ft_parse_echo(t_arg *arg, t_cmd *cmd, int i);
 int		ft_check_n(t_arg *arg, t_cmd *cmd, int i);
 int		ft_echo_msg(t_arg *arg, t_cmd *cmd, int i);
-void	ft_stock_arg(t_arg *arg, char **str);
+
+// parsing arguments
+void	ft_count_arg(char *str, t_arg *arg);
+void	ft_stock_arg(t_arg *arg, char *str);
+char	*ft_parse_arg(char *str, int i, int start);
+char	*ft_nosep(int i, int start, char *str, t_arg *arg);
+int		ft_check_char(char *str, int i, int c, t_arg *arg);
+void	ft_char(t_arg *arg, int c, char s, int nb);
 // utils
 
 void	rm_split(char **split);
