@@ -72,10 +72,11 @@ void	ft_init_arg(t_arg *cmd, char *str);
 int		parser(char *str, char **envp);
 int		ft_check_args(t_arg *arg);
 int		ft_check_quotes(t_arg *cmd);
-int		ft_get_cmd(t_arg *arg);
-int		ft_parse_echo(t_arg *arg, t_cmd *cmd, int i);
-int		ft_check_n(t_arg *arg, t_cmd *cmd, int i);
-int		ft_echo_msg(t_arg *arg, t_cmd *cmd, int i);
+int		ft_get_cmd(t_arg *arg, t_cmd *cmd);
+int		ft_parse_cmd(char **cpy, int i, t_cmd *cmd);
+int		ft_parse_echo(char **cpy, int i, t_cmd *cmd);
+int		ft_check_n(char **cpy, t_cmd *cmd, int i);
+int		ft_echo_msg(char **cpy, int i, t_cmd *cmd);
 
 // parsing arguments
 void	ft_count_arg(char *str, t_arg *arg);
@@ -84,6 +85,7 @@ char	*ft_parse_arg(char *str, int i, int start);
 char	*ft_nosep(int i, int start, char *str, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
+
 // utils
 
 void	rm_split(char **split);
