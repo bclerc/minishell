@@ -6,13 +6,13 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/20 15:40:25 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/20 16:46:18 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parse_echo(char **cpy, int i, t_cmd *cmd)
+int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
 	int	j;
 
@@ -40,8 +40,11 @@ int	ft_parse_echo(char **cpy, int i, t_cmd *cmd)
 		// if (i == -1)
 		// 	return (-1);
 	}
-	if (!cpy[j]) // a modifier : c a faire ne fct de la cmd suivante (donc arg->cmds) si c un | ou des < > 
+	printf("i = %d\n", i);
+	if (!arg->cmds[i + 1]) // a modifier : c a faire ne fct de la cmd suivante (donc arg->cmds) si c un | ou des < > 
 		cmd->std = 0; // pour executer de suite 
+	else if (arg->cmds[i + 1])
+		ft_std(arg, cmd, i + 1);
 	printf("echo : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 	cmd = cmd->next;
 	return (j);

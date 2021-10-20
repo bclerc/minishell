@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/20 15:36:00 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/20 16:36:31 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 		// 	printf("cpy[%d] = %s\n", j, cpy[j]);
 		// 	j++;
 		// }
-		ft_parse_cmd(cpy, i, cmd);
+		ft_parse_cmd(arg, cpy, i, cmd);
 		printf("i = %d\n", i);
 		i++;
 	}
@@ -73,19 +73,19 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 	return (i);
 }
 
-int	ft_parse_cmd(char **cpy, int i, t_cmd *cmd)
+int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
 	if (ft_strncmp(cpy[0], "echo", ft_strlen(cpy[0])) == 0)
-		return (ft_parse_echo(cpy, i, cmd));
+		return (ft_parse_echo(arg, cpy, i, cmd));
 	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0)
-		return (ft_parse_cd(cpy, i, cmd));
+		return (ft_parse_cd(arg, cpy, i, cmd));
 	else if (ft_strncmp(cpy[0], "pwd", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "pwd", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "export", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "unset", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "env", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "exit", ft_strlen(cpy[0])) == 0)
-		return (ft_parse_builtins(cpy, i, cmd));
+		return (ft_parse_builtins(arg, cpy, i, cmd));
 	else
 		return (1); // pour toutes les autres cmds
 	return (0);
