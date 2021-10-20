@@ -77,6 +77,8 @@ int		ft_parse_cmd(char **cpy, int i, t_cmd *cmd);
 int		ft_parse_echo(char **cpy, int i, t_cmd *cmd);
 int		ft_check_n(char **cpy, t_cmd *cmd, int i);
 int		ft_echo_msg(char **cpy, int i, t_cmd *cmd);
+int		ft_parse_cd(char **cpy, int i, t_cmd *cmd);
+int		ft_parse_builtins(char **cpy, int i, t_cmd *cmd);
 
 // parsing arguments
 void	ft_count_arg(char *str, t_arg *arg);
