@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/21 12:19:59 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:08:21 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 	int	j;
 
 	j = 0;
+	puts ("che");
+	// cmd = malloc(sizeof(t_cmd));
+	// if (!cmd)
+	// 	return (-1);
 	cmd->nb = i;
 	cmd->cmd = ft_strdup(cpy[j]);
 	//printf("arg = %p cmd = %p\n", &arg->cmds[i], &cmd->arg);
@@ -42,13 +46,12 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 		// if (i == -1)
 		// 	return (-1);
 	}
-	printf("i = %d\n", i);
 	if (!arg->cmds[i + 1])
 		cmd->std = 0;
 	else if (arg->cmds[i + 1])
 		ft_std(arg, cmd, i + 1);
 	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-	cmd = cmd->next;
+	cmd->next = NULL;
 	return (j);
 }
 

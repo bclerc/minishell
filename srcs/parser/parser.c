@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/21 12:27:30 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:25:01 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ int	parser(char *str, char **envp)
 	
 	i = 0;
 	ft_get_arg(str, &arg);
-	while (arg.cmds[i])
-	 	i++;
-	cmd = ft_init_cmd(&cmd, i);
+	// while (arg.cmds[i])
+	//  	i++;
+	// printf("i = %d\n", i);
+	if (ft_init_cmd(&cmd, &arg) < 0)
+		return (0);
 	i = 0;
 	ft_get_cmd(&arg, &cmd);
 	// while (arg.cmds[i])
@@ -36,12 +38,10 @@ int	parser(char *str, char **envp)
 	return (0);	
 }
 
-t_cmd	ft_init_cmd(t_cmd *cmd, int i)
+int ft_init_cmd(t_cmd *cmd, t_arg *arg)
 {
-	cmd = malloc(sizeof(t_cmd) * i);
-	if (!cmd)
-		return (NULL);
-	ft_bzero(&cmd, sizeof(t_cmd));
+	ft_bzero(cmd, sizeof(t_cmd));
+	return (0);
 }
 
 int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
@@ -50,7 +50,7 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 	char	**cpy;
 
 	i = 0;
-	while (arg->cmds[i])
+	while (i != arg->count)
 	{
 	 	printf("cmds[%d] = %s\n",i , arg->cmds[i]);
 		cpy = ft_strsplit(arg->cmds[i], ' ');
@@ -61,7 +61,6 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 		// 	j++;
 		// }
 		ft_parse_cmd(arg, cpy, i, cmd);
-		printf("i = %d\n", i);
 		i++;
 	}
 
@@ -80,7 +79,7 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 
 int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
-	printf("cpy[%d] = %s\n", i, cpy[0]);
+	//printf("cpy[%d] = %s\n", i, cpy[0]);
 	if (ft_strncmp(cpy[0], "echo", ft_strlen(cpy[0])) == 0)
 		return (ft_parse_echo(arg, cpy, i, cmd));
 	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0)
@@ -97,5 +96,7 @@ int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 			&& ft_strncmp(cpy[0], "<", ft_strlen(cpy[0]))
 			&& ft_strncmp(cpy[0], "<<", ft_strlen(cpy[0])))
 		return (ft_parse_other(arg, cpy, i, cmd));
+	else
+		return (-1);
 	return (0);
 }

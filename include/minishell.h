@@ -68,7 +68,7 @@ t_list	*ft_get_env(t_list *env, char **envp);
 // init
 char	*ft_init_env(char **envp, t_list *env, int count);
 void	ft_init_arg(t_arg *cmd, char *str);
-t_cmd	ft_init_cmd(t_cmd *cmd, int i);
+int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
 
 // parsing
 void	ft_get_arg(char *str, t_arg *arg);
