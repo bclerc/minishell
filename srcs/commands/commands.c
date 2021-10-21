@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/20 14:41:52 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:16:07 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ int execute_bin_commands(char **argv)
 	char	*find;
 	char	*tmp;
 
-	pid = getpid();
-	child = fork();
-
-	if (child == 0)
+	core.child = fork();
+	core.child_exist = 1;
+	if (core.child == 0)
 	{
 		cmd = argv;
 		tmp = ft_strdup("/bin/");
@@ -38,7 +37,8 @@ int execute_bin_commands(char **argv)
 	}
 	else{
 		 status;
-    	waitpid(child, &status, 0);
+    	waitpid(core.child, &status, 0);
+		core.child_exist = 0;
 	}
 }
 

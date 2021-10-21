@@ -15,10 +15,10 @@
 # define BUF_SIZE 42
 
 typedef struct s_core
-{
-	pid_t	main_parent;
-	pid_t	main_child;
-	pid_t	exec_chill;
+{	char	*cmd;
+	pid_t	parent;
+	pid_t	child;
+	int		child_exist;
 	int		fd[2];
 	int		status;
 }				t_core;
@@ -114,15 +114,15 @@ char	*ft_strchr(const char *s, int c);
 int	execute_commands(char *args, char **envp, char *path);
 
 // built-in function
-int		copy_env(char **envp, t_env *env);
-char	**re_alloc(char **env);
+void	unset(char **envp, char *var);
 void	export_sort(char **value, int len);
 void	free_env(char **env);
+char	**re_alloc(char **env);
+int		copy_env(char **envp, t_env *env);
 int 	add_env_variable(t_env *env, char *var);
 int		get_env_lenght(char **env);
 int		export(char **envp, char *path);
 int		get_fd(char *path);
-int		unset(char **envp, char *var);
 int		echo(char *str, char *path, int flag_n);
 int		env(char **envp, char *path);
 int		pwd(char *path);
