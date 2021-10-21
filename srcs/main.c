@@ -6,11 +6,11 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/21 10:25:08 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:31:27 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 t_core core;
 
@@ -18,11 +18,17 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 {
 		if (signum == SIGINT)
 		{
-			if (core.main_child == 0)
+			if (core.child_exist)
 			{
-				close(core.fd[0]);
-				write(core.fd[1], "1", 2);
-				exit(-1);
+				if (core.child == 0)
+					exit(-1);
+			}
+			else
+			{
+				printf("\n");
+				rl_on_new_line();
+        		rl_replace_line("", 0);
+        		rl_redisplay();
 			}
 		}
 }
@@ -32,9 +38,8 @@ void	minishell(int ac, char **av, char **envp)
 	char	*str;
 	char	*prompt;
 
-	while (42)
+	while (core.status)
 	{
-
 		prompt = get_promps(envp);
 		str = readline(prompt);
 		if (!str || ft_strlen(str) == 0)
@@ -53,6 +58,7 @@ void	minishell(int ac, char **av, char **envp)
 		}
 		free(prompt);	
 		free(str);
+
 	}
 }
 
@@ -72,7 +78,9 @@ int	main(int ac, char **av, char **envp)
 	char	readbuffer[3];
 	t_list	*env;
 	struct sigaction	sa;
+
 	(void)av;
+	core.child_exist = 0;
 	env = NULL;
 	i = 0;
 	if (ac != 1)
@@ -82,27 +90,7 @@ int	main(int ac, char **av, char **envp)
 	sa = init_signal();
 	//sigaction(SIGINT, &sa, NULL);
 	core.status = 1;
-	core.main_parent = getpid();
-	while (core.status != -1)
-	{
-		pipe(core.fd);
-		core.main_child = fork();
-		if (core.main_child == 0)
-		{
-			minishell(ac, av, envp);
-			close(core.fd[0]);
-			write(core.fd[1], ft_itoa(core.status), 3);
-			exit(0);
-		}
-		else
-		{
-			int status;
-			waitpid(core.status, &status, 0);
-			close(core.fd[1]);
-			read(core.fd[0], readbuffer, sizeof(readbuffer));
-			core.status = atoi(readbuffer);
-		}
-		printf("\n");
-	}
+	core.parent = getpid();
+	minishell(ac, av, envp);
 	return (0);
 }
