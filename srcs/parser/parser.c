@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/20 16:36:31 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 09:04:09 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0)
 		return (ft_parse_cd(arg, cpy, i, cmd));
 	else if (ft_strncmp(cpy[0], "pwd", ft_strlen(cpy[0])) == 0
-			|| ft_strncmp(cpy[0], "pwd", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "export", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "unset", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "env", ft_strlen(cpy[0])) == 0

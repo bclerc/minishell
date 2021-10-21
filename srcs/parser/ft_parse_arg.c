@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/18 15:43:43 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 08:59:28 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 	if (str[i] == '|')
 	{
 		if (str[i + 1] == '|')
-			return (ft_print("There are two many pipes\n", -1) & -1);
+			return (ft_print("There are two many pipes\n", -1) & -1); //gerer la sortie (actuellement continue a parser)
 		ft_char(arg, c, '|', 1);
 	}
 	else if (str[i] == '<' || str[i] == '>')
@@ -26,19 +26,18 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 		{
 			ft_char(arg, c, '>', 2);
 			i++;
-			return (i);
 		}
 		else if (str[i] == '<' && str[i + 1] == '<')
 		{
 			ft_char(arg, c, '<', 2);
 			i++;
-			return (i);
 		}
 		else if (str[i] == '<'&& str[i + 1] != '<')
 			ft_char(arg, c, '<', 1);
 		else if (str[i] == '>'&& str[i + 1] != '>')
 			ft_char(arg, c, '>', 1);
 	}
+	i++;
 	return (i);
 }
 
