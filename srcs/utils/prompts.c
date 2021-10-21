@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:41:31 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 12:53:49 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:22:16 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,18 @@ char *get_current_dir_name(char **envp)
 	int		i;
 
 	pwd = get_env_variable("PWD", envp);
+	if (ft_strlen(pwd) == 1)
+	{
+		free(pwd);
+		return (ft_strdup("/"));
+	}
 	tmps = ft_strsplit(pwd, '/');
 	free(pwd);
 	i = 0;
 	while (tmps[i])
 		i++;
 	if (i == 1)
-		dir = ft_strdup("/");
+		dir = ft_strdup(tmps[0]);
 	else
 		dir = ft_strdup(tmps[i - 1]);
 	rm_split(tmps);

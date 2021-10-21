@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 12:05:16 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:34:09 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,15 @@ int	cd(char **env, char *path)
 	struct stat t_sb;
 	char		*home;
 	int i;
-	
-	if (stat(path, &t_sb) == 0 && S_ISDIR(t_sb.st_mode))	
+	int			stats;
+	stats = stat(path, &t_sb);
+	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{
+		if (access(path, W_OK && R_OK) == -1)
+		{
+			printf("cd: cannot access directory '%s': Permission denied (cheh)\n", path);
+			return (1);
+		}
 		change_old_pwd(env);
 		chdir(path);
 		i = change_pwd(env);			
@@ -141,7 +147,7 @@ int	cd(char **env, char *path)
 	else
 	{
 		printf("cd: no such file or directory: %s\n", path);
-		return (0);
+		return (1);
 	}
 	return (1);
 }

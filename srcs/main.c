@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/21 11:31:27 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/21 11:38:36 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void	minishell(int ac, char **av, char **envp)
 		}
 		add_history(str);
 		str = transform_str(str, envp);
-		parser(str, envp);
-		//if (execute_commands(str, envp, 0) == -1)
-		//{
-		//	free(prompt);
-		//	free(str);
-		//	break ;
-		//}
+		//parser(str, envp);
+		if (execute_commands(str, envp, 0) == -1)
+		{
+			free(prompt);
+			free(str);
+			break ;
+		}
 		free(prompt);	
 		free(str);
 
