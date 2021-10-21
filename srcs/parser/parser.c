@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/21 10:13:31 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:27:30 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ int	parser(char *str, char **envp)
 	t_cmd	cmd;
 	
 	i = 0;
-	ft_bzero(&cmd, sizeof(t_cmd));
 	ft_get_arg(str, &arg);
 	while (arg.cmds[i])
-	{
 	 	i++;
-	}
-	//printf("i = %d\n", i);
+	cmd = ft_init_cmd(&cmd, i);
 	i = 0;
 	ft_get_cmd(&arg, &cmd);
 	// while (arg.cmds[i])
@@ -37,6 +34,14 @@ int	parser(char *str, char **envp)
 	// 	i++;	
 	// }
 	return (0);	
+}
+
+t_cmd	ft_init_cmd(t_cmd *cmd, int i)
+{
+	cmd = malloc(sizeof(t_cmd) * i);
+	if (!cmd)
+		return (NULL);
+	ft_bzero(&cmd, sizeof(t_cmd));
 }
 
 int	ft_get_cmd(t_arg *arg, t_cmd *cmd)

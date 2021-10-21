@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/21 07:57:05 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 12:19:59 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 	int	j;
 
 	j = 0;
-	//ft_bzero(cmd, sizeof(t_cmd));
 	cmd->nb = i;
 	cmd->cmd = ft_strdup(cpy[j]);
 	//printf("arg = %p cmd = %p\n", &arg->cmds[i], &cmd->arg);
@@ -32,7 +31,10 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 			if (cpy[j])
 				ft_echo_msg(cpy, j, cmd);
 			else if (!cpy[j])
+			{
+				printf("echo1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 				return (ft_print("\n", -1) & -1);
+			}
 		}
 		else
 			j = ft_echo_msg(cpy, j, cmd);
@@ -45,7 +47,7 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 		cmd->std = 0;
 	else if (arg->cmds[i + 1])
 		ft_std(arg, cmd, i + 1);
-	printf("echo : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
+	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 	cmd = cmd->next;
 	return (j);
 }
