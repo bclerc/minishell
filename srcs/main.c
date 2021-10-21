@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/21 11:38:36 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/21 15:43:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	main(int ac, char **av, char **envp)
 	while (envp[i])
 		i++;
 	sa = init_signal();
-	sigaction(SIGINT, &sa, NULL);
+	//sigaction(SIGINT, &sa, NULL);
 	core.status = 1;
 	core.parent = getpid();
 	minishell(ac, av, envp);

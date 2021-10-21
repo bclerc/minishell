@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:24:19 by user42            #+#    #+#             */
-/*   Updated: 2021/10/15 13:10:08 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/16 11:58:28 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		ft_find_char(char c, char const *set)
+/*static int		ft_find_char(char c, char const *set)
 {
 	int i;
 
@@ -26,7 +26,7 @@ static int		ft_find_char(char c, char const *set)
 	return (0);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char			*ft_strtrim(char const *s1, char set)
 {
 	int		i;
 	int		start;
@@ -41,6 +41,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 		start++;
 	while (start < end && ft_find_char(s1[end - 1], set))
 		end--;
+	printf("s = %d\n", end);
 	res = malloc(sizeof(char) * (end - start + 1));
 	if (!res)
 		return (NULL);
@@ -48,5 +49,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 	while (start < end)
 		res[i++] = s1[start++];
 	res[i] = '\0';
+	printf("res = %s\n", res);
 	return (res);
 }
+*/
