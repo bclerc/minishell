@@ -79,6 +79,7 @@ int		ft_check_n(char **cpy, t_cmd *cmd, int i);
 int		ft_echo_msg(char **cpy, int i, t_cmd *cmd);
 int		ft_parse_cd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+int		ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 void	ft_std(t_arg *arg, t_cmd *cmd, int i);
 
 // parsing arguments

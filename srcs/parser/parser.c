@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/21 09:04:09 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 10:13:31 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 
 int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
+	printf("cpy[%d] = %s\n", i, cpy[0]);
 	if (ft_strncmp(cpy[0], "echo", ft_strlen(cpy[0])) == 0)
 		return (ft_parse_echo(arg, cpy, i, cmd));
 	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0)
@@ -85,7 +86,11 @@ int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 			|| ft_strncmp(cpy[0], "env", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "exit", ft_strlen(cpy[0])) == 0)
 		return (ft_parse_builtins(arg, cpy, i, cmd));
-	else
-		return (1); // pour toutes les autres cmds
+	else if (ft_strncmp(cpy[0], "|", ft_strlen(cpy[0])) 
+			&& ft_strncmp(cpy[0], ">", ft_strlen(cpy[0]))
+			&& ft_strncmp(cpy[0], ">>", ft_strlen(cpy[0]))
+			&& ft_strncmp(cpy[0], "<", ft_strlen(cpy[0]))
+			&& ft_strncmp(cpy[0], "<<", ft_strlen(cpy[0])))
+		return (ft_parse_other(arg, cpy, i, cmd));
 	return (0);
 }
