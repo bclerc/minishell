@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/21 15:25:01 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/22 12:03:32 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,8 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 	{
 	 	printf("cmds[%d] = %s\n",i , arg->cmds[i]);
 		cpy = ft_strsplit(arg->cmds[i], ' ');
-		// int j = 0;
-		// while (cpy[j])
-		// {
-		// 	printf("cpy[%d] = %s\n", j, cpy[j]);
-		// 	j++;
-		// }
+		while (cpy[arg->cpy_nb])
+			arg->cpy_nb;
 		ft_parse_cmd(arg, cpy, i, cmd);
 		i++;
 	}
