@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/22 11:57:25 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/22 12:09:24 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 
 int	ft_echo_msg(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
-	printf("cpy[%d] = %s\n", i, cpy);
+	printf("cpy[%d] = %s\n", i, cpy[i]);
 	if (!cpy[i])
 		return (ft_print("\n", -1));
-	cpy[i] = ft_parse_msg(arg, cpy, i);
+	//cpy[i] = ft_parse_msg(arg, cpy, i);
 	cmd->msg = ft_strdup(cpy[i]);
 	i++;
 	//printf("i_msg= %d\n", i);
