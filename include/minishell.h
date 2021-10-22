@@ -51,6 +51,7 @@ struct	s_arg
 	//char	*arg;
 	char	**cmds;
 	int		count;
+	int		cpy_nb;
 	int		count_quote;
 	int		count_quotes;
 };
@@ -62,13 +63,16 @@ typedef struct s_env
 } 				t_env;
 
 int		main(int ac, char **av, char **envp);
-char	*ft_init_env(char **envp, t_list *env, int count);
 char	*readline(const char *prompt);
 t_list	*ft_get_env(t_list *env, char **envp);
 
+// init
+char	*ft_init_env(char **envp, t_list *env, int count);
+void	ft_init_arg(t_arg *cmd, char *str);
+int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
+
 // parsing
 void	ft_get_arg(char *str, t_arg *arg);
-void	ft_init_arg(t_arg *cmd, char *str);
 int		parser(char *str, char **envp);
 int		ft_check_args(t_arg *arg);
 int		ft_check_quotes(t_arg *cmd);
@@ -76,11 +80,12 @@ int		ft_get_cmd(t_arg *arg, t_cmd *cmd);
 int		ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_check_n(char **cpy, t_cmd *cmd, int i);
-int		ft_echo_msg(char **cpy, int i, t_cmd *cmd);
+int		ft_echo_msg(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_cd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-int		ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+int	  	ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 void	ft_std(t_arg *arg, t_cmd *cmd, int i);
+char	*ft_parse_msg(t_arg *arg, char **cpy, int i);
 
 // parsing arguments
 void	ft_count_arg(char *str, t_arg *arg);
