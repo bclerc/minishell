@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/21 09:55:36 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/21 13:34:06 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_count_arg(char *str, t_arg *arg)
 	}
 	if (i == 0)
 		arg->count = 0;
-	//printf("count = %d\n", arg->count);
+	printf("count = %d\n", arg->count);
 }
 
 void	ft_init_arg(t_arg *arg, char *str)

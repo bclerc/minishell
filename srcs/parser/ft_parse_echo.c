@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/21 07:57:05 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/22 11:57:25 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 	int	j;
 
 	j = 0;
-	//ft_bzero(cmd, sizeof(t_cmd));
+	puts ("che");
+	// cmd = malloc(sizeof(t_cmd));
+	// if (!cmd)
+	// 	return (-1);
 	cmd->nb = i;
 	cmd->cmd = ft_strdup(cpy[j]);
 	//printf("arg = %p cmd = %p\n", &arg->cmds[i], &cmd->arg);
@@ -30,30 +33,31 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 				return (-1);
 			j++;
 			if (cpy[j])
-				ft_echo_msg(cpy, j, cmd);
+				ft_echo_msg(arg, cpy, j, cmd);
 			else if (!cpy[j])
+			{
+				printf("echo1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 				return (ft_print("\n", -1) & -1);
+			}
 		}
 		else
-			j = ft_echo_msg(cpy, j, cmd);
-		//printf("cmds[%i] = %s\n", i + 1, arg->cmds[i + 1]);
-		// if (i == -1)
-		// 	return (-1);
+			j = ft_echo_msg(arg, cpy, j, cmd);
 	}
-	printf("i = %d\n", i);
 	if (!arg->cmds[i + 1])
 		cmd->std = 0;
 	else if (arg->cmds[i + 1])
 		ft_std(arg, cmd, i + 1);
-	printf("echo : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-	cmd = cmd->next;
+	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
+	cmd->next = NULL;
 	return (j);
 }
 
-int	ft_echo_msg(char **cpy, int i, t_cmd *cmd)
+int	ft_echo_msg(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
+	printf("cpy[%d] = %s\n", i, cpy);
 	if (!cpy[i])
 		return (ft_print("\n", -1));
+	cpy[i] = ft_parse_msg(arg, cpy, i);
 	cmd->msg = ft_strdup(cpy[i]);
 	i++;
 	//printf("i_msg= %d\n", i);
