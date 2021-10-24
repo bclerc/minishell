@@ -37,6 +37,7 @@ typedef struct s_cmd t_cmd;
 struct s_cmd
 {
 	int		nb; // numero de la cmd dans l'ordre d'arrivee
+	int		cpy_nb;
 	char	*cmd; // ex echo
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
@@ -51,7 +52,6 @@ struct	s_arg
 	//char	*arg;
 	char	**cmds;
 	int		count;
-	int		cpy_nb;
 	int		count_quote;
 	int		count_quotes;
 };
@@ -80,11 +80,15 @@ int		ft_get_cmd(t_arg *arg, t_cmd *cmd);
 int		ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_check_n(char **cpy, t_cmd *cmd, int i);
-int		ft_echo_msg(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_cd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int	  	ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 void	ft_std(t_arg *arg, t_cmd *cmd, int i);
+
+//parse msg
+void	ft_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd);
+int 	ft_which_cmd(char **cpy);
+char	*ft_echo_msg(t_arg *arg, int i, int start, char *tmp);
 char	*ft_parse_msg(t_arg *arg, char **cpy, int i);
 
 // parsing arguments
