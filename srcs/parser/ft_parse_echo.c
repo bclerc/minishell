@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/24 13:48:35 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/24 15:26:31 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 				return (-1);
 			j++;
 			if (cpy[j])
-				ft_msg(arg, cpy, i, j, cmd);
+				ft_cpy_msg(arg, cpy, i, j, cmd);
 			else if (!cpy[j])
 			{
 				printf("echo1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
@@ -43,7 +43,7 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 			}
 		}
 		else
-				ft_msg(arg, cpy, i, j, cmd);
+			ft_cpy_msg(arg, cpy, i, j, cmd);
 		printf("cmd_msg = %s\n", cmd->msg);
 	}
 	printf("j = %d i = %d\n", j, i);
@@ -51,7 +51,6 @@ int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 		cmd->std = 0;
 	else if (i < arg->count)
 		ft_std(arg, cmd, i + 1);
-	puts("che3");
 	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 	cmd->next = NULL;
 	return (j);

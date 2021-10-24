@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/24 13:29:21 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/24 16:19:18 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,5 @@ int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 		return (ft_parse_other(arg, cpy, i, cmd));
 	else
 		return (-1);
-	return (0);
+	//return (0);
 }

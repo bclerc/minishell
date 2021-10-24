@@ -86,10 +86,13 @@ int	  	ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 void	ft_std(t_arg *arg, t_cmd *cmd, int i);
 
 //parse msg
-void	ft_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd);
+void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd);
 int 	ft_which_cmd(char **cpy);
-char	*ft_echo_msg(t_arg *arg, int i, int start, char *tmp);
+char	*ft_msg(t_arg *arg, int i, int start, char *tmp);
+char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp);
 char	*ft_parse_msg(t_arg *arg, char **cpy, int i);
+char	*ft_which_nb(int start, char *tmp, t_arg *arg, int i);
+
 
 // parsing arguments
 void	ft_count_arg(char *str, t_arg *arg);
