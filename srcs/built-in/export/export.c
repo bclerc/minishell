@@ -6,16 +6,17 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/25 11:23:11 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/25 12:08:39 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../../include/minishell.h"
 
-int	export_add(char **envp, char **args)
+int	export_add(char ***envp, char **args)
 {
 	int i;
 
+	i = 0;
 	while (args[i])
 	{
 		add_env_variable(envp, args[i]);
@@ -34,7 +35,7 @@ int	export(char **envp, char *path, char **args)
 		return (0);
 	args++;
 	if (args)
-		export_add(envp, args);
+		export_add(&envp, args);
 	i = 0;
 	fd = get_fd(path);
 	env = envp;
