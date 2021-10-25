@@ -6,11 +6,29 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/23 09:38:20 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 08:58:06 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+char	*ft_parse_arg(char *str, int i, t_arg *arg)
+{
+	char	*tmp;
+	int		c;
+
+	c = 0;
+	tmp = malloc(sizeof(char) * (i + 1));
+	while (arg->start < i)
+	{
+		tmp[c] = str[arg->start];
+		arg->start++;
+		c++;
+	}
+	tmp[c] = '\0';
+	return (tmp);
+}
 
 int	ft_check_char(char *str, int i, int c, t_arg *arg)
 {
@@ -61,39 +79,22 @@ void	ft_char(t_arg *arg, int c, char s, int nb)
 		arg->cmds[c] = "<";
 }
 
-char	*ft_parse_arg(char *str, int i, int start)
-{
-	char	*tmp;
-	int		c;
-
-	c = 0;
-	tmp = malloc(sizeof(char) * (i + 1));
-	while (start < i)
-	{
-		tmp[c] = str[start];
-		start++;
-		c++;
-	}
-	tmp[c] = '\0';
-	return (tmp);
-}
-
-char	*ft_nosep(int i, int start, char *str, t_arg *arg)
+char	*ft_nosep(int i, char *str, t_arg *arg)
 {
 	int z;
 	char	*tmp;
 
 	z = 0;
-	tmp = malloc(sizeof(char) * (i - start));
+	tmp = malloc(sizeof(char) * (i - arg->start));
 	if (!tmp)
 		return (NULL);
 	if (arg->count != 1)
-		start++;
-	while (start < i)
+		arg->start++;
+	while (arg->start < i)
 	{
-		tmp[z] = str[start];
+		tmp[z] = str[arg->start];
 		z++;
-		start++;
+		arg->start++;
 	}
 	tmp[z] = '\0';
 	//printf("tmp = %s\n", tmp);
