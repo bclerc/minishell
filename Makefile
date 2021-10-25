@@ -13,11 +13,12 @@ SOURCES =	srcs/main.c \
 			srcs/utils/envgeter.c \
 			srcs/parser/ft_get_arg.c\
 			srcs/parser/ft_gnl.c \
-			srcs/utils/ft_split.c srcs/utils/ft_utils_gnl.c srcs/utils/ft_utils.c \
+			srcs/utils/ft_utils_gnl.c srcs/utils/ft_utils.c \
 			srcs/parser/ft_parse_arg.c \
-			srcs/parser/parser.c \
+			srcs/parser/ft_parser.c \
 			srcs/parser/ft_parse_echo.c \
 			srcs/parser/ft_parse_builtins.c \
+			srcs/parser/ft_msg.c \
 			srcs/utils/ft_strcmp.c \
 			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/ft_strncmp.c \

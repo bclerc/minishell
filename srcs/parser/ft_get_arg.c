@@ -6,58 +6,27 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/21 13:34:06 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 09:53:57 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_get_arg(char *str, t_arg *arg)
+// init arg
+// count arg
+// stock arg
+int	ft_get_arg(char *str, t_arg *arg)
 {
 	ft_init_arg(arg, str);
 	ft_count_arg(str, arg);
 	ft_stock_arg(arg, str);
-
-	//ft_free_arg(&arg);
+	arg->start = 0;
+	if (ft_check_args(arg) == -1)
+		return (-1);
+	return (0);
 }
 
-void	ft_stock_arg(t_arg *arg, char *str)
-{
-	int	c;
-	int start;
-	int	i;
-	char *tmp;
-
-	c = 0;
-	start = 0;
-	i = 0;
-	arg->cmds = malloc(sizeof(char *) * (arg->count + 1));
-	if (!arg->cmds)
-		return ;
-	while (str[i])
-	{
-		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
-		{
-			arg->cmds[c] = ft_parse_arg(str, i, start);
-			//printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
-			c++;
-			if (ft_check_char(str, i, c, arg) == -1)
-				return ;
-			else
-				i = ft_check_char(str, i, c, arg);	
-			start = i;
-			//printf("arg->cmds[%d] = %s start = %d\n", c, arg->cmds[c], start);
-			c++;
-		}
-		i++;
-	}
-	//printf("c2 = %d count2 = %d\n", c, arg->count);
-	if (c != arg->count)
-		arg->cmds[c] = ft_nosep(i, start, str, arg);
-	//printf("cmds = %s\n", arg->cmds[c]);
-	start = 0;
-}
-
+// determiner le nb d args (en fct des sep | < >)
 void	ft_count_arg(char *str, t_arg *arg)
 {
 	int		i;
@@ -83,14 +52,37 @@ void	ft_count_arg(char *str, t_arg *arg)
 	}
 	if (i == 0)
 		arg->count = 0;
-	printf("count = %d\n", arg->count);
 }
 
-void	ft_init_arg(t_arg *arg, char *str)
+// recup args par chaines
+// + check args (quotes, no sep)
+void	ft_stock_arg(t_arg *arg, char *str)
 {
-	ft_bzero(arg, sizeof(t_arg));
-	if (str)
-		arg->count = 1;
+	int		c;
+	int		i;
+	char	*tmp;
+
+	c = 0;
+	i = -1;
+	arg->cmds = malloc(sizeof(char *) * (arg->count + 1));
+	if (!arg->cmds)
+		return ;
+	while (str[++i])
+	{
+		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+		{
+			arg->cmds[c] = ft_parse_arg(str, i, arg);
+			c++;
+			if (ft_check_char(str, i, c, arg) == -1)
+				return ;
+			else
+				i = ft_check_char(str, i, c, arg);	
+			arg->start = i;
+			c++;
+		}
+	}
+	if (c != arg->count)
+		arg->cmds[c] = ft_nosep(i, str, arg);
 }
 
 int	ft_check_args(t_arg *arg)
@@ -110,8 +102,8 @@ int	ft_check_args(t_arg *arg)
 				arg->count_quotes++;
 			j++;
 		}
-		if (arg->count_quote % 2 != 0 || arg->count_quote % 2 != 0)
-			return (ft_print("Error : There is an odd number of quotes\n", 1));
+		if (arg->count_quotes % 2 != 0 || arg->count_quote % 2 != 0)
+			return (ft_print("Error : There is an odd number of quotes\n", -1));
 		i++;
 	}
 	return (0);
