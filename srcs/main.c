@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/25 08:42:19 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 10:02:16 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	minishell(int ac, char **av, char **envp)
 		add_history(str);
 		str = transform_str(str, envp);
 
-		ft_parser(str, envp);
+		ft_launch_parser(str, envp);
 		//if (execute_commands(str, envp, 0) == -1)
 		//{
 		//free(prompt);
@@ -59,7 +59,6 @@ void	minishell(int ac, char **av, char **envp)
 		//}
 		free(prompt);	
 		free(str);
-
 	}
 }
 

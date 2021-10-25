@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/24 16:19:25 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 12:17:36 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd)
 	int		c;
 	int		start;
     
-	//printf("cpy[%d] = %s\n", i, cpy[i]);
-	// if (!cpy[i])
-	// 	return (ft_print("\n", -1));
-	//cpy[i] = ft_parse_msg(cmd, cpy, i);
+	tmp = NULL;
 	if (j == cmd->cpy_nb - 1)
 		cmd->msg = ft_strdup(cpy[j]);
 	else

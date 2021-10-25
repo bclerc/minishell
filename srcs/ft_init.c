@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 10:02:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/25 08:54:47 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 10:00:50 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,10 @@ void	ft_init_arg(t_arg *arg, char *str)
 	ft_bzero(arg, sizeof(t_arg));
 	if (str)
 		arg->count = 1;
+}
+
+int ft_init_cmd(t_cmd *cmd, t_arg *arg)
+{
+	ft_bzero(cmd, sizeof(t_cmd));
+	return (0);
 }

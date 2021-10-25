@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/25 09:53:57 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 10:28:54 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_check_args(t_arg *arg)
 	int	j;
 	
 	i = 0;
-	while (arg->cmds[i])
+	while (i < arg->count)
 	{
 		j = 0;
 		while (arg->cmds[i][j])
