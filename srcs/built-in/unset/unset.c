@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 10:13:26 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/22 12:06:44 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/25 11:23:27 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,26 @@ void	unset(char **env, char *var)
 {
 	char	**ret;
 	char	**tmp;
+	char	**split;
 	int		i;
+	int		s;
 
+	split = ft_strsplit(var, ' ');
 	ret = (char **)malloc(sizeof(ret) * get_env_lenght(env));
 	i = 0;
-	while (env[i])
+	s = 0;
+	while (split[s])
 	{
-		if (ft_strncmp(var, env[i], ft_strlen(var)))
+		while (env[i])
+		{
+			if (ft_strncmp(var, env[i], ft_strlen(var)))
+				i++;
+			ret[i] = ft_strdup(env[i]);
 			i++;
-		ret[i] = ft_strdup(env[i]);
-		i++;
+		}
+		rm_split(env);
+		env = ret;
+		s++;
 	}
-	rm_split(env);
-	env = ret;
+	rm_split(split);
 }

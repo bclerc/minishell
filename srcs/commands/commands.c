@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/21 11:16:07 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/25 11:08:10 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	execute_commands(char *args, char **envp, char *path)
 	if (ft_strcmp(cmd, "env") == 0)
 		ret = (env(envp, path));
 	if (ft_strcmp(cmd, "export") == 0)
-		ret = (export(envp, path));
+		ret = (export(envp, path, argv));
 	if (ft_strcmp(cmd, "pwd") == 0)
 		ret = (pwd(path));
 	if (ft_strcmp(cmd, "unset") == 0)
