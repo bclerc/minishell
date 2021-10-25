@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/22 12:03:32 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 09:54:04 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parser(char *str, char **envp)
+// launch parsing
+// init struct arg & cmd
+int	ft_parser(char *str, char **envp)
 {
-	t_arg	arg;
 	int		i;
+	t_arg	arg;
 	t_cmd	cmd;
 	
 	i = 0;
-	ft_get_arg(str, &arg);
+	if (ft_get_arg(str, &arg) == -1)
+		return (-1);
 	// while (arg.cmds[i])
 	//  	i++;
 	// printf("i = %d\n", i);
@@ -52,10 +55,8 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 	i = 0;
 	while (i != arg->count)
 	{
+		cpy = ft_strsplit_s(arg->cmds[i], ' ');
 	 	printf("cmds[%d] = %s\n",i , arg->cmds[i]);
-		cpy = ft_strsplit(arg->cmds[i], ' ');
-		while (cpy[arg->cpy_nb])
-			arg->cpy_nb;
 		ft_parse_cmd(arg, cpy, i, cmd);
 		i++;
 	}
@@ -75,7 +76,6 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 
 int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
-	//printf("cpy[%d] = %s\n", i, cpy[0]);
 	if (ft_strncmp(cpy[0], "echo", ft_strlen(cpy[0])) == 0)
 		return (ft_parse_echo(arg, cpy, i, cmd));
 	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0)
@@ -94,5 +94,4 @@ int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 		return (ft_parse_other(arg, cpy, i, cmd));
 	else
 		return (-1);
-	return (0);
 }
