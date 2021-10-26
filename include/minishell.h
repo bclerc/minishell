@@ -104,6 +104,8 @@ char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg, int i);
 char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg);
+int		ft_doubleq(char *cpy, int i);
+int		ft_simpleq(char *cpy, int i);
 int		ft_pos(char *cpy, int i);
 
 
