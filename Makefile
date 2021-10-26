@@ -20,6 +20,7 @@ SOURCES =	srcs/main.c \
 			srcs/parser/ft_parse_echo.c \
 			srcs/parser/ft_parse_builtins.c \
 			srcs/parser/ft_msg.c \
+			srcs/parser/ft_parse_msg.c \
 			srcs/utils/ft_strcmp.c \
 			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/ft_strncmp.c \

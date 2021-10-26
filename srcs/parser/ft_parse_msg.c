@@ -6,35 +6,63 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/23 14:27:20 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/26 09:52:29 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-char	*ft_parse_msg(t_cmd *cmd, char **cpy, int i)
+
+char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg)
 {
-	int j;
+	int i;
+	int	j;
+	int	size;
+
+	i = 0;
+	j = 0;
+	size = ft_strlen(cpy);
+	tmp = malloc(sizeof(char) * (size + 1));
+	if (!tmp)
+		return (NULL);
+	while (cpy[i])
+	{
+		if (cpy[i] == '\"' || cpy[i] == '\'')
+			i++;
+		if (cpy[i] != '\"' || cpy[i] != '\'')
+			tmp[j] = cpy[i];
+		i++;
+		j++;
+	}
+	tmp[j] = '\0';
+	printf("tmp = %s\n", tmp);
+	return (tmp);
+}
+/*
+char	*ft_msg_quotes(char *cpy, char *tmp, int i)
+{
+	int	j;
 
 	j = 0;
-	//if (i)
-	while (i < cmd->cpy_nb)
+	if (cpy[i] == '\"')
 	{
-		j = 0;
-		while (cpy[i][j])
-		{
-			if (cpy[i][j] == "\"" || cpy[i][j] == '\'')
-				//ft_msg_quotes(cpy, i, j);
-			// else if (cpy[i][j] == '$' && (cpy[i][j - 1] != "\"" || cpy[i][j - 1] != "\'"))
-			//		ft_msg_dollar(cpy, i, j);
-			j++;
-		}
-		i++;
+		if (cpy[i + 1] == '\"')
+			tmp = '\n';
 	}
-	return (cpy[i]);
+	arg->quote = i;
+	return (tmp);
 }
-
-char	*ft_msg_quotes(char **cpy, int i, int j)
+*/
+int	ft_pos(char *cpy, int i)
 {
-	
-}*/
+	if (cpy[i] == '\"')
+	{
+		while (cpy[i] != '\"')
+			i++;
+	}
+	else if (cpy[i] == '\'')
+	{
+		while (cpy[i] != '\'')
+			i++;
+	}
+	return (i);
+}

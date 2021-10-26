@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/25 12:17:36 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/26 09:54:45 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd)
 {
 	char	*tmp;
+	char	*tmp2;
 	int		c;
 	int		start;
-    
-	tmp = NULL;
+
 	if (j == cmd->cpy_nb - 1)
-		cmd->msg = ft_strdup(cpy[j]);
+	{
+		puts("che");
+		tmp = ft_parse_msg(cpy[j], tmp, arg);	
+		cmd->msg = ft_strdup(tmp);
+	}
 	else
 	{
 		start = ft_which_cmd(cpy);
@@ -36,10 +40,11 @@ void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd)
 			start = 8;
 			tmp = ft_msg(arg, i, start, tmp);
 		}
-		cmd->msg = ft_strdup(tmp);
+		tmp2 = ft_parse_msg(tmp, tmp2, arg);
+		cmd->msg = ft_strdup(tmp2);
 		free(tmp);
+		free(tmp2);
 	}
-	printf("cmd->msg = %s\n", cmd->msg);
 }
 
 int	ft_which_cmd(char **cpy)
@@ -57,8 +62,7 @@ int	ft_which_cmd(char **cpy)
 		return (5);
 	else if (ft_strncmp(cpy[0], "export", ft_strlen(cpy[0])) == 0)
 		return (6);
-	else
-		return (7);
+	return (7);
 }
 
 char	*ft_msg(t_arg *arg, int i, int start, char *tmp)
@@ -67,7 +71,6 @@ char	*ft_msg(t_arg *arg, int i, int start, char *tmp)
 	int	a;
 	
 	size = ft_strlen(arg->cmds[i]);
-	printf("size = %d start = %d i = %d cmds = %c\n", size, start, i, arg->cmds[i][start]);
 	tmp = malloc(sizeof(char) * (size - start + 1));
 	if (!tmp)
 		return (NULL);
@@ -88,7 +91,6 @@ char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp)
 	int	a;
 	
 	size = ft_strlen(arg->cmds[i]);
-	printf("size = %d start = %d i = %d cmds = %c\n", size, start, i, arg->cmds[i][start]);
 	tmp = malloc(sizeof(char) * (size - start + 1));
 	if (!tmp)
 		return (NULL);

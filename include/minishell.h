@@ -55,6 +55,7 @@ struct	s_arg
 	int		count_quote;
 	int		count_quotes;
 	int		start;
+	int		quote;
 };
 
 typedef struct s_env
@@ -100,8 +101,9 @@ void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd);
 int 	ft_which_cmd(char **cpy);
 char	*ft_msg(t_arg *arg, int i, int start, char *tmp);
 char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp);
-char	*ft_parse_msg(t_arg *arg, char **cpy, int i);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg, int i);
+char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg);
+int		ft_pos(char *cpy, int i);
 
 
 // utils

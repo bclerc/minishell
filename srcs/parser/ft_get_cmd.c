@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/25 11:59:46 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 12:33:43 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 	i = 0;
 	while (i < arg->count)
 	{
-		printf("i = %d arg-count = %d\n", i, arg->count);
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
-	 	printf("cmds[%d] = %s\n",i , arg->cmds[i]);
 		if (ft_parse_cmd(arg, cpy, i, cmd) == -1)
 		{
 			puts("che");
