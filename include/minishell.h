@@ -100,6 +100,7 @@ void	ft_std(t_arg *arg, t_cmd *cmd, int i);
 void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd);
 int 	ft_which_cmd(char **cpy);
 char	*ft_msg(t_arg *arg, int i, int start, char *tmp);
+char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg, int i);
 char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg);

@@ -6,11 +6,31 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/26 09:52:29 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/26 10:03:20 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp)
+{
+	int		start;
+	
+	start = ft_which_cmd(cpy);
+	if (start == 7)
+	{
+		start = ft_strlen(cpy[0]);
+		tmp = ft_other_msg(arg, i, start, tmp);
+	}	
+	if (j == 1)
+		tmp = ft_which_nb(start, tmp, arg, i);
+	else if (j == 2)
+	{
+		start = 8;
+		tmp = ft_msg(arg, i, start, tmp);
+	}
+	return (tmp);
+}
 
 char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg)
 {

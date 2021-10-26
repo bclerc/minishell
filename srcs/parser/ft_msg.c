@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/26 09:54:45 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/26 10:05:39 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,17 @@ void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd)
 	char	*tmp;
 	char	*tmp2;
 	int		c;
-	int		start;
+
 
 	if (j == cmd->cpy_nb - 1)
 	{
-		puts("che");
 		tmp = ft_parse_msg(cpy[j], tmp, arg);	
 		cmd->msg = ft_strdup(tmp);
+		free(tmp);
 	}
 	else
 	{
-		start = ft_which_cmd(cpy);
-		if (start == 7)
-		{
-			start = ft_strlen(cpy[0]);
-			tmp = ft_other_msg(arg, i, start, tmp);
-		}	
-		if (j == 1)
-			tmp = ft_which_nb(start, tmp, arg, i);
-		else if (j == 2)
-		{
-			start = 8;
-			tmp = ft_msg(arg, i, start, tmp);
-		}
+		tmp = ft_search_msg(cpy, i, j, arg, tmp);
 		tmp2 = ft_parse_msg(tmp, tmp2, arg);
 		cmd->msg = ft_strdup(tmp2);
 		free(tmp);
