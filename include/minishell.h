@@ -92,7 +92,7 @@ void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
 
 // parsing
-t_cmd	ft_launch_parser(char *str, char **envp);
+void	ft_launch_parser(char *str, char **envp, t_cmd *cmd);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
@@ -126,6 +126,8 @@ int		ft_doubleq(char *cpy, int i);
 int		ft_simpleq(char *cpy, int i);
 int		ft_pos(char *cpy, int i);
 
+// redir
+t_redir	*ft_redir(t_arg *arg, char **cpy, int i, t_cmd *cmd, t_redir *redir);
 
 // utils
 void	rm_split(char **split);

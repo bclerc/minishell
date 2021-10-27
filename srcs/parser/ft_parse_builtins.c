@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/27 16:58:50 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/27 17:13:27 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	ft_parse_special(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 	cmd->msg = NULL;
 	printf("special : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 	cmd->cmd = ft_strdup(cpy[j]);
-	if (ft_strncmp(cmd->cmd, ">", ft_strlen(cmd->cmd)) == 0
-		|| ft_strncmp(cmd->cmd, ">>", ft_strlen(cmd->cmd)) == 0
-		|| ft_strncmp(cmd->cmd, "<", ft_strlen(cmd->cmd)) == 0
-		|| ft_strncmp(cmd->cmd, "<<", ft_strlen(cmd->cmd)) == 0)
-		redir = ft_redir(arg, cpy, i, cmd, &redir);
-	else
+	// if (ft_strncmp(cmd->cmd, ">", ft_strlen(cmd->cmd)) == 0
+	// 	|| ft_strncmp(cmd->cmd, ">>", ft_strlen(cmd->cmd)) == 0
+	// 	|| ft_strncmp(cmd->cmd, "<", ft_strlen(cmd->cmd)) == 0
+	// 	|| ft_strncmp(cmd->cmd, "<<", ft_strlen(cmd->cmd)) == 0)
+	// 	redir = ft_redir(arg, cpy, i, cmd, &redir);
+	// else
 		cmd->next = NULL;
 	return (j);
 }
