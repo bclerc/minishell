@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/26 10:54:22 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:48:20 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp)
 	start = ft_which_cmd(cpy);
 	if (start == 7)
 	{
+		//printf("%s\n", cpy[0]);
 		start = ft_strlen(cpy[0]);
 		tmp = ft_other_msg(arg, i, start, tmp);
 	}	
@@ -56,7 +57,7 @@ char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg)
 		j++;
 	}
 	tmp[j] = '\0';
-	printf("tmp = %s\n", tmp);
+	//printf("tmp = %s\n", tmp);
 	return (tmp);
 }
 

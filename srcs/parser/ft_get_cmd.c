@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/25 12:33:43 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:59:36 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 	i = 0;
 	while (i < arg->count)
 	{
+		//printf("arg[%d] = %s\n", i, arg->cmds[i]);
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
+		if (cpy[i] == NULL && i < arg->count)
+			cpy[i] = ft_strdup(arg->cmds[i]);
 		if (ft_parse_cmd(arg, cpy, i, cmd) == -1)
 		{
 			puts("che");
@@ -43,11 +46,11 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 
 int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
+	//printf("cpy[0] = %s\n", cpy[0]);
 	if (ft_strncmp(cpy[0], "echo", ft_strlen(cpy[0])) == 0)
 		return (ft_parse_echo(arg, cpy, i, cmd));
-	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0)
-		return (ft_parse_cd(arg, cpy, i, cmd));
-	else if (ft_strncmp(cpy[0], "pwd", ft_strlen(cpy[0])) == 0
+	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0
+			|| ft_strncmp(cpy[0], "pwd", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "export", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "unset", ft_strlen(cpy[0])) == 0
 			|| ft_strncmp(cpy[0], "env", ft_strlen(cpy[0])) == 0
@@ -59,5 +62,7 @@ int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 			&& ft_strncmp(cpy[0], "<", ft_strlen(cpy[0]))
 			&& ft_strncmp(cpy[0], "<<", ft_strlen(cpy[0])))
 		return (ft_parse_other(arg, cpy, i, cmd));
+	else 		
+		return (ft_parse_special(arg, cpy, i, cmd));
 	return (0);
 }

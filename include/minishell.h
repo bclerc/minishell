@@ -34,6 +34,20 @@ struct s_list
 
 // liste chainee token
 typedef struct s_cmd t_token;
+struct s_token
+{
+	char	*token;
+	t_token	*next;
+};
+
+// liste chainee redirection
+typedef struct s_cmd t_redir;
+struct s_redir
+{
+	int		std_redir; //en fonction du type de sortie 
+	char	*path; // nom du path
+	t_redir	*next;
+};
 
 // liste chainee pour stocker cmds
 typedef struct s_cmd t_cmd;
@@ -45,6 +59,7 @@ struct s_cmd
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
 	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
+	t_redir	*redir;
 	t_cmd	*next;
 };
 
@@ -77,7 +92,7 @@ void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
 
 // parsing
-t_cmd	*ft_launch_parser(char *str, char **envp);
+t_cmd	ft_launch_parser(char *str, char **envp);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
@@ -94,8 +109,8 @@ int		ft_get_cmd(t_arg *arg, t_cmd *cmd);
 int		ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_check_n(char **cpy, t_cmd *cmd, int i);
-int		ft_parse_cd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+int		ft_parse_special(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int	  	ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 void	ft_std(t_arg *arg, t_cmd *cmd, int i);
 

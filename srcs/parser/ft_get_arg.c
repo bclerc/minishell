@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/25 10:28:54 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/27 15:58:41 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_stock_arg(t_arg *arg, char *str)
 		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
 		{
 			arg->cmds[c] = ft_parse_arg(str, i, arg);
+			printf("arg[%d] = %s\n", c, arg->cmds[c]);
 			c++;
 			if (ft_check_char(str, i, c, arg) == -1)
 				return ;
