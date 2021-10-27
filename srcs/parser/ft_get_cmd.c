@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/27 15:59:36 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/27 16:18:05 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 			&& ft_strncmp(cpy[0], ">>", ft_strlen(cpy[0]))
 			&& ft_strncmp(cpy[0], "<", ft_strlen(cpy[0]))
 			&& ft_strncmp(cpy[0], "<<", ft_strlen(cpy[0])))
-		return (ft_parse_other(arg, cpy, i, cmd));
-	else 		
-		return (ft_parse_special(arg, cpy, i, cmd));
-	return (0);
+		return (ft_parse_other(arg, cpy, i, cmd));		
+	return (ft_parse_special(arg, cpy, i, cmd));
 }
