@@ -55,6 +55,7 @@ struct	s_arg
 	int		count_quote;
 	int		count_quotes;
 	int		start;
+	int		quote;
 };
 
 typedef struct s_env
@@ -73,12 +74,19 @@ void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
 
 // parsing
-int		ft_parser(char *str, char **envp);
+int		ft_launch_parser(char *str, char **envp);
 int		ft_get_arg(char *str, t_arg *arg);
 
-
+// parse arguments
+void	ft_count_arg(char *str, t_arg *arg);
+void	ft_stock_arg(t_arg *arg, char *str);
+char	*ft_parse_arg(char *str, int i, t_arg *arg);
+int		ft_check_char(char *str, int i, int c, t_arg *arg);
+void	ft_char(t_arg *arg, int c, char s, int nb);
+char	*ft_nosep(int i, char *str, t_arg *arg);
 int		ft_check_args(t_arg *arg);
-int		ft_check_quotes(t_arg *cmd);
+
+// parse cmds
 int		ft_get_cmd(t_arg *arg, t_cmd *cmd);
 int		ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int		ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd);
@@ -88,21 +96,17 @@ int		ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 int	  	ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
 void	ft_std(t_arg *arg, t_cmd *cmd, int i);
 
-// parsing arguments
-void	ft_count_arg(char *str, t_arg *arg);
-void	ft_stock_arg(t_arg *arg, char *str);
-char	*ft_parse_arg(char *str, int i, t_arg *arg);
-int		ft_check_char(char *str, int i, int c, t_arg *arg);
-void	ft_char(t_arg *arg, int c, char s, int nb);
-char	*ft_nosep(int i, char *str, t_arg *arg);
-
 //parse msg
 void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd);
 int 	ft_which_cmd(char **cpy);
 char	*ft_msg(t_arg *arg, int i, int start, char *tmp);
+char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp);
-char	*ft_parse_msg(t_arg *arg, char **cpy, int i);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg, int i);
+char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg);
+int		ft_doubleq(char *cpy, int i);
+int		ft_simpleq(char *cpy, int i);
+int		ft_pos(char *cpy, int i);
 
 
 // utils

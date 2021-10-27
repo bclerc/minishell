@@ -58,7 +58,6 @@ void	minishell(int ac, char **av, char **envp)
 		}
 		free(prompt);	
 		free(str);
-
 	}
 }
 
@@ -88,7 +87,7 @@ int	main(int ac, char **av, char **envp)
 	while (envp[i])
 		i++;
 	sa = init_signal();
-	sigaction(SIGINT, &sa, NULL);
+	//sigaction(SIGINT, &sa, NULL);
 	core.status = 1;
 	core.parent = getpid();
 	minishell(ac, av, envp);
