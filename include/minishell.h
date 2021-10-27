@@ -45,6 +45,7 @@ struct s_cmd
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
 	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
+	char	*redir; // SI Y A REDIRECtION, L'ARGUMENTT APRES LA DITE REDIRECTIOn
 	t_cmd	*next;
 };
 
@@ -77,7 +78,7 @@ void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
 
 // parsing
-t_cmd	*ft_launch_parser(char *str, char **envp);
+t_cmd	ft_launch_parser(char *str, char **envp);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
