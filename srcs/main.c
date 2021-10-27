@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/25 12:34:33 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/25 16:01:59 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,15 @@ void	minishell(int ac, char **av, char **envp)
 			printf("\n");
 			continue;
 		}
-		add_history(str);
+		 add_history(str);
 		str = transform_str(str, envp);
-
-		ft_launch_parser(str, envp);
-		//if (execute_commands(str, envp, 0) == -1)
-		//{
-		//free(prompt);
-		//	free(str);
-		//	break ;
-		//}
+		//parser(str, envp);
+		if (execute_commands(str, envp, 0) == -1)
+		{
+			free(prompt);
+			free(str);
+			break ;
+		}
 		free(prompt);	
 		free(str);
 	}
