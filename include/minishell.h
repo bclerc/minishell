@@ -32,6 +32,9 @@ struct s_list
 	t_list	*next;
 };
 
+// liste chainee token
+typedef struct s_cmd t_token;
+
 // liste chainee pour stocker cmds
 typedef struct s_cmd t_cmd;
 struct s_cmd
@@ -74,7 +77,7 @@ void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
 
 // parsing
-int		ft_launch_parser(char *str, char **envp);
+t_cmd	*ft_launch_parser(char *str, char **envp);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
