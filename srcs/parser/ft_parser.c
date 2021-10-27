@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/25 10:28:34 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/27 09:27:43 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // launch parsing
 // init struct arg & cmd
-int	ft_launch_parser(char *str, char **envp)
+t_cmd	*ft_launch_parser(char *str, char **envp)
 {
 	int		i;
 	t_arg	arg;
@@ -37,5 +37,5 @@ int	ft_launch_parser(char *str, char **envp)
 	// 	ft_get_cmd(&arg, &cmd);
 	// 	i++;	
 	// }
-	return (0);	
+	return (&cmd);
 }
