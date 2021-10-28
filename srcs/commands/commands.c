@@ -6,32 +6,80 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/27 09:41:26 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/10/28 11:38:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-int execute_bin_commands(char **argv)
+#include "../../include/minishell.h"
+
+//
+//
+//	SUPER SALE COMME FONCTION JE BOSSE DESSUS
+//	DESO POUR LES YEUX A L'AVANCE
+//
+//
+
+
+char **create_execve_argv(t_cmd *cmd) 
+{
+	int i;
+	int count;
+	char **argv;
+	char **tmp;
+	
+	if (cmd->msg == NULL)
+	{
+		argv = malloc(sizeof(char *) * 1);
+		argv[0] = ft_strdup(cmd->cmd);
+		return (argv);
+	}
+	i = 0;		
+	while (cmd->msg[i])
+	{
+		if (cmd->msg[i] == ' ')
+			count++;
+		i++;
+	}	
+	argv = malloc(sizeof(char *) * i + 2);
+	argv[0] = ft_strdup(cmd->cmd);
+
+	tmp = ft_strsplit(cmd->msg, ' ');
+	i = 0;
+	while (tmp[i])
+	{
+		argv[i + 1] = ft_strdup(tmp[i]);
+		i++;
+	}
+	return (argv);
+}
+int execute_bin_commands(t_cmd *cmd)
 {
 	int		ret;
 	int		status;
 	pid_t	pid;
 	pid_t	child;
-	char	**cmd;
 	char	*find;
 	char	*tmp;
+	char	**argv;
 
 	core.child = fork();
 	core.child_exist = 1;
 	if (core.child == 0)
 	{
-		cmd = argv;
 		tmp = ft_strdup("/bin/");
-		find = ft_strjoin(tmp, argv[0]);
+		find = ft_strjoin(tmp, cmd->cmd);
 		free(tmp);
-		ret = execve (find, cmd, 0);
+
+		argv = create_execve_argv(cmd);
+	int		i = 0;
+	while (argv[i])
+	{
+		printf("ARGV %d : %s\n", i, argv[i]);
+		i++;
+	}
+		ret = execve (find, argv, 0);
 		if (ret < 0)
-			printf("%s: command not found\n", argv[0]);
+			printf("%s: command not found\n", cmd->cmd);
 		free(find);
 		exit(-1);
 	}
@@ -42,28 +90,25 @@ int execute_bin_commands(char **argv)
 	}
 }
 
-int	execute_commands(char *args, char **envp, char *path)
+int	execute_commands(t_cmd *cmd, char **envp)
 {
 	char	**argv;
-	char	*cmd;
 	int		ret;
-
-	argv = ft_strsplit(args, ' ');
-	cmd = argv[0];
+	
 	ret = 0;
-	if (ft_strcmp(cmd, "cd") == 0)
-		ret = (cd(envp, argv[1]));
-	if (ft_strcmp(cmd, "echo") == 0)
-		ret = (echo(argv[1], path, 0));
-	if (ft_strcmp(cmd, "env") == 0)
-		ret = (env(envp, path));
-	if (ft_strcmp(cmd, "export") == 0)
-		ret = (export(envp, path, argv));
-	if (ft_strcmp(cmd, "pwd") == 0)
-		ret = (pwd(path));
-	if (ft_strcmp(cmd, "unset") == 0)
+	if (ft_strcmp(cmd->cmd, "cd") == 0)
+		ret = (cd(envp, cmd->msg));
+	if (ft_strcmp(cmd->cmd, "echo") == 0)
+		ret = (echo(cmd->msg, cmd->std , 0));
+	if (ft_strcmp(cmd->cmd, "env") == 0)
+		ret = (env(envp, cmd->std));
+	if (ft_strcmp(cmd->cmd, "export") == 0)
+		ret = (export(envp, cmd->std, NULL));
+	if (ft_strcmp(cmd->cmd, "pwd") == 0)
+		ret = (pwd(cmd->msg));
+	if (ft_strcmp(cmd->cmd, "unset") == 0)
 		ret = (1);											//pas fait
-	if (ft_strcmp(cmd, "exit") == 0)
+	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		printf("\nGood Bye\n");
 		core.status = -1;
@@ -71,7 +116,6 @@ int	execute_commands(char *args, char **envp, char *path)
 	}
 	if (ret == 1)											// a refaire
 		return (ret);
-	execute_bin_commands(argv);
-	rm_split(argv);
+	execute_bin_commands(cmd);
 	return (1);
 }

@@ -133,7 +133,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
 // execution
-int	execute_commands(char *args, char **envp, char *path);
+int	execute_commands(t_cmd *cmd, char **envp);
 
 // built-in function
 void	unset(char **envp, char *var);
