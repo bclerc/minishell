@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/28 12:30:37 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/28 16:07:39 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 		tmp = new;
 	else
 		cmd->next = new;
+
 	return (tmp);
 }
 

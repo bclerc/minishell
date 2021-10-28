@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/28 12:39:48 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/28 18:08:34 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 {
 	int		i;
 	char	**cpy;
+	t_cmd	*tmp;
 
 	i = 0;
+	tmp = *cmd;
 	while (i < arg->count)
 	{
 		//printf("arg[%d] = %s\n", i, arg->cmds[i]);
@@ -25,7 +27,6 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 		if (cpy[i] == NULL && i < arg->count)
 			cpy[i] = ft_strdup(arg->cmds[i]);
 		*cmd = ft_parse_cmd(arg, cpy, i, *cmd);
-			puts("che1");
 		if (!*cmd)
 		{
 			return (NULL);

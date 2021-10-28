@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/28 14:28:23 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/28 14:37:54 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,18 +130,13 @@ int	ft_std(t_arg *arg, t_cmd *cmd, int i)
 {
 	if (ft_strncmp(arg->cmds[i], "|", ft_strlen(arg->cmds[i])) == 0)
 		return (1);
-		//cmd->std = 1;
 	else if (ft_strncmp(arg->cmds[i], ">", ft_strlen(arg->cmds[i])) == 0)
-		//cmd->std = 2;
 		return (2);
 	else if (ft_strncmp(arg->cmds[i], ">>", ft_strlen(arg->cmds[i])) == 0)
-		//cmd->std = 3;
 		return (3);
 	else if (ft_strncmp(arg->cmds[i], "<", ft_strlen(arg->cmds[i])) == 0)
-		//cmd->std = 4;
 		return (4);
 	else if (ft_strncmp(arg->cmds[i], "<<", ft_strlen(arg->cmds[i])) == 0)
-		//cmd->std = 5;
 		return (5);
 	return (0);
 }

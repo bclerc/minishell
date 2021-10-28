@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/28 12:35:34 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/28 16:04:19 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_cmd	*ft_launch_parser(char *str, char **envp, t_cmd **cmd)
 		return (NULL);
 	i = 0;
 	*cmd = ft_get_cmd(&arg, cmd);
+	
 	if (!*cmd)
 		{
 			puts("che2");
