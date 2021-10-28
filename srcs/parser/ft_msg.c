@@ -6,32 +6,34 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/26 10:05:39 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:27:40 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd)
+char	*ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *new)
 {
 	char	*tmp;
 	char	*tmp2;
 	int		c;
 
-
-	if (j == cmd->cpy_nb - 1)
+//printf("j = %d nb = %d\n", j, new->cpy_nb - 1);
+	if (j == new->cpy_nb - 1)
 	{
 		tmp = ft_parse_msg(cpy[j], tmp, arg);	
-		cmd->msg = ft_strdup(tmp);
-		free(tmp);
+		//cmd->msg = ft_strdup(tmp);
+		//free(tmp);
+		return (tmp);
 	}
 	else
 	{
 		tmp = ft_search_msg(cpy, i, j, arg, tmp);
 		tmp2 = ft_parse_msg(tmp, tmp2, arg);
-		cmd->msg = ft_strdup(tmp2);
-		free(tmp);
-		free(tmp2);
+		//cmd->msg = ft_strdup(tmp2);
+		//free(tmp);
+		//free(tmp2);
+		return (tmp2);
 	}
 }
 

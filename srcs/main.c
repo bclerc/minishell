@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/27 17:14:57 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/28 10:50:06 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	minishell(int ac, char **av, char **envp)
 {
 	char	*str;
 	char	*prompt;
-	t_cmd	cmd;
+	t_cmd	*cmd;
 
 	while (core.status)
 	{
@@ -48,7 +48,7 @@ void	minishell(int ac, char **av, char **envp)
 			printf("\n");
 			continue;
 		}
-		 add_history(str);
+		add_history(str);
 		str = transform_str(str, envp);
 		ft_launch_parser(str, envp, &cmd);
 		// if (execute_commands(str, envp, 0) == -1)

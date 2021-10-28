@@ -6,13 +6,13 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/27 16:18:05 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/28 12:39:48 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
+t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 {
 	int		i;
 	char	**cpy;
@@ -24,10 +24,11 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
 		if (cpy[i] == NULL && i < arg->count)
 			cpy[i] = ft_strdup(arg->cmds[i]);
-		if (ft_parse_cmd(arg, cpy, i, cmd) == -1)
+		*cmd = ft_parse_cmd(arg, cpy, i, *cmd);
+			puts("che1");
+		if (!*cmd)
 		{
-			puts("che");
-			return (-1);
+			return (NULL);
 		}
 		i++;
 	}
@@ -41,12 +42,13 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 	// if (!arg->cmds[i])
 	// 	return (-1); 
 	// ou plutot lancer l'exec??
-	return (i);
+	//return (i);
+	return (*cmd);
 }
 
-int	ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
+t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
-	//printf("cpy[0] = %s\n", cpy[0]);
+	printf("cpy[0] = %s\n", cpy[0]);
 	if (ft_strncmp(cpy[0], "echo", ft_strlen(cpy[0])) == 0)
 		return (ft_parse_echo(arg, cpy, i, cmd));
 	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0

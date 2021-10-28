@@ -89,10 +89,10 @@ t_list	*ft_get_env(t_list *env, char **envp);
 // init
 char	*ft_init_env(char **envp, t_list *env, int count);
 void	ft_init_arg(t_arg *cmd, char *str);
-int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
+int		ft_init_cmd(t_cmd **cmd, t_arg *arg);
 
 // parsing
-void	ft_launch_parser(char *str, char **envp, t_cmd *cmd);
+t_cmd	*ft_launch_parser(char *str, char **envp, t_cmd **cmd);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
@@ -105,17 +105,17 @@ char	*ft_nosep(int i, char *str, t_arg *arg);
 int		ft_check_args(t_arg *arg);
 
 // parse cmds
-int		ft_get_cmd(t_arg *arg, t_cmd *cmd);
-int		ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-int		ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-int		ft_check_n(char **cpy, t_cmd *cmd, int i);
-int		ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-int		ft_parse_special(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-int	  	ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-void	ft_std(t_arg *arg, t_cmd *cmd, int i);
+t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd);
+t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+char	*ft_check_n(char **cpy, t_cmd *cmd, int i);
+t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+t_cmd	*ft_parse_special(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+t_cmd	*ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+int		ft_std(t_arg *arg, t_cmd *cmd, int i);
 
 //parse msg
-void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd);
+char	*ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *new);
 int 	ft_which_cmd(char **cpy);
 char	*ft_msg(t_arg *arg, int i, int start, char *tmp);
 char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp);
