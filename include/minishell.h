@@ -45,6 +45,7 @@ typedef struct s_cmd t_redir;
 struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
+	char	*fd; //nom du fd
 	char	*path; // nom du path
 	t_redir	*next;
 };
@@ -69,6 +70,7 @@ struct	s_arg
 {
 	//char	*arg;
 	char	**cmds;
+	int		i_cpy;
 	int		count;
 	int		count_quote;
 	int		count_quotes;
@@ -106,28 +108,28 @@ int		ft_check_args(t_arg *arg);
 
 // parse cmds
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd);
-t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-char	*ft_check_n(char **cpy, t_cmd *cmd, int i);
-t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-t_cmd	*ft_parse_special(t_arg *arg, char **cpy, int i, t_cmd *cmd);
-t_cmd	*ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd);
+t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd);
+t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
+char	*ft_check_n(char **cpy, int i);
+t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
+t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd);
+t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_std(t_arg *arg, t_cmd *cmd, int i);
 
 //parse msg
-char	*ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *new);
+char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new);
 int 	ft_which_cmd(char **cpy);
-char	*ft_msg(t_arg *arg, int i, int start, char *tmp);
-char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp);
-char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp);
-char	*ft_which_nb(int start, char *tmp, t_arg *arg, int i);
+char	*ft_msg(t_arg *arg, int start, char *tmp);
+char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
+char	*ft_other_msg(t_arg *arg, int start, char *tmp);
+char	*ft_which_nb(int start, char *tmp, t_arg *arg);
 char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg);
 int		ft_doubleq(char *cpy, int i);
 int		ft_simpleq(char *cpy, int i);
 int		ft_pos(char *cpy, int i);
 
 // redir
-t_redir	*ft_redir(t_arg *arg, char **cpy, int i, t_cmd *cmd, t_redir *redir);
+t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir *redir);
 
 // utils
 void	rm_split(char **split);

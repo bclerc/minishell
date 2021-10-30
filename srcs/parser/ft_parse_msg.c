@@ -6,13 +6,13 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/27 15:48:20 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/30 10:41:11 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp)
+char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp)
 {
 	int		start;
 	
@@ -21,14 +21,14 @@ char	*ft_search_msg(char **cpy, int i, int j, t_arg *arg, char *tmp)
 	{
 		//printf("%s\n", cpy[0]);
 		start = ft_strlen(cpy[0]);
-		tmp = ft_other_msg(arg, i, start, tmp);
+		tmp = ft_other_msg(arg, start, tmp);
 	}	
 	if (j == 1)
-		tmp = ft_which_nb(start, tmp, arg, i);
+		tmp = ft_which_nb(start, tmp, arg);
 	else if (j == 2)
 	{
 		start = 8;
-		tmp = ft_msg(arg, i, start, tmp);
+		tmp = ft_msg(arg, start, tmp);
 	}
 	return (tmp);
 }

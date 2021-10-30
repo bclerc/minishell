@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/28 18:08:46 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/29 08:49:51 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	minishell(int ac, char **av, char **envp)
 		add_history(str);
 		str = transform_str(str, envp);
 		cmd = ft_launch_parser(str, envp, &cmd);
-		while (cmd)
-		{
-			printf("cmd-nb = %d\n", cmd->nb);
-			cmd = cmd->next;
-		}
+		// while (cmd)
+		// {
+		// 	printf("cmd-nb = %d\n", cmd->nb);
+		// 	cmd = cmd->next;
+		// }
 		// if (execute_commands(str, envp, 0) == -1)
 		// {
 		// 	free(prompt);
