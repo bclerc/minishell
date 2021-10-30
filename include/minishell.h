@@ -41,12 +41,10 @@ struct s_token
 };
 
 // liste chainee redirection
-typedef struct s_cmd t_redir;
+typedef struct s_redir t_redir;
 struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
-	char	*fd; //nom du fd
-	char	*path; // nom du path
 	t_redir	*next;
 };
 
@@ -56,10 +54,12 @@ struct s_cmd
 {
 	int		nb; // numero de la cmd dans l'ordre d'arrivee
 	int		cpy_nb;
+	char	*fd; //nom du fd
 	char	*cmd; // ex echo
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
 	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
+	char	*path; // nom du path
 	t_redir	*redir;
 	t_cmd	*next;
 };
@@ -129,7 +129,8 @@ int		ft_simpleq(char *cpy, int i);
 int		ft_pos(char *cpy, int i);
 
 // redir
-t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir *redir);
+//t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
+t_cmd	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd);
 
 // utils
 void	rm_split(char **split);

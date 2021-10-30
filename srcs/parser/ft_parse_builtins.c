@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/30 11:23:14 by astrid           ###   ########.fr       */
+/*   Updated: 2021/10/30 12:21:29 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,16 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd)
 {
 	int		j;
-	t_redir	redir;
+	//t_redir	*redir;
 	t_cmd	*tmp;
 	t_cmd	*new;
 
 	j = 0;
 	tmp = cmd;
-//	if () // si cést pipe... / sinon...
+	printf("i = %d c = %d\n", arg->i_cpy, arg->count);
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
+	puts("che");
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -112,11 +113,11 @@ t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd)
 	new->spec = NULL;
 	new->msg = NULL;
 	new->cmd = ft_strdup(cpy[j]);
-	printf("special : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std, j);
 	if (new->std > 1 && new->std < 6)
-		redir = ft_redir(arg, cpy, cmd, &redir);
-	else
-		new->next = NULL;
+	//	redir = ft_redir(arg, cpy, new, &redir);
+		new = ft_redir(arg, cpy, new);
+	new->next = NULL;
+	printf("special : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std, j);
 	if (tmp == NULL)
 		tmp = new;
 	else
