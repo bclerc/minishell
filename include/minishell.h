@@ -32,14 +32,6 @@ struct s_list
 	t_list	*next;
 };
 
-// liste chainee token
-typedef struct s_cmd t_token;
-struct s_token
-{
-	char	*token;
-	t_token	*next;
-};
-
 // liste chainee redirection
 typedef struct s_redir t_redir;
 struct s_redir
@@ -63,6 +55,17 @@ struct s_cmd
 	t_redir	*redir;
 	t_cmd	*next;
 };
+
+// // gestion des tokens (sq et dq)
+// typedef struct s_token	t_token;
+// struct	s_token
+// {
+// 	int		start_sq;
+// 	int		end_sq;
+// 	int		start_dq;
+// 	int		end_dq;
+// 	t_token	*next;
+// };
 
 // struct recuperant les cmds envoyees par l'user
 typedef struct s_arg t_arg;
@@ -124,9 +127,7 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int start, char *tmp);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg);
 char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg);
-int		ft_doubleq(char *cpy, int i);
-int		ft_simpleq(char *cpy, int i);
-int		ft_pos(char *cpy, int i);
+char	*ft_cut_quote(char *str, int start, int end);
 
 // redir
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
