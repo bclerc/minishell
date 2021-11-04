@@ -126,8 +126,10 @@ char	*ft_msg(t_arg *arg, int start, char *tmp);
 char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int start, char *tmp);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg);
-char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg);
+char	*ft_parse_msg(char *cpy, t_arg *arg);
 char	*ft_cut_quote(char *str, int start, int end);
+char	*ft_special_cat(char *str, char *tmp, int i);
+char	*ft_special_cat(char *str, char *tmp, int i);
 
 // redir
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
