@@ -79,6 +79,7 @@ struct	s_arg
 	int		count_quotes;
 	int		start;
 	int		quote;
+	int		pos_i;
 };
 
 typedef struct s_env
@@ -127,8 +128,9 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int start, char *tmp);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg);
 char	*ft_parse_msg(char *cpy, t_arg *arg);
+char	*ft_sq(t_arg *arg, char *str, char *tmp);
+char	*ft_dq(t_arg *arg, char *str, char *tmp);
 char	*ft_cut_quote(char *str, int start, int end);
-char	*ft_special_cat(char *str, char *tmp, int i);
 char	*ft_special_cat(char *str, char *tmp, int i);
 
 // redir
