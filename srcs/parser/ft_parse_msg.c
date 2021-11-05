@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/05 16:01:11 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/05 16:41:43 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,25 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 	size = ft_strlen(str);
 	arg->pos_i = 0;
 	tmp = NULL;
-printf("cpy = %s tmp = %s\n", str, tmp);
+//printf("cpy = %s tmp = %s\n", str, tmp);
 	while (arg->pos_i < size)
 	{
 		if (str[arg->pos_i] == '\'') // faire ensuite un else if avec "
 		{
 			str = ft_sq(arg, str, tmp);
-			//i -= 2;
+			arg->pos_i -= 2;
 			size -= 2;
 		}
 		else if (str[arg->pos_i] == '"') // faire ensuite un else if avec "
 		{
 			str = ft_dq(arg, str, tmp);
-			//i -= 2;
+			arg->pos_i -= 2;
 			size -= 2;
 		}
 		arg->pos_i++;
-		printf("i = %d s = %d\n", arg->pos_i, size);
+		printf("i = %d size = %d str = %s\n", arg->pos_i, size, str);
 	}
-	//str[i] = '\n'; // a ajouter? ou deja fait si on concatene?
+	//str[i] = '\0'; // a ajouter? ou deja fait si on concatene?
 	return (str);
 }
 
@@ -96,20 +96,20 @@ char	*ft_special_cat(char *str, char *tmp, int i)
 
 	start = 0;
 	size = ft_strlen(str) - 2;
-	printf("size = %d\n", size);
+	//printf("size = %d\n", size);
 	new = malloc(sizeof(char) * (size + 1));
 	if (!new)
 		return (NULL);
 	while (start < i - 2)
 	{
 		new[start] = tmp[start];
-		printf("new[%d] = %c tmp[%d] = %c\n", start, new[start], start, tmp[start]);
+		//printf("new[%d] = %c tmp[%d] = %c\n", start, new[start], start, tmp[start]);
 		start++;
 	}
 	while (start <= size)
 	{
 		new[start] = str[i];
-	printf("new[%d] = %c str[%d] = %c\n", start, new[start], i, str[i]);
+	//printf("new[%d] = %c str[%d] = %c\n", start, new[start], i, str[i]);
 		start++;
 		i++;
 	}
@@ -135,11 +135,11 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 	pos_end = i - 1;
 	arg->pos_i = i;
 	tmp = ft_cut_quote(str, pos_st, pos_end);
-	printf("tmp = %s\n", tmp);
+	//printf("tmp = %s\n", tmp);
 	if (tmp)
 	{
 		str = ft_special_cat(str, tmp, i + 1);
-		printf("str = %s\n", str);
+		//printf("str = %s\n", str);
 		// attention : après il faudra voir les cas ou il y a kk chose avant sans ''
 		free (tmp);	
 	}
@@ -161,13 +161,13 @@ char	*ft_dq(t_arg *arg, char *str, char *tmp)
 	}	
 	pos_end = i - 1;
 	arg->pos_i = i;
-	printf ("i = %d arg->pos_i = %d\n", i, arg->pos_i);
+	//printf ("i = %d arg->pos_i = %d\n", i, arg->pos_i);
 	tmp = ft_cut_quote(str, pos_st, pos_end);
-	printf("tmp = %s\n", tmp);
+	//printf("tmp = %s\n", tmp);
 	if (tmp)
 	{
 		str = ft_special_cat(str, tmp, i + 1);
-		printf("str = %s\n", str);
+		//printf("str = %s\n", str);
 		// attention : après il faudra voir les cas ou il y a kk chose avant sans ''
 		free (tmp);	
 	}
