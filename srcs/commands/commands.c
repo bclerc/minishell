@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/28 11:38:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/06 16:13:39 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,34 +52,29 @@ char **create_execve_argv(t_cmd *cmd)
 	}
 	return (argv);
 }
-int execute_bin_commands(t_cmd *cmd)
+int execute_bin_commands(t_cmd *cmd, char **envp)
 {
 	int		ret;
 	int		status;
 	pid_t	pid;
 	pid_t	child;
 	char	*find;
-	char	*tmp;
 	char	**argv;
+	char 	*tmp;
 
 	core.child = fork();
 	core.child_exist = 1;
 	if (core.child == 0)
 	{
-		tmp = ft_strdup("/bin/");
-		find = ft_strjoin(tmp, cmd->cmd);
-		free(tmp);
-
+		find = get_env_variable("PATH", envp);
 		argv = create_execve_argv(cmd);
-	int		i = 0;
-	while (argv[i])
-	{
-		printf("ARGV %d : %s\n", i, argv[i]);
-		i++;
-	}
-		ret = execve (find, argv, 0);
+		tmp = ft_strjoin("/bin/", cmd->cmd);
+		ret = execve ("tmp", argv, envp);
 		if (ret < 0)
-			printf("%s: command not found\n", cmd->cmd);
+		{
+			printf("%s: command not found\n", cmd->cmd, find);
+			perror("Error :");
+		}
 		free(find);
 		exit(-1);
 	}
@@ -116,6 +111,6 @@ int	execute_commands(t_cmd *cmd, char **envp)
 	}
 	if (ret == 1)											// a refaire
 		return (ret);
-	execute_bin_commands(cmd);
+	execute_bin_commands(cmd, envp);
 	return (1);
 }
