@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/05 16:41:43 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/07 18:00:07 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp)
 		tmp = ft_which_nb(start, tmp, arg);
 	else if (j == 2)
 	{
-		start = 8;
-		tmp = ft_msg(arg, start, tmp);
+	
+//		start = 8;
+//		tmp = ft_msg(arg, start, tmp);
+		tmp = ft_which_nb(start, tmp, arg);
 	}
 	return (tmp);
 }

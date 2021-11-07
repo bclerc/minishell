@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/04 19:46:22 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/07 18:04:16 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ char	*ft_which_nb(int start, char *tmp, t_arg *arg)
 {
 	if (start == 1)
 	{
-		start = 5;
+		if (ft_strcmp(arg->spec_n, "-n") == 0)
+			start = 6 + arg->n + 1;
+		else
+			start = 8;
 		tmp = ft_msg(arg, start, tmp);
 	}
 	else

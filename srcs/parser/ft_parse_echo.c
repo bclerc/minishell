@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/11/03 16:30:48 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/07 17:56:03 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	{
 		if (ft_strncmp(cpy[j], "-n", 2) == 0)
 		{
-			new->spec = ft_check_n(cpy, j);
+			new->spec = ft_check_n(cpy, j, arg);
+			arg->spec_n = new->spec;
 			j++;
 			if (cpy[j])
 				new->msg = ft_cpy_msg(arg, cpy, j, new);
@@ -74,7 +75,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	return (tmp);
 }
 
-char	*ft_check_n(char **cpy, int i)
+char	*ft_check_n(char **cpy, int i, t_arg *arg)
 {
 	int 	j;
 	char	*tmp;
@@ -82,6 +83,8 @@ char	*ft_check_n(char **cpy, int i)
 	j = 1;
 	while (cpy[i][j])
 	{
+		if (cpy[i][j] == 'n')
+			arg->n++;
 		if (cpy[i][j] != 'n')
 			ft_print("Error in specification\n", -1);
 			// + faire une fct qui sort 
