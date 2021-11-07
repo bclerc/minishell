@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/11/07 17:56:03 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/07 20:30:09 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	int	j;
-	int	tmp_nb;
+	int		j;
+	int		tmp_nb;
 	t_cmd	*tmp;
 	t_cmd	*new;
 
@@ -56,7 +56,6 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		}
 		else
 		{
-			//puts("che");
 			new->spec = NULL;
 			new->msg = ft_cpy_msg(arg, cpy, j, new);
 		}	

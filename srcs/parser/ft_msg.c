@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/07 18:04:16 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/07 20:39:38 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 	}
 	else
 	{
-		//puts("che");
 		tmp = ft_search_msg(cpy, j, arg, tmp);
+		
 		tmp2 = ft_parse_msg(tmp, arg);
 		return (tmp2);
 	}
@@ -94,10 +94,10 @@ char	*ft_which_nb(int start, char *tmp, t_arg *arg)
 {
 	if (start == 1)
 	{
-		if (ft_strcmp(arg->spec_n, "-n") == 0)
+		if (!arg->spec_n)
+			start = 5;
+		else if (ft_strcmp(arg->spec_n, "-n") == 0)
 			start = 6 + arg->n + 1;
-		else
-			start = 8;
 		tmp = ft_msg(arg, start, tmp);
 	}
 	else
