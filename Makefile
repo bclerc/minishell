@@ -42,7 +42,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS =  -g3 -g
+CFLAGS =  -g3 -g  -L/usr/local/Cellar/readline/8.1.1/lib
 CC = gcc
 
 .PHONY: all re clean fclean libft force doclean

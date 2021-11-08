@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/06 16:13:39 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/08 13:37:36 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,16 @@
 //
 //
 
-
 char **create_execve_argv(t_cmd *cmd) 
 {
 	int i;
 	int count;
 	char **argv;
 	char **tmp;
-	
-	if (cmd->msg == NULL)
-	{
-		argv = malloc(sizeof(char *) * 1);
-		argv[0] = ft_strdup(cmd->cmd);
-		return (argv);
-	}
-	i = 0;		
+	char *empty[] = {" ", NULL};
+
+	if (!cmd->msg)
+		return (empty);		
 	while (cmd->msg[i])
 	{
 		if (cmd->msg[i] == ' ')
@@ -50,37 +45,45 @@ char **create_execve_argv(t_cmd *cmd)
 		argv[i + 1] = ft_strdup(tmp[i]);
 		i++;
 	}
+	argv[i] = NULL;  
 	return (argv);
 }
 int execute_bin_commands(t_cmd *cmd, char **envp)
 {
-	int		ret;
-	int		status;
-	pid_t	pid;
-	pid_t	child;
-	char	*find;
-	char	**argv;
-	char 	*tmp;
+	char **argv;
+	char **path;
+	char *exec_path;
+	int i;
+	int executed;
 
 	core.child = fork();
 	core.child_exist = 1;
+	executed = 0;
+	path = ft_strsplit(get_env_variable("PATH", envp), ':');
 	if (core.child == 0)
 	{
-		find = get_env_variable("PATH", envp);
-		argv = create_execve_argv(cmd);
-		tmp = ft_strjoin("/bin/", cmd->cmd);
-		ret = execve ("tmp", argv, envp);
-		if (ret < 0)
+		i = 0;
+		while (path[i])
 		{
-			printf("%s: command not found\n", cmd->cmd, find);
-			perror("Error :");
+			exec_path = ft_strjoin(path[i], "/");
+			exec_path = ft_strjoin(exec_path, cmd->cmd);
+			if (execve(exec_path, create_execve_argv(cmd), NULL) > -1)
+			{
+				executed = 1;
+				free(exec_path);
+				break ;
+			}
+			i++;
+			free(exec_path);
 		}
-		free(find);
+		if (executed == 0)
+			printf("%s: command not found\n", cmd->cmd);
+		rm_split(path);
 		exit(-1);
 	}
-	else{
-		 status;
-    	waitpid(core.child, &status, 0);
+	else
+	{
+    	waitpid(core.child, NULL, 0);
 		core.child_exist = 0;
 	}
 }
