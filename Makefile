@@ -30,6 +30,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_free.c \
 			srcs/utils/ft_utils_parsing.c \
 			srcs/utils/ft_strtrim.c \
+			srcs/utils/ft_util_parsemsg.c \
 			srcs/commands/commands.c \
 			srcs/built-in/cd/cd.c \
 			srcs/built-in/echo/echo.c \
