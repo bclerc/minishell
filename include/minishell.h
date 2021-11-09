@@ -82,6 +82,7 @@ struct	s_arg
 	int		pos_i;
 	int		n;
 	char	*spec_n;
+	char	*tmp;
 };
 
 typedef struct s_env
@@ -133,7 +134,7 @@ char	*ft_parse_msg(char *cpy, t_arg *arg);
 char	*ft_sq(t_arg *arg, char *str, char *tmp);
 char	*ft_dq(t_arg *arg, char *str, char *tmp);
 char	*ft_cut_quote(char *str, int start, int end);
-char	*ft_special_cat(char *str, char *tmp, int i);
+char	*ft_special_cat(char *str, char *tmp, int i, int ret);
 
 // redir
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);

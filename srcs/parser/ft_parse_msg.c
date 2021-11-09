@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/07 20:39:43 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/09 10:55:21 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,30 +85,63 @@ char	*ft_cut_quote(char *str, int start, int end)
 
 
 // grand mystere : a l'impression dans la fct ca ecrit n'imp mais ca renvoie la bonne chaine a la fin!!!
-char	*ft_special_cat(char *str, char *tmp, int i)
+char	*ft_special_cat(char *str, char *tmp, int i, int ret)
 {
 	char	*new;
 	int 	start;
 	int		size;
+	int		j;
 
 	start = 0;
-	size = ft_strlen(str) - 2;
 	//printf("size = %d\n", size);
 	new = malloc(sizeof(char) * (size + 1));
 	if (!new)
 		return (NULL);
-	while (start < i - 2)
+	if (ret == -1)
 	{
-		new[start] = tmp[start];
-		//printf("new[%d] = %c tmp[%d] = %c\n", start, new[start], start, tmp[start]);
+		puts("che1");
+		while (start < i)
+		{
+		new[start] = str[start];
+		printf("new[%d] = %c str[%d] = %c\n", start, new[start], start, str[start]);
 		start++;
-	}
-	while (start <= size)
-	{
-		new[start] = str[i];
-	//printf("new[%d] = %c str[%d] = %c\n", start, new[start], i, str[i]);
+		}
+		size = ft_strlen(tmp) + start;
+		printf("tmp = %s s = %d\n", tmp, size);
+		j = 0;
+		while (start <= size)
+		{
+		new[start] = tmp[j];
+	printf("new[%d] = %c tmp[%d] = %c\n", start, new[start], j, tmp[j]);
+		start++;
+		j++;
+		}
+		size = ft_strlen(str) - 2;
+		while (start < size)
+		{
+		new[start] = str[i+1];
+	printf("new[%d] = %c str[%d] = %c\n", start, new[start], i + 1, str[i + 1]);
 		start++;
 		i++;
+		}
+	}
+	else
+	{
+		puts("che2");
+		while (start < i - 2)
+		{
+		new[start] = tmp[start];
+		printf("new[%d] = %c tmp[%d] = %c\n", start, new[start], start, tmp[start]);
+		start++;
+		}
+		size = ft_strlen(str) - 2;
+		while (start <= size)
+		{
+		new[start] = str[i];
+	printf("new[%d] = %c str[%d] = %c\n", start, new[start], i, str[i]);
+		start++;
+		i++;
+		}
 	}
 	new[start] = '\0';
 	free (str);
@@ -128,15 +161,23 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 		i++;
 	pos_end = i - 1;
 	arg->pos_i = i;
-	//printf("i = %d\n", i);
 	tmp = ft_cut_quote(str, pos_st, pos_end);
-	//printf("tmp = %s\n", tmp);
-	
 	if (tmp)
 	{
-		str = ft_special_cat(str, tmp, i + 1);
+		//printf("st = %d\n", pos_st);
+		if (pos_st != 1)
+			str = ft_special_cat(str, tmp, pos_st - 1, -1);
+		// regarder ou est le debut de la chaine, pour prendre en compte le début si pas de quotes
+		else
+			str = ft_special_cat(str, tmp, i + 1, 0); // i + 1 ne marche pas tjrs : pb des espaces dans cas particuliers
+		// ex : echo " " 'lol' un espace disparait
 		//printf("str = %s\n", str);
 		// attention : après il faudra voir les cas ou il y a kk chose avant sans ''
+		free (tmp);	
+	}
+	else if (!tmp)
+	{
+		str = ft_special_cat(str, tmp, i, 0);
 		free (tmp);	
 	}
 	return (str);
@@ -152,19 +193,22 @@ char	*ft_dq(t_arg *arg, char *str, char *tmp)
 	pos_st = i + 1;
 	i++;
 	while (str[i] != '"' && str[i])
-	{
 		i++;
-	}	
 	pos_end = i - 1;
 	arg->pos_i = i;
-	//printf ("i = %d arg->pos_i = %d\n", i, arg->pos_i);
 	tmp = ft_cut_quote(str, pos_st, pos_end);
-	//printf("tmp = %s\n", tmp);
 	if (tmp)
 	{
-		str = ft_special_cat(str, tmp, i + 1);
-		//printf("str = %s\n", str);
-		// attention : après il faudra voir les cas ou il y a kk chose avant sans ''
+		if (pos_st != 1)
+			str = ft_special_cat(str, tmp, pos_st - 1, -1);
+		// regarder ou est le debut de la chaine, pour prendre en compte le début si pas de quotes
+		else
+			str = ft_special_cat(str, tmp, i + 1, 0);
+		free (tmp);	
+	}
+	else if (!tmp)
+	{
+		str = ft_special_cat(str, tmp, i, 0);
 		free (tmp);	
 	}
 	return (str);
