@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/09 13:23:52 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/09 15:10:25 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 	size = ft_strlen(str);
 	arg->pos_i = 0;
 	tmp = NULL;
-//printf("cpy = %s tmp = %s\n", str, tmp);
 	while (arg->pos_i < size)
 	{
 		if (str[arg->pos_i] == '\'')
@@ -55,8 +54,8 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 			arg->pos_i -= 2;
 			size -= 2;
 		}
-		// else if (str[arg->pos_i] != '"' && str[arg->pos_i] != '\'')
-		// str = ft_noq(arg, str, tmp);
+		if (!str)
+			return (NULL);
 		arg->pos_i++;
 		//printf("i = %d size = %d str = %s\n", arg->pos_i, size, str);
 	}
@@ -72,21 +71,27 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 	i = arg->pos_i;
 	pos_st = i + 1;
 	i++;
-	while (str[i] != '\'' && str[i])
+	while (str[i] != '\''/* && str[i]*/)
+	{
+		if (str[i] == '"')
+			arg->count_quotes++;
 		i++;
+	}
+	if (arg->count_quotes % 2 != 0)
+	{
+		ft_print("There is an error with quotes\n", -1);
+		return (NULL);
+	}
 	pos_end = i - 1;
 	arg->pos_i = i;
 	tmp = ft_cut_quote(str, pos_st, pos_end);
 	if (tmp)
 	{
-		//printf("st = %d\n", pos_st);
 		if (pos_st != 1)
 			str = ft_special_cat(str, tmp, pos_st - 1, -1);
 		else
 			str = ft_special_cat(str, tmp, i + 1, 0); // i + 1 ne marche pas tjrs : pb des espaces dans cas particuliers
 		// ex : echo " " 'lol' un espace disparait
-		//printf("str = %s\n", str);
-		// attention : après il faudra voir les cas ou il y a kk chose avant sans ''
 		free (tmp);	
 	}
 	else if (!tmp)
@@ -94,7 +99,7 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 		str = ft_special_cat(str, tmp, i, 0);
 		free (tmp);	
 	}
-	printf("str1 = %s\n", str);
+	//printf("str1 = %s\n", str);
 	return (str);
 }
 
@@ -104,12 +109,21 @@ char	*ft_dq(t_arg *arg, char *str, char *tmp)
 	int		pos_end;
 	int		i;
 	
-		printf("str = %s pos_i = %d \n", str, arg->pos_i);
+	//printf("str = %s pos_i = %d \n", str, arg->pos_i);
 	i = arg->pos_i;
 	pos_st = i + 1;
 	i++;
-	while (str[i] != '"' && str[i])
+	while (str[i] != '"'/* && str[i]*/)
+	{
+		if (str[i] == '\'')
+			arg->count_quote++;
 		i++;
+	}
+	if (arg->count_quote % 2 != 0)
+	{
+		ft_print("There is an error with quotes", -1);
+		return (NULL);
+	}
 	pos_end = i - 1;
 	arg->pos_i = i;
 	tmp = ft_cut_quote(str, pos_st, pos_end);
@@ -127,40 +141,6 @@ char	*ft_dq(t_arg *arg, char *str, char *tmp)
 		str = ft_special_cat(str, tmp, i, 0);
 		free (tmp);	
 	}
-	printf("str2 = %s\n", str);
-	return (str);
-}
-
-char	*ft_noq(t_arg *arg, char *str, char *tmp)
-{
-	int		pos_st;
-	int		pos_end;
-	int		i;
-	
-	i = arg->pos_i;
-	pos_st = i + 1;
-	i++;
-	while (str[i] != '\'' && str[i])
-		i++;
-	pos_end = i - 1;
-	arg->pos_i = i;
-	tmp = ft_cut_quote(str, pos_st, pos_end);
-	if (tmp)
-	{
-		//printf("st = %d\n", pos_st);
-		if (pos_st != 1)
-			str = ft_special_cat(str, tmp, pos_st - 1, -1);
-		else
-			str = ft_special_cat(str, tmp, i + 1, 0); // i + 1 ne marche pas tjrs : pb des espaces dans cas particuliers
-		// ex : echo " " 'lol' un espace disparait
-		//printf("str = %s\n", str);
-		// attention : après il faudra voir les cas ou il y a kk chose avant sans ''
-		free (tmp);	
-	}
-	else if (!tmp)
-	{
-		str = ft_special_cat(str, tmp, i, 0);
-		free (tmp);	
-	}
+	//printf("str2 = %s\n", str);
 	return (str);
 }

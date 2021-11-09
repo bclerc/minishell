@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/11/07 20:30:09 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/09 14:00:39 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 			arg->spec_n = new->spec;
 			j++;
 			if (cpy[j])
+			{
 				new->msg = ft_cpy_msg(arg, cpy, j, new);
+				if (!new->msg)
+					return (NULL);
+			}	
 			else if (!cpy[j])
 			{
 				new->msg = NULL;
@@ -58,6 +62,8 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		{
 			new->spec = NULL;
 			new->msg = ft_cpy_msg(arg, cpy, j, new);
+			if (!new->msg)
+				return (NULL);
 		}	
 	}
 	if (arg->i_cpy == arg->count - 1)

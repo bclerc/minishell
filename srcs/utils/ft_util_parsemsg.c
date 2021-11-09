@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:38:22 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/09 13:22:18 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/09 15:10:42 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,8 @@ char	*ft_cut_quote(char *str, int start, int end)
 	int		size;
 	int		i;
 
-	//size = end - start;
-	size = ft_strlen(str);
+	size = ft_strlen(str) - start;
 	i = 0;
-	//printf("st = %d en= %d \n", start, end);
 	dest = malloc(sizeof(char) * (size + 1));
 	if (!dest)
 		return (NULL);
@@ -114,12 +112,16 @@ char	*ft_cut_quote(char *str, int start, int end)
 		start++;
 		i++;
 	}
-	while(i < size)
+	if (i < size - 1) // // size - 1 pour eviter le \0
 	{
-		dest[i] = str[start];
-		start++;
-		i++;
+		while (i < size)
+		{
+			dest[i] = str[start + 1]; // start + 1 pour decaler avec la quote restee dans str
+			start++;
+			i++;
+		}
 	}
 	dest[i] = '\0';
+	//printf("dest = %s\n", dest);
 	return (dest);
 }

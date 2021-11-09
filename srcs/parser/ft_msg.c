@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/07 20:39:38 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/09 13:58:48 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 
 	if (j == new->cpy_nb - 1)
 	{
-		tmp = ft_parse_msg(cpy[j], arg);	
+		tmp = ft_parse_msg(cpy[j], arg);
+		if (!tmp)
+			return (NULL);	
 		return (tmp);
 	}
 	else
 	{
 		tmp = ft_search_msg(cpy, j, arg, tmp);
-		
 		tmp2 = ft_parse_msg(tmp, arg);
+		if (!tmp)
+			return (NULL);
 		return (tmp2);
 	}
 }

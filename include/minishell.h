@@ -133,7 +133,6 @@ char	*ft_which_nb(int start, char *tmp, t_arg *arg);
 char	*ft_parse_msg(char *cpy, t_arg *arg);
 char	*ft_sq(t_arg *arg, char *str, char *tmp);
 char	*ft_dq(t_arg *arg, char *str, char *tmp);
-char	*ft_noq(t_arg *arg, char *str, char *tmp);
 char	*ft_cut_quote(char *str, int start, int end);
 char	*ft_special_cat(char *str, char *tmp, int i, int ret);
 char	*ft_retneg(int i, char *str, char *tmp, char *new);
