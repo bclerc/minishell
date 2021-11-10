@@ -56,17 +56,6 @@ struct s_cmd
 	t_cmd	*next;
 };
 
-// // gestion des tokens (sq et dq)
-// typedef struct s_token	t_token;
-// struct	s_token
-// {
-// 	int		start_sq;
-// 	int		end_sq;
-// 	int		start_dq;
-// 	int		end_dq;
-// 	t_token	*next;
-// };
-
 // struct recuperant les cmds envoyees par l'user
 typedef struct s_arg t_arg;
 struct	s_arg
@@ -140,7 +129,8 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 
 // redir
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
-t_cmd	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd);
+t_cmd	*ft_redir(t_cmd *cmd);
+t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir);
 
 // utils
 void	rm_split(char **split);

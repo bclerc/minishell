@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/07 17:34:03 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/10 17:22:07 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void	minishell(int ac, char **av, char **envp)
 	char	*str;
 	char	*prompt;
 	t_cmd	*cmd;
+	t_redir	*redir;
 
+	redir = NULL;
 	while (core.status)
 	{
 		prompt = get_promps(envp);
@@ -51,11 +53,9 @@ void	minishell(int ac, char **av, char **envp)
 		add_history(str);
 		str = transform_str(str, envp);
 		cmd = ft_launch_parser(str, envp, &cmd);
-		// while (cmd)
-		// {
-		// 	printf("cmd-nb = %d\n", cmd->nb);
-		// 	cmd = cmd->next;
-		// }
+		// inserer la liste redir dans cmd si < > << >> :
+		//cmd = ft_redir(cmd);
+		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fd = %s\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, cmd->fd);
 		// if (execute_commands(str, envp, 0) == -1)
 		// {
 		// 	free(prompt);

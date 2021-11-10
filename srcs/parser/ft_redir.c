@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/30 12:15:07 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/10 17:27:19 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,32 @@ t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir)
 		stack_a->next = new;
 	return (tmp);
 }*/
-t_cmd	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd)
+t_cmd	*ft_redir(t_cmd *cmd)
 {
-	cmd->fd = cmd->cmd;
-	cmd->cmd = NULL;
-	//cmd->path = ??
+	t_cmd	*tmp;
+	t_redir *redir;
+
+	tmp = cmd;
+	(void)redir;
+	while (cmd && cmd->next != NULL)
+	{
+		if (ft_strcmp(cmd->cmd, "<") == 0 || ft_strcmp(cmd->cmd, "<<") == 0
+				|| ft_strcmp(cmd->cmd, ">") == 0 || ft_strcmp(cmd->cmd, ">>") == 0)
+		{
+			cmd->redir = ft_create_redir(cmd, &redir);
+			break;
+		}
+		cmd = cmd->next;
+	}
+	//printf("cmd->cmd = %s next = %p\n", cmd->cmd, &cmd->next);
+	cmd = tmp;
 	return (cmd);
+}
+
+t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir)
+{
+	
+	*redir = NULL;
+
+	return (*redir);
 }

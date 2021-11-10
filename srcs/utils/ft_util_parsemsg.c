@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:38:22 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/09 15:10:42 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/09 15:16:00 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*ft_cut_quote(char *str, int start, int end)
 		start++;
 		i++;
 	}
-	if (i < size - 1) // // size - 1 pour eviter le \0
+	if (i < size - 1) // size - 1 pour eviter le \0
 	{
 		while (i < size)
 		{
