@@ -20,6 +20,6 @@ jobs:
     - name: some-test
       run: echo $PATH
     - name: exit
-    - run: exit
+      run: exit
     - name: final_exit
     - run: exit
