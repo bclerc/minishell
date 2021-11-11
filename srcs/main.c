@@ -51,12 +51,12 @@ void	minishell(int ac, char **av, char **envp)
 		str = transform_str(str, envp);
 
 		ft_parser(str, envp);
-		//if (execute_commands(str, envp, 0) == -1)
-		//{
-		//free(prompt);
-		//	free(str);
-		//	break ;
-		//}
+		if (execute_commands(str, envp, 0) == -1)
+		{
+		free(prompt);
+		free(str);
+		break ;
+		}
 		free(prompt);	
 		free(str);
 
