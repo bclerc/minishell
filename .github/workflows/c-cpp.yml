@@ -17,3 +17,9 @@ jobs:
       run: make
     - name: ./minishell
       run: ./minishell
+    - name: some-test
+      run: echo $PATH
+    - name: exit
+    - run: exit
+    - name: final_exit
+    - run: exit
