@@ -20,7 +20,7 @@ jobs:
     - name: setup2
       run: echo "exit" >> runfile
     - name: run
-      run: ./minishell < runfile < runfile2
+      run: ./minishell < runfile
     - name: exit
       run: exit
     - name: final_exit
