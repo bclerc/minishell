@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/10 16:56:16 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/11 12:42:50 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd)
 	if (!new)
 		return (NULL);
 	new->nb = arg->i_cpy;
-	//printf("i_cpy = %d c = %d\n", arg->i_cpy, arg->count);
+	printf("i_cpy = %d c = %d\n", arg->i_cpy, arg->count);
 	if (arg->i_cpy == arg->count - 1)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)

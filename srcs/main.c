@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/10 17:22:07 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/11 16:34:23 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	minishell(int ac, char **av, char **envp)
 		str = transform_str(str, envp);
 		cmd = ft_launch_parser(str, envp, &cmd);
 		// inserer la liste redir dans cmd si < > << >> :
-		//cmd = ft_redir(cmd);
-		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fd = %s\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, cmd->fd);
+		cmd = ft_redir(cmd);
+		printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fdin = %s\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, cmd->redir->fd_in);
 		// if (execute_commands(str, envp, 0) == -1)
 		// {
 		// 	free(prompt);
