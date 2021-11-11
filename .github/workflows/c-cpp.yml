@@ -22,4 +22,4 @@ jobs:
     - name: exit
       run: exit
     - name: final_exit
-    - run: exit
+      run: exit
