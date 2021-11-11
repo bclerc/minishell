@@ -16,10 +16,10 @@ jobs:
     - name: make
       run: make
     - name: setup
-      run: echo "env" > runfile
+      run: echo "env" >> runfile
     - name: setup2
-      run: echo "exit" > runfile2
-    - name: run minishell
+      run: echo "exit" >> runfile
+    - name: run
       run: ./minishell < runfile < runfile2
     - name: exit
       run: exit
