@@ -15,10 +15,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: make
       run: make
+    - name: setup
+      run: echo "echo $PATH" > runfile
     - name: run minishell
-      run: ./minishell < echo "test"
-    - name: some-test
-      run: echo $PATH
+      run: ./minishell < runfile
     - name: exit
       run: exit
     - name: final_exit
