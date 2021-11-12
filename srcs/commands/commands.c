@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/08 13:37:36 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/11 16:47:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,24 @@ char **create_execve_argv(t_cmd *cmd)
 }
 int execute_bin_commands(t_cmd *cmd, char **envp)
 {
+	int fd[2];
 	char **argv;
 	char **path;
 	char *exec_path;
 	int i;
 	int executed;
+	char foo[4000];
 
+	pipe(fd);
 	core.child = fork();
 	core.child_exist = 1;
 	executed = 0;
 	path = ft_strsplit(get_env_variable("PATH", envp), ':');
 	if (core.child == 0)
 	{
+		//dup2 (fd[1], 1);
+    	//close(fd[0]);
+    	//close(fd[1]);
 		i = 0;
 		while (path[i])
 		{
@@ -77,14 +83,22 @@ int execute_bin_commands(t_cmd *cmd, char **envp)
 			free(exec_path);
 		}
 		if (executed == 0)
-			printf("%s: command not found\n", cmd->cmd);
+		{
+			if (execve(cmd->cmd, create_execve_argv(cmd), NULL) > -1)
+				executed = 1;
+			else
+				printf("%s: command not found\n", cmd->cmd);
+		}
 		rm_split(path);
-		exit(-1);
+		exit(1);
 	}
 	else
 	{
-    	waitpid(core.child, NULL, 0);
-		core.child_exist = 0;
+		// close(fd[1]);
+    	// int nbytes = read(fd[0], foo, sizeof(foo));
+    	// printf("Output: (%.*s)\n", nbytes, foo);
+    	 waitpid(core.child, NULL, 0);
+		 core.child_exist = 0;
 	}
 }
 
