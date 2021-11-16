@@ -15,7 +15,9 @@
 # define BUF_SIZE 42
 
 typedef struct s_core
-{	char	*cmd;
+{
+	char	*cmd;
+	char	**envp;
 	pid_t	parent;
 	pid_t	child;
 	int		child_exist;
@@ -61,12 +63,6 @@ struct	s_arg
 	int		start;
 	int		quote;
 };
-
-typedef struct s_env
-{
-	char **env;
-	char **export;
-} 				t_env;
 
 int		main(int ac, char **av, char **envp);
 char	*readline(const char *prompt);
@@ -133,17 +129,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
 // execution
-int	execute_commands(t_cmd *cmd, char **envp);
+int	execute_commands(t_cmd *cmd);
 
 // built-in function
 void	unset(char **envp, char *var);
 void	export_sort(char **value, int len);
 void	free_env(char **env);
 char	**re_alloc(char **env);
-int		add_env_variable(char ***env, char *var);
-int		copy_env(char **envp, t_env *env);
+int		add_env_variable(char *var);
 int		get_env_lenght(char **env);
-int		export(char **envp, char *path, char **argv);
+int		export(char *path, char *argv);
 int		get_fd(char *path);
 int		echo(char *str, char *path, int flag_n);
 int		env(char **envp, char *path);

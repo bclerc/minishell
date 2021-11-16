@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/11 16:47:30 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/16 16:52:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,20 +102,20 @@ int execute_bin_commands(t_cmd *cmd, char **envp)
 	}
 }
 
-int	execute_commands(t_cmd *cmd, char **envp)
+int	execute_commands(t_cmd *cmd)
 {
 	char	**argv;
 	int		ret;
 	
 	ret = 0;
 	if (ft_strcmp(cmd->cmd, "cd") == 0)
-		ret = (cd(envp, cmd->msg));
+		ret = (cd(core.envp, cmd->msg));
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
 		ret = (echo(cmd->msg, cmd->std , 0));
 	if (ft_strcmp(cmd->cmd, "env") == 0)
-		ret = (env(envp, cmd->std));
+		ret = (env(core.envp, cmd->std));
 	if (ft_strcmp(cmd->cmd, "export") == 0)
-		ret = (export(envp, cmd->std, NULL));
+		ret = (export(cmd->std, cmd->msg));
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		ret = (pwd(cmd->msg));
 	if (ft_strcmp(cmd->cmd, "unset") == 0)
@@ -128,6 +128,6 @@ int	execute_commands(t_cmd *cmd, char **envp)
 	}
 	if (ret == 1)											// a refaire
 		return (ret);
-	execute_bin_commands(cmd, envp);
+	execute_bin_commands(cmd, core.envp);
 	return (1);
 }

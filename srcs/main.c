@@ -6,13 +6,33 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/08 12:54:02 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/16 17:05:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 t_core core;
+
+char **duplicate_env(char **envp)
+{
+	int i;
+	char **tmp;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	tmp = malloc(sizeof(char *) * i);
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		tmp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	return (tmp);
+}
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
 {
@@ -33,12 +53,14 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 		}
 }
 
-void	minishell(int ac, char **av, char **envp)
+void	minishell(int ac, char **av)
 {
 	char	*str;
 	char	*prompt;
 	t_cmd	cmd;
 
+
+	char **envp = core.envp;
 	while (core.status)
 	{
 		prompt = get_promps(envp);
@@ -48,10 +70,10 @@ void	minishell(int ac, char **av, char **envp)
 			printf("\n");
 			continue;
 		}
-		 add_history(str);
-		str = transform_str(str, envp);
+		add_history(str);
+		str = transform_str(str, core.envp);
 		cmd = ft_launch_parser(str, envp);
-		if (execute_commands(&cmd, envp) == -1)
+		if (execute_commands(&cmd) == -1)
 		{
 			free(prompt);
 			free(str);
@@ -76,12 +98,12 @@ int	main(int ac, char **av, char **envp)
 	int		i;
 	char	*str;
 	char	readbuffer[3];
-	t_list	*env;
+	char	**env;
 	struct sigaction	sa;
 
 	(void)av;
 	core.child_exist = 0;
-	env = NULL;
+	core.envp = duplicate_env(envp);
 	i = 0;
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
@@ -91,6 +113,6 @@ int	main(int ac, char **av, char **envp)
 	sigaction(SIGINT, &sa, NULL);
 	core.status = 1;
 	core.parent = getpid();
-	minishell(ac, av, envp);
+	minishell(ac, av);
 	return (0);
 }
