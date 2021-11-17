@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/16 16:52:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/17 15:23:26 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char **create_execve_argv(t_cmd *cmd)
 	argv[i] = NULL;  
 	return (argv);
 }
-int execute_bin_commands(t_cmd *cmd, char **envp)
+int execute_bin_commands(t_cmd *cmd)
 {
 	int fd[2];
 	char **argv;
@@ -62,7 +62,7 @@ int execute_bin_commands(t_cmd *cmd, char **envp)
 	core.child = fork();
 	core.child_exist = 1;
 	executed = 0;
-	path = ft_strsplit(get_env_variable("PATH", envp), ':');
+	path = ft_strsplit(get_env_variable("PATH", core.envp), ':');
 	if (core.child == 0)
 	{
 		//dup2 (fd[1], 1);
@@ -126,8 +126,11 @@ int	execute_commands(t_cmd *cmd)
 		core.status = -1;
 		return (-1);
 	}
+	printf("ret for cmd %s is %d\n", cmd->cmd, ret);
 	if (ret == 1)											// a refaire
 		return (ret);
-	execute_bin_commands(cmd, core.envp);
+	if (ret == -1)
+		return (-1);
+	execute_bin_commands(cmd);
 	return (1);
 }

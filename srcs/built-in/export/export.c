@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/16 16:57:47 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/17 15:32:09 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@ int	export_add(char *argv)
 	i = 0;
 	while (args[i])
 	{
-		add_env_variable(args[i]);
+		if (ft_havechr(args[i], '='))
+			add_env_variable(args[i]);
+		else
+		{
+			printf("export: %s is invalide variable\n", args[i]);
+			return (-1);
+		}
 		i++;
 	}
 	return (1);
@@ -36,7 +42,10 @@ int	export(char *path, char *args)
 	if (!core.envp)
 		return (0);
 	if (args)
-		export_add(args);
+	{
+		if (export_add(args) == -1)
+			return (-1);
+	}
 	i = 0;
 	fd = get_fd(path);
 	env = core.envp;

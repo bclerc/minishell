@@ -110,6 +110,7 @@ int		ft_pos(char *cpy, int i);
 
 
 // utils
+int		ft_havechr(char* str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
 char	*transform_str(char *str, char **envp);
