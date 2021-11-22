@@ -6,100 +6,59 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/17 15:23:26 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/18 15:25:21 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//
-//
-//	SUPER SALE COMME FONCTION JE BOSSE DESSUS
-//	DESO POUR LES YEUX A L'AVANCE
-//
-//
-
-char **create_execve_argv(t_cmd *cmd) 
+char **get_argv(t_cmd *cmd)
 {
-	int i;
-	int count;
-	char **argv;
-	char **tmp;
-	char *empty[] = {" ", NULL};
-
-	if (!cmd->msg)
-		return (empty);		
-	while (cmd->msg[i])
-	{
-		if (cmd->msg[i] == ' ')
-			count++;
-		i++;
-	}	
-	argv = malloc(sizeof(char *) * i + 2);
-	argv[0] = ft_strdup(cmd->cmd);
-
-	tmp = ft_strsplit(cmd->msg, ' ');
-	i = 0;
-	while (tmp[i])
-	{
-		argv[i + 1] = ft_strdup(tmp[i]);
-		i++;
-	}
-	argv[i] = NULL;  
-	return (argv);
+	return (ft_strsplit(cmd->msg, ' '));
 }
-int execute_bin_commands(t_cmd *cmd)
-{
-	int fd[2];
-	char **argv;
-	char **path;
-	char *exec_path;
-	int i;
-	int executed;
-	char foo[4000];
 
-	pipe(fd);
-	core.child = fork();
-	core.child_exist = 1;
-	executed = 0;
+char **get_path(char *path, char *cmd)
+{
+	char	*ret;
+	char	*tmp;
+
+	tmp = ft_strjoin(path, "/");
+	printf("TMP: %s\n", tmp);
+	ret = ft_strjoin(tmp, cmd);
+	free(tmp);
+	return (ret);
+}
+
+int exec(t_cmd *cmd)
+{
+	int status;
+	int i;
+	char **path;
+
+	status = 0;
 	path = ft_strsplit(get_env_variable("PATH", core.envp), ':');
-	if (core.child == 0)
+	i = 0;
+	core.child = fork();
+	while (path[i] && status == 0)
 	{
-		//dup2 (fd[1], 1);
-    	//close(fd[0]);
-    	//close(fd[1]);
-		i = 0;
-		while (path[i])
+		if (core.child == 0)
 		{
-			exec_path = ft_strjoin(path[i], "/");
-			exec_path = ft_strjoin(exec_path, cmd->cmd);
-			if (execve(exec_path, create_execve_argv(cmd), NULL) > -1)
+			printf("Path: %s\n", get_path(path[i], cmd->cmd));
+			if (execve(get_path(path[i], cmd->cmd), get_argv(cmd),
+				core.envp) > -1)
 			{
-				executed = 1;
-				free(exec_path);
-				break ;
+
+				status = 1;				
 			}
-			i++;
-			free(exec_path);
+			perror("trouducul: ");
 		}
-		if (executed == 0)
+		else
 		{
-			if (execve(cmd->cmd, create_execve_argv(cmd), NULL) > -1)
-				executed = 1;
-			else
-				printf("%s: command not found\n", cmd->cmd);
+			waitpid(core.child, NULL, 0);
 		}
-		rm_split(path);
-		exit(1);
+		i++;
 	}
-	else
-	{
-		// close(fd[1]);
-    	// int nbytes = read(fd[0], foo, sizeof(foo));
-    	// printf("Output: (%.*s)\n", nbytes, foo);
-    	 waitpid(core.child, NULL, 0);
-		 core.child_exist = 0;
-	}
+	
 }
 
 int	execute_commands(t_cmd *cmd)
@@ -109,7 +68,7 @@ int	execute_commands(t_cmd *cmd)
 	
 	ret = 0;
 	if (ft_strcmp(cmd->cmd, "cd") == 0)
-		ret = (cd(core.envp, cmd->msg));
+		ret = (cd(cmd->msg));
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
 		ret = (echo(cmd->msg, cmd->std , 0));
 	if (ft_strcmp(cmd->cmd, "env") == 0)
@@ -126,11 +85,10 @@ int	execute_commands(t_cmd *cmd)
 		core.status = -1;
 		return (-1);
 	}
-	printf("ret for cmd %s is %d\n", cmd->cmd, ret);
 	if (ret == 1)											// a refaire
 		return (ret);
 	if (ret == -1)
 		return (-1);
-	execute_bin_commands(cmd);
+	exec(cmd);
 	return (1);
 }

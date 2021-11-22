@@ -144,6 +144,6 @@ int		get_fd(char *path);
 int		echo(char *str, char *path, int flag_n);
 int		env(char **envp, char *path);
 int		pwd(char *path);
-int		cd(char **env, char *path);
+int		cd(char *path);
 
 #endif
