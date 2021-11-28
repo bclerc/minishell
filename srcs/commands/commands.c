@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/18 15:25:21 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/28 18:23:37 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 
 char **get_argv(t_cmd *cmd)
 {
-	return (ft_strsplit(cmd->msg, ' '));
+	char *tab[2] = {" ", NULL};
+	char **ret;
+	int i;
+
+	if (cmd->msg)
+	{	
+		//VOIR AVEC ASTRID		
+		return (ft_strsplit(cmd->msg, ' '));
+	}
+	return (tab);
 }
 
 char **get_path(char *path, char *cmd)
@@ -39,26 +48,21 @@ int exec(t_cmd *cmd)
 	path = ft_strsplit(get_env_variable("PATH", core.envp), ':');
 	i = 0;
 	core.child = fork();
-	while (path[i] && status == 0)
+	if (core.child == 0)
 	{
-		if (core.child == 0)
+		while (path[i] && status == 0)
 		{
 			printf("Path: %s\n", get_path(path[i], cmd->cmd));
+			printf("CMD: %s\n", get_argv(cmd)[0]);
 			if (execve(get_path(path[i], cmd->cmd), get_argv(cmd),
 				core.envp) > -1)
-			{
-
 				status = 1;				
-			}
 			perror("trouducul: ");
+			i++;
 		}
-		else
-		{
-			waitpid(core.child, NULL, 0);
-		}
-		i++;
 	}
-	
+	else
+		waitpid(core.child, NULL, 0);	
 }
 
 int	execute_commands(t_cmd *cmd)
@@ -85,10 +89,8 @@ int	execute_commands(t_cmd *cmd)
 		core.status = -1;
 		return (-1);
 	}
-	if (ret == 1)											// a refaire
+	if (ret == 1 || ret == -1)											// a refaire
 		return (ret);
-	if (ret == -1)
-		return (-1);
 	exec(cmd);
 	return (1);
 }
