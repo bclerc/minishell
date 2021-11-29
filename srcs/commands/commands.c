@@ -14,16 +14,34 @@
 
 char **get_argv(t_cmd *cmd)
 {
-	char *tab[2] = {" ", NULL};
-	char **ret;
-	int i;
+	char	**ret;
+	char	**tmp;
+	int		i;
 
 	if (cmd->msg)
-	{	
-		//VOIR AVEC ASTRID		
-		return (ft_strsplit(cmd->msg, ' '));
+	{
+		tmp = ft_strsplit(cmd->msg, ' ');
+		if (!tmp)
+			return (NULL);
+		i = 0;
+		while (tmp[i])
+			i++;
+		ret = (char **)malloc(sizeof(char *) * i + 2);
+		ret[0] = cmd->cmd;
+		i = 0;
+		while (tmp[i])
+		{
+			ret[i + 1] = ft_strdup(tmp[i]);
+			i++;
+		}
+		ret[i + 1] = NULL;
+		rm_split(tmp);
+		return (ret);
 	}
-	return (tab);
+	ret = (char **)malloc(sizeof(char *) * 2);
+	ret[0] = cmd->cmd;
+	ret[1] = NULL;
+	return (ret);	
 }
 
 char **get_path(char *path, char *cmd)
@@ -32,7 +50,6 @@ char **get_path(char *path, char *cmd)
 	char	*tmp;
 
 	tmp = ft_strjoin(path, "/");
-	printf("TMP: %s\n", tmp);
 	ret = ft_strjoin(tmp, cmd);
 	free(tmp);
 	return (ret);
@@ -40,29 +57,40 @@ char **get_path(char *path, char *cmd)
 
 int exec(t_cmd *cmd)
 {
-	int status;
-	int i;
-	char **path;
+	char	**path;
+	char	**argv;
+	int		status;
+	int		i;
 
 	status = 0;
 	path = ft_strsplit(get_env_variable("PATH", core.envp), ':');
 	i = 0;
 	core.child = fork();
+	core.child_exist = 1;
+	argv = get_argv(cmd);
 	if (core.child == 0)
 	{
 		while (path[i] && status == 0)
 		{
-			printf("Path: %s\n", get_path(path[i], cmd->cmd));
-			printf("CMD: %s\n", get_argv(cmd)[0]);
-			if (execve(get_path(path[i], cmd->cmd), get_argv(cmd),
+			if (execve(get_path(path[i], cmd->cmd), argv,
 				core.envp) > -1)
 				status = 1;				
-			perror("trouducul: ");
 			i++;
 		}
+		if (status == 0)
+		{
+			if (execve(cmd->cmd, argv, core.envp) > -1)
+				status = 1;
+			else
+				printf("%s: command not found\n", cmd->cmd);
+		}
+		rm_split(argv);
 	}
 	else
+	{
 		waitpid(core.child, NULL, 0);	
+		core.child_exist = 0;
+	}
 }
 
 int	execute_commands(t_cmd *cmd)
@@ -85,7 +113,6 @@ int	execute_commands(t_cmd *cmd)
 		ret = (1);											//pas fait
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
-		printf("\nGood Bye\n");
 		core.status = -1;
 		return (-1);
 	}

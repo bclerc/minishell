@@ -61,7 +61,7 @@ void	minishell(int ac, char **av)
 
 
 	char **envp = core.envp;
-	while (core.status)
+	while (core.status != -1)
 	{
 		prompt = get_promps(envp);
 		str = readline(prompt);
@@ -75,6 +75,7 @@ void	minishell(int ac, char **av)
 		cmd = ft_launch_parser(str, envp);
 		if (execute_commands(&cmd) == -1)
 		{
+			printf("Good bye\n");
 			free(prompt);
 			free(str);
 			break ;

@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"exception": "c",
-		"new": "c"
+		"new": "c",
+		"stat.h": "c"
 	}
 }
