@@ -47,11 +47,11 @@ char *get_promps(char **envp)
 	char *pwd;
 
 	pwd = get_current_dir_name(envp);
-	tmp = ft_strdup("\e[1;35mMinishell \e[1;36m(\e[1;34m");
+	tmp = ft_strdup("\e[1;36m(\e[1;34m");
 	tmp2 = ft_strjoin(tmp, pwd);
 	free(pwd);
 	free(tmp);
-	tmp = ft_strdup("\e[1;36m) \e[1;35m$ \e[0;37m");
+	tmp = ft_strdup("\e[1;36m) \e[1;35m~$ \e[0;37m");
 	prompts = ft_strjoin(tmp2, tmp);
 	free(tmp2);
 	free(tmp);

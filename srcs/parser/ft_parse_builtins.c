@@ -29,10 +29,10 @@ int	ft_parse_cd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 	if (!cpy[j])
 	{
 		cmd->msg = NULL;
-		printf("cd1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
+		//printf("cd1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 		return (ft_print("\n", 0));
 	}
-	printf("cd2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
+	//printf("cd2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 	cmd->next = NULL;
 	return (j);
 }
@@ -53,10 +53,10 @@ int	ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 	if (!cpy[j])
 	{
 		cmd->msg = NULL;
-		printf("builtins1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
+	//	printf("builtins1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 		return (ft_print("\n", 0));
 	}
-	printf("builtins2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
+//	printf("builtins2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 	cmd->next = NULL;
 	return (j);
 }
@@ -76,11 +76,11 @@ int	ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 	if (!cpy[j])
 	{
 		cmd->msg = NULL;
-		printf("other1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
+		//printf("other1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 		return (ft_print("\n", 0));
 	}
 	ft_cpy_msg(arg, cpy, i, j, cmd);
-	printf("other2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
+	//printf("other2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 	cmd->next = NULL;
 	return (j);
 }

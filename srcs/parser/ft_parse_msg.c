@@ -56,7 +56,7 @@ char	*ft_parse_msg(char *cpy, char *tmp, t_arg *arg)
 		j++;
 	}
 	tmp[j] = '\0';
-	printf("tmp = %s\n", tmp);
+	//printf("tmp = %s\n", tmp);
 	return (tmp);
 }
 

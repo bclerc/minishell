@@ -44,6 +44,17 @@ char **get_argv(t_cmd *cmd)
 	return (ret);	
 }
 
+char **get_splited_path(void)
+{
+	char	*tmp;
+	char	**ret;
+
+	tmp = get_env_variable("PATH", core.envp);
+	ret = ft_strsplit(tmp, ':');
+	free(tmp);
+	return (ret);
+}
+
 char **get_path(char *path, char *cmd)
 {
 	char	*ret;
@@ -63,7 +74,7 @@ int exec(t_cmd *cmd)
 	int		i;
 
 	status = 0;
-	path = ft_strsplit(get_env_variable("PATH", core.envp), ':');
+	path = get_splited_path();
 	i = 0;
 	core.child = fork();
 	core.child_exist = 1;
