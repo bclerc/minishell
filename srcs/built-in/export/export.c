@@ -48,12 +48,10 @@ int	export(char *path, char *args)
 	}
 	i = 0;
 	fd = get_fd(path);
-	env = core.envp;
-	export_sort(env, get_env_lenght(env));
-	while (env[i])
+	while (core.envp[i])
 	{
 		write(fd, "declare -x ", 11);
-		write(fd, env[i], ft_strlen(env[i]));
+		write(fd, core.envp[i], ft_strlen(core.envp[i]));
 		write(fd, "\n", 1);
 		i++;
 	}

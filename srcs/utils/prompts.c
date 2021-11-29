@@ -13,14 +13,14 @@
 #include "../../include/minishell.h"
 
 
-char *get_current_dir_name(char **envp)
+char *get_current_dir_name(void)
 {
 	char	*dir;
 	char	**tmps;
 	char	*pwd;
 	int		i;
 
-	pwd = get_env_variable("PWD", envp);
+	pwd = get_env_variable("PWD", core.envp);
 	if (ft_strlen(pwd) == 1)
 	{
 		free(pwd);
@@ -46,7 +46,7 @@ char *get_promps(char **envp)
 	char *tmp2;
 	char *pwd;
 
-	pwd = get_current_dir_name(envp);
+	pwd = get_current_dir_name();
 	tmp = ft_strdup("\e[1;36m(\e[1;34m");
 	tmp2 = ft_strjoin(tmp, pwd);
 	free(pwd);

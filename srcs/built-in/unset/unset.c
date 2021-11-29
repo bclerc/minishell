@@ -33,7 +33,8 @@ int	unset(char *var)
 	char	**tmp;
 	char	**vars;
 	int		length;
-	int		i, b;
+	int		i;
+	int		b;
 
 	if (!var)
 		return (-1);
