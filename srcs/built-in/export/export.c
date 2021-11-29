@@ -36,6 +36,7 @@ int	export_add(char *argv)
 int	export(char *path, char *args)
 {
 	char	**env;
+	char	*tmp;
 	int		fd;
 	int		i;
 
