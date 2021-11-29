@@ -12,30 +12,49 @@
 
 # include "../../../include/minishell.h"
 
-void	unset(char **env, char *var)
+int is_unset_var(char **var, char *value)
 {
-	char	**ret;
-	char	**tmp;
-	char	**split;
-	int		i;
-	int		s;
+	int i;
 
-	split = ft_strsplit(var, ' ');
-	ret = (char **)malloc(sizeof(ret) * get_env_lenght(env));
 	i = 0;
-	s = 0;
-	while (split[s])
+	while (var[i])
 	{
-		while (env[i])
-		{
-			if (ft_strncmp(var, env[i], ft_strlen(var)))
-				i++;
-			ret[i] = ft_strdup(env[i]);
-			i++;
-		}
-		rm_split(env);
-		env = ret;
-		s++;
+		if (!var[i])
+			return (0);
+		if (ft_strncmp(var[i], value, ft_strlen(var[i])) == 0)
+			return (1);
+		i++;
 	}
-	rm_split(split);
+	return (0);
+}
+
+int	unset(char *var)
+{
+	char	**tmp;
+	char	**vars;
+	int		length;
+	int		i, b;
+
+	if (!var)
+		return (-1);
+	vars = ft_strsplit(var, ' ');
+	if (!vars)
+		return (-1);
+	length = get_env_lenght(core.envp);
+	b = get_env_lenght(vars) - 1;
+	tmp = (char **)malloc(sizeof(char *) * (length - b));
+	i = 0;
+	b = 0;
+	while (core.envp[i])
+	{
+		if (!is_unset_var(vars, core.envp[i]))
+		{
+			tmp[b] = ft_strdup(core.envp[i]);
+			free(core.envp[i]);
+			b++;
+		}
+		i++;
+	}
+	core.envp = tmp;
+	return (1);
 }

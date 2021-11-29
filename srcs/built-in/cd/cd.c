@@ -124,6 +124,9 @@ int	cd(char *path)
 	char		*home;
 	int i;
 	int			stats;
+
+	if (!get_env_variable("PWD", core.envp))
+		add_env_variable("PWD=");
 	stats = stat(path, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{

@@ -133,10 +133,10 @@ char	*ft_strchr(const char *s, int c);
 int	execute_commands(t_cmd *cmd);
 
 // built-in function
-void	unset(char **envp, char *var);
 void	export_sort(char **value, int len);
 void	free_env(char **env);
 char	**re_alloc(char **env);
+int		unset(char *var);
 int		add_env_variable(char *var);
 int		get_env_lenght(char **env);
 int		export(char *path, char *argv);

@@ -16,6 +16,8 @@ void	rm_split(char **split)
 {
 	int	i;
 
+	if (!split)
+		return ;
 	i = 0;
 	while (split[i])
 		i++;

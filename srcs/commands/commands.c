@@ -50,6 +50,8 @@ char **get_splited_path(void)
 	char	**ret;
 
 	tmp = get_env_variable("PATH", core.envp);
+	if (!tmp)
+		return (NULL);
 	ret = ft_strsplit(tmp, ':');
 	free(tmp);
 	return (ret);
@@ -75,6 +77,11 @@ int exec(t_cmd *cmd)
 
 	status = 0;
 	path = get_splited_path();
+	if (!path)
+	{
+		printf("Execution path not found\n");
+		return (-1);
+	}
 	i = -1;
 	core.child = fork();
 	core.child_exist = 1;
@@ -118,13 +125,13 @@ int	execute_commands(t_cmd *cmd)
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		ret = (pwd(cmd->msg));
 	if (ft_strcmp(cmd->cmd, "unset") == 0)
-		ret = (1);											//pas fait
+		ret = unset(cmd->msg);
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		core.status = -1;
 		return (-1);
 	}
-	if (ret == 1 || ret == -1)											// a refaire
+	if (ret == 1 || ret == -1)
 		return (ret);
 	exec(cmd);
 	return (1);

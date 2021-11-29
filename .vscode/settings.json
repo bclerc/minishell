@@ -2,6 +2,7 @@
 	"files.associations": {
 		"exception": "c",
 		"new": "c",
-		"stat.h": "c"
+		"stat.h": "c",
+		"minishell.h": "c"
 	}
 }
