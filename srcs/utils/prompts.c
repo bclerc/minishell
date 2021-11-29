@@ -20,7 +20,7 @@ char *get_current_dir_name(void)
 	char	*pwd;
 	int		i;
 
-	pwd = get_env_variable("PWD", core.envp);
+	pwd = getcwd(NULL, 0);
 	if (ft_strlen(pwd) == 1)
 	{
 		free(pwd);
