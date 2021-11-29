@@ -75,18 +75,17 @@ int exec(t_cmd *cmd)
 
 	status = 0;
 	path = get_splited_path();
-	i = 0;
+	i = -1;
 	core.child = fork();
 	core.child_exist = 1;
 	argv = get_argv(cmd);
 	if (core.child == 0)
 	{
-		while (path[i] && status == 0)
+		while (path[++i] && status == 0)
 		{
 			if (execve(get_path(path[i], cmd->cmd), argv,
 				core.envp) > -1)
 				status = 1;				
-			i++;
 		}
 		if (status == 0)
 		{
@@ -96,12 +95,10 @@ int exec(t_cmd *cmd)
 				printf("%s: command not found\n", cmd->cmd);
 		}
 		rm_split(argv);
+		exit(1);
 	}
-	else
-	{
-		waitpid(core.child, NULL, 0);	
-		core.child_exist = 0;
-	}
+	waitpid(core.child, NULL, 0);
+	core.child_exist = 0;
 }
 
 int	execute_commands(t_cmd *cmd)
