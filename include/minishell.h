@@ -63,7 +63,6 @@ struct s_cmd
 typedef struct s_arg t_arg;
 struct	s_arg
 {
-	//char	*arg;
 	char	**cmds;
 	int		i_cpy;
 	int		count;
@@ -79,9 +78,9 @@ struct	s_arg
 
 typedef struct s_env
 {
-	char **env;
-	char **export;
-} 				t_env;
+	char	**env;
+	char	**export;
+}				t_env;
 
 int		main(int ac, char **av, char **envp);
 char	*readline(const char *prompt);
@@ -135,6 +134,8 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 t_cmd	*ft_redir(t_cmd *cmd);
 t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir);
 t_redir	*ft_right(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_pipe(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i);
 
 // utils
@@ -157,7 +158,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
 // execution
-int	execute_commands(char *args, char **envp, char *path);
+int		execute_commands(char *args, char **envp, char *path);
 
 // built-in function
 void	unset(char **envp, char *var);
