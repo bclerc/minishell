@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/16 17:05:13 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/30 15:16:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char **duplicate_env(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	tmp = malloc(sizeof(char *) * i);
+	tmp = malloc(sizeof(char *) * i + 1);
 	if (!tmp)
 		return (NULL);
 	i = 0;
@@ -31,10 +31,11 @@ char **duplicate_env(char **envp)
 		tmp[i] = ft_strdup(envp[i]);
 		i++;
 	}
+	tmp[i] = 0;
 	return (tmp);
 }
 
-void	signal_handler(int signum, siginfo_t *info, void *context)
+void	signal_handler(int signum)
 {
 		if (signum == SIGINT)
 		{
@@ -60,10 +61,9 @@ void	minishell(int ac, char **av)
 	t_cmd	cmd;
 
 
-	char **envp = core.envp;
 	while (core.status != -1)
 	{
-		prompt = get_promps(envp);
+		prompt = get_promps(core.envp);
 		str = readline(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
@@ -71,8 +71,8 @@ void	minishell(int ac, char **av)
 			continue;
 		}
 		add_history(str);
-		str = transform_str(str, core.envp);
-		cmd = ft_launch_parser(str, envp);
+		//str = transform_str(str, core.envp);
+		cmd = ft_launch_parser(str, core.envp);
 		if (execute_commands(&cmd) == -1)
 		{
 			printf("Good bye\n");
@@ -85,22 +85,12 @@ void	minishell(int ac, char **av)
 	}
 }
 
-struct sigaction	init_signal(void)
-{
-	struct sigaction	sa;
-
-	sa.sa_sigaction = signal_handler;
-	sigemptyset(&sa.sa_mask);
-	return (sa);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	int		i;
 	char	*str;
 	char	readbuffer[3];
 	char	**env;
-	struct sigaction	sa;
 
 	(void)av;
 	core.child_exist = 0;
@@ -110,8 +100,7 @@ int	main(int ac, char **av, char **envp)
 		return (ft_print("There are too many arguments!\n", 1));
 	while (envp[i])
 		i++;
-	sa = init_signal();
-	sigaction(SIGINT, &sa, NULL);
+	signal(SIGINT, signal_handler);
 	core.status = 1;
 	core.parent = getpid();
 	minishell(ac, av);

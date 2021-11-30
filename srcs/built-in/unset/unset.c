@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 10:13:26 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/25 11:23:27 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/30 15:38:14 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,24 @@ int	unset(char *var)
 	vars = ft_strsplit(var, ' ');
 	if (!vars)
 		return (-1);
-	length = get_env_lenght(core.envp);
-	b = get_env_lenght(vars) - 1;
+	length = get_env_length(core.envp);
+	b = get_env_length(vars);
 	tmp = (char **)malloc(sizeof(char *) * (length - b));
 	i = 0;
 	b = 0;
-	while (core.envp[i])
+	while (i < length)
 	{
 		if (!is_unset_var(vars, core.envp[i]))
 		{
 			tmp[b] = ft_strdup(core.envp[i]);
-			free(core.envp[i]);
 			b++;
 		}
 		i++;
 	}
-	core.envp = tmp;
+	tmp[b] = 0;
+	change_env(tmp);
+	i = 0;
+	while (core.envp[i]);
+	printf("Readed = %d\n", i - 1);
 	return (1);
 }

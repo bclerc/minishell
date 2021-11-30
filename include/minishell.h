@@ -110,6 +110,8 @@ int		ft_pos(char *cpy, int i);
 
 
 // utils
+void	change_env(char	**new_env);
+int		get_env_length(char **env);
 int		ft_havechr(char* str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
@@ -138,7 +140,7 @@ void	free_env(char **env);
 char	**re_alloc(char **env);
 int		unset(char *var);
 int		add_env_variable(char *var);
-int		get_env_lenght(char **env);
+int		get_env_length(char **env);
 int		export(char *path, char *argv);
 int		get_fd(char *path);
 int		echo(char *str, char *path, int flag_n);

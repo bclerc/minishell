@@ -6,19 +6,46 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:05:05 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/16 17:04:01 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/30 15:39:28 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	get_env_lenght(char **env)
+void	change_env(char	**new_env)
+{
+	int		i;
+	int 	total;
+	
+	total = 0;
+	i = get_env_length(core.envp);
+	while (i >= 0)
+	{
+
+		if (core.envp[i] != NULL)
+		{
+			free(core.envp[i]);
+			core.envp[i] = NULL;
+		}
+		total++;
+		i--;
+	}
+	printf("%d was been freed\n", total);
+	getchar();
+	free(core.envp);
+	core.envp = 0;
+	core.envp = new_env;
+}
+
+
+int	get_env_length(char **env)
 {
 	int i;
 
-	i = 0;
-	while (env[i])
-		i++;
+	if (!env)
+		return (0);
+	i = -1;
+	while (env[++i]);
 	return (i);
 }
 
@@ -26,7 +53,7 @@ void	free_env(char **env)
 {
 	int i;
 
-	i = get_env_lenght(env);
+	i = get_env_length(env);
 	while (i >= 0)
 	{
 		free(env[i]);
@@ -69,27 +96,4 @@ char **re_alloc(char **env)
 	if (!new_env)
 		exit(1);	
 	return (new_env);
-}
-
-int	add_env_variable(char *var)
-{
-	char	**new_env;
-	int		i;	
-	
-	new_env = re_alloc(env);
-	if (!new_env)
-		return (0);
-	i = 0;
-	while (core.envp[i])
-	{
-		new_env[i] = ft_strdup(core.envp[i]);
-		i++;
-	}
-	new_env[i] = ft_strdup(var);
-	if (!new_env[i])
-		return (0);
-	new_env[i + 1] = NULL;
-	rm_split(core.envp);
-	core.envp = new_env;
-	return (1);
 }
