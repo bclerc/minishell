@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/30 15:16:30 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/30 16:16:32 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ char **duplicate_env(char **envp)
 		i++;
 	}
 	tmp[i] = 0;
+	printf("%s / %s\n", envp[0], envp[0] + ft_strlen(envp[0]) + 1);
+	printf("%s / %s\n", tmp[0], tmp[0] + ft_strlen(tmp[0]) + 1);
+	while (1);
 	return (tmp);
 }
 
@@ -60,7 +63,6 @@ void	minishell(int ac, char **av)
 	char	*prompt;
 	t_cmd	cmd;
 
-
 	while (core.status != -1)
 	{
 		prompt = get_promps(core.envp);
@@ -80,7 +82,7 @@ void	minishell(int ac, char **av)
 			free(str);
 			break ;
 		}
-		free(prompt);	
+		free(prompt);
 		free(str);
 	}
 }
