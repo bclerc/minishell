@@ -3,66 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/11 17:05:04 by astrid           ###   ########.fr       */
+/*   Updated: 2021/11/30 16:10:05 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir)
-{
-	*redir = ft_create_redir(cmd, * redir);
-	*redir = cmd;
-	printf("redir_std = %d\n", (*redir)->std_redir);
-	// stocker la cmd suivant les chevrons (msg et std) 
-	// + checker la cmd suiv : si chevron next pointe sur nouveau maillon de redir
-	// si pipe next repointe sur cmd
-	// si null next pointe sur null
-	return (*redir);
-}
 
-t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir)
-{
-	t_redir	*new;
-	t_redir	*tmp;
-
-	tmp = redir;
-	while (redir != NULL && redir->next != NULL)
-		redir = redir->next;
-	new = malloc(sizeof(t_redir));
-	if (!new)
-		return (0);
-	new->std_redir = cmd->std;
-	new->fd = -1;
-	new->next = NULL;
-	if (tmp == NULL)
-		tmp = new;
-	else
-		stack_a->next = new;
-	return (tmp);
-}*/
 t_cmd	*ft_redir(t_cmd *cmd)
 {
 	t_cmd	*tmp;
 	t_redir *redir;
 
 	tmp = cmd;
-	(void)redir;
 	while (cmd && cmd->next != NULL)
 	{
 		// if (ft_strcmp(cmd->cmd, "<") == 0 || ft_strcmp(cmd->cmd, "<<") == 0
 		// 		|| ft_strcmp(cmd->cmd, ">") == 0 || ft_strcmp(cmd->cmd, ">>") == 0)
 		if (cmd->std > 1 && cmd->std <= 5)
 		{
+		//printf("std = %d\n", cmd->std);
 			cmd->redir = ft_create_redir(cmd, &redir);
+			printf("cmd->redirstd = %d\n", cmd->redir->std_redir);
 			break;
 		}
 		cmd = cmd->next;
 	}
-	//printf("cmd->cmd = %s next = %p\n", cmd->cmd, &cmd->next);
 	cmd = tmp;
 	return (cmd);
 }
@@ -85,7 +53,7 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 	t_redir	*tmp;
 
 	tmp = redir;
-	printf("msg = %s\n", cmd->msg);
+	//printf("msg = %s\n", cmd->msg);
 	while (redir != NULL && redir->next != NULL)
 		redir = redir->next;
 	new = malloc(sizeof(t_redir));
@@ -99,7 +67,6 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 	new->fd_out = cmd->next->next->cmd; // mais souci si 2 noms apres un > : il peut y avoir plsrs noms de fichiers out
 	printf("out = %s s = %d\n", new->fd_out, new->std_redir);
 	new->next = NULL;
-	puts ("che");
 	if (tmp == NULL)
 		tmp = new;
 	else
