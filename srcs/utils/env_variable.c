@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/30 13:58:14 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 14:14:39 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,80 @@
 // 	Ex: LS retourn LSCOLOR,
 //je sais le regler mais la j'ai la flemme donc je vais le faire plus tard
 
-char *get_env_variable(char *var, char **envp)
+
+int	getEnv(char **envp)
 {
-	int i;
-	int b;
+	int		i;
+	t_env	*tmp;
 
 	i = 0;
 	while (envp[i])
 	{
-		if (ft_strncmp(var, envp[i], ft_strlen(var) - 1) == 0)
-		{
-			b = 0;
-			while (envp[i][b] != '=')
-				b++;
-			return (ft_strdup(envp[i] + b + 1));			
-		}
+		add_env_variable(envp[i]);
 		i++;
 	}
-	return (NULL);
+	return (1);
 }
+
+int	add_env_variable(char *var)
+{
+	t_env *tmp;
+	t_env *env;
+	int i = 0;
+
+	tmp = (t_env *)malloc(sizeof(t_env));
+	tmp->value = ft_strdup(var);
+	tmp->next = NULL;
+	if (!core->env)
+		core->env = tmp;
+	else
+	{
+		env = core->env;
+		while (env->next != NULL)
+		{
+			env = env->next;
+			i++;
+		}
+		env->next = tmp;
+	}
+}
+
+
+int	del_env_variable(char *var)
+{
+	t_env *tmp;
+	t_env *last;
+	t_env *swp;
+
+	tmp = core->env;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
+		{
+			if (last)
+				last->next = tmp->next;
+			else
+				core->env = tmp;
+			ft_bzero(tmp->value, ft_strlen(tmp->value));
+			free(tmp->value);
+			free(tmp);
+			return (1);
+		}
+		last = tmp;
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+char *get_env_variable(char *var)
+{
+	t_env *tmp;
+
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+}
+

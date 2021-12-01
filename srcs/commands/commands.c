@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/28 18:23:37 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 13:53:48 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char **get_splited_path(void)
 	char	*tmp;
 	char	**ret;
 
-	tmp = get_env_variable("PATH", core.envp);
+	tmp = get_env_variable("PATH");
 	if (!tmp)
 		return (NULL);
 	ret = ft_strsplit(tmp, ':');
@@ -83,20 +83,20 @@ int exec(t_cmd *cmd)
 		return (-1);
 	}
 	i = -1;
-	core.child = fork();
-	core.child_exist = 1;
+	core->child = fork();
+	core->child_exist = 1;
 	argv = get_argv(cmd);
-	if (core.child == 0)
+	if (core->child == 0)
 	{
 		while (path[++i] && status == 0)
 		{
 			if (execve(get_path(path[i], cmd->cmd), argv,
-				core.envp) > -1)
+				core->envp) > -1)
 				status = 1;				
 		}
 		if (status == 0)
 		{
-			if (execve(cmd->cmd, argv, core.envp) > -1)
+			if (execve(cmd->cmd, argv, core->envp) > -1)
 				status = 1;
 			else
 				printf("%s: command not found\n", cmd->cmd);
@@ -104,8 +104,8 @@ int exec(t_cmd *cmd)
 		rm_split(argv);
 		exit(1);
 	}
-	waitpid(core.child, NULL, 0);
-	core.child_exist = 0;
+	waitpid(core->child, NULL, 0);
+	core->child_exist = 0;
 }
 
 int	execute_commands(t_cmd *cmd)
@@ -119,7 +119,7 @@ int	execute_commands(t_cmd *cmd)
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
 		ret = (echo(cmd->msg, cmd->std , 0));
 	if (ft_strcmp(cmd->cmd, "env") == 0)
-		ret = (env(core.envp, cmd->std));
+		ret = (env(core->envp, cmd->std));
 	if (ft_strcmp(cmd->cmd, "export") == 0)
 		ret = (export(cmd->std, cmd->msg));
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)
@@ -128,7 +128,7 @@ int	execute_commands(t_cmd *cmd)
 		ret = unset(cmd->msg);
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
-		core.status = -1;
+		core->status = -1;
 		return (-1);
 	}
 	if (ret == 1 || ret == -1)

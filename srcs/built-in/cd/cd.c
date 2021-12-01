@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/17 15:37:40 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 13:53:48 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ int	change_old_pwd(void)
 	int i;
 
 	i = 0;
-	while (core.envp[i])
+	while (core->envp[i])
 	{
-		if (core.envp[i][0] == 'O' && core.envp[i][1] == 'L' && core.envp[i][2] == 'D'
-			&& core.envp[i][3] == 'P' && core.envp[i][4] == 'W' && core.envp[i][5] == 'D')
+		if (core->envp[i][0] == 'O' && core->envp[i][1] == 'L' && core->envp[i][2] == 'D'
+			&& core->envp[i][3] == 'P' && core->envp[i][4] == 'W' && core->envp[i][5] == 'D')
 			break ;
 		i++;
 	}
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("OLDPWD=");
-	core.envp[i] = ft_strjoin(tmp, path);
+	core->envp[i] = ft_strjoin(tmp, path);
 	free(tmp);
 	free(path);
 	return i;
@@ -43,10 +43,10 @@ char	*get_home(void)
 
 	i = 0;
 	find = 0;
-	while (core.envp[i])
+	while (core->envp[i])
 	{
-		if (core.envp[i][0] == 'H' && core.envp[i][1] == 'O' && core.envp[i][2] == 'M'
-			&& core.envp[i][3] == 'E' && core.envp[i][4] == '=')
+		if (core->envp[i][0] == 'H' && core->envp[i][1] == 'O' && core->envp[i][2] == 'M'
+			&& core->envp[i][3] == 'E' && core->envp[i][4] == '=')
 		{
 			find = 1;
 			break ;
@@ -58,7 +58,7 @@ char	*get_home(void)
 		printf("cd: home directory not set");
 		exit(0);
 	}
-	path = ft_strdup(&core.envp[i][5]);
+	path = ft_strdup(&core->envp[i][5]);
 	return path;
 }
 
@@ -71,11 +71,11 @@ char	*get_oldpwd(void)
 
 	i = 0;
 	find = 0;
-	while (core.envp[i])
+	while (core->envp[i])
 	{
-		if (core.envp[i][0] == 'O' && core.envp[i][1] == 'L' && core.envp[i][2] == 'D'
-			&& core.envp[i][3] == 'P' && core.envp[i][4] == 'W' && core.envp[i][5] == 'D'
-			&& core.envp[i][6] == '=')
+		if (core->envp[i][0] == 'O' && core->envp[i][1] == 'L' && core->envp[i][2] == 'D'
+			&& core->envp[i][3] == 'P' && core->envp[i][4] == 'W' && core->envp[i][5] == 'D'
+			&& core->envp[i][6] == '=')
 		{
 			find = 1;
 			break ;
@@ -87,7 +87,7 @@ char	*get_oldpwd(void)
 		printf("cd: old working directory not set");
 		exit(0);
 	}
-	path = ft_strdup(&core.envp[i][5]);
+	path = ft_strdup(&core->envp[i][5]);
 	return (path);
 }
 
@@ -100,9 +100,9 @@ int	change_pwd(void)
 
 	i = 0;
 	find = 0;
-	while (core.envp[i])
+	while (core->envp[i])
 	{
-		if (core.envp[i][0] == 'P' && core.envp[i][1] == 'W' && core.envp[i][2] == 'D')
+		if (core->envp[i][0] == 'P' && core->envp[i][1] == 'W' && core->envp[i][2] == 'D')
 		{
 			find = 1;
 			break ;
@@ -111,7 +111,7 @@ int	change_pwd(void)
 	}
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("PWD=");
-	core.envp[i] = ft_strjoin(tmp, path);
+	core->envp[i] = ft_strjoin(tmp, path);
 	free(path);
 	free(tmp);
 	return (i);
@@ -125,7 +125,7 @@ int	cd(char *path)
 	int i;
 	int			stats;
 
-	if (!get_env_variable("PWD", core.envp))
+	if (!get_env_variable("PWD"))
 		add_env_variable("PWD=");
 	stats = stat(path, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))

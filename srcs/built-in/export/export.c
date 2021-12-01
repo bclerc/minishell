@@ -6,16 +6,12 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/30 15:18:26 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 13:53:48 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../../include/minishell.h"
 
-int add_env_variable(char *var)
-{
-	return (1);
-}
 int	export_add(char *argv)
 {
 	int		i, b;
@@ -26,12 +22,12 @@ int	export_add(char *argv)
 	getchar();
 	args = ft_strsplit(argv, ' ');
 	getchar();
-	length = get_env_length(core.envp) + get_env_length(args);
+	length = get_env_length(core->envp) + get_env_length(args);
 	tmp = malloc(sizeof(char*) * length);
 	i = 0;
-	while (core.envp[i])
+	while (core->envp[i])
 	{
-		tmp[i] = ft_strdup(core.envp[i]);
+		tmp[i] = ft_strdup(core->envp[i]);
 		i++;
 	}
 	b = 0;
@@ -61,7 +57,7 @@ int	export(char *path, char *args)
 	int		fd;
 	int		i;
 
-	if (!core.envp)
+	if (!core->envp)
 		return (0);
 	if (args)
 	{
@@ -70,11 +66,11 @@ int	export(char *path, char *args)
 	}
 	i = 0;
 	fd = get_fd(path);
-	while (core.envp[i])
+	while (core->envp[i])
 	{
-		printf("Ligne %d : %s\n", i, core.envp[i]);
+		printf("Ligne %d : %s\n", i, core->envp[i]);
 		// write(fd, "declare -x ", 11);
-		// write(fd, core.envp[i], ft_strlen(core.envp[i]));
+		// write(fd, core->envp[i], ft_strlen(core->envp[i]));
 		// write(fd, "\n", 1);
 		i++;
 	}

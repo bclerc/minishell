@@ -42,8 +42,8 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -L/usr/local/Cellar/readline/8.1.1/lib
-CC = gcc
+CFLAGS = -fsanitize=address -g -L/usr/local/Cellar/readline/8.1.1/lib
+CC = clang
 
 .PHONY: all re clean fclean libft force doclean
 
@@ -66,7 +66,7 @@ force: $(OBJECTS)
 	@printf "$(NAME) successfully compiled. ✓\n"
 
 %.o: %.c
-	@$(CC) $(FLAGS) -I$(INCLUDES_FOLDER) -c $< -o $@ -Iinclude
+	@$(CC) $(CFLAGS) -I$(INCLUDES_FOLDER) -c $< -o $@ -Iinclude
 	@printf "Creating %-30s ✓\r" "$@"
 
 clean:

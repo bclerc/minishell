@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:05:05 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/30 15:39:28 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 13:53:48 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ void	change_env(char	**new_env)
 	int 	total;
 	
 	total = 0;
-	i = get_env_length(core.envp);
+	i = get_env_length(core->envp);
 	while (i >= 0)
 	{
 
-		if (core.envp[i] != NULL)
+		if (core->envp[i] != NULL)
 		{
-			free(core.envp[i]);
-			core.envp[i] = NULL;
+			free(core->envp[i]);
+			core->envp[i] = NULL;
 		}
 		total++;
 		i--;
 	}
 	printf("%d was been freed\n", total);
 	getchar();
-	free(core.envp);
-	core.envp = 0;
-	core.envp = new_env;
+	free(core->envp);
+	core->envp = 0;
+	core->envp = new_env;
 }
 
 
