@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/25 08:58:06 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/01 15:06:51 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_nosep(int i, char *str, t_arg *arg)
 	char	*tmp;
 
 	z = 0;
-	tmp = malloc(sizeof(char) * (i - arg->start));
+	tmp = malloc(sizeof(char) * (i - arg->start) + 1);
 	if (!tmp)
 		return (NULL);
 	if (arg->count != 1)

@@ -120,7 +120,7 @@ int		ft_pos(char *cpy, int i);
 
 // Environnement
 int		getEnv(char **envp);
-
+int	del_env_variable(char *var);
 // utils
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
@@ -156,7 +156,7 @@ int		get_env_length(char **env);
 int		export(char *path, char *argv);
 int		get_fd(char *path);
 int		echo(char *str, char *path, int flag_n);
-int		env(char **envp, char *path);
+int		env(char *path);
 int		pwd(char *path);
 int		cd(char *path);
 

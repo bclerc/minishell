@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/01 13:53:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 15:25:18 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	execute_commands(t_cmd *cmd)
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
 		ret = (echo(cmd->msg, cmd->std , 0));
 	if (ft_strcmp(cmd->cmd, "env") == 0)
-		ret = (env(core->envp, cmd->std));
+		ret = (env(cmd->std));
 	if (ft_strcmp(cmd->cmd, "export") == 0)
 		ret = (export(cmd->std, cmd->msg));
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)

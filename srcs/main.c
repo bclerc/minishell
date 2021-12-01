@@ -6,37 +6,13 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/01 14:20:20 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 15:06:05 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 t_core *core;
-
-char **duplicate_env(char **envp)
-{
-	int i;
-	char **tmp;
-
-	i = 0;
-	while (envp[i])
-		i++;
-	tmp = malloc(sizeof(char *) * i + 1);
-	if (!tmp)
-		return (NULL);
-	i = 0;
-	while (envp[i])
-	{
-		tmp[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	tmp[i] = 0;
-	printf("%s / %s\n", envp[0], envp[0] + ft_strlen(envp[0]) + 1);
-	printf("%s / %s\n", tmp[0], tmp[0] + ft_strlen(tmp[0]) + 1);
-	while (1);
-	return (tmp);
-}
 
 void	signal_handler(int signum)
 {
@@ -74,7 +50,7 @@ void	minishell(int ac, char **av)
 		}
 		add_history(str);
 		//str = transform_str(str, core->envp);
-		cmd = ft_launch_parser(str, core->envp);
+		cmd = ft_launch_parser(str, (char*){"test", "lol"});
 		if (execute_commands(&cmd) == -1)
 		{
 			printf("Good bye\n");
@@ -100,7 +76,6 @@ int	main(int ac, char **av, char **envp)
 	core->child_exist = 0;
 	core->env = NULL;
 	getEnv(envp);
-	i = 0;
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);
