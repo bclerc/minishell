@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/01 15:41:09 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/02 12:39:14 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	add_env_variable(char *var)
 		}
 		env->next = tmp;
 	}
+	return (1);
 }
-
 
 int	del_env_variable(char *var)
 {
@@ -73,7 +73,6 @@ int	del_env_variable(char *var)
 				core->env = NULL;
 			else
 				core->env = tmp;
-			
 			ft_bzero(tmp->value, ft_strlen(tmp->value));
 			free(tmp->value);
 			free(tmp);
@@ -89,10 +88,13 @@ char *get_env_variable(char *var)
 {
 	t_env *tmp;
 
+	tmp = core->env;
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
+		{
 			return (tmp->value);
+		}
 		tmp = tmp->next;
 	}
 }
