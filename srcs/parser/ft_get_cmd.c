@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/25 12:33:43 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/02 14:01:09 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_get_cmd(t_arg *arg, t_cmd *cmd)
 	// if (!arg->cmds[i])
 	// 	return (-1); 
 	// ou plutot lancer l'exec??
+
 	return (i);
 }
 
