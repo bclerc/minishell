@@ -42,7 +42,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -fsanitize=address -g -lreadline
+CFLAGS =  -g -lreadline
 CC = clang
 
 .PHONY: all re clean fclean libft force doclean

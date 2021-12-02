@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/01 15:25:18 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/02 13:46:23 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char **get_splited_path(void)
 	if (!tmp)
 		return (NULL);
 	ret = ft_strsplit(tmp, ':');
-	free(tmp);
 	return (ret);
 }
 
@@ -72,6 +71,7 @@ int exec(t_cmd *cmd)
 {
 	char	**path;
 	char	**argv;
+	char	**tab_env;
 	int		status;
 	int		i;
 
@@ -86,17 +86,18 @@ int exec(t_cmd *cmd)
 	core->child = fork();
 	core->child_exist = 1;
 	argv = get_argv(cmd);
+	tab_env = env_to_char();
 	if (core->child == 0)
 	{
 		while (path[++i] && status == 0)
 		{
 			if (execve(get_path(path[i], cmd->cmd), argv,
-				core->envp) > -1)
-				status = 1;				
+				tab_env) > -1)
+				status = 1;
 		}
 		if (status == 0)
 		{
-			if (execve(cmd->cmd, argv, core->envp) > -1)
+			if (execve(cmd->cmd, argv, tab_env) > -1)
 				status = 1;
 			else
 				printf("%s: command not found\n", cmd->cmd);

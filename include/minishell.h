@@ -119,6 +119,7 @@ int		ft_simpleq(char *cpy, int i);
 int		ft_pos(char *cpy, int i);
 
 // Environnement
+char	**env_to_char();
 int		getEnv(char **envp);
 int	del_env_variable(char *var);
 // utils
