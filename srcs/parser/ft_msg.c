@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_msg.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/26 10:05:39 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/02 15:10:58 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd)
 
 int	ft_which_cmd(char **cpy)
 {
-	if (ft_strncmp(cpy[0], "echo", ft_strlen(cpy[0])) == 0)
+	if (ft_strncmp(cpy[0], "echo", 4) == 0)
 		return (1);
-	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0)
+	else if (ft_strncmp(cpy[0], "cd", 2) == 0)
 		return (2);
-	else if (ft_strncmp(cpy[0], "pwd", ft_strlen(cpy[0])) == 0
-			|| ft_strncmp(cpy[0], "env", ft_strlen(cpy[0])) == 0)
+	else if (ft_strncmp(cpy[0], "pwd", 3) == 0
+			|| ft_strncmp(cpy[0], "env", 3) == 0)
 		return (3);
-	else if (ft_strncmp(cpy[0], "exit", ft_strlen(cpy[0])) == 0)
+	else if (ft_strncmp(cpy[0], "exit", 4) == 0)
 		return (4);
-	else if (ft_strncmp(cpy[0], "unset", ft_strlen(cpy[0])) == 0)
+	else if (ft_strncmp(cpy[0], "unset", 5) == 0)
 		return (5);
-	else if (ft_strncmp(cpy[0], "export", ft_strlen(cpy[0])) == 0)
+	else if (ft_strncmp(cpy[0], "export", 6) == 0)
 		return (6);
 	return (7);
 }
