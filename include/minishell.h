@@ -144,8 +144,11 @@ char	*ft_write_line(char *str, char **line);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
+// pipe
+int m_pipe(t_cmd *cmd);
 // execution
-int	execute_commands(t_cmd *cmd);
+int		execute_commands(t_cmd *cmd);
+char	**get_argv(t_cmd *cmd);
 
 // built-in function
 void	export_sort(char **value, int len);
