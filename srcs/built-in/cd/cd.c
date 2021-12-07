@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/02 15:18:10 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/06 10:53:59 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,37 @@ int	cd(char *path)
 	int i;
 	int			stats;
 
-	stats = stat(path, &t_sb);
+	if (path[0] == 45)
+		home = ft_strdup(get_env_variable("OLDPWD"));
+	else
+		home = ft_strdup(path);
+	if (!home)
+		return (-1);
+	usleep(50);
+	stats = stat(home, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{
-		if (access(path, W_OK && R_OK) == -1)
+		if (access(home, W_OK && R_OK) == -1)
 		{
 			printf("cd: cannot access directory '%s': Permission denied (cheh)\n", path);
 			return (1);
 		}
 		change_old_pwd();
-		chdir(path);
+		chdir(home);
 		change_pwd();			
 	}
 	else if (path == NULL)
 	{
 		change_old_pwd();
-		chdir(get_env_variable("HOME"));
+		chdir(ft_strdup(get_env_variable("HOME")));
 		change_pwd();		
 	}
 	else
 	{
-		printf("cd: no such file or directory: %s\n", path);
+		printf("cd: no such file or directory: %s\n", home);
+		free(path);
 		return (1);
 	}
+	free(path);
 	return (1);
 }

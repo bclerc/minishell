@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/02 13:43:44 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/06 10:34:44 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,17 @@ int	del_env_variable(char *var)
 
 char *get_env_variable(char *var)
 {
-	t_env *tmp;
-
+	t_env	*tmp;
+	int		i;
 	tmp = core->env;
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
 		{
-			return (tmp->value);
+			i = 0;
+			while (tmp->value[i] != '=')
+				i++;
+			return (tmp->value + i + 1);
 		}
 		tmp = tmp->next;
 	}
