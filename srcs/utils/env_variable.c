@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/06 10:34:44 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/07 12:09:33 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,6 @@ char *get_env_variable(char *var)
 		}
 		tmp = tmp->next;
 	}
+	return (NULL);
 }
 

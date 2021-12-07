@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/06 10:53:59 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/07 12:17:23 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,37 @@ int	change_pwd(void)
 	return (1);
 }
 
+char *get(char *path)
+{
+	char *home;
+
+	if (!path)
+	{
+		if (get_env_variable("HOME") == NULL)
+			home = ft_strdup(getcwd(NULL, NULL));
+		else		
+			home = ft_strdup(get_env_variable("HOME"));
+	}
+	else if (path[0] == 45)
+	{
+		if (get_env_variable("OLDPWD") == NULL)
+			home = ft_strdup(getcwd(NULL, NULL));
+		else		
+			home = ft_strdup(get_env_variable("OLDPWD"));
+	}
+	else
+		home = ft_strdup(path);
+	return (home);
+}
 
 int	cd(char *path)
 {
 	struct stat t_sb;
-	char		*home;
+	char	*home;
 	int i;
 	int			stats;
 
-	if (path[0] == 45)
-		home = ft_strdup(get_env_variable("OLDPWD"));
-	else
-		home = ft_strdup(path);
+	home = get(path);
 	if (!home)
 		return (-1);
 	usleep(50);
