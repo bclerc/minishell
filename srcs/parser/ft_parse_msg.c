@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_msg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/09 15:10:25 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/08 17:48:34 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp)
 {
 	int		start;
-	
+
 	start = ft_which_cmd(cpy);
 	if (start == 7)
 	{
-		//printf("%s\n", cpy[0]);
-		start = ft_strlen(cpy[0]);
+		//printf("cpy = %s\n", cpy[1]);
+		start = ft_strlen(cpy[0]) + 1;
+		//printf("st = %d\n", start);
 		tmp = ft_other_msg(arg, start, tmp);
+		//tmp = cpy[1]; // ok MAIS seulement s'il n'y a qu'un seul msg
 	}	
 	else if (j == 1)
 		tmp = ft_which_nb(start, tmp, arg);

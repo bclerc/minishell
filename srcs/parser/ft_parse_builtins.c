@@ -60,8 +60,9 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 		return (NULL);
 	new->nb = arg->i_cpy;
 	new->cmd = ft_strdup(cpy[j]);
-	//printf("cmd = %s\n", new->cmd);
+	//printf("cmd = %s cpy[j] = %s\n", new->cmd, cpy[j]);
 	j++;
+	printf("cpy[j] = %s\n", cpy[j]);
 	if (arg->i_cpy == arg->count - 1)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)

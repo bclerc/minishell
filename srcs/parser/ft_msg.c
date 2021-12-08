@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_msg.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/09 13:58:48 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/08 17:50:46 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 	else
 	{
 		tmp = ft_search_msg(cpy, j, arg, tmp);
+		//printf("tmp = %s\n", tmp);
 		tmp2 = ft_parse_msg(tmp, arg);
 		if (!tmp)
 			return (NULL);
@@ -57,7 +58,7 @@ char	*ft_msg(t_arg *arg, int start, char *tmp)
 {
 	int	size;
 	int	a;
-	
+
 	size = ft_strlen(arg->cmds[arg->i_cpy]);
 	tmp = malloc(sizeof(char) * (size - start + 1));
 	if (!tmp)
@@ -77,8 +78,9 @@ char	*ft_other_msg(t_arg *arg, int start, char *tmp)
 {
 	int	size;
 	int	a;
-	
+
 	size = ft_strlen(arg->cmds[arg->i_cpy]);
+	//printf("s = %d\n", size);
 	tmp = malloc(sizeof(char) * (size - start + 1));
 	if (!tmp)
 		return (NULL);
@@ -86,6 +88,7 @@ char	*ft_other_msg(t_arg *arg, int start, char *tmp)
 	while (start < size)
 	{
 		tmp[a] = arg->cmds[arg->i_cpy][start];
+		//printf("tmp[%d] = %c\n", a, tmp[a]);
 		a++;
 		start++;
 	}
