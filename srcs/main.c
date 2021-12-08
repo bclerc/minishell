@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
 /*   Updated: 2021/12/07 15:20:00 by bclerc           ###   ########.fr       */
@@ -37,9 +37,12 @@ void	minishell(int ac, char **av)
 {
 	char	*str;
 	char	*prompt;
-	t_cmd	cmd;
+	t_cmd	*cmd;
+	t_cmd	*tmp;
+	t_redir	*redir;
 
-	while (core->status != -1)
+	redir = NULL;
+	while (core.status)
 	{
 		prompt = get_promps(core->envp);
 		str = readline(prompt);
@@ -50,7 +53,8 @@ void	minishell(int ac, char **av)
 		}
 		add_history(str);
 		//str = transform_str(str, core->envp);
-		cmd = ft_launch_parser(str, NULL);
+    cmd = ft_launch_parser(str, envp, &cmd);
+    cmd = ft_redir(cmd);
 		m_pipe(&cmd);
 		return ;
 		if (execute_commands(&cmd) == -1)
@@ -61,6 +65,17 @@ void	minishell(int ac, char **av)
 			break ;
 		}
 		free(prompt);
+
+		// inserer la liste redir dans cmd si < > << >> 
+		//puts("che");
+		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std);
+		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fdin = %s\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std, tmp->redir->fd_in);
+		// if (execute_commands(str, envp, 0) == -1)
+		// {
+		// 	free(prompt);
+		// 	free(str);
+		// 	break ;
+		// }
 		free(str);
 	}
 }

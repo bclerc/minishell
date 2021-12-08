@@ -6,32 +6,32 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/02 15:10:58 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/09 13:58:48 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cpy_msg(t_arg *arg, char **cpy, int i, int j, t_cmd *cmd)
+char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 {
 	char	*tmp;
 	char	*tmp2;
 	int		c;
 
-
-	if (j == cmd->cpy_nb - 1)
+	if (j == new->cpy_nb - 1)
 	{
-		tmp = ft_parse_msg(cpy[j], tmp, arg);	
-		cmd->msg = ft_strdup(tmp);
-		free(tmp);
+		tmp = ft_parse_msg(cpy[j], arg);
+		if (!tmp)
+			return (NULL);	
+		return (tmp);
 	}
 	else
 	{
-		tmp = ft_search_msg(cpy, i, j, arg, tmp);
-		tmp2 = ft_parse_msg(tmp, tmp2, arg);
-		cmd->msg = ft_strdup(tmp2);
-		free(tmp);
-		free(tmp2);
+		tmp = ft_search_msg(cpy, j, arg, tmp);
+		tmp2 = ft_parse_msg(tmp, arg);
+		if (!tmp)
+			return (NULL);
+		return (tmp2);
 	}
 }
 
@@ -53,19 +53,19 @@ int	ft_which_cmd(char **cpy)
 	return (7);
 }
 
-char	*ft_msg(t_arg *arg, int i, int start, char *tmp)
+char	*ft_msg(t_arg *arg, int start, char *tmp)
 {
 	int	size;
 	int	a;
 	
-	size = ft_strlen(arg->cmds[i]);
+	size = ft_strlen(arg->cmds[arg->i_cpy]);
 	tmp = malloc(sizeof(char) * (size - start + 1));
 	if (!tmp)
 		return (NULL);
 	a = 0;
 	while (start < size)
 	{
-		tmp[a] = arg->cmds[i][start];
+		tmp[a] = arg->cmds[arg->i_cpy][start];
 		a++;
 		start++;
 	}
@@ -73,19 +73,19 @@ char	*ft_msg(t_arg *arg, int i, int start, char *tmp)
 	return (tmp);
 }
 
-char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp)
+char	*ft_other_msg(t_arg *arg, int start, char *tmp)
 {
 	int	size;
 	int	a;
 	
-	size = ft_strlen(arg->cmds[i]);
+	size = ft_strlen(arg->cmds[arg->i_cpy]);
 	tmp = malloc(sizeof(char) * (size - start + 1));
 	if (!tmp)
 		return (NULL);
 	a = 0;
 	while (start < size)
 	{
-		tmp[a] = arg->cmds[i][start];
+		tmp[a] = arg->cmds[arg->i_cpy][start];
 		a++;
 		start++;
 	}
@@ -93,14 +93,17 @@ char	*ft_other_msg(t_arg *arg, int i, int start, char *tmp)
 	return (tmp);
 }
 
-char	*ft_which_nb(int start, char *tmp, t_arg *arg, int i)
+char	*ft_which_nb(int start, char *tmp, t_arg *arg)
 {
 	if (start == 1)
 	{
-		start = 5;
-		tmp = ft_msg(arg, i, start, tmp);
+		if (!arg->spec_n)
+			start = 5;
+		else if (ft_strcmp(arg->spec_n, "-n") == 0)
+			start = 6 + arg->n + 1;
+		tmp = ft_msg(arg, start, tmp);
 	}
 	else
-		tmp = ft_msg(arg, i, start + 1, tmp);
+		tmp = ft_msg(arg, start + 1, tmp);
 	return (tmp);
 }

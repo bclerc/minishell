@@ -21,6 +21,7 @@ SOURCES =	srcs/main.c \
 			srcs/parser/ft_parse_builtins.c \
 			srcs/parser/ft_msg.c \
 			srcs/parser/ft_parse_msg.c \
+			srcs/parser/ft_redir.c \
 			srcs/utils/ft_strcmp.c \
 			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/ft_strncmp.c \
@@ -29,6 +30,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_free.c \
 			srcs/utils/ft_utils_parsing.c \
 			srcs/utils/ft_strtrim.c \
+			srcs/utils/ft_util_parsemsg.c \
 			srcs/commands/commands.c \
 			srcs/commands/pipe.c \
 			srcs/built-in/cd/cd.c \

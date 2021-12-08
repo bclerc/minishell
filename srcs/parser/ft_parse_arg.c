@@ -55,7 +55,8 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 		else if (str[i] == '>'&& str[i + 1] != '>')
 			ft_char(arg, c, '>', 1);
 	}
-	i++;
+	if (str[i + 1] == ' ')
+		i++;
 	return (i);
 }
 

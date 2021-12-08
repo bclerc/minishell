@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/02 13:59:33 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/30 14:24:06 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,19 @@
 
 // launch parsing
 // init struct arg & cmd
-t_cmd	ft_launch_parser(char *str, char **envp)
+t_cmd	*ft_launch_parser(char *str, char **envp, t_cmd **cmd)
 {
 	int		i;
 	t_arg	arg;
-	t_cmd	cmd;
-	
-	i = 0;
-	if (ft_get_arg(str, &arg) == -1)
-		return (cmd);
 
-	// while (arg.cmds[i])
-	//  	i++;
-	// printf("i = %d\n", i);
-	if (ft_init_cmd(&cmd, &arg) < 0)
-		return (cmd);
 	i = 0;
-	if (ft_get_cmd(&arg, &cmd) == -1)
-		return (cmd);
-	// while (arg.cmds[i])
-	// {
-	// 	puts("che");
-	// 	ft_get_cmd(&arg, &cmd);
-	// 	i++;	
-	// }
-	return (cmd);
+	*cmd = NULL;
+	if (ft_get_arg(str, &arg) == -1)
+		return (NULL);
+	if (ft_init_cmd(cmd, &arg) < 0)
+		return (NULL);
+	*cmd = ft_get_cmd(&arg, cmd);
+	if (!*cmd)
+		return (NULL);
+	return (*cmd);
 }

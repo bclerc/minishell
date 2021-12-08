@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 13:45:05 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/30 14:19:54 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_stock_arg(t_arg *arg, char *str)
 		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
 		{
 			arg->cmds[c] = ft_parse_arg(str, i, arg);
+			//printf("arg[%d] = %s\n", c, arg->cmds[c]);
 			c++;
 			if (ft_check_char(str, i, c, arg) == -1)
 				return ;
@@ -89,7 +90,7 @@ int	ft_check_args(t_arg *arg)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (i < arg->count)
 	{
