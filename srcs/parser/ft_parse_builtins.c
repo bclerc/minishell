@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 16:35:56 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/08 17:32:49 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 		return (NULL);
 	new->nb = arg->i_cpy;
 	new->cmd = ft_strdup(cpy[j]);
-	//printf("cmd = %s\n", new->cmd);
+	//printf("cmd = %s cpy[j] = %s\n", new->cmd, cpy[j]);
 	j++;
+	printf("cpy[j] = %s\n", cpy[j]);
 	if (arg->i_cpy == arg->count - 1)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)

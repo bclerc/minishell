@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/08 16:36:21 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/08 17:51:35 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	minishell(int ac, char **av)
 		//str = transform_str(str, core->envp);
     cmd = ft_launch_parser(str, &cmd);
     cmd = ft_redir(cmd);
-		// m_pipe(&cmd);
-		// return ;
+		m_pipe(cmd);
+		return ;
 		if (execute_commands(cmd) == -1)
 		{
 			printf("Good bye\n");
