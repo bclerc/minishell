@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/08 16:46:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/08 17:08:27 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int m_pipe(t_cmd *cmd)
     while (i < get_pipe_count(cmd) + 1)
     {
         wait(&status);
+     
         i++;
     }
     exit(1);
