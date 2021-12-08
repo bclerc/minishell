@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/25 12:16:50 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/08 13:52:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
+int ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
 {
 	int	j;
 	int	tmp;
