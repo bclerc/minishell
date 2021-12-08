@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/09 14:03:40 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/08 16:48:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 		*cmd = ft_parse_cmd(arg, cpy, *cmd);
 		if (!*cmd)
 		{
-			write(1, "\n", 1);
+			//write(1, "\n", 1);
 			return (NULL);
 		}
 		i++;
