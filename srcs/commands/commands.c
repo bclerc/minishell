@@ -6,72 +6,134 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/25 11:08:10 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/07 12:20:31 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-int execute_bin_commands(char **argv)
-{
-	int		ret;
-	int		status;
-	pid_t	pid;
-	pid_t	child;
-	char	**cmd;
-	char	*find;
-	char	*tmp;
+#include "../../include/minishell.h"
 
-	core.child = fork();
-	core.child_exist = 1;
-	if (core.child == 0)
+char **get_argv(t_cmd *cmd)
+{
+	char	**ret;
+	char	**tmp;
+	int		i;
+
+	if (cmd->msg)
 	{
-		cmd = argv;
-		tmp = ft_strdup("/bin/");
-		find = ft_strjoin(tmp, argv[0]);
-		free(tmp);
-		ret = execve (find, cmd, 0);
-		if (ret < 0)
-			printf("%s: command not found\n", argv[0]);
-		free(find);
-		exit(-1);
+		tmp = ft_strsplit(cmd->msg, ' ');
+		if (!tmp)
+			return (NULL);
+		i = 0;
+		while (tmp[i])
+			i++;
+		ret = (char **)malloc(sizeof(char *) * i + 2);
+		ret[0] = cmd->cmd;
+		i = 0;
+		while (tmp[i])
+		{
+			ret[i + 1] = ft_strdup(tmp[i]);
+			i++;
+		}
+		ret[i + 1] = NULL;
+		rm_split(tmp);
+		return (ret);
 	}
-	else{
-		 status;
-    	waitpid(core.child, &status, 0);
-		core.child_exist = 0;
-	}
+	ret = (char **)malloc(sizeof(char *) * 2);
+	ret[0] = cmd->cmd;
+	ret[1] = NULL;
+	return (ret);	
 }
 
-int	execute_commands(char *args, char **envp, char *path)
+char **get_splited_path(void)
 {
-	char	**argv;
-	char	*cmd;
-	int		ret;
+	char	*tmp;
+	char	**ret;
 
-	argv = ft_strsplit(args, ' ');
-	cmd = argv[0];
-	ret = 0;
-	if (ft_strcmp(cmd, "cd") == 0)
-		ret = (cd(envp, argv[1]));
-	if (ft_strcmp(cmd, "echo") == 0)
-		ret = (echo(argv[1], path, 0));
-	if (ft_strcmp(cmd, "env") == 0)
-		ret = (env(envp, path));
-	if (ft_strcmp(cmd, "export") == 0)
-		ret = (export(envp, path, argv));
-	if (ft_strcmp(cmd, "pwd") == 0)
-		ret = (pwd(path));
-	if (ft_strcmp(cmd, "unset") == 0)
-		ret = (1);											//pas fait
-	if (ft_strcmp(cmd, "exit") == 0)
+	tmp = get_env_variable("PATH");
+	if (!tmp)
+		return (NULL);
+	ret = ft_strsplit(tmp, ':');
+	return (ret);
+}
+
+char **get_path(char *path, char *cmd)
+{
+	char	*ret;
+	char	*tmp;
+
+	tmp = ft_strjoin(path, "/");
+	ret = ft_strjoin(tmp, cmd);
+	free(tmp);
+	return (ret);
+}
+
+int exec(t_cmd *cmd)
+{
+	char	**path;
+	char	**argv;
+	char	**tab_env;
+	int		status;
+	int		i;
+
+	status = 0;
+	path = get_splited_path();
+	if (!path)
 	{
-		printf("\nGood Bye\n");
-		core.status = -1;
+		printf("Execution path not found\n");
 		return (-1);
 	}
-	if (ret == 1)											// a refaire
+	i = -1;
+	core->child = fork();
+	core->child_exist = 1;
+	argv = get_argv(cmd);
+	tab_env = env_to_char();
+	if (core->child == 0)
+	{
+		while (path[++i] && status == 0)
+		{
+			if (execve(get_path(path[i], cmd->cmd), argv,
+				tab_env) > -1)
+				status = 1;
+		}
+		if (status == 0)
+		{
+			if (execve(cmd->cmd, argv, tab_env) > -1)
+				status = 1;
+			else
+				printf("%s: command not found\n", cmd->cmd);
+		}
+		rm_split(argv);
+		exit(1);
+	}
+	waitpid(core->child, NULL, 0);
+	core->child_exist = 0;
+}
+
+int	execute_commands(t_cmd *cmd)
+{
+	char	**argv;
+	int		ret;
+	
+	ret = 0;
+	if (ft_strcmp(cmd->cmd, "cd") == 0)
+		ret = (cd(cmd->msg));
+	if (ft_strcmp(cmd->cmd, "echo") == 0)
+		ret = (echo(cmd->msg, cmd->std , 0));
+	if (ft_strcmp(cmd->cmd, "env") == 0)
+		ret = (env(cmd->std));
+	if (ft_strcmp(cmd->cmd, "export") == 0)
+		ret = (export(cmd->std, cmd->msg));
+	if (ft_strcmp(cmd->cmd, "pwd") == 0)
+		ret = (pwd(cmd->msg));
+	if (ft_strcmp(cmd->cmd, "unset") == 0)
+		ret = unset(cmd->msg);
+	if (ft_strcmp(cmd->cmd, "exit") == 0)
+	{
+		core->status = -1;
+		return (-1);
+	}
+	if (ret == 1 || ret == -1)
 		return (ret);
-	execute_bin_commands(argv);
-	rm_split(argv);
+	exec(cmd);
 	return (1);
 }

@@ -6,36 +6,30 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 10:13:26 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/25 11:23:27 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 15:49:06 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../../include/minishell.h"
 
-void	unset(char **env, char *var)
+int	unset(char *var)
 {
-	char	**ret;
 	char	**tmp;
-	char	**split;
+	char	**vars;
+	int		length;
 	int		i;
-	int		s;
+	int		b;
 
-	split = ft_strsplit(var, ' ');
-	ret = (char **)malloc(sizeof(ret) * get_env_lenght(env));
+	if (!var)
+		return (-1);
+	vars = ft_strsplit(var, ' ');
+	if (!vars)
+		return (-1);
 	i = 0;
-	s = 0;
-	while (split[s])
+	while (vars[i])
 	{
-		while (env[i])
-		{
-			if (ft_strncmp(var, env[i], ft_strlen(var)))
-				i++;
-			ret[i] = ft_strdup(env[i]);
-			i++;
-		}
-		rm_split(env);
-		env = ret;
-		s++;
+		del_env_variable(vars[i]);
+		i++;
 	}
-	rm_split(split);
+	return (1);
 }

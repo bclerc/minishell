@@ -14,8 +14,19 @@
 
 # define BUF_SIZE 42
 
+typedef struct s_env
+{
+
+	char		*value;
+	struct s_env *next;	
+
+}				t_env;
+
 typedef struct s_core
-{	char	*cmd;
+{
+	char	*cmd;
+	char	**envp;
+	t_env	*env;
 	pid_t	parent;
 	pid_t	child;
 	int		child_exist;
@@ -23,7 +34,8 @@ typedef struct s_core
 	int		status;
 }				t_core;
 
-extern t_core core;
+extern t_core *core;
+
 //liste chainee pour stocker env
 typedef struct s_list t_list;
 struct s_list
@@ -76,12 +88,6 @@ struct	s_arg
 	char	*tmp;
 };
 
-typedef struct s_env
-{
-	char	**env;
-	char	**export;
-}				t_env;
-
 int		main(int ac, char **av, char **envp);
 char	*readline(const char *prompt);
 t_list	*ft_get_env(t_list *env, char **envp);
@@ -117,6 +123,12 @@ int		ft_std(t_arg *arg, t_cmd *cmd, int i);
 //parse msg
 char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new);
 int 	ft_which_cmd(char **cpy);
+
+// Environnement
+char	**env_to_char();
+int		getEnv(char **envp);
+int	del_env_variable(char *var);
+
 char	*ft_msg(t_arg *arg, int start, char *tmp);
 char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int start, char *tmp);
@@ -139,13 +151,16 @@ t_redir	*ft_pipe(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i);
 
 // utils
+void	change_env(char	**new_env);
+int		get_env_length(char **env);
+int		ft_havechr(char* str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
 char	*transform_str(char *str, char **envp);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
-char	*get_env_variable(char *var, char **envp);
+char	*get_env_variable(char *var);
 char	*get_promps(char **envp);
 void	ft_free_arg(t_arg *arg);
 char	*ft_sep(t_arg *arg, int i, char c, int count);
@@ -157,22 +172,24 @@ char	*ft_write_line(char *str, char **line);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
+// pipe
+int m_pipe(t_cmd *cmd);
 // execution
-int		execute_commands(char *args, char **envp, char *path);
+int		execute_commands(t_cmd *cmd);
+char	**get_argv(t_cmd *cmd);
 
 // built-in function
-void	unset(char **envp, char *var);
 void	export_sort(char **value, int len);
 void	free_env(char **env);
 char	**re_alloc(char **env);
-int		add_env_variable(char ***env, char *var);
-int		copy_env(char **envp, t_env *env);
-int		get_env_lenght(char **env);
-int		export(char **envp, char *path, char **argv);
+int		unset(char *var);
+int		add_env_variable(char *var);
+int		get_env_length(char **env);
+int		export(char *path, char *argv);
 int		get_fd(char *path);
 int		echo(char *str, char *path, int flag_n);
-int		env(char **envp, char *path);
+int		env(char *path);
 int		pwd(char *path);
-int		cd(char **env, char *path);
+int		cd(char *path);
 
 #endif

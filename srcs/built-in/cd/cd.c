@@ -6,148 +6,109 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/21 15:43:37 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/07 12:17:23 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	change_old_pwd(char **env)
+int	change_old_pwd(void)
 {
 	char *path;
 	char *tmp;
-	int i;
 
-	i = 0;
-	while (env[i])
-	{
-		if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D'
-			&& env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D')
-			break ;
-		i++;
-	}
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("OLDPWD=");
-	env[i] = ft_strjoin(tmp, path);
+	del_env_variable("OLDPWD");
+	add_env_variable(ft_strjoin(tmp, path));
 	free(tmp);
 	free(path);
-	return i;
+
+	return (1);
 }
 
-char	*get_home(char **env)
+char	*get_home(void)
+{
+	return (get_env_variable("HOME"));
+}
+
+char	*get_oldpwd(void)
+{
+	return (get_env_variable("OLDPWD"));
+}
+
+int	change_pwd(void)
 {
 	char	*path;
 	char	*tmp;
-	int		find;
-	int		i;
 
-	i = 0;
-	find = 0;
-	while (env[i])
-	{
-		if (env[i][0] == 'H' && env[i][1] == 'O' && env[i][2] == 'M'
-			&& env[i][3] == 'E' && env[i][4] == '=')
-		{
-			find = 1;
-			break ;
-		}
-		i++;
-	}
-	if (!find)
-	{
-		printf("cd: home directory not set");
-		exit(0);
-	}
-	path = ft_strdup(&env[i][5]);
-	return path;
-}
-
-char	*get_oldpwd(char **env)
-{
-	char	*path;
-	char	*tmp;
-	int		find;
-	int		i;
-
-	i = 0;
-	find = 0;
-	while (env[i])
-	{
-		if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D'
-			&& env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D'
-			&& env[i][6] == '=')
-		{
-			find = 1;
-			break ;
-		}
-		i++;
-	}
-	if (!find)
-	{
-		printf("cd: old working directory not set");
-		exit(0);
-	}
-	path = ft_strdup(&env[i][5]);
-	return (path);
-}
-
-int	change_pwd(char **env)
-{
-	char	*path;
-	char	*tmp;
-	int 	find;
-	int		i;
-
-	i = 0;
-	find = 0;
-	while (env[i])
-	{
-		if (env[i][0] == 'P' && env[i][1] == 'W' && env[i][2] == 'D')
-		{
-			find = 1;
-			break ;
-		}
-		i++;
-	}
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("PWD=");
-	env[i] = ft_strjoin(tmp, path);
+	del_env_variable("PWD");
+	add_env_variable(ft_strjoin(tmp, path));
 	free(path);
 	free(tmp);
-	return (i);
+	return (1);
 }
 
+char *get(char *path)
+{
+	char *home;
 
-int	cd(char **env, char *path)
+	if (!path)
+	{
+		if (get_env_variable("HOME") == NULL)
+			home = ft_strdup(getcwd(NULL, NULL));
+		else		
+			home = ft_strdup(get_env_variable("HOME"));
+	}
+	else if (path[0] == 45)
+	{
+		if (get_env_variable("OLDPWD") == NULL)
+			home = ft_strdup(getcwd(NULL, NULL));
+		else		
+			home = ft_strdup(get_env_variable("OLDPWD"));
+	}
+	else
+		home = ft_strdup(path);
+	return (home);
+}
+
+int	cd(char *path)
 {
 	struct stat t_sb;
-	char		*home;
+	char	*home;
 	int i;
 	int			stats;
-	stats = stat(path, &t_sb);
+
+	home = get(path);
+	if (!home)
+		return (-1);
+	usleep(50);
+	stats = stat(home, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{
-		if (access(path, W_OK && R_OK) == -1)
+		if (access(home, W_OK && R_OK) == -1)
 		{
 			printf("cd: cannot access directory '%s': Permission denied (cheh)\n", path);
 			return (1);
 		}
-		change_old_pwd(env);
-		chdir(path);
-		i = change_pwd(env);			
+		change_old_pwd();
+		chdir(home);
+		change_pwd();			
 	}
 	else if (path == NULL)
 	{
-		i = change_pwd(env);		
-		home = get_home(env);
-		chdir(home);
-		free(home);
-		change_old_pwd(env);
+		change_old_pwd();
+		chdir(ft_strdup(get_env_variable("HOME")));
+		change_pwd();		
 	}
 	else
 	{
-		printf("cd: no such file or directory: %s\n", path);
+		printf("cd: no such file or directory: %s\n", home);
+		free(path);
 		return (1);
 	}
+	free(path);
 	return (1);
 }

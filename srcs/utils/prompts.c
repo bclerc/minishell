@@ -6,21 +6,21 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:41:31 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/25 11:23:52 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/17 15:38:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 
-char *get_current_dir_name(char **envp)
+char *get_current_dir_name(void)
 {
 	char	*dir;
 	char	**tmps;
 	char	*pwd;
 	int		i;
 
-	pwd = get_env_variable("PWD", envp);
+	pwd = getcwd(NULL, 0);
 	if (ft_strlen(pwd) == 1)
 	{
 		free(pwd);
@@ -46,12 +46,12 @@ char *get_promps(char **envp)
 	char *tmp2;
 	char *pwd;
 
-	pwd = get_current_dir_name(envp);
-	tmp = ft_strdup("\e[1;35mMinishell \e[1;36m(\e[1;34m");
+	pwd = get_current_dir_name();
+	tmp = ft_strdup("\e[1;36m(\e[1;34m");
 	tmp2 = ft_strjoin(tmp, pwd);
 	free(pwd);
 	free(tmp);
-	tmp = ft_strdup("\e[1;36m) \e[1;35m$ \e[0;37m");
+	tmp = ft_strdup("\e[1;36m) \e[1;35m~$ \e[0;37m");
 	prompts = ft_strjoin(tmp2, tmp);
 	free(tmp2);
 	free(tmp);

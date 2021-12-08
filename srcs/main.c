@@ -6,21 +6,21 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/30 14:33:07 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:20:00 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_core core;
+t_core *core;
 
-void	signal_handler(int signum, siginfo_t *info, void *context)
+void	signal_handler(int signum)
 {
 		if (signum == SIGINT)
 		{
-			if (core.child_exist)
+			if (core->child_exist)
 			{
-				if (core.child == 0)
+				if (core->child == 0)
 					exit(-1);
 			}
 			else
@@ -33,7 +33,7 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 		}
 }
 
-void	minishell(int ac, char **av, char **envp)
+void	minishell(int ac, char **av)
 {
 	char	*str;
 	char	*prompt;
@@ -44,7 +44,7 @@ void	minishell(int ac, char **av, char **envp)
 	redir = NULL;
 	while (core.status)
 	{
-		prompt = get_promps(envp);
+		prompt = get_promps(core->envp);
 		str = readline(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
@@ -52,11 +52,21 @@ void	minishell(int ac, char **av, char **envp)
 			continue;
 		}
 		add_history(str);
-		str = transform_str(str, envp);
-		cmd = ft_launch_parser(str, envp, &cmd);
-		// inserer la liste redir dans cmd si < > << >> :
-		tmp = cmd;
-		cmd = ft_redir(cmd);
+		//str = transform_str(str, core->envp);
+    cmd = ft_launch_parser(str, envp, &cmd);
+    cmd = ft_redir(cmd);
+		m_pipe(&cmd);
+		return ;
+		if (execute_commands(&cmd) == -1)
+		{
+			printf("Good bye\n");
+			free(prompt);
+			free(str);
+			break ;
+		}
+		free(prompt);
+
+		// inserer la liste redir dans cmd si < > << >> 
 		//puts("che");
 		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std);
 		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fdin = %s\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std, tmp->redir->fd_in);
@@ -66,40 +76,28 @@ void	minishell(int ac, char **av, char **envp)
 		// 	free(str);
 		// 	break ;
 		// }
-		free(prompt);	
 		free(str);
 	}
 }
 
-struct sigaction	init_signal(void)
-{
-	struct sigaction	sa;
-
-	sa.sa_sigaction = signal_handler;
-	sigemptyset(&sa.sa_mask);
-	return (sa);
-}
-
 int	main(int ac, char **av, char **envp)
 {
-	int		i;
 	char	*str;
 	char	readbuffer[3];
-	t_list	*env;
-	struct sigaction	sa;
+	char	**env;
 
 	(void)av;
-	core.child_exist = 0;
-	env = NULL;
-	i = 0;
+	core = (t_env *)malloc(sizeof(t_core));
+	if (!core)
+		return (0);
+	core->child_exist = 0;
+	core->env = NULL;
+	getEnv(envp);
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
-	while (envp[i])
-		i++;
-	sa = init_signal();
-	//sigaction(SIGINT, &sa, NULL);
-	core.status = 1;
-	core.parent = getpid();
-	minishell(ac, av, envp);
+	signal(SIGINT, signal_handler);
+	core->status = 1;
+	core->parent = getpid();
+	minishell(ac, av);
 	return (0);
 }

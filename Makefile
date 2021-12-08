@@ -32,6 +32,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_strtrim.c \
 			srcs/utils/ft_util_parsemsg.c \
 			srcs/commands/commands.c \
+			srcs/commands/pipe.c \
 			srcs/built-in/cd/cd.c \
 			srcs/built-in/echo/echo.c \
 			srcs/built-in/env/env.c \
@@ -44,8 +45,8 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS =  -g3 -g
-CC = gcc
+CFLAGS =  -g 
+CC = clang
 
 .PHONY: all re clean fclean libft force doclean
 
@@ -68,7 +69,7 @@ force: $(OBJECTS)
 	@printf "$(NAME) successfully compiled. ✓\n"
 
 %.o: %.c
-	@$(CC) $(FLAGS) -I$(INCLUDES_FOLDER) -c $< -o $@ -Iinclude
+	@$(CC) $(CFLAGS) -I$(INCLUDES_FOLDER) -c $< -o $@ -Iinclude
 	@printf "Creating %-30s ✓\r" "$@"
 
 clean:

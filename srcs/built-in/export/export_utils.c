@@ -6,34 +6,12 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 13:05:05 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/25 12:27:28 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/01 15:39:07 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	get_env_lenght(char **env)
-{
-	int i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
-
-void	free_env(char **env)
-{
-	int i;
-
-	i = get_env_lenght(env);
-	while (i >= 0)
-	{
-		free(env[i]);
-		i--;
-	}
-	free(env);
-}
 
 void	export_sort(char **value, int len)
 {
@@ -55,42 +33,4 @@ void	export_sort(char **value, int len)
 			i = 0;
 		}
 	}
-}
-
-char **re_alloc(char **env)
-{
-	char	**new_env;
-	int		i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	new_env = (char **)malloc(sizeof(char *) * i + 2);
-	if (!new_env)
-		exit(1);	
-	return (new_env);
-}
-
-int	add_env_variable(char ***env, char *var)
-{
-	char	**new_env;
-	int		i;	
-	int		placed;
-	
-	new_env = re_alloc(*env);
-	if (!new_env)
-		return (0);
-	i = 0;
-	placed = 0;
-	while ((*(env))[i])
-	{
-		new_env[i] = ft_strdup((*(env))[i]);
-		i++;
-	}
-	new_env[i] = ft_strdup(var);
-	if (!new_env[i])
-		return (0);
-	new_env[i + 1] = 0;
-	*env = new_env;
-	return (1);
 }

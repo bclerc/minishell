@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
 /*   Updated: 2021/11/09 14:00:39 by astrid           ###   ########.fr       */

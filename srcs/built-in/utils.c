@@ -6,29 +6,11 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 15:34:52 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/11/16 17:12:55 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	copy_env(char **envp, t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-		i++;
-	env->export = (char **)malloc(sizeof(char *) * i + 1);
-	i = 0;
-	while (envp[i])
-	{
-		env->export[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	env->export[i] = 0;
-	return (1);
-}
 
 int get_fd(char *path)
 {
