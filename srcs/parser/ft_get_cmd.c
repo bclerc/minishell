@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 16:45:36 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:51:09 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 		*cmd = ft_parse_cmd(arg, cpy, *cmd);
 		if (!*cmd)
 		{
-			write(1, "\n", 1);
+			//write(1, "\n", 1);
 			return (NULL);
 		}
 		i++;
