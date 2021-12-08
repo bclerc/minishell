@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/30 14:24:06 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:34:34 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // launch parsing
 // init struct arg & cmd
-t_cmd	*ft_launch_parser(char *str, char **envp, t_cmd **cmd)
+t_cmd	*ft_launch_parser(char *str, t_cmd **cmd)
 {
 	int		i;
 	t_arg	arg;

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 14:30:57 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:19:57 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 		redir->next = new;
 	return (tmp);
 }
-
+/*
 t_redir	*ft_pipe(t_cmd *cmd, t_redir *redir)
 {
 	t_redir	*new;
@@ -103,7 +103,7 @@ t_redir	*ft_pipe(t_cmd *cmd, t_redir *redir)
 		redir->next = new;
 	return (tmp);
 }
-
+*/
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 {
 	t_redir	*new;

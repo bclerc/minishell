@@ -98,7 +98,7 @@ void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd **cmd, t_arg *arg);
 
 // parsing
-t_cmd	*ft_launch_parser(char *str, char **envp, t_cmd **cmd);
+t_cmd	*ft_launch_parser(char *str, t_cmd **cmd);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
@@ -127,7 +127,7 @@ int 	ft_which_cmd(char **cpy);
 // Environnement
 char	**env_to_char();
 int		getEnv(char **envp);
-int	del_env_variable(char *var);
+int		del_env_variable(char *var);
 
 char	*ft_msg(t_arg *arg, int start, char *tmp);
 char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
@@ -147,7 +147,7 @@ t_cmd	*ft_redir(t_cmd *cmd);
 t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir);
 t_redir	*ft_right(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
-t_redir	*ft_pipe(t_cmd *cmd, t_redir *redir);
+//t_redir	*ft_pipe(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i);
 
 // utils
