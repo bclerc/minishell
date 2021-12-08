@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/30 16:16:45 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/08 14:30:57 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	{
 		// if (ft_strcmp(cmd->cmd, "<") == 0 || ft_strcmp(cmd->cmd, "<<") == 0
 		// 		|| ft_strcmp(cmd->cmd, ">") == 0 || ft_strcmp(cmd->cmd, ">>") == 0)
-		if (cmd->std >= 1 && cmd->std <= 5)
+		if (cmd->std > 1 && cmd->std <= 5)
 		{
 		//printf("std = %d\n", cmd->std);
 			cmd->redir = ft_create_redir(cmd, &redir);
@@ -44,8 +44,8 @@ t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir)
 			*redir = ft_right(cmd, *redir);
 		else if (cmd->std == 4 || cmd->std == 5)
 			*redir = ft_left(cmd, *redir);
-		else if (cmd->std == 1)
-			*redir = ft_pipe(cmd, *redir);
+		// else if (cmd->std == 1)
+		// 	*redir = ft_pipe(cmd, *redir);
 		cmd = cmd->next->next;
 	}
 	return (*redir);
