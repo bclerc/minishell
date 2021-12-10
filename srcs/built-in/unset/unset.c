@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 10:13:26 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/01 15:49:06 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:21:47 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int	unset(char *var)
 {
-	char	**tmp;
 	char	**vars;
-	int		length;
 	int		i;
-	int		b;
 
 	if (!var)
 		return (-1);

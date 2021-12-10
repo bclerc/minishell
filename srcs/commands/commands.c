@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/08 17:54:12 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:15:19 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char **get_splited_path(void)
 	return (ret);
 }
 
-char **get_path(char *path, char *cmd)
+char *get_path(char *path, char *cmd)
 {
 	char	*ret;
 	char	*tmp;
@@ -64,6 +64,7 @@ char **get_path(char *path, char *cmd)
 	tmp = ft_strjoin(path, "/");
 	ret = ft_strjoin(tmp, cmd);
 	free(tmp);
+	
 	return (ret);
 }
 
@@ -83,46 +84,40 @@ int exec(t_cmd *cmd)
 		return (-1);
 	}
 	i = -1;
-	core->child = fork();
 	core->child_exist = 1;
 	argv = get_argv(cmd);
 	tab_env = env_to_char();
-	if (core->child == 0)
+	while (path[++i] && status == 0)
 	{
-		while (path[++i] && status == 0)
-		{
-			if (execve(get_path(path[i], cmd->cmd), argv,
-				tab_env) > -1)
-				status = 1;
-		}
-		if (status == 0)
-		{
-			if (execve(cmd->cmd, argv, tab_env) > -1)
-				status = 1;
-			else
-				printf("%s: command not found\n", cmd->cmd);
-		}
-		rm_split(argv);
-		exit(1);
+		if (execve(get_path(path[i], cmd->cmd), argv,
+			tab_env) > -1)
+			status = 1;
 	}
-	waitpid(core->child, NULL, 0);
+	if (status == 0)
+	{
+		if (execve(cmd->cmd, argv, tab_env) > -1)
+			status = 1;
+		else
+			printf("%s: command not found\n", cmd->cmd);
+	}
+	rm_split(argv);
 	core->child_exist = 0;
+	return (1);
 }
 
 int	execute_commands(t_cmd *cmd)
 {
-	char	**argv;
 	int		ret;
 	
 	ret = 0;
 	if (ft_strcmp(cmd->cmd, "cd") == 0)
 		ret = (cd(cmd->msg));
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
-		ret = (echo(cmd->msg, cmd->std , 0));
+		ret = (echo(cmd->msg, 0, 0));
 	if (ft_strcmp(cmd->cmd, "env") == 0)
-		ret = (env(cmd->std));
-	if (ft_strcmp(cmd->cmd, "export") == 0)
-		ret = (export(cmd->std, cmd->msg));
+		ret = (env(NULL));
+	if (ft_strcmp(cmd->cmd,	"export") == 0)
+		ret = (export(NULL, cmd->msg));
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		ret = (pwd(cmd->msg));
 	if (ft_strcmp(cmd->cmd, "unset") == 0)

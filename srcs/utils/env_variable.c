@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/08 15:37:24 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:09:45 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 int	getEnv(char **envp)
 {
 	int		i;
-	t_env	*tmp;
 
 	i = 0;
 	while (envp[i])
@@ -89,7 +88,6 @@ int	del_env_variable(char *var)
 {
 	t_env *tmp;
 	t_env *last;
-	t_env *swp;
 
 	tmp = core->env;
 	while (tmp)

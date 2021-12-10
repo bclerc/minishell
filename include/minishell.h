@@ -8,9 +8,14 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
+# include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+
+
 
 # define BUF_SIZE 42
 
@@ -161,7 +166,7 @@ int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 char	*get_env_variable(char *var);
-char	*get_promps(char **envp);
+char	*get_promps(void);
 void	ft_free_arg(t_arg *arg);
 char	*ft_sep(t_arg *arg, int i, char c, int count);
 char	*ft_strtrim(char const *s1, char const *set);

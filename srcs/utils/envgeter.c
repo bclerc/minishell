@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/02 11:52:57 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:01:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	*transform_str(char *str, char **envp)
 	char	*env;
 	char	*ret;
 
+	(void)envp;
 	split = ft_strsplit_s(str, '$');
 	i = 0;
 	while (split[i])

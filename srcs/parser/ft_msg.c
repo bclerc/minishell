@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_msg.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 17:50:46 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/10 18:04:15 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 {
 	char	*tmp;
 	char	*tmp2;
-	int		c;
 
+	tmp = NULL;
 	if (j == new->cpy_nb - 1)
 	{
 		tmp = ft_parse_msg(cpy[j], arg);

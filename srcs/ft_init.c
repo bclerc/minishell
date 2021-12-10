@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 10:02:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/04 16:45:54 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:01:04 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_init_arg(t_arg *arg, char *str)
 
 int ft_init_cmd(t_cmd **cmd, t_arg *arg)
 {
+	(void)arg;
 	ft_bzero(cmd, sizeof(t_cmd));
 	return (0);
 }

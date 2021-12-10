@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/30 14:19:54 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/10 18:01:57 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	ft_stock_arg(t_arg *arg, char *str)
 {
 	int		c;
 	int		i;
-	char	*tmp;
 
 	c = 0;
 	i = -1;

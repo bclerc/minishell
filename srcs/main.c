@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/08 16:53:03 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:08:48 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,17 @@ void	signal_handler(int signum)
 		}
 }
 
-void	minishell(int ac, char **av)
+void	minishell(void)
 {
 	char	*str;
 	char	*prompt;
 	t_cmd	*cmd;
-	t_cmd	*tmp;
 	t_redir	*redir;
 
 	redir = NULL;
 	while (core->status)
 	{
-		prompt = get_promps(core->envp);
+		prompt = get_promps();
 		str = readline(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
@@ -53,17 +52,9 @@ void	minishell(int ac, char **av)
 		}
 		add_history(str);
 		//str = transform_str(str, core->envp);
-    cmd = ft_launch_parser(str, &cmd);
-    cmd = ft_redir(cmd);
-		 m_pipe(cmd);
-		 return ;
-		if (execute_commands(cmd) == -1)
-		{
-			printf("Good bye\n");
-			free(prompt);
-			free(str);
-			break ;
-		}
+    	cmd = ft_launch_parser(str, &cmd);
+    	cmd = ft_redir(cmd);
+		m_pipe(cmd);
 		free(prompt);
 
 		// inserer la liste redir dans cmd si < > << >> 
@@ -82,12 +73,8 @@ void	minishell(int ac, char **av)
 
 int	main(int ac, char **av, char **envp)
 {
-	char	*str;
-	char	readbuffer[3];
-	char	**env;
-
 	(void)av;
-	core = (t_env *)malloc(sizeof(t_core));
+	core = (t_core *)malloc(sizeof(t_core));
 	if (!core)
 		return (0);
 	core->child_exist = 0;
@@ -98,6 +85,6 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, signal_handler);
 	core->status = 1;
 	core->parent = getpid();
-	minishell(ac, av);
+	minishell();
 	return (0);
 }

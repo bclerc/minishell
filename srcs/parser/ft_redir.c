@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 16:19:57 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/10 18:04:52 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 
 t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i)
 {
+	(void)cmd;
 	if (i == 2)
 	{
 		new->std_redir = 2;
