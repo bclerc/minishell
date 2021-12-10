@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/10 16:12:03 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:17:12 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,7 @@ int m_pipe(t_cmd *cmd)
                 close(tab_fd[0]);
                 close(tab_fd[1]);
             }
-            if (execve(ft_strjoin("/bin/", tmp->cmd), get_argv(tmp), env_to_char()) < 0)
-            {
-                perror("ERROR: ");
-                exit(-1);
-            }
+            execute_commands(tmp);
         }
         if (tmp->next)
         {
@@ -92,9 +88,9 @@ int m_pipe(t_cmd *cmd)
             close(tab_fd[0]);
             close(tab_fd[1]);
         }
-        waitpid(-1);
         tmp = tmp->next;
         i=+2;
     }
-    exit(1);
+    waitpid(-1, &status, 0);
+    return (1);
 }

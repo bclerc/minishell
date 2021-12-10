@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 08:18:03 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 12:39:49 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:07:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static size_t	ltab(char const *s, int i, char c)
 	return (len);
 }
 
+// j'ai ptet tout casse ici
 char			**ft_strsplit_s(char const *s, char c)
 {
 	int		i;
@@ -61,14 +62,16 @@ char			**ft_strsplit_s(char const *s, char c)
 		if (s[i] != c || s[i] != ' ')
 		{
 			if (k == 0)
+			{
 				tab[j] = malloc(sizeof(char) * (ltab(s, i, c) + 2));
 				if (!tab)
 					return (NULL);
+			}
 			tab[j][k] = s[i];
 			tab[j][++k] = '\0';
 		}
-		if (( ( (s[i] != c && (s[i + 1] == c || !s[i + 1]) || (s[i] != ' ' && (s[i + 1] == ' ' || !s[i + 1]))) 
-			&& k > 0) && !(k = 0)))
+		if ((((s[i] != c && (s[i + 1] == c || !s[i + 1])) || (s[i] != ' ' && (s[i + 1] == ' ' || !s[i + 1]))) 
+			&& k > 0) && !(k = 0))
 			j++;
 	}
 	tab[j] = NULL;

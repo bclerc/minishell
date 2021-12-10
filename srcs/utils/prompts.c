@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:41:31 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/17 15:38:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:08:16 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char *get_current_dir_name(void)
 	return (dir);
 }
 
-char *get_promps(char **envp)
+char *get_promps(void)
 {
 	char *prompts;
 	char *tmp;
