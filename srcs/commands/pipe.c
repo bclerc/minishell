@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/10 16:01:26 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 16:12:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int m_pipe(t_cmd *cmd)
             close(tab_fd[0]);
             close(tab_fd[1]);
         }
-       // waitpid(-1);
+        waitpid(-1);
         tmp = tmp->next;
         i=+2;
     }
