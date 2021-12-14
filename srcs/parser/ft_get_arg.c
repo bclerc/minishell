@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/30 14:19:54 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/09 11:49:41 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ void	ft_count_arg(char *str, t_arg *arg)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] == '>' && str[i + 1] == '>') || 
-			(str[i] == '<' && str[i + 1] == '<'))
+		if ((str[i] == '>' && str[i + 1] == '>')
+			|| (str[i] == '<' && str[i + 1] == '<'))
 		{
 			arg->count++;
 			i++;
 			if (str[i])
 				arg->count++;
 		}
-		else if	(str[i] == '>' || str[i] == '<' || str[i] == '|')
+		else if (str[i] == '>' || str[i] == '<' || str[i] == '|')
 		{
 			arg->count++;
 			if (str[i + 1])

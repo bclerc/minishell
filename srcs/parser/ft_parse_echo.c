@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/11/09 14:00:39 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/09 12:12:47 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	j++;
 	if (cpy[j])
 	{
-		if (ft_strncmp(cpy[j], "-n", 2) == 0)
+		if (ft_strncmp(cpy[j], "-", 1) == 0)
+		//if (ft_strncmp(cpy[j], "-n", 2) == 0)
 		{
-			new->spec = ft_check_n(cpy, j, arg);
+			if (ft_check_n(cpy, j, arg, new) == 1)
+				return (NULL);
 			arg->spec_n = new->spec;
 			j++;
 			if (cpy[j])
@@ -76,13 +78,12 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		tmp = new;
 	else
 		cmd->next = new;
-
 	return (tmp);
 }
 
-char	*ft_check_n(char **cpy, int i, t_arg *arg)
+int	ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new)
 {
-	int 	j;
+	int		j;
 	char	*tmp;
 
 	j = 1;
@@ -91,10 +92,12 @@ char	*ft_check_n(char **cpy, int i, t_arg *arg)
 		if (cpy[i][j] == 'n')
 			arg->n++;
 		if (cpy[i][j] != 'n')
+		{
 			ft_print("Error in specification\n", -1);
-			// + faire une fct qui sort 
+			return (1);
+		}	
 		j++;
 	}
-	tmp = "-n";
-	return (tmp);
+	new->spec = "-n";
+	return (0);
 }
