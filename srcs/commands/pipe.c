@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/10 18:17:12 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 13:42:02 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,40 +57,32 @@ int open_pipe(int *tab_fd, int nb_pipes)
 
 int m_pipe(t_cmd *cmd)
 {
-    pid_t pid;
-    int status;
-    t_cmd *tmp;
-    int nbpipe;
-    int i;
-    int tab_fd[2];
+    t_tmp *tmp;
+    t_pid *pid;
 
-    nbpipe = get_pipe_count(cmd);
+    int nbpipe = get_pipe_count(cmd);
+    int pipes[2 * nbpipe];
+    int i;
+
+    open_pipe(pipes);
     tmp = cmd;
     i = 0;
     while (tmp)
     {
-        if (tmp->next)
-            pipe(tab_fd);
         pid = fork();
-        if (pid == 0)
+        if (pid == 0) // processus enfant
         {
-            if (tmp->next)
-            {
-                dup2(tab_fd[1], 1);
-                close(tab_fd[0]);
-                close(tab_fd[1]);
-            }
-            execute_commands(tmp);
+            if (cmd->next) // pas la derniere commande;
+                dup2(pipes[i + 1], 1); // Copie la sortie standard i +1 (i augmente de 2, si 0 + 1 pour recuperer l'entree
+            if (cmd != tmp) // si pas la premiere commande
+                dup2(pipes[i - 2], 0); // copie l'entree standard i - 2 (i augmente de 2 si i = 2 i -2 = 0 entree standard
+            close_fd(pipes, nbpipe); // On ferme les sortie du pipe, parce qu'on les utilises pas, ils sont la juste pour faire la lien entre le parent et le child
+            execute_command(tmp); // On execute la commande
         }
-        if (tmp->next)
-        {
-            dup2(tab_fd[0], 0);
-            close(tab_fd[0]);
-            close(tab_fd[1]);
-        }
+
         tmp = tmp->next;
-        i=+2;
+        i = i + 2;
     }
-    waitpid(-1, &status, 0);
-    return (1);
+    // PARENT
+       close_fd(pipes, nbpipe);
 }
