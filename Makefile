@@ -56,7 +56,6 @@ CC = clang
 
 all: $(NAME)
 $(LIBS):
-	@printf "$(CYAN)Compiling $(PURPLE)$(PROJECT_NAME)$(CYAN) ... \n"
 	@printf "$(CYAN)All objects for $(PURPLE)$(PROJECT_NAME) $(CYAN)where successfully created.\n"
 	@printf "$(CYAN)\n-------- $(PURPLE)Libft$(CYAN) --------\n"
 	@make --no-print-directory -s -C include/$(@)
