@@ -55,8 +55,6 @@ struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
 	char	*cmd_redir;
-	char	*fd_in;
-	char	*fd_out;
 	t_redir	*next;
 };
 
@@ -70,6 +68,8 @@ struct s_cmd
 	char	*cmd; // ex echo
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
+	// char	*fd_in; // pour redir
+	// char	*fd_out; // pour redir
 	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
 	char	*path; // nom du path
 	t_redir	*redir;
@@ -117,9 +117,10 @@ int		ft_check_args(t_arg *arg);
 
 // parse cmds
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd);
+int		ft_check_redir(t_arg *arg, int i);
 t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
-char	*ft_check_n(char **cpy, int i, t_arg *arg);
+int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/10 18:01:57 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 14:48:37 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ void	ft_count_arg(char *str, t_arg *arg)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i] == '>' && str[i + 1] == '>') || 
-			(str[i] == '<' && str[i + 1] == '<'))
+		if ((str[i] == '>' && str[i + 1] == '>')
+			|| (str[i] == '<' && str[i + 1] == '<'))
 		{
 			arg->count++;
 			i++;
 			if (str[i])
 				arg->count++;
 		}
-		else if	(str[i] == '>' || str[i] == '<' || str[i] == '|')
+		else if (str[i] == '>' || str[i] == '<' || str[i] == '|')
 		{
 			arg->count++;
 			if (str[i + 1])

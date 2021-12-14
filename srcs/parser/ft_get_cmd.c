@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/10 18:02:43 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 15:27:18 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	tmp = *cmd;
 	while (i < arg->count)
 	{
-		if (ft_strcmp(arg->cmds[i], "|") == 0)
+		if (ft_check_redir(arg, i) == 1)
 			i++;
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
+		printf("i = %d c = %d\n", i, arg->count);
 		if (cpy[i] == NULL && i < arg->count)
 			cpy[i] = ft_strdup(arg->cmds[i]); // malloc a proteger	
 		arg->i_cpy = i;
@@ -56,5 +57,17 @@ t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd)
 		&& ft_strncmp(cpy[0], "<", ft_strlen(cpy[0]))
 		&& ft_strncmp(cpy[0], "<<", ft_strlen(cpy[0])))
 		return (ft_parse_other(arg, cpy, cmd));
+	//return (ft_parse_special(arg, cpy, cmd));
 	return (NULL);
+}
+
+int	ft_check_redir(t_arg *arg, int i)
+{
+	if (ft_strcmp(arg->cmds[i], "|") == 0
+		|| ft_strcmp(arg->cmds[i], ">") == 0
+		|| ft_strcmp(arg->cmds[i], ">>") == 0
+		|| ft_strcmp(arg->cmds[i], "<") == 0
+		|| ft_strcmp(arg->cmds[i], "<<") == 0)
+		return (1);
+	return (0);
 }

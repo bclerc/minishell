@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/14 13:50:24 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 15:31:14 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	minishell(void)
 		add_history(str);
 		//str = transform_str(str, core->envp);
     	cmd = ft_launch_parser(str, &cmd);
-    	cmd = ft_redir(cmd);
+    	//cmd = ft_redir(cmd);
 		m_pipe(cmd);
 		free(prompt);
 		// inserer la liste redir dans cmd si < > << >> 

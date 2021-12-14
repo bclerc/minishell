@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
 /*   Updated: 2021/12/14 13:57:50 by bclerc           ###   ########.fr       */
@@ -47,7 +47,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	int	j;
+	int		j;
 	t_cmd	*tmp;
 	t_cmd	*new;
 
