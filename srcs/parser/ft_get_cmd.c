@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 16:51:09 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 14:51:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd)
 		&& ft_strncmp(cpy[0], "<", ft_strlen(cpy[0]))
 		&& ft_strncmp(cpy[0], "<<", ft_strlen(cpy[0])))
 		return (ft_parse_other(arg, cpy, cmd));
-	//return (ft_parse_special(arg, cpy, cmd));
+	return (ft_parse_special(arg, cpy, cmd));
 }

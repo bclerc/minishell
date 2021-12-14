@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 16:51:17 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:02:59 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd)
 
 int	ft_std(t_arg *arg, t_cmd *cmd, int i)
 {
+	(void)cmd;
 	//printf("cmd[%d] = %s\n", arg->i_cpy, arg->cmds[arg->i_cpy]);
 	if (ft_strncmp(arg->cmds[i], "|", ft_strlen(arg->cmds[i])) == 0)
 		return (1);

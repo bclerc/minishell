@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/07 12:17:23 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/10 18:19:26 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ char *get(char *path)
 	if (!path)
 	{
 		if (get_env_variable("HOME") == NULL)
-			home = ft_strdup(getcwd(NULL, NULL));
+			home = ft_strdup(getcwd(0, 0));
 		else		
 			home = ft_strdup(get_env_variable("HOME"));
 	}
 	else if (path[0] == 45)
 	{
 		if (get_env_variable("OLDPWD") == NULL)
-			home = ft_strdup(getcwd(NULL, NULL));
+			home = ft_strdup(getcwd(0, 0));
 		else		
 			home = ft_strdup(get_env_variable("OLDPWD"));
 	}
@@ -78,8 +78,7 @@ int	cd(char *path)
 {
 	struct stat t_sb;
 	char	*home;
-	int i;
-	int			stats;
+	int		stats;
 
 	home = get(path);
 	if (!home)
@@ -88,7 +87,7 @@ int	cd(char *path)
 	stats = stat(home, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{
-		if (access(home, W_OK && R_OK) == -1)
+		if (access(home, W_OK & R_OK) == -1)
 		{
 			printf("cd: cannot access directory '%s': Permission denied (cheh)\n", path);
 			return (1);

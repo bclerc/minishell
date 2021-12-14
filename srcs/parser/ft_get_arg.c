@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/09 11:49:41 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/14 14:48:37 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	ft_stock_arg(t_arg *arg, char *str)
 {
 	int		c;
 	int		i;
-	char	*tmp;
 
 	c = 0;
 	i = -1;
