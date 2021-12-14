@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/10 18:08:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 13:50:24 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	minishell(void)
     	cmd = ft_redir(cmd);
 		m_pipe(cmd);
 		free(prompt);
-
 		// inserer la liste redir dans cmd si < > << >> 
 		//puts("che");
 		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std);
@@ -82,7 +81,7 @@ int	main(int ac, char **av, char **envp)
 	getEnv(envp);
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
-	signal(SIGINT, signal_handler);
+	//signal(SIGINT, signal_handler);
 	core->status = 1;
 	core->parent = getpid();
 	minishell();
