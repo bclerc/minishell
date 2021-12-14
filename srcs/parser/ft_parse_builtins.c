@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/10 18:02:59 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 13:57:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 		new->msg = NULL;
 	new->spec = NULL;
 	new->msg = ft_cpy_msg(arg, cpy, j, new);
-	printf("builtins2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std, j);
+	//printf("builtins2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std, j);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
@@ -62,7 +62,7 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	new->cmd = ft_strdup(cpy[j]);
 	//printf("cmd = %s cpy[j] = %s\n", new->cmd, cpy[j]);
 	j++;
-	printf("cpy[j] = %s\n", cpy[j]);
+	//printf("cpy[j] = %s\n", cpy[j]);
 	if (arg->i_cpy == arg->count - 1)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)
@@ -76,7 +76,7 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	else
 		new->msg = ft_cpy_msg(arg, cpy, j, new);
 	new->spec = NULL;
-	printf("other2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std, j);
+	//printf("other2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std, j);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
@@ -100,7 +100,7 @@ t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd)
 	if (!new)
 		return (NULL);
 	new->nb = arg->i_cpy;
-	printf("i_cpy = %d c = %d\n", arg->i_cpy, arg->count);
+	//printf("i_cpy = %d c = %d\n", arg->i_cpy, arg->count);
 	if (arg->i_cpy == arg->count - 1)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)
@@ -109,7 +109,7 @@ t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd)
 	new->msg = NULL;
 	new->cmd = ft_strdup(cpy[j]);
 	new->next = NULL;
-	printf("special : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std);
+	//printf("special : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std);
 	if (tmp == NULL)
 		tmp = new;
 	else
