@@ -179,7 +179,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
 // pipe
-int m_pipe(t_cmd *cmd);
+int		get_pipe_count(t_cmd *cmd);
+int		m_pipe(t_cmd *cmd);
+int		close_fd(int *tab_fd, int nb_pipes);
+int		open_pipe(int *tab_fd, int nb_pipes);
+
 // execution
 int		execute_commands(t_cmd *cmd);
 char	**get_argv(t_cmd *cmd);
