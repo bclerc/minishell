@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/13 17:17:11 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 13:50:24 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	minishell(void)
 		str = readline(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
-			printf("y a rien\n");
+			printf("\n");
 			continue;
 		}
 		add_history(str);
@@ -55,9 +55,7 @@ void	minishell(void)
     	cmd = ft_launch_parser(str, &cmd);
     	cmd = ft_redir(cmd);
 		m_pipe(cmd);
-		printf("JE SUIS DANS LE MAIN\n");
 		free(prompt);
-
 		// inserer la liste redir dans cmd si < > << >> 
 		//puts("che");
 		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std);

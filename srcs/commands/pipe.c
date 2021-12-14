@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/14 13:42:02 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 13:55:15 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,16 @@ int open_pipe(int *tab_fd, int nb_pipes)
 
 int m_pipe(t_cmd *cmd)
 {
-    t_tmp *tmp;
-    t_pid *pid;
+    t_cmd *tmp;
+    pid_t pid;
 
+    int status;
     int nbpipe = get_pipe_count(cmd);
-    int pipes[2 * nbpipe];
+    int *pipes;
     int i;
 
-    open_pipe(pipes);
+    pipes = (int *)malloc(sizeof(int) * (nbpipe * 2));
+    open_pipe(pipes, nbpipe);
     tmp = cmd;
     i = 0;
     while (tmp)
@@ -77,12 +79,17 @@ int m_pipe(t_cmd *cmd)
             if (cmd != tmp) // si pas la premiere commande
                 dup2(pipes[i - 2], 0); // copie l'entree standard i - 2 (i augmente de 2 si i = 2 i -2 = 0 entree standard
             close_fd(pipes, nbpipe); // On ferme les sortie du pipe, parce qu'on les utilises pas, ils sont la juste pour faire la lien entre le parent et le child
-            execute_command(tmp); // On execute la commande
+            execute_commands(tmp); // On execute la commande
         }
-
-        tmp = tmp->next;
+        tmp = tmp->next; // commande suivante
         i = i + 2;
     }
-    // PARENT
-       close_fd(pipes, nbpipe);
+    close_fd(pipes, nbpipe); // Same line 81, on ferme les sorties du pipes.
+    i = 0;
+    while (i < nbpipe + 1)
+    {
+        wait(&status);  // On attends tous les processus childs
+        i++;
+    }
+    return (1);
 }
