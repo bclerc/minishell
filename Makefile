@@ -21,7 +21,6 @@ SOURCES =	srcs/main.c \
 			srcs/parser/ft_parse_builtins.c \
 			srcs/parser/ft_msg.c \
 			srcs/parser/ft_parse_msg.c \
-			srcs/parser/ft_redir.c \
 			srcs/utils/ft_strcmp.c \
 			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/ft_strncmp.c \
@@ -41,6 +40,7 @@ SOURCES =	srcs/main.c \
 			srcs/built-in/pwd/pwd.c \
 			srcs/built-in/utils.c \
 			srcs/built-in/unset/unset.c
+#srcs/parser/ft_redir.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

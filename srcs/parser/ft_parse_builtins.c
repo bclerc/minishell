@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/10 18:02:59 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 15:15:06 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	int	j;
+	int		j;
 	t_cmd	*tmp;
 	t_cmd	*new;
 
@@ -62,7 +62,7 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	new->cmd = ft_strdup(cpy[j]);
 	//printf("cmd = %s cpy[j] = %s\n", new->cmd, cpy[j]);
 	j++;
-	printf("cpy[j] = %s\n", cpy[j]);
+	//printf("cpy[j] = %s\n", cpy[j]);
 	if (arg->i_cpy == arg->count - 1)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)
