@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/13 15:11:06 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 17:16:31 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	execute_commands(t_cmd *cmd)
 		ret = unset(cmd->msg);
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
-		core->status = -1;
+		core->status = 0;
 		return (-1);
 	}
 	if (ret == 1 || ret == -1)

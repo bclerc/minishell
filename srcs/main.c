@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/14 15:31:14 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/14 17:17:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	minishell(void)
 	redir = NULL;
 	while (core->status)
 	{
+		printf("CORE STATUS: %d\n", core->status);
 		prompt = get_promps();
 		str = readline(prompt);
 		if (!str || ft_strlen(str) == 0)
