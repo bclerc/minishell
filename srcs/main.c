@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/14 15:31:14 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:23:34 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ void	minishell(void)
 		add_history(str);
 		//str = transform_str(str, core->envp);
     	cmd = ft_launch_parser(str, &cmd);
-    	//cmd = ft_redir(cmd);
+    	cmd = ft_redir(cmd);
 		m_pipe(cmd);
 		free(prompt);
-		// inserer la liste redir dans cmd si < > << >> 
-		//puts("che");
 		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std);
 		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fdin = %s\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std, tmp->redir->fd_in);
 		// if (execute_commands(str, envp, 0) == -1)
