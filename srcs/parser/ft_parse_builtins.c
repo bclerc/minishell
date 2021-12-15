@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/14 18:02:56 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/15 13:05:12 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 		new->msg = NULL;
 	new->spec = NULL;
 	new->msg = ft_cpy_msg(arg, cpy, j, new);
-	//printf("builtins2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std, j);
+	printf("builtins2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d in = %s out = %s\n", new->nb, new->cmd, new->spec, new->msg, new->std, new->fd_in, new->fd_out);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;

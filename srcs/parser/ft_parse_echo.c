@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/12/09 12:12:47 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/15 13:07:30 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 					tmp = new;
 				else
 					cmd->next = new;
-				printf("echo1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
 				return (tmp);
 			}
 		}
@@ -72,7 +71,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)
 		new->std = ft_std(arg, cmd, arg->i_cpy + 1);
-	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", new->nb, new->cmd, new->spec, new->msg, new->std, j);
+	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d in = %s out = %s\n", new->nb, new->cmd, new->spec, new->msg, new->std, new->fd_in, new->fd_out);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
