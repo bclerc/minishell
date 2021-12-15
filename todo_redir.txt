@@ -1,0 +1,10 @@
+
+
+Comportement des rediction dans bash
+
+CMD > file (Write stout in file);
+CMD < file (write stdin from file to cmd);
+CMD > file1 > file2 > file 3 (Write std-out in last file)
+CMD > file | CMD | .. (Write file in file and execute next command like if the first does not exist);
+CMD < FILE | CND | .. (Like normal cmd but the first stdin is file);
+CMD | CMD < FILE | .. (Change the stdin of the cmd)

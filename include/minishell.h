@@ -68,8 +68,8 @@ struct s_cmd
 	char	*cmd; // ex echo
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
-	// char	*fd_in; // pour redir
-	// char	*fd_out; // pour redir
+	char	*fd_in; // pour redir
+	char	*fd_out; // pour redir
 	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
 	char	*path; // nom du path
 	t_redir	*redir;
