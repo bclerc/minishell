@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/16 18:16:49 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:20:54 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 	t_redir	*tmp;
 
 	tmp = redir;
-	//printf("msg1 = %s\n", cmd->next->msg);
 	while (redir != NULL && redir->next != NULL)
 		redir = redir->next;
 	new = malloc(sizeof(t_redir));
@@ -71,10 +70,8 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 		new->msg = ft_strdup(cmd->msg);
 	//else
 	new->fd_in = cmd->next->cmd;
-	printf("cmd1 = %s\n", cmd->cmd);
-	cmd->cmd = NULL;
-	//new->fd_out_redir = cmd->next->cmd; // mais souci si 2 noms apres un > : il peut y avoir plsrs noms de fichiers out
-	printf("in = %s s = %d cmd = %s\n", new->fd_in, new->std_redir, cmd->cmd);
+	cmd->next->cmd = NULL;
+	printf("in = %s cmd = %s next = %s\n", new->fd_in, cmd->cmd, cmd->next->cmd);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
@@ -88,23 +85,15 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 	t_redir	*tmp;
 
 	tmp = redir;
-	//printf("msg2 = %s\n", cmd->msg);
 	while (redir != NULL && redir->next != NULL)
 		redir = redir->next;
 	new = malloc(sizeof(t_redir));
 	if (!new)
 		return (0);
 	new = ft_newredir(cmd, new, cmd->std);
-	// if (cmd->next->next->msg && ft_strcmp(cmd->cmd, "echo") == 0) // ecrire dans le fichier le msg complet (avant et apres le >)
-	// 	new->fd_in_redir = ft_strjoin(cmd->msg, cmd->next->next->msg);
-	// else
-	// 	new->fd_in_redir = cmd->msg;
-	// new->fd_out_redir = cmd->next->next->cmd; // mais souci si 2 noms apres un > : il peut y avoir plsrs noms de fichiers out
 	if (cmd->msg && ft_strcmp(cmd->cmd, "echo") == 0)
 		new->msg = ft_strdup(cmd->msg);
 	new->fd_out = cmd->next->cmd;
-	cmd->next->cmd = NULL;
-	printf("cmd2 = %s\n", cmd->cmd);
 	cmd->next->cmd = NULL;
 	printf("out = %s cmd = %s next = %s\n", new->fd_out, cmd->cmd, cmd->next->cmd);
 	new->next = NULL;
@@ -143,34 +132,5 @@ t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i)
 		new->std_redir = 1;
 		new->cmd_redir = "|";
 	}
-	//printf("i = %d s = %d c = %s\n", i, new->std_redir, new->cmd_redir);
 	return (new);
 }
-
-/*
-t_redir	*ft_pipe(t_cmd *cmd, t_redir *redir)
-{
-	t_redir	*new;
-	t_redir	*tmp;
-
-	tmp = redir;
-	while (redir != NULL && redir->next != NULL)
-		redir = redir->next;
-	new = malloc(sizeof(t_redir));
-	if (!new)
-		return (0);
-	new = ft_newredir(cmd, new, cmd->std);
-	if (cmd->next->next->msg && ft_strcmp(cmd->cmd, "echo") == 0) // ecrire dans le fichier le msg complet (avant et apres le >)
-		new->fd_in = ft_strjoin(cmd->msg, cmd->next->next->msg);
-	else
-		new->fd_in = cmd->msg;
-	new->fd_out = cmd->next->next->cmd; // mais souci si 2 noms apres un > : il peut y avoir plsrs noms de fichiers out
-	printf("out = %s s = %d\n", new->fd_out, new->std_redir);
-	new->next = NULL;
-	if (tmp == NULL)
-		tmp = new;
-	else
-		redir->next = new;
-	return (tmp);
-}
-*/

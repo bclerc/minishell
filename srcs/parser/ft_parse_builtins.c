@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/16 18:08:19 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:21:04 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 	if (new->std >= 2 && new->std <= 5)
 	{
 		ft_fill_fd(arg, new);
-		//new->cmd = NULL;
 	}
 	if (!cpy[j])
 		new->msg = NULL;
