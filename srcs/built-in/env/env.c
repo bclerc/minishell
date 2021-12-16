@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:39:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/10 18:20:46 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 17:04:59 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	env(char *path)
 	env = core->env;
 	while (env)
 	{
-		write(0, env->value, ft_strlen(env->value));
-		write(0, "\n", 1);
+		printf("%s\n", env->value);
 		env = env->next;
 	}
 	return (1);

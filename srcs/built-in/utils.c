@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/16 17:12:55 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/15 16:03:49 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int get_fd(char *path)
 			fd = open(path, O_WRONLY);
 		else
 			fd = open(path, O_WRONLY | O_APPEND | O_CREAT, 0644);
+		perror("Error opening fd ");
 	}
 	if (fd < 0)
 	{
