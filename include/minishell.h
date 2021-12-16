@@ -55,6 +55,9 @@ struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
 	char	*cmd_redir;
+	char	*fd_in_redir;
+	char	*fd_out_redir;
+	char	*msg;
 	t_redir	*next;
 };
 
@@ -125,6 +128,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_std(t_arg *arg, t_cmd *cmd, int i);
+void	ft_fill_fd(t_arg *arg, t_cmd *new);
 
 //parse msg
 char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new);

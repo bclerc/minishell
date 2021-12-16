@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/14 15:27:18 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/14 15:34:09 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 		if (ft_check_redir(arg, i) == 1)
 			i++;
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
-		printf("i = %d c = %d\n", i, arg->count);
 		if (cpy[i] == NULL && i < arg->count)
 			cpy[i] = ft_strdup(arg->cmds[i]); // malloc a proteger	
 		arg->i_cpy = i;
