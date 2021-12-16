@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/16 10:08:19 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:02:02 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 		if (cmd->std > 1 && cmd->std <= 5)
 		{
 		//printf("std = %d\n", cmd->std);
+		puts("che");
 			cmd->redir = ft_create_redir(cmd, &redir);
 			//printf("cmd->redirin = %s cmd->redirout = %s cmd->redirstd = %d\n", cmd->redir->fd_in_redir, cmd->redir->fd_out_redir, cmd->redir->std_redir);
 			break;
@@ -42,9 +43,9 @@ t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir)
 	//while (cmd && cmd->next != NULL)
 	{
 		if (cmd->std == 2 || cmd->std == 3)
-			*redir = ft_right(cmd, *redir);
-		else if (cmd->std == 4 || cmd->std == 5)
 			*redir = ft_left(cmd, *redir);
+		else if (cmd->std == 4 || cmd->std == 5)
+			*redir = ft_right(cmd, *redir);
 		// else if (cmd->std == 1)
 		// 	*redir = ft_pipe(cmd, *redir);
 		cmd = cmd->next->next;
@@ -58,7 +59,7 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 	t_redir	*tmp;
 
 	tmp = redir;
-	printf("msg1 = %s\n", cmd->next->msg);
+	//printf("msg1 = %s\n", cmd->next->msg);
 	while (redir != NULL && redir->next != NULL)
 		redir = redir->next;
 	new = malloc(sizeof(t_redir));
@@ -70,9 +71,11 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 	if (cmd->msg && ft_strcmp(cmd->cmd, "echo") == 0)
 		new->msg = ft_strdup(cmd->msg);
 	//else
-	new->fd_in_redir = cmd->next->cmd;
+	new->fd_in = cmd->next->cmd;
+	printf("cmd1 = %s\n", cmd->cmd);
+	cmd->cmd = NULL;
 	//new->fd_out_redir = cmd->next->cmd; // mais souci si 2 noms apres un > : il peut y avoir plsrs noms de fichiers out
-	printf("in = %s s = %d\n", new->fd_in_redir, new->std_redir);
+	printf("in = %s s = %d cmd = %s\n", new->fd_in, new->std_redir, cmd->cmd);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
@@ -113,7 +116,7 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 	t_redir	*tmp;
 
 	tmp = redir;
-	printf("msg2 = %s\n", cmd->msg);
+	//printf("msg2 = %s\n", cmd->msg);
 	while (redir != NULL && redir->next != NULL)
 		redir = redir->next;
 	new = malloc(sizeof(t_redir));
@@ -127,8 +130,10 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 	// new->fd_out_redir = cmd->next->next->cmd; // mais souci si 2 noms apres un > : il peut y avoir plsrs noms de fichiers out
 	if (cmd->msg && ft_strcmp(cmd->cmd, "echo") == 0)
 		new->msg = ft_strdup(cmd->msg);
-	new->fd_out_redir = cmd->next->cmd;
-	printf("out = %s s = %d\n", new->fd_out_redir, new->std_redir);
+	new->fd_out = cmd->next->cmd;
+	printf("cmd2 = %s\n", cmd->cmd);
+	cmd->next->cmd = NULL;
+	printf("out = %s s = %d cmd = %s\n", new->fd_out, new->std_redir, cmd->cmd);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
@@ -165,6 +170,6 @@ t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i)
 		new->std_redir = 1;
 		new->cmd_redir = "|";
 	}
-	printf("i = %d s = %d c = %s\n", i, new->std_redir, new->cmd_redir);
+	//printf("i = %d s = %d c = %s\n", i, new->std_redir, new->cmd_redir);
 	return (new);
 }

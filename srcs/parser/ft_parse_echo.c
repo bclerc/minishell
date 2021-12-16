@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/12/15 13:07:30 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/16 11:24:23 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)
 		new->std = ft_std(arg, cmd, arg->i_cpy + 1);
-	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d in = %s out = %s\n", new->nb, new->cmd, new->spec, new->msg, new->std, new->fd_in, new->fd_out);
+	if (new->std >= 2 && new->std <= 5)
+	{
+		ft_fill_fd(arg, new);
+		//new->cmd = NULL;
+	}
+	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %din =%s out = %s\n", new->nb, new->cmd, new->spec, new->msg, new->std, new->fd_in, new->fd_out);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;

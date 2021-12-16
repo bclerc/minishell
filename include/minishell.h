@@ -55,8 +55,8 @@ struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
 	char	*cmd_redir;
-	char	*fd_in_redir;
-	char	*fd_out_redir;
+	char	*fd_in;
+	char	*fd_out;
 	char	*msg;
 	t_redir	*next;
 };
