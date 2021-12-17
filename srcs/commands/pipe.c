@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/15 16:15:08 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/16 12:06:36 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
     if (in)
     {
         if (cmd->fd_in != NULL)
-            fd = get_fd(cmd->fd_in);
+            fd = get_fd(cmd->redir->fd_in_redir);
         else
             fd = pipes[i - 2];
         if (fd < 0)
@@ -29,7 +29,7 @@ int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
         return (fd);
     }
     if (cmd->fd_out != NULL)
-        fd = get_fd(cmd->fd_out);
+        fd = get_fd(cmd->redir->fd_out_redir);
     else
         fd = pipes [i + 1];
     if (fd < 0)
@@ -43,7 +43,7 @@ int set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
 {
     int fd;
 
-    if (cmd->next || cmd->fd_out != NULL) // pas la derniere commande;
+    if (cmd->next) // pas la derniere commande;
     {
         fd = get_dup_fd(pipes, cmd, i, 0);
         if (dup2(fd, 1) <= -1)
