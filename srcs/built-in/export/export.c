@@ -6,46 +6,48 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/25 12:08:39 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/14 17:27:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../../include/minishell.h"
 
-int	export_add(char ***envp, char **args)
+int	export_add(char *argv)
 {
-	int i;
+	int		b;
+	char 	**args;
 
-	i = 0;
-	while (args[i])
+	args = ft_strsplit(argv, ' ');
+	b = 0;
+	while (args[b])
 	{
-		add_env_variable(envp, args[i]);
-		i++;
+		add_env_variable(args[b]);
+		b++;
 	}
 	return (1);
 }
 
-int	export(char **envp, char *path, char **args)
+int	export(char *path, char *args)
 {
-	char	**env;
+	t_env 	*env;
 	int		fd;
 	int		i;
 
-	if (!envp)
-		return (0);
-	args++;
+	(void)path;
 	if (args)
-		export_add(&envp, args);
+	{
+		if (export_add(args) == -1)
+			return (-1);
+	}
 	i = 0;
-	fd = get_fd(path);
-	env = envp;
-	export_sort(env, get_env_lenght(env));
-	while (env[i])
+	fd = 1;
+	env = core->env;
+	while (env)
 	{
 		write(fd, "declare -x ", 11);
-		write(fd, env[i], ft_strlen(env[i]));
+		write(fd, env->value, ft_strlen(env->value));
 		write(fd, "\n", 1);
-		i++;
+		env = env->next;
 	}
 	return (1);
 }

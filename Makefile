@@ -7,6 +7,9 @@ INCLUDES_FOLDER = include
 OBJECTS_FOLDER = ./
 
 LIBS = libft
+PURPLE = \033[1;35m
+CYAN = \033[1;36m
+GREEN = \033[1;32m
 
 SOURCES =	srcs/main.c \
 			srcs/ft_init.c \
@@ -32,6 +35,8 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_strtrim.c \
 			srcs/utils/ft_util_parsemsg.c \
 			srcs/commands/commands.c \
+			srcs/commands/pipe.c \
+			srcs/commands/pipe_utils.c \
 			srcs/built-in/cd/cd.c \
 			srcs/built-in/echo/echo.c \
 			srcs/built-in/env/env.c \
@@ -44,42 +49,41 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS =  -g3 -g
-CC = gcc
+CFLAGS = -g 
+CC = clang
 
 .PHONY: all re clean fclean libft force doclean
 
 all: $(NAME)
-
 $(LIBS):
-	@printf "All objects for $(PROJECT_NAME) where successfully created.\n"
-	@printf "\n-------- Libft --------\n"
-	@make -s -C include/$(@)
-	@printf "\n-------- $(PROJECT_NAME) --------\n"
+	@printf "$(CYAN)Compiling $(PURPLE)$(PROJECT_NAME)$(CYAN) ... %-40s\n" " "
+	@printf "$(CYAN)All objects for $(PURPLE)$(PROJECT_NAME) $(CYAN)where successfully created.\n"
+	@printf "$(CYAN)\n-------- $(PURPLE)Libft$(CYAN) --------\n"
+	@make --no-print-directory -s -C include/$(@)
+	@printf "$(CYAN)\n-------- $(PURPLE)$(PROJECT_NAME)$(CYAN) --------\n"
 
 
 $(NAME): $(OBJECTS) $(LIBS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -L$(INCLUDES_FOLDER) -Linclude/libft -lft -lreadline
-	@printf "$(NAME) successfully compiled. ✓\n"
-
+	@printf "$(PURPLE)$(NAME) $(CYAN)successfully compiled. $(GREEN)✓$(CYAN)\n"
 force: $(OBJECTS)
-	@printf "$All objects for $(PROJECT_NAME) where successfully created.\n"
+	@printf "$(CYAN) All objectsfor $(PURPLE)$(PROJECT_NAME)$(CYAN) where successfully created.\n"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -g
-	@printf "$(NAME) successfully compiled. ✓\n"
+	@printf "$(PURPLE)$(NAME)$(CYAN) successfully compiled. $(CGREEN)✓$(CYAN)\n"
 
 %.o: %.c
-	@$(CC) $(FLAGS) -I$(INCLUDES_FOLDER) -c $< -o $@ -Iinclude
-	@printf "Creating %-30s ✓\r" "$@"
+	@$(CC) $(CFLAGS) -I$(INCLUDES_FOLDER) -c $< -o $@ -Iinclude
+	@printf "$(CYAN)Creating $(PURPLE)%-40s$(GREEN) ✓$(CYAN)\r" "$@"
 
 clean:
-	@make -C include/$(LIBS) clean
+	@make -s -C include/$(LIBS) clean
 	@rm -f $(OBJECTS)
-	@printf "$(PROJECT_NAME) Removed all objects.\n"
+	@printf "$(PURPLE)$(PROJECT_NAME) $(CYAN)Removed all objects.\n"
 
 fclean: clean
-	@make -C include/$(LIBS) fclean
+	@make -s -C include/$(LIBS) fclean
 	@rm -f $(NAME)
-	@printf "$(PROJECT_NAME) Removed $(NAME).\n"
+	@printf "$(PURPLE)$(PROJECT_NAME) $(CYAN)Removed $(PURPLE)$(NAME)$(CYAN).\n"
 
 doclean: all clean
 

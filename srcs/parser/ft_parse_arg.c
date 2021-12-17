@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/27 16:03:41 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/09 11:47:11 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 char	*ft_parse_arg(char *str, int i, t_arg *arg)
 {
@@ -50,9 +49,9 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 			ft_char(arg, c, '<', 2);
 			i++;
 		}
-		else if (str[i] == '<'&& str[i + 1] != '<')
+		else if (str[i] == '<' && str[i + 1] != '<')
 			ft_char(arg, c, '<', 1);
-		else if (str[i] == '>'&& str[i + 1] != '>')
+		else if (str[i] == '>' && str[i + 1] != '>')
 			ft_char(arg, c, '>', 1);
 	}
 	if (str[i + 1] == ' ')
@@ -82,11 +81,11 @@ void	ft_char(t_arg *arg, int c, char s, int nb)
 
 char	*ft_nosep(int i, char *str, t_arg *arg)
 {
-	int z;
+	int		z;
 	char	*tmp;
 
 	z = 0;
-	tmp = malloc(sizeof(char) * (i - arg->start));
+	tmp = malloc(sizeof(char) * (i - arg->start) + 1);
 	if (!tmp)
 		return (NULL);
 	if (arg->count != 1)
