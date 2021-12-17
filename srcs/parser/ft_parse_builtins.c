@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
 /*   Updated: 2021/12/17 13:31:04 by asgaulti         ###   ########.fr       */

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:50:10 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/17 14:20:48 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/17 14:44:23 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ t_cmd	*ft_check_spec(t_cmd **cmd)
 	{
 		while (*cmd && (*cmd)->next != NULL)
 		{
-		*cmd = (*cmd)->next;
+			if ((*cmd)->msg == NULL)
+				
+			*cmd = (*cmd)->next;
 			printf("cmd = %s msg = %s \n", (*cmd)->cmd, (*cmd)->msg);
 			if ((*cmd)->msg[0] == '-')
 			{

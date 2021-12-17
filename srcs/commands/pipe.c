@@ -6,22 +6,76 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/14 15:11:04 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/16 12:06:36 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/minishell.h"
 
+int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
+{
+    int fd;
+    if (in)
+    {
+        if (cmd->fd_in != NULL)
+            fd = get_fd(cmd->redir->fd_in_redir);
+        else
+            fd = pipes[i - 2];
+        if (fd < 0)
+        {
+            printf("Minishell: Error on open FD\n");
+            exit(EXIT_FAILURE);
+        }
+        return (fd);
+    }
+    if (cmd->fd_out != NULL)
+        fd = get_fd(cmd->redir->fd_out_redir);
+    else
+        fd = pipes [i + 1];
+    if (fd < 0)
+    {
+        printf("Minishell: Error on open FD\n");
+        exit(EXIT_FAILURE);
+    }
+    return (fd);
+}
+int set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
+{
+    int fd;
+
+    if (cmd->next) // pas la derniere commande;
+    {
+        fd = get_dup_fd(pipes, cmd, i, 0);
+        if (dup2(fd, 1) <= -1)
+        {
+            perror("ERROR (dup2 fd <- 1)");
+            printf("On cmd : \"%s %s\"", cmd->cmd, cmd->msg);
+        }
+        close(fd);
+    } 
+    if (cmd != first_cmd)
+    {
+        fd = get_dup_fd(pipes, cmd, i, 1);
+        if (dup2(fd, 0) <= -1) // copie l'entree standard i - 2 (i augmente de 2 si i = 2 i -2 = 0 entree standard
+        {
+            perror("ERROR (dup2 0 -> fd)");
+            printf("On cmd : \"%s %s\"", cmd->cmd, cmd->msg);
+        }
+        close(fd);
+    } 
+    return (1);
+}
+
 int m_pipe(t_cmd *cmd)
 {
-    t_cmd *tmp;
-    pid_t pid;
+    t_cmd   *tmp;
+    pid_t   pid;
+    int     status;
+    int     nbpipe;
+    int     *pipes;
+    int     i;
 
-    int status;
-    int nbpipe = get_pipe_count(cmd);
-    int *pipes;
-    int i;
-
+    nbpipe = get_pipe_count(cmd);
     pipes = (int *)malloc(sizeof(int) * (nbpipe * 2));
     open_pipe(pipes, nbpipe);
     tmp = cmd;
@@ -29,23 +83,20 @@ int m_pipe(t_cmd *cmd)
     while (tmp)
     {
         pid = fork();
-        if (pid == 0) // processus enfant
+        if (pid == 0)
         {
-            if (cmd->next) // pas la derniere commande;
-                dup2(pipes[i + 1], 1); // Copie la sortie standard i +1 (i augmente de 2, si 0 + 1 pour recuperer l'entree
-            if (cmd != tmp) // si pas la premiere commande
-                dup2(pipes[i - 2], 0); // copie l'entree standard i - 2 (i augmente de 2 si i = 2 i -2 = 0 entree standard
-            close_fd(pipes, nbpipe); // On ferme les sortie du pipe, parce qu'on les utilises pas, ils sont la juste pour faire la lien entre le parent et le child
-            execute_commands(tmp); // On execute la commande
+            set_in_out(pipes, tmp, cmd, i);
+            close_fd(pipes, nbpipe); 
+            execute_commands(tmp);
         }
-        tmp = tmp->next; // commande suivante
+        tmp = tmp->next;
         i = i + 2;
     }
-    close_fd(pipes, nbpipe); // Same line 81, on ferme les sorties du pipes.
+    close_fd(pipes, nbpipe);
     i = 0;
-    while (i < nbpipe + 1)
+    while (i < nbpipe + 2)
     {
-        wait(&status);  // On attends tous les processus childs
+        wait(&status);
         i++;
     }
     return (1);

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/11/16 17:12:55 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/16 11:32:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int get_fd(char *path)
 		if (stat(path, &buffer) == 0)
 			fd = open(path, O_WRONLY);
 		else
-			fd = open(path, O_WRONLY | O_APPEND | O_CREAT, 0644);
+			fd = open(path, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	}
 	if (fd < 0)
 	{
 		printf("Something wrong (error: %d)...\n", fd);
 		exit (1);
 	}
-	return (1);
+	return (fd);
 }
