@@ -127,12 +127,13 @@ int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
-int		ft_std(t_arg *arg, t_cmd *cmd, int i);
+int		ft_std(t_arg *arg, int i);
 void	ft_fill_fd(t_arg *arg, t_cmd *new);
+t_cmd	*ft_check_spec(t_cmd **cmd);
 
 //parse msg
 char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new);
-int 	ft_which_cmd(char **cpy);
+int		ft_which_cmd(char **cpy);
 
 // Environnement
 char	**env_to_char();

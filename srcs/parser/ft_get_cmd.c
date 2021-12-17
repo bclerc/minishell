@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/16 14:54:06 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/17 13:24:29 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	tmp = *cmd;
 	while (i < arg->count)
 	{
-		printf("i = %d c = %d\n", i, arg->count);
+		//printf("i = %d c = %d\n", i, arg->count);
 		if (ft_check_redir(arg, i) == 1)
 			i++;
 		// else if (ft_check_redir(arg, i) == 2)

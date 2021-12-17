@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/16 14:54:29 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/17 14:11:42 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	minishell(void)
 		add_history(str);
 		//str = transform_str(str, core->envp);
     	cmd = ft_launch_parser(str, &cmd);
+		cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
 		m_pipe(cmd);
 		free(prompt);

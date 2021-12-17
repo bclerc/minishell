@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/16 18:20:54 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/17 14:21:15 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 		}
 		cmd = cmd->next;
 	}
+	// puts("che");
 	cmd = tmp;
 	return (cmd);
 }
@@ -71,7 +72,7 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 	//else
 	new->fd_in = cmd->next->cmd;
 	cmd->next->cmd = NULL;
-	printf("in = %s cmd = %s next = %s\n", new->fd_in, cmd->cmd, cmd->next->cmd);
+	printf("in = %s cmd = %s msg = %s\n", new->fd_in, cmd->cmd, cmd->msg);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
@@ -95,7 +96,7 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 		new->msg = ft_strdup(cmd->msg);
 	new->fd_out = cmd->next->cmd;
 	cmd->next->cmd = NULL;
-	printf("out = %s cmd = %s next = %s\n", new->fd_out, cmd->cmd, cmd->next->cmd);
+	printf("out = %s cmd = %s msg = %s\n", new->fd_out, cmd->cmd, cmd->msg);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
