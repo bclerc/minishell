@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/18 18:38:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 18:52:15 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,7 @@ int m_pipe(t_cmd *cmd)
     int     i;
 
     if (ft_strncmp(cmd->cmd, "exit", 5) == 0)
-    {
-        printf("Je suis ici\n");
         return (execute_commands(cmd));
-    }
     nbpipe = get_pipe_count(cmd);
     pipes = (int *)malloc(sizeof(int) * (nbpipe * 2));
     open_pipe(pipes, nbpipe);

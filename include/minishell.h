@@ -15,8 +15,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-
-
 # define BUF_SIZE 42
 # define REDIR_OUT 2
 # define REDIR_APPEND_OUT 3
