@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/18 17:44:52 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/18 17:53:32 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,17 @@ void	minishell(void)
 	char	*str;
 	char	*prompt;
 	t_cmd	*cmd;
-	t_redir	*redir;
 
-	redir = NULL;
-	while (core->status)
+	while (core->status != 0)
 	{
 		prompt = get_promps();
-		str = readline(prompt);
+		str = ft_strdup(readline(prompt));
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
 			continue;
 		}
 		add_history(str);
-		//str = transform_str(str, core->envp);
     	cmd = ft_launch_parser(str, &cmd);
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
@@ -67,6 +64,7 @@ void	minishell(void)
 		// }
 		free(str);
 	}
+	m_exit(cmd, M_EXIT_MALLOC_ERROR);
 }
 
 int	main(int ac, char **av, char **envp)

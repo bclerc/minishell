@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/18 12:13:04 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:11:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
         else
             fd = pipes[i - 2];
         if (fd < 0)
-        {
-            printf("Minishell: Error on open FD\n");
             exit(EXIT_FAILURE);
-        }
         return (fd);
     }
     if (cmd->fd_out != NULL)
@@ -53,12 +50,12 @@ int set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
         }
         close(fd);
     } 
-    if (cmd != first_cmd)
+    if (cmd != first_cmd )
     {
         fd = get_dup_fd(pipes, cmd, i, 1);
         if (dup2(fd, 0) <= -1) // copie l'entree standard i - 2 (i augmente de 2 si i = 2 i -2 = 0 entree standard
         {
-            perror("ERROR (dup2 0 -> fd)");
+            perror("ERROR 7874");
             printf("On cmd : \"%s %s\"", cmd->cmd, cmd->msg);
         }
         close(fd);
@@ -75,6 +72,11 @@ int m_pipe(t_cmd *cmd)
     int     *pipes;
     int     i;
 
+    if (ft_strncmp(cmd->cmd, "exit", 5) == 0)
+    {
+        printf("Je suis ici\n");
+        return (execute_commands(cmd));
+    }
     nbpipe = get_pipe_count(cmd);
     pipes = (int *)malloc(sizeof(int) * (nbpipe * 2));
     open_pipe(pipes, nbpipe);
@@ -86,7 +88,7 @@ int m_pipe(t_cmd *cmd)
         if (pid == 0)
         {
             set_in_out(pipes, tmp, cmd, i);
-            close_fd(pipes, nbpipe); 
+            close_fd(pipes, nbpipe);
             execute_commands(tmp);
         }
         tmp = tmp->next;
