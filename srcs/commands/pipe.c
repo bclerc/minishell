@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/16 12:06:36 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 12:13:04 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
     if (in)
     {
         if (cmd->fd_in != NULL)
-            fd = get_fd(cmd->redir->fd_in_redir);
+            fd = get_fd(cmd->redir->fd_in);
         else
             fd = pipes[i - 2];
         if (fd < 0)
@@ -29,7 +29,7 @@ int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
         return (fd);
     }
     if (cmd->fd_out != NULL)
-        fd = get_fd(cmd->redir->fd_out_redir);
+        fd = get_fd(cmd->redir->fd_out);
     else
         fd = pipes [i + 1];
     if (fd < 0)

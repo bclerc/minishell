@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/12/17 13:32:34 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/18 17:30:03 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		{
 			if (ft_check_n(cpy, j, arg, new) == 1)
 				return (NULL);
-			arg->spec_n = new->spec;
+			//arg->spec_n = new->spec;
 			j++;
 			if (cpy[j])
 			{

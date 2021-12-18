@@ -1,6 +1,8 @@
-[TMP]
-0x55555 = 0x6666
-[**CMD]
-0x44444 = 0x5555 = 0x6666
-[*CMD]
-0x5545 = 0x66
+caca
+include
+lol
+Makefile
+minishell
+srcs
+test
+todo_redir.txt
