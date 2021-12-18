@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/15 15:01:04 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 17:32:15 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char **get_argv(t_cmd *cmd)
 		i = 0;
 		while (tmp[i])
 			i++;
-		ret = (char **)malloc(sizeof(char *) * i + 2);
+		ret = (char **)malloc(sizeof(char *) * (i + 2));
 		ret[0] = cmd->cmd;
 		i = 0;
 		while (tmp[i])
@@ -101,6 +101,7 @@ int exec(t_cmd *cmd)
 			printf("%s: command not found\n", cmd->cmd);
 	}
 	rm_split(argv);
+	rm_split(tab_env);
 	core->child_exist = 0;
 	return (1);
 }
