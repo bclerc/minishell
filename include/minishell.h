@@ -176,7 +176,7 @@ int		get_env_length(char **env);
 int		ft_havechr(char* str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
-char	*transform_str(char *str, char **envp);
+char	*transform_str(char *str);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);

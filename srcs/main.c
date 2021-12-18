@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/18 17:59:05 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 18:33:38 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	minishell(void)
 			continue;
 		}
 		add_history(str);
+		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
 		printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std);
 		//cmd = ft_check_spec(&cmd);
@@ -58,6 +59,7 @@ void	minishell(void)
 		free(str);
 	}
 	m_exit(cmd, M_EXIT_MALLOC_ERROR, "minishell (main.c)");
+	exit(EXIT_SUCCESS);
 }
 
 int	main(int ac, char **av, char **envp)
