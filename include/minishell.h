@@ -64,7 +64,6 @@ struct s_redir
 	char	*cmd_redir;
 	char	*fd_in;
 	char	*fd_out;
-	char	*msg;
 	t_redir	*next;
 };
 
@@ -136,6 +135,8 @@ t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_std(t_arg *arg, int i);
 void	ft_fill_fd(t_arg *arg, t_cmd *new);
+void	ft_spec_out(t_cmd *new, t_arg *arg);
+void	ft_spec_in(t_cmd *new, t_arg *arg);
 t_cmd	*ft_check_spec(t_cmd **cmd);
 
 //parse msg

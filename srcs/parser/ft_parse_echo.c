@@ -39,7 +39,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		{
 			if (ft_check_n(cpy, j, arg, new) == 1)
 				return (NULL);
-			arg->spec_n = new->spec;
+			//arg->spec_n = new->spec;
 			j++;
 			if (cpy[j])
 			{

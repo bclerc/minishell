@@ -15,17 +15,14 @@
 t_cmd	*ft_redir(t_cmd *cmd)
 {
 	t_cmd	*tmp;
-	t_redir *redir;
+	t_redir	*redir;
 
 	tmp = cmd;
 	while (cmd && cmd->next != NULL)
 	{
-		printf("cmd= %s std = %d\n", cmd->cmd, cmd->std);
-		// if (ft_strcmp(cmd->cmd, "<") == 0 || ft_strcmp(cmd->cmd, "<<") == 0
-		// 		|| ft_strcmp(cmd->cmd, ">") == 0 || ft_strcmp(cmd->cmd, ">>") == 0)
+		//printf("cmd= %s std = %d\n", cmd->cmd, cmd->std);
 		if (cmd->std > 1 && cmd->std <= 5)
 		{
-		//printf("std = %d\n", cmd->std);
 			cmd->redir = ft_create_redir(cmd, &redir);
 			//printf("cmd->redirin = %s cmd->redirout = %s cmd->redirstd = %d\n", cmd->redir->fd_in_redir, cmd->redir->fd_out_redir, cmd->redir->std_redir);
 			break;
@@ -67,12 +64,13 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 	new = ft_newredir(cmd, new, cmd->std);
 	//if (cmd->next->next->msg && ft_strcmp(cmd->cmd, "echo") == 0) // ecrire dans le fichier le msg complet (avant et apres le >)
 		//new->fd_in_redir = ft_strjoin(cmd->msg, cmd->next->msg);
-	if (cmd->msg && ft_strcmp(cmd->cmd, "echo") == 0)
-		new->msg = ft_strdup(cmd->msg);
+	// if (cmd->msg && ft_strcmp(cmd->cmd, "echo") == 0)
+	// 	new->msg = ft_strdup(cmd->msg);
 	//else
+	//new->msg = NULL;
 	new->fd_in = cmd->next->cmd;
 	cmd->next->cmd = NULL;
-	printf("in = %s cmd = %s msg = %s\n", new->fd_in, cmd->cmd, cmd->msg);
+	//printf("in = %s cmd = %s msg = %s\n", new->fd_in, cmd->cmd, cmd->msg);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
@@ -92,11 +90,14 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 	if (!new)
 		return (0);
 	new = ft_newredir(cmd, new, cmd->std);
-	if (cmd->msg && ft_strcmp(cmd->cmd, "echo") == 0)
-		new->msg = ft_strdup(cmd->msg);
+	// printf("msg = %s\n", cmd->msg);
+	// if (cmd->msg && ft_strcmp(cmd->cmd, "echo") == 0)
+	// 	new->msg = ft_strdup(cmd->msg);
+	// else
+	// 	new->msg = NULL;
 	new->fd_out = cmd->next->cmd;
 	cmd->next->cmd = NULL;
-	printf("out = %s cmd = %s msg = %s\n", new->fd_out, cmd->cmd, cmd->msg);
+	//printf("out = %s cmd = %s msg = %s\n", new->fd_out, cmd->cmd, cmd->msg);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;

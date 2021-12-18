@@ -38,6 +38,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 			cpy[i] = ft_strdup(arg->cmds[i]); // malloc a proteger	
 		arg->i_cpy = i;
 		*cmd = ft_parse_cmd(arg, cpy, *cmd);
+		//printf("cmd = %s, msg = %s in = %s out = %s\n", (*cmd)->cmd, (*cmd)->msg, (*cmd)->fd_in, (*cmd)->fd_out);
 		if (!*cmd)
 		{
 			//write(1, "\n", 1);
