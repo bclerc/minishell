@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/18 17:42:42 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/18 17:44:52 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	minishell(void)
 		add_history(str);
 		//str = transform_str(str, core->envp);
     	cmd = ft_launch_parser(str, &cmd);
-		printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std);
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
+		printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std);
 		m_pipe(cmd);
 		free(prompt);
 		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fdin = %s\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std, tmp->redir->fd_in);
