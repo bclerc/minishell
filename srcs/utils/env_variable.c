@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/10 18:09:45 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 17:28:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**env_to_char()
 		count++;
 		env = env->next;
 	}
-	char_env = (char **)malloc((sizeof(char*) * count) + 1);
+	char_env = (char **)malloc(sizeof(char*) * (count + 1));
 	if (!char_env)
 		return (NULL);
 	env = core->env;
@@ -56,7 +56,7 @@ char	**env_to_char()
 		env = env->next;
 		i++;
 	}
-	char_env[i + 1] = NULL;
+	char_env[i] = NULL;
 	return (char_env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/18 14:46:33 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/17 13:24:29 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 		//printf("i = %d c = %d\n", i, arg->count);
 		if (ft_check_redir(arg, i) == 1)
 			i++;
+		// else if (ft_check_redir(arg, i) == 2)
+		// {
+		// 	i += 2;
+		// 	if (i >= arg->count)
+		// 	{
+		// 		break;
+		// 	}
+		// }
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
 		if (cpy[i] == NULL && i < arg->count)
 			cpy[i] = ft_strdup(arg->cmds[i]); // malloc a proteger	

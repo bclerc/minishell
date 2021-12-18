@@ -18,6 +18,13 @@
 
 
 # define BUF_SIZE 42
+# define REDIR_OUT 2
+# define REDIR_APPEND_OUT 3
+# define REDIR_IN 4
+# define REDIR_APPEND_IN 5
+
+# define M_EXIT_MALLOC_ERROR 1
+# define M_EXIT_SUCCESS 2
 
 typedef struct s_env
 {
@@ -57,7 +64,6 @@ struct s_redir
 	char	*cmd_redir;
 	char	*fd_in;
 	char	*fd_out;
-	//char	*msg;
 	t_redir	*next;
 };
 
@@ -164,6 +170,7 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i);
 
 // utils
+void    m_exit(t_cmd *cmd, int reason);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
 int		ft_havechr(char* str, char c);

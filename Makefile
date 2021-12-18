@@ -35,6 +35,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_parsing.c \
 			srcs/utils/ft_strtrim.c \
 			srcs/utils/ft_util_parsemsg.c \
+			srcs/utils/exit.c \
 			srcs/commands/commands.c \
 			srcs/commands/pipe.c \
 			srcs/commands/pipe_utils.c \
@@ -50,7 +51,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -g 
+CFLAGS = -g
 CC = clang
 
 .PHONY: all re clean fclean libft force doclean
