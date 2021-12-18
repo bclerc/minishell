@@ -170,7 +170,7 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i);
 
 // utils
-void    m_exit(t_cmd *cmd, int reason);
+void    m_exit(t_cmd *cmd, int reason, char *function);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
 int		ft_havechr(char* str, char c);

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/18 17:21:46 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 17:59:06 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    del_env(void)
     }
 }
 
-void    m_exit(t_cmd *cmd, int reason)
+void    m_exit(t_cmd *cmd, int reason, char *function)
 {
     int i;
     t_cmd *tmp;
@@ -41,7 +41,6 @@ void    m_exit(t_cmd *cmd, int reason)
             free(cmd->redir->cmd_redir);
             free(cmd->redir->fd_in);
             free(cmd->redir->fd_out);
-            free(cmd->redir->msg);
             free(cmd->redir);
             cmd->redir = redir;
         }
@@ -50,5 +49,5 @@ void    m_exit(t_cmd *cmd, int reason)
         cmd = tmp;
     }
     if (reason == M_EXIT_MALLOC_ERROR)
-        printf("\nMinishell: Malloc Error\n");
+        printf("\nMinishell: Malloc error:\nFunction: %s\n", function);
 }

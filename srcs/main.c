@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/18 17:11:08 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 17:59:05 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,9 @@ void	minishell(void)
     	cmd = ft_redir(cmd);
 		m_pipe(cmd);
 		free(prompt);
-		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fdin = %s\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std, tmp->redir->fd_in);
-		// if (execute_commands(str, envp, 0) == -1)
-		// {
-		// 	free(prompt);
-		// 	free(str);
-		// 	break ;
-		// }
 		free(str);
 	}
-	m_exit(cmd, M_EXIT_MALLOC_ERROR);
+	m_exit(cmd, M_EXIT_MALLOC_ERROR, "minishell (main.c)");
 }
 
 int	main(int ac, char **av, char **envp)
