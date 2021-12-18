@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/18 18:33:38 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 18:44:37 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	minishell(void)
 		free(prompt);
 		free(str);
 	}
-	m_exit(cmd, M_EXIT_MALLOC_ERROR, "minishell (main.c)");
+	m_exit(cmd, M_EXIT_SUCCESS, NULL);
 	exit(EXIT_SUCCESS);
 }
 

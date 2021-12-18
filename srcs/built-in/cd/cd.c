@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/18 18:02:10 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/18 18:43:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	cd(char *path)
 	home = get(path);
 	if (!home)
 		return (-1);
-	usleep(50);
 	stats = stat(home, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{
