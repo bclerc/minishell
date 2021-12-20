@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_spec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>            +#+  +:+       +#+      */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 13:50:10 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/17 14:47:59 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:36:18 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cmd	*ft_check_spec(t_cmd **cmd)
 	tmp = *cmd;
 	if ((*cmd)->std > 1 && (*cmd)->std <= 5)
 	{
-		while (*cmd/* && (*cmd)->next*/)
+		while (*cmd && (*cmd)->next)
 		{
 			if ((*cmd)->msg == NULL)
 				*cmd = (*cmd)->next;
@@ -35,6 +35,7 @@ t_cmd	*ft_check_spec(t_cmd **cmd)
 	*cmd = tmp;
 	return (*cmd);
 }
+/*
 void	ft_spec_out(t_cmd *new, t_arg *arg)
 {
 	int		i;
@@ -86,4 +87,4 @@ void	ft_spec_in(t_cmd *new, t_arg *arg)
 		j++;
 	}
 	new->fd_out = NULL;
-}
+}*/

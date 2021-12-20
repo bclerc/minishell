@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/18 17:21:46 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:30:03 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void    m_exit(t_cmd *cmd, int reason)
             free(cmd->redir->cmd_redir);
             free(cmd->redir->fd_in);
             free(cmd->redir->fd_out);
-            free(cmd->redir->msg);
             free(cmd->redir);
             cmd->redir = redir;
         }
