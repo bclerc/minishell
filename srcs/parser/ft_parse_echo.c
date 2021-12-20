@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/12/17 13:32:34 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:35:33 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	while (cpy[tmp_nb])
 		tmp_nb++;
 	new->cpy_nb = tmp_nb;
-	new->nb = arg->i_cpy;
 	new->cmd = ft_strdup(cpy[j]);
 	j++;
 	if (cpy[j])
@@ -74,7 +73,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	{
 		ft_fill_fd(arg, new);
 	}
-	//printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %din =%s out = %s\n", new->nb, new->cmd, new->spec, new->msg, new->std, new->fd_in, new->fd_out);
+	//printf("echo2 : cmd = %s, spec = %s, msg = %s\n", new->cmd, new->spec, new->msg, new->std);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;

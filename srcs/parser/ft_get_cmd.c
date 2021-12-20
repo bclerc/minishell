@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/17 13:24:29 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:38:34 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd)
 		&& ft_strncmp(cpy[0], "<", ft_strlen(cpy[0]))
 		&& ft_strncmp(cpy[0], "<<", ft_strlen(cpy[0])))
 		return (ft_parse_other(arg, cpy, cmd));
-	//return (ft_parse_special(arg, cpy, cmd));
 	return (NULL);
 }
 
