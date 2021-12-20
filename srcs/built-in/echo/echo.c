@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:17 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/16 11:25:05 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:50:08 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ int	echo(char *str, char *path, int flag_n)
 	if (str)
 		write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
+	exit(EXIT_SUCCESS);
 	return (1);
 }

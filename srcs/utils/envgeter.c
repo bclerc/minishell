@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/10 18:01:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 11:31:24 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,13 @@ char	*build_str(char **str)
 	return (final_str);
 }
 
-char	*transform_str(char *str, char **envp)
+char	*transform_str(char *str)
 {
 	int		i;
 	char	**split;
 	char	*env;
 	char	*ret;
 
-	(void)envp;
 	split = ft_strsplit_s(str, '$');
 	i = 0;
 	while (split[i])
@@ -96,7 +95,7 @@ char	*transform_str(char *str, char **envp)
 		i++;
 	}
 	ret = build_str(split);
-	rm_split(split);
+	//rm_split(split);
 	free(str);
 	return (ret);
 }

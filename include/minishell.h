@@ -15,10 +15,15 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-
-
 # define BUF_SIZE 42
+# define REDIR_OUT 2
+# define REDIR_APPEND_OUT 3
+# define REDIR_IN 4
+# define REDIR_APPEND_IN 5
 
+# define M_EXIT_MALLOC_ERROR 1
+# define M_EXIT_SUCCESS 2
+# define M_EXIT_FORK 3
 typedef struct s_env
 {
 
@@ -55,9 +60,8 @@ struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
 	char	*cmd_redir;
-	char	*fd_in_redir;
-	char	*fd_out_redir;
-	char	*msg;
+	char	*fd_in;
+	char	*fd_out;
 	t_redir	*next;
 };
 
@@ -127,12 +131,15 @@ int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_special(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
-int		ft_std(t_arg *arg, t_cmd *cmd, int i);
+int		ft_std(t_arg *arg, int i);
 void	ft_fill_fd(t_arg *arg, t_cmd *new);
+void	ft_spec_out(t_cmd *new, t_arg *arg);
+void	ft_spec_in(t_cmd *new, t_arg *arg);
+t_cmd	*ft_check_spec(t_cmd **cmd);
 
 //parse msg
 char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new);
-int 	ft_which_cmd(char **cpy);
+int		ft_which_cmd(char **cpy);
 
 // Environnement
 char	**env_to_char();
@@ -161,12 +168,13 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i);
 
 // utils
+void    m_exit(t_cmd *cmd, int reason, char *function);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
 int		ft_havechr(char* str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
-char	*transform_str(char *str, char **envp);
+char	*transform_str(char *str);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);

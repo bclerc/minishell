@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/16 11:32:03 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 13:20:10 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ int get_fd(char *path)
 	fd = 1;
 	if (path)
 	{
-		if (stat(path, &buffer) == 0)
-			fd = open(path, O_WRONLY);
-		else
+		if (access(path, F_OK))
+		{
 			fd = open(path, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+		}
+		else
+		{
+			fd = open(path, O_RDONLY);
+			printf("FD successful open\n");
+		}
 	}
 	if (fd < 0)
 	{

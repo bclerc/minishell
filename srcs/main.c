@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/16 09:47:07 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:47:21 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,34 +38,29 @@ void	minishell(void)
 	char	*str;
 	char	*prompt;
 	t_cmd	*cmd;
-	t_redir	*redir;
 
-	redir = NULL;
-	while (core->status)
+	while (core->status != 0)
 	{
 		prompt = get_promps();
-		str = readline(prompt);
+		str = ft_strdup(readline(prompt));
+		free(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
 			continue;
 		}
 		add_history(str);
-		//str = transform_str(str, core->envp);
+		//str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
+		free(str);
+		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std);
+		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
 		m_pipe(cmd);
-		free(prompt);
-		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std);
-		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d fdin = %s\n", tmp->nb, tmp->cmd, tmp->spec, tmp->msg, tmp->std, tmp->redir->fd_in);
-		// if (execute_commands(str, envp, 0) == -1)
-		// {
-		// 	free(prompt);
-		// 	free(str);
-		// 	break ;
-		// }
-		free(str);
+		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
+	m_exit(cmd, M_EXIT_SUCCESS, NULL);
+	exit(EXIT_SUCCESS);
 }
 
 int	main(int ac, char **av, char **envp)

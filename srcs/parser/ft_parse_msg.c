@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/08 17:48:34 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/17 13:34:11 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp)
 	{
 		//printf("cpy = %s\n", cpy[1]);
 		start = ft_strlen(cpy[0]) + 1;
-		//printf("st = %d\n", start);
 		tmp = ft_other_msg(arg, start, tmp);
-		//tmp = cpy[1]; // ok MAIS seulement s'il n'y a qu'un seul msg
 	}	
 	else if (j == 1)
 		tmp = ft_which_nb(start, tmp, arg);
@@ -59,7 +57,6 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 		if (!str)
 			return (NULL);
 		arg->pos_i++;
-		//printf("i = %d size = %d str = %s\n", arg->pos_i, size, str);
 	}
 	return (str);
 }

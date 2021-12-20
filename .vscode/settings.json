@@ -16,6 +16,8 @@
   "C_Cpp_Runner.enableWarnings": true,
   "C_Cpp_Runner.warningsAsError": false,
   "files.associations": {
-    "minishell.h": "c"
+    "minishell.h": "c",
+    "history.h": "c",
+    "stat.h": "c"
   }
 }

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/14 15:01:36 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:51:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char *get(char *path)
 {
 	char *home;
 
-	if (ft_strlen(path) == 0)
+	if (path == 0)
 	{
 		if (get_env_variable("HOME") == NULL)
 			home = ft_strdup(getcwd(0, 0));
@@ -83,7 +83,6 @@ int	cd(char *path)
 	home = get(path);
 	if (!home)
 		return (-1);
-	usleep(50);
 	stats = stat(home, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{
@@ -105,9 +104,7 @@ int	cd(char *path)
 	else
 	{
 		printf("cd: no such file or directory: %s\n", home);
-		free(path);
 		return (1);
 	}
-	free(path);
 	return (1);
 }

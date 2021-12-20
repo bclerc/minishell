@@ -24,6 +24,7 @@ SOURCES =	srcs/main.c \
 			srcs/parser/ft_parse_builtins.c \
 			srcs/parser/ft_msg.c \
 			srcs/parser/ft_parse_msg.c \
+			srcs/parser/ft_spec.c \
 			srcs/parser/ft_redir.c \
 			srcs/utils/ft_strcmp.c \
 			srcs/utils/ft_strsplit_space.c \
@@ -34,6 +35,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_parsing.c \
 			srcs/utils/ft_strtrim.c \
 			srcs/utils/ft_util_parsemsg.c \
+			srcs/utils/exit.c \
 			srcs/commands/commands.c \
 			srcs/commands/pipe.c \
 			srcs/commands/pipe_utils.c \
@@ -49,7 +51,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -g 
+CFLAGS = -g3
 CC = clang
 
 .PHONY: all re clean fclean libft force doclean

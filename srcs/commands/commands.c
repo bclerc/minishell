@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/15 15:01:04 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:57:56 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char **get_argv(t_cmd *cmd)
 		i = 0;
 		while (tmp[i])
 			i++;
-		ret = (char **)malloc(sizeof(char *) * i + 2);
+		ret = (char **)malloc(sizeof(char *) * (i + 2));
 		ret[0] = cmd->cmd;
 		i = 0;
 		while (tmp[i])
@@ -89,18 +89,19 @@ int exec(t_cmd *cmd)
 	tab_env = env_to_char();
 	while (path[++i] && status == 0)
 	{
-		if (execve(get_path(path[i], cmd->cmd), argv,
-			tab_env) > -1)
-			status = 1;
+		execve(get_path(path[i], cmd->cmd), argv, tab_env);
 	}
 	if (status == 0)
 	{
-		if (execve(cmd->cmd, argv, tab_env) > -1)
-			status = 1;
-		else
-			printf("%s: command not found\n", cmd->cmd);
+		if (execve(cmd->cmd, argv, tab_env) < 0)
+		{
+			perror(cmd->cmd);
+			exit(EXIT_FAILURE);
+		}
+
 	}
 	rm_split(argv);
+	rm_split(tab_env);
 	core->child_exist = 0;
 	return (1);
 }
@@ -125,6 +126,7 @@ int	execute_commands(t_cmd *cmd)
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		core->status = 0;
+		write(1,"exit 😱 😭\n", 16);
 		return (-1);
 	}
 	if (ret == 1 || ret == -1)

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/10 18:04:15 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:53:35 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 	if (j == new->cpy_nb - 1)
 	{
 		tmp = ft_parse_msg(cpy[j], arg);
+		//printf("tmp1 = %s\n", tmp);
 		if (!tmp)
 			return (NULL);	
 		return (tmp);
@@ -28,7 +29,7 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 	else
 	{
 		tmp = ft_search_msg(cpy, j, arg, tmp);
-		//printf("tmp = %s\n", tmp);
+		//printf("tmp2 = %s\n", tmp);
 		tmp2 = ft_parse_msg(tmp, arg);
 		if (!tmp)
 			return (NULL);
