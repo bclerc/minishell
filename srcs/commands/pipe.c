@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 16:46:35 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 19:09:17 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
             exit(EXIT_FAILURE);
         return (fd);
     }
-    if (cmd->redir && cmd->redir->fd_in != NULL)
+    if (cmd->redir && cmd->redir->fd_out != NULL)
         fd = get_fd(cmd->redir->fd_out);
     else
         fd = pipes [i + 1];
@@ -82,6 +82,11 @@ int m_pipe(t_cmd *cmd)
     i = 0;
     while (tmp)
     {
+        if (tmp->cmd == NULL)
+        {
+            tmp = tmp->next;
+            continue ;
+        }
         pid = fork();
         core->child_exist = 1;
         core->child = pid;
