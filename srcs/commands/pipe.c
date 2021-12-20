@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 19:09:17 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 19:06:55 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
         }
         close(fd);
     } 
-    if (cmd != first_cmd )
+    if (cmd != first_cmd)
     {
         fd = get_dup_fd(pipes, cmd, i, 1);
         if (dup2(fd, 0) <= -1) // copie l'entree standard i - 2 (i augmente de 2 si i = 2 i -2 = 0 entree standard
