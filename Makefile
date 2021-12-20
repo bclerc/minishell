@@ -15,8 +15,7 @@ SOURCES =	srcs/main.c \
 			srcs/ft_init.c \
 			srcs/utils/envgeter.c \
 			srcs/parser/ft_get_arg.c\
-			srcs/parser/ft_gnl.c \
-			srcs/utils/ft_utils_gnl.c srcs/utils/ft_utils.c \
+			srcs/utils/ft_utils.c \
 			srcs/parser/ft_parse_arg.c \
 			srcs/parser/ft_parser.c \
 			srcs/parser/ft_get_cmd.c \

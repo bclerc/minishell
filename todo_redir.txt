@@ -1,5 +1,6 @@
 
-
+cmd "|" only segfaults
+exit | ls exec ls
 Comportement des rediction dans bash
 
 CMD > file (Write stout in file);

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
 /*   Updated: 2021/12/20 19:06:55 by bclerc           ###   ########.fr       */
@@ -82,6 +82,11 @@ int m_pipe(t_cmd *cmd)
     i = 0;
     while (tmp)
     {
+        if (tmp->cmd == NULL)
+        {
+            tmp = tmp->next;
+            continue ;
+        }
         pid = fork();
         core->child_exist = 1;
         core->child = pid;

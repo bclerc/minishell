@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/14 14:48:37 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 17:14:49 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	ft_get_arg(char *str, t_arg *arg)
 {
 	ft_init_arg(arg, str);
 	ft_count_arg(str, arg);
-	ft_stock_arg(arg, str);
+	if (ft_stock_arg(arg, str) == 1)
+		return (-1);
 	arg->start = 0;
 	if (ft_check_args(arg) == -1)
 		return (-1);
@@ -56,7 +57,7 @@ void	ft_count_arg(char *str, t_arg *arg)
 
 // recup args par chaines
 // + check args (quotes, no sep)
-void	ft_stock_arg(t_arg *arg, char *str)
+int	ft_stock_arg(t_arg *arg, char *str)
 {
 	int		c;
 	int		i;
@@ -65,24 +66,24 @@ void	ft_stock_arg(t_arg *arg, char *str)
 	i = -1;
 	arg->cmds = malloc(sizeof(char *) * (arg->count + 1));
 	if (!arg->cmds)
-		return ;
+		return (1);
 	while (str[++i])
 	{
 		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
 		{
 			arg->cmds[c] = ft_parse_arg(str, i, arg);
-			//printf("arg[%d] = %s\n", c, arg->cmds[c]);
 			c++;
 			if (ft_check_char(str, i, c, arg) == -1)
-				return ;
+				return (1);
 			else
-				i = ft_check_char(str, i, c, arg);	
+				i = ft_check_char(str, i, c, arg);
 			arg->start = i;
 			c++;
 		}
 	}
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
+	return (0);
 }
 
 int	ft_check_args(t_arg *arg)
