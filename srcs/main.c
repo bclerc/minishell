@@ -6,7 +6,11 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/12/20 15:47:21 by bclerc           ###   ########.fr       */
+=======
+/*   Updated: 2021/12/20 16:39:03 by asgaulti         ###   ########.fr       */
+>>>>>>> 4c3d126e249047394afca21f3f54a1fe04c34257
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +56,9 @@ void	minishell(void)
 		add_history(str);
 		//str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
-		free(str);
-		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std);
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
+		//printf("cmd :cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->cmd, cmd->spec, cmd->msg, cmd->std);
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
