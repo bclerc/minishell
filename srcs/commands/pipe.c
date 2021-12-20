@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/18 18:52:15 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 14:19:43 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
     int fd;
     if (in)
     {
-        if (cmd->fd_in != NULL)
-            fd = get_fd(cmd->redir->fd_in);
+        if (cmd->redir && cmd->redir->fd_in != NULL)
+            fd = get_fd(cmd->fd_in);
         else
             fd = pipes[i - 2];
         if (fd < 0)
             exit(EXIT_FAILURE);
         return (fd);
     }
-    if (cmd->fd_out != NULL)
-        fd = get_fd(cmd->redir->fd_out);
+    if (cmd->redir && cmd->redir->fd_in != NULL)
+        fd = get_fd(cmd->fd_out);
     else
         fd = pipes [i + 1];
     if (fd < 0)
@@ -72,7 +72,8 @@ int m_pipe(t_cmd *cmd)
     int     *pipes;
     int     i;
 
-    if (ft_strncmp(cmd->cmd, "exit", 5) == 0)
+    if (ft_strcmp(cmd->cmd, "exit") == 0 || 
+        ft_strcmp(cmd->cmd, "cd") == 0)
         return (execute_commands(cmd));
     nbpipe = get_pipe_count(cmd);
     pipes = (int *)malloc(sizeof(int) * (nbpipe * 2));
@@ -100,5 +101,6 @@ int m_pipe(t_cmd *cmd)
         wait(&status);
         i++;
     }
+    free(pipes);
     return (1);
 }

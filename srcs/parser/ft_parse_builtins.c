@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/17 20:42:44 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 13:32:45 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 	else
 		new->msg = ft_cpy_msg(arg, cpy, j, new);
 	new->spec = NULL;
-	printf("builtins2 : cmd = %s, msg = %s in = %s out = %s\n", new->cmd, new->msg, new->fd_in, new->fd_out);
+	//printf("builtins2 : cmd = %s, msg = %s in = %s out = %s\n", new->cmd, new->msg, new->fd_in, new->fd_out);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;
@@ -82,7 +82,7 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 		tmp = new;
 	else
 		cmd->next = new;
-	printf("other2 : cmd = %s, msg = %s in = %s out = %s\n", new->cmd, new->msg, new->fd_in, new->fd_out);
+	//printf("other2 : cmd = %s, msg = %s in = %s out = %s\n", new->cmd, new->msg, new->fd_in, new->fd_out);
 	return (tmp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/18 18:44:37 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:47:21 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,21 @@ void	minishell(void)
 	{
 		prompt = get_promps();
 		str = ft_strdup(readline(prompt));
+		free(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
 			continue;
 		}
 		add_history(str);
-		str = transform_str(str);
+		//str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
-		printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std);
+		free(str);
+		//printf("cmd : nb = %d cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std);
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
 		m_pipe(cmd);
-		free(prompt);
-		free(str);
+		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
 	m_exit(cmd, M_EXIT_SUCCESS, NULL);
 	exit(EXIT_SUCCESS);

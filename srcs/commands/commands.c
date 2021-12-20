@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/18 17:56:29 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:44:37 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,16 @@ int exec(t_cmd *cmd)
 	tab_env = env_to_char();
 	while (path[++i] && status == 0)
 	{
-		if (execve(get_path(path[i], cmd->cmd), argv,
-			tab_env) > -1)
-			status = 1;
+		execve(get_path(path[i], cmd->cmd), argv, tab_env);
 	}
 	if (status == 0)
 	{
-		if (execve(cmd->cmd, argv, tab_env) > -1)
-			status = 1;
-		else
-			printf("%s: command not found\n", cmd->cmd);
+		if (execve(cmd->cmd, argv, tab_env) < 0)
+		{
+			perror(cmd->cmd);
+			exit(EXIT_FAILURE);
+		}
+
 	}
 	rm_split(argv);
 	rm_split(tab_env);

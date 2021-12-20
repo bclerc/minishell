@@ -23,7 +23,7 @@
 
 # define M_EXIT_MALLOC_ERROR 1
 # define M_EXIT_SUCCESS 2
-
+# define M_EXIT_FORK 3
 typedef struct s_env
 {
 
