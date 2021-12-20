@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/12/20 15:47:21 by bclerc           ###   ########.fr       */
-=======
-/*   Updated: 2021/12/20 16:39:03 by asgaulti         ###   ########.fr       */
->>>>>>> 4c3d126e249047394afca21f3f54a1fe04c34257
+/*   Updated: 2021/12/20 17:56:07 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +47,16 @@ void	minishell(void)
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
-			continue;
+			continue ;
 		}
 		add_history(str);
-		//str = transform_str(str);
+		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
+		if (!cmd)
+			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
+			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
-		//printf("cmd :cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->cmd, cmd->spec, cmd->msg, cmd->std);
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}

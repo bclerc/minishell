@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 16:43:09 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/20 16:46:35 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
     if (in)
     {
         if (cmd->redir && cmd->redir->fd_in != NULL)
-            fd = get_fd(cmd->fd_in);
+            fd = get_fd(cmd->redir->fd_in);
         else
-        */    fd = pipes[i - 2];
+            fd = pipes[i - 2];
         if (fd < 0)
             exit(EXIT_FAILURE);
         return (fd);
     }
     if (cmd->redir && cmd->redir->fd_in != NULL)
-        fd = get_fd(cmd->fd_out);
+        fd = get_fd(cmd->redir->fd_out);
     else
-    */    fd = pipes [i + 1];
+        fd = pipes [i + 1];
     if (fd < 0)
     {
         printf("Minishell: Error on open FD\n");
