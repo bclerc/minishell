@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/20 17:54:33 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:23:16 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	tmp = *cmd;
 	while (i < arg->count)
 	{
-		if (ft_check_redir(arg, i) == 1)
-			i++;
+		if ((ft_check_redir(arg, i) == 1 && (i + 1 >= arg->count))
+			|| (ft_check_redir(arg, i) == 2 && (i + 2 >= arg->count)))
+			return (ft_print("There is no command here...\n", -1), NULL);
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
 		if (cpy[i] == NULL && i < arg->count)
 		{
@@ -31,11 +32,10 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 			if (!cpy[i])
 				return (NULL);
 		}
-		arg->i_cpy = i;
+		arg->i_cpy = i++;
 		*cmd = ft_parse_cmd(arg, cpy, *cmd);
 		if (!*cmd)
 			return (NULL);
-		i++;
 	}
 	return (*cmd);
 }
@@ -62,12 +62,12 @@ t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd)
 
 int	ft_check_redir(t_arg *arg, int i)
 {
-	if (ft_strcmp(arg->cmds[i], "|") == 0)
+	if (ft_strcmp(arg->cmds[i], "|") == 0
+		|| ft_strcmp(arg->cmds[i], ">") == 0
+		|| ft_strcmp(arg->cmds[i], "<") == 0)
 		return (1);
-	else if (ft_strcmp(arg->cmds[i], ">") == 0
-		|| ft_strcmp(arg->cmds[i], ">>") == 0
-		|| ft_strcmp(arg->cmds[i], "<") == 0
+	else if (ft_strcmp(arg->cmds[i], ">>") == 0
 		|| ft_strcmp(arg->cmds[i], "<<") == 0)
-		return (1);
+		return (2);
 	return (0);
 }

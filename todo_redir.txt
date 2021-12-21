@@ -1,5 +1,5 @@
 
-cmd "|" only segfaults
+cmd "|" only segfaults > a priori ok (pareil pour les < et <<) mIS AORT DE MINISHELL...
 exit | ls exec ls
 Comportement des rediction dans bash
 
