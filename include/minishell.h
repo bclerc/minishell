@@ -179,6 +179,7 @@ char	*ft_sep(t_arg *arg, int i, char c, int count);
 char	*ft_strtrim(char const *s1, char const *set);
 
 // pipe
+t_cmd	*dup_cmd(t_cmd *cmd);
 int		get_pipe_count(t_cmd *cmd);
 int		m_pipe(t_cmd *cmd);
 int		close_fd(int *tab_fd, int nb_pipes);
