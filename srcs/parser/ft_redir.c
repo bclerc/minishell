@@ -6,27 +6,48 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/21 15:46:17 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:26:48 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void trans_redir(t_redir *src, t_redir *dst)
+{
+	t_redir *tmp;
+
+	if (dst)
+	{
+		tmp = dst;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = src;	
+	}
+	else
+		dst = src;
+}
+
 t_cmd	*ft_redir(t_cmd *cmd)
 {
 	t_cmd	*tmp;
+	//t_cmd	*past;
 	t_redir	*redir;
 
 	tmp = cmd;
+	//past = cmd;
 	cmd->redir = NULL;
 	while (cmd && cmd->next != NULL)
 	{
 		if (cmd->std > 1 && cmd->std <= 5)
 		{
 			cmd->redir = ft_create_redir(cmd, &redir);
-			printf("cmd = %s in = %s out = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
+	//printf("cmd = %s in = %s out = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
+			//trans_redir(cmd->redir, past->redir);
+			//past->next = cmd->next;
 		}
+		//past = cmd;
 		cmd = cmd->next;
+		printf("sdad\n");
 	}
 	cmd = tmp;
 	return (cmd);
@@ -35,11 +56,12 @@ t_cmd	*ft_redir(t_cmd *cmd)
 t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir)
 {
 	*redir = NULL;
-	if (cmd->std == 2 || cmd->std == 3)
+	while (cmd->std > 1 && cmd->std <= 5)
+	{if (cmd->std == 2 || cmd->std == 3)
 		*redir = ft_left(cmd, *redir);
 	else if (cmd->std == 4 || cmd->std == 5)
 		*redir = ft_right(cmd, *redir);
-	cmd = cmd->next;
+	cmd = cmd->next;}
 	return (*redir);
 }
 
@@ -63,6 +85,7 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 		tmp = new;
 	else
 		redir->next = new;
+	printf("cmd = %s in = %s out = %s\n", cmd->cmd, new->fd_in, new->fd_out);
 	return (tmp);
 }
 
@@ -86,6 +109,7 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 		tmp = new;
 	else
 		redir->next = new;
+	printf("cmd = %s in = %s out = %s\n", cmd->cmd, new->fd_in, new->fd_out);
 	return (tmp);
 }
 

@@ -1,0 +1,8 @@
+in
+include
+Makefile
+minishell
+readline_ignore
+srcs
+todo_redir.txt
+valgrind.sh

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/21 15:46:13 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:17:15 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ void	minishell(void)
 			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
-	puts("che");
+		printf("je suis \n");
+		// while (cmd)
+		// {
+		// 	printf("CMD %s STDIN\n", cmd->redir->fd_in);
+		// 	cmd = cmd->next;
+		// }
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
