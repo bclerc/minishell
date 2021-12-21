@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/20 19:07:01 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:46:17 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ t_cmd	*ft_redir(t_cmd *cmd)
 			cmd->redir = ft_create_redir(cmd, &redir);
 			printf("cmd = %s in = %s out = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
 		}
-		// else
-		// {
-		// 	cmd->redir = NULL;
-		// 	break ;
-		// }
 		cmd = cmd->next;
 	}
 	cmd = tmp;

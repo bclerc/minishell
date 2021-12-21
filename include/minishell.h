@@ -145,6 +145,7 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int start, char *tmp);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg);
 char	*ft_parse_msg(char *cpy, t_arg *arg);
+char	*ft_check_quotes(char *str, t_arg *arg, char *tmp, int size);
 char	*ft_check_tmp(char *tmp, int pos_st, char *str, int i);
 char	*ft_sq(t_arg *arg, char *str, char *tmp);
 char	*ft_dq(t_arg *arg, char *str, char *tmp);
