@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:09:19 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/21 14:05:54 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/21 15:41:38 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_cmd	*dup_cmd(t_cmd *cmd)
             tmpp->redir = tmp->redir;
             tmpp->spec = tmp->spec;
             tmpp->msg = tmp->msg;
+            tmpp->next = NULL;
+            free(tmp);
             if (!list)
                 list = tmpp;
             else
