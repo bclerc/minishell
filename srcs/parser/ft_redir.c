@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/22 18:06:20 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:39:13 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,17 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	}
 	printf("exist = %d\n", exist);
 	if (exist == 0)
-	{	cmd->redir = NULL;
+	{	
+		cmd->redir = NULL;
 		return (cmd);
 	}
 	else
-		cmd->redir = ft_create_redir(tmp, redir); // ou tmp->redir (en mettant la liste redir a la fin donc)
-	printf("cmd = %s fdin = %s\n", cmd->cmd, cmd->redir->fd_in);
+		cmd->redir = ft_create_redir(tmp, cmd, redir); // ou tmp->redir (en mettant la liste redir a la fin donc)
+	printf("cmd = %s fdin = %s fdout = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
 	return (cmd);
 }
 
-t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir)
+t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 {
 	t_redir	*new;
 
@@ -71,17 +72,31 @@ t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir)
 	new = malloc(sizeof(t_redir));
 	if (!new)
 		return (0);
-	while (cmd && cmd->previous != NULL)
+	while (tmp && tmp->previous != NULL)
 	{
-		if (cmd->previous->std == 4 || cmd->previous->std == 5)
+		if (tmp->previous->std == 4 || tmp->previous->std == 5)
 		{
-			new->fd_in = cmd->cmd;
-			cmd->cmd = NULL;
+			new->fd_in = tmp->cmd;
+			tmp->cmd = NULL;
 			break;
 		}
-		cmd = cmd->previous;
+		tmp = tmp->previous;
 	}
-	//printf("newfdin = %s\n", new->fd_in);
+	cmd = cmd->next;
+	while (cmd/* && cmd->next != NULL*/)
+	{
+		if (cmd->previous->std == 2 || cmd->previous->std == 3)
+		{
+			new->fd_out = cmd->cmd;
+			cmd->cmd = NULL;
+	printf("newfdin = %s newout = %s p %p\n", new->fd_in, new->fd_out, new);
+			new->next = NULL;
+// pb : ne marche que pour une redir
+// il faudrait remalloc new pour creer les maillons suivants s'il y a plsrs >
+// comment faire?
+		}
+		cmd = cmd->next;
+	}
 	return (new);
 }
 
