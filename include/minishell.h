@@ -59,7 +59,7 @@ typedef struct s_redir t_redir;
 struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
-	char	*cmd_redir;
+	//char	*cmd_redir;
 	char	*fd_in;
 	char	*fd_out;
 	t_redir	*next;
@@ -70,11 +70,13 @@ typedef struct s_cmd t_cmd;
 struct s_cmd
 {
 	int		cpy_nb;
+	int		builtin; //1 builtin 0 pas builtin
 	char	*cmd; // ex echo
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
 	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
 	t_redir	*redir;
+	t_cmd	*previous;
 	t_cmd	*next;
 };
 
@@ -157,9 +159,9 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 // redir
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
 t_cmd	*ft_redir(t_cmd *cmd);
-t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir);
-t_redir	*ft_right(t_cmd *cmd, t_redir *redir);
-t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_right(t_cmd *cmd, t_redir *redir, int i);
+t_redir	*ft_left(t_cmd *cmd, t_redir *redir, int i);
 t_redir	*ft_newredir(t_redir *new, int i);
 
 // utils

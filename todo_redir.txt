@@ -1,5 +1,17 @@
 
-cmd "|" only segfaults > a priori ok (pareil pour les < et <<) mIS AORT DE MINISHELL...
+cat < prout > caca 
+cmd = ls | t_redir: in = prout out = caca
+cat < in > out > caca
+cmd = ls | t_redir: in = in out = out
+         |     next-> in = null out = caca
+cat < in > out > caca < lol
+cmd = ls | t_redir: in = lol out = out
+         |     next-> in = null out = caca
+         ou
+cmd = ls | t_redir: in = in out = out
+         |     next-> in = lol out = caca
+
+cmd "|" only segfaults > a priori ok (pareil pour les < et <<) mais ca sort DE MINISHELL...
 exit | ls exec ls
 Comportement des rediction dans bash
 

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/21 15:45:13 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/22 12:33:03 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	tmp = *cmd;
 	while (i < arg->count)
 	{
-		if ((ft_check_redir(arg, i) == 1 && (i + 1 > arg->count))
-			|| (ft_check_redir(arg, i) == 2 && (i + 2 > arg->count)))
+		if ((ft_check_redir(arg, i) == 1 && (i + 1 >= arg->count))
+			|| (ft_check_redir(arg, i) == 2 && (i + 2 >= arg->count)))
 			return (ft_print("There is no command here...\n", -1), NULL);
 		else if ((ft_check_redir(arg, i) == 1 && (i + 1 < arg->count))
 			|| (ft_check_redir(arg, i) == 2 && (i + 2 < arg->count)))
