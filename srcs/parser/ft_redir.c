@@ -6,63 +6,115 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/22 17:10:55 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:06:20 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// t_cmd	*ft_redir(t_cmd *cmd)
+// {
+// 	t_cmd	*tmp;
+// 	t_redir	*redir;
+
+// 	tmp = cmd;
+// 	cmd->redir = NULL;
+// 	while (cmd && cmd->next != NULL)
+// 	{
+// 		if (cmd->std > 1 && cmd->std <= 5)
+// 		{
+// 	//printf("cmd = %s std = %d\n", cmd->cmd, cmd->std);
+// 			cmd->redir = ft_create_redir(cmd, redir);
+// 	printf("cmdc = %s in = %s out = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
+// 		}
+// 		cmd = cmd->next;
+// 	puts("che");
+// 		// if (!cmd->cmd && cmd->next != NULL)
+// 		// {
+// 		// 	while (!cmd->cmd)
+// 		// 		cmd = cmd->next;
+// 		// }
+// 	}
+// 	cmd = tmp;
+// 	return (cmd);
+// }
+
 t_cmd	*ft_redir(t_cmd *cmd)
 {
 	t_cmd	*tmp;
 	t_redir	*redir;
+	int		exist;
 
 	tmp = cmd;
-	cmd->redir = NULL;
-	while (cmd && cmd->next != NULL)
+	while (tmp && tmp->next != NULL)
 	{
-		if (cmd->std > 1 && cmd->std <= 5)
-		{
-	//printf("cmd = %s std = %d\n", cmd->cmd, cmd->std);
-			cmd->redir = ft_create_redir(cmd, redir);
-	printf("cmdc = %s in = %s out = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
-		}
-		cmd = cmd->next;
-	puts("che");
-		// if (!cmd->cmd && cmd->next != NULL)
-		// {
-		// 	while (!cmd->cmd)
-		// 		cmd = cmd->next;
-		// }
+		if (tmp->std > 1 && tmp->std <= 5)
+			exist = 1;
+		tmp = tmp->next;
 	}
-	cmd = tmp;
+	printf("exist = %d\n", exist);
+	if (exist == 0)
+	{	cmd->redir = NULL;
+		return (cmd);
+	}
+	else
+		cmd->redir = ft_create_redir(tmp, redir); // ou tmp->redir (en mettant la liste redir a la fin donc)
+	printf("cmd = %s fdin = %s\n", cmd->cmd, cmd->redir->fd_in);
 	return (cmd);
 }
 
 t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir)
 {
 	t_redir	*new;
+
+	redir = NULL;
+	new = malloc(sizeof(t_redir));
+	if (!new)
+		return (0);
+	while (cmd && cmd->previous != NULL)
+	{
+		if (cmd->previous->std == 4 || cmd->previous->std == 5)
+		{
+			new->fd_in = cmd->cmd;
+			cmd->cmd = NULL;
+			break;
+		}
+		cmd = cmd->previous;
+	}
+	//printf("newfdin = %s\n", new->fd_in);
+	return (new);
+}
+
+/*
+t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir)
+{
+	t_redir	*new;
 	t_redir	*tmp;
 	t_cmd	*tmp_cmd;
 	
+	redir = NULL;
 	tmp = redir;
 	tmp_cmd = cmd;
 	while (redir != NULL && (redir)->next != NULL)
+	{
+		puts("che3");
 		redir = (redir)->next;
+	}
 	new = malloc(sizeof(t_redir));
 	if (!new)
 		return (0);
 	new->fd_out = NULL;
 	tmp_cmd = tmp_cmd->next;
-	printf("tcmd = %s\n", tmp_cmd->cmd);
-	while (tmp_cmd/* && tmp_cmd->next != NULL*/)
+	//printf("tcmd = %s\n", tmp_cmd->cmd);
+	//while (tmp_cmd && tmp_cmd->next != NULL)
+	while (tmp_cmd && tmp_cmd->previous->std > 1 && tmp_cmd->previous->std <= 5)
 	{
+	printf("cmdin = %s in = %s std = %d\n", tmp_cmd->cmd, new->fd_in, tmp_cmd->previous->std);
 		if (tmp_cmd->previous->std == 4 || tmp_cmd->previous->std == 5)
 		{
 			
 			new->fd_in = tmp_cmd->cmd;
 			tmp_cmd->cmd = NULL;
-	printf("cmdin = %s in = %s std = %d\n", tmp_cmd->cmd, new->fd_in, tmp_cmd->previous->std);
 		}
 		tmp_cmd = tmp_cmd->next;
 	}
@@ -75,7 +127,7 @@ t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir)
 		(redir)->next = new;
 	return (tmp);
 }
-/*
+
 t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir)
 {
 	int	i;
