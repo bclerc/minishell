@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/22 18:39:13 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/23 10:07:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,41 @@ t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 	{
 		if (tmp->previous->std == 4 || tmp->previous->std == 5)
 		{
-			new->fd_in = tmp->cmd;
-			tmp->cmd = NULL;
-			break;
+				puts("che");
+			if (!new->fd_in)
+			{
+				new->fd_in = tmp->cmd;
+				tmp->cmd = NULL;	
+			}
+			if (new->fd_in && new->fd_out)
+				break;
 		}
+		else if (tmp->previous->std == 2 || tmp->previous->std == 3)
+		{
+			if (!new->fd_out)
+			{
+				new->fd_out = tmp->cmd;
+				tmp->cmd = NULL;
+			}
+			//break;
+		}
+	//printf("newfdin = %s newout = %s p %p\n", new->fd_in, new->fd_out, new);
 		tmp = tmp->previous;
 	}
-	cmd = cmd->next;
-	while (cmd/* && cmd->next != NULL*/)
-	{
-		if (cmd->previous->std == 2 || cmd->previous->std == 3)
-		{
-			new->fd_out = cmd->cmd;
-			cmd->cmd = NULL;
-	printf("newfdin = %s newout = %s p %p\n", new->fd_in, new->fd_out, new);
-			new->next = NULL;
-// pb : ne marche que pour une redir
-// il faudrait remalloc new pour creer les maillons suivants s'il y a plsrs >
-// comment faire?
-		}
-		cmd = cmd->next;
-	}
+// 	cmd = cmd->next;
+// 	while (cmd/* && cmd->next != NULL*/)
+// 	{
+// 		if (cmd->previous->std == 2 || cmd->previous->std == 3)
+// 		{
+// 			new->fd_out = cmd->cmd;
+// 			cmd->cmd = NULL;
+// 			new->next = NULL;
+// // pb : ne marche que pour une redir
+// // il faudrait remalloc new pour creer les maillons suivants s'il y a plsrs >
+// // comment faire?
+// 		}
+// 		cmd = cmd->next;
+// 	}
 	return (new);
 }
 

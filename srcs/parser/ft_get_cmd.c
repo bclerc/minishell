@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/22 18:43:18 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/23 13:43:26 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 
 	i = 0;
 	tmp = *cmd;
+		// printf("i = %d c = %d\n", i, arg->count);
+		// if ((ft_check_redir(arg, i) == 1 && (i + 1 >= arg->count))
+		// 	|| (ft_check_redir(arg, i) == 2 && (i + 2 >= arg->count)))
+		// 	{
+		// 		puts("c");
+		// 	return (ft_print("There is no command here...\n", -1), NULL);
+		// 	}
 	while (i < arg->count)
 	{
-		// pb a regler sur les doubles chevrons
-		/*if ((ft_check_redir(arg, i) == 1 && (i + 1 >= arg->count))
-			|| (ft_check_redir(arg, i) == 2 && (i + 2 >= arg->count)))
-			return (ft_print("There is no command here...\n", -1), NULL);
-		else */if ((ft_check_redir(arg, i) == 1 && (i + 1 < arg->count))
+		if ((ft_check_redir(arg, i) == 1 && (i + 1 < arg->count))
 			|| (ft_check_redir(arg, i) == 2 && (i + 2 < arg->count)))
 			i++;
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
@@ -69,9 +72,15 @@ int	ft_check_redir(t_arg *arg, int i)
 	if (ft_strcmp(arg->cmds[i], "|") == 0
 		|| ft_strcmp(arg->cmds[i], ">") == 0
 		|| ft_strcmp(arg->cmds[i], "<") == 0)
+		{
+			puts("che1");
 		return (1);
+		}
 	else if (ft_strcmp(arg->cmds[i], ">>") == 0
 		|| ft_strcmp(arg->cmds[i], "<<") == 0)
+		{
+		puts("che");
 		return (2);
+		}
 	return (0);
 }
