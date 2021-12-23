@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/23 13:43:26 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/23 14:55:56 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 
 	i = 0;
 	tmp = *cmd;
-		// printf("i = %d c = %d\n", i, arg->count);
 		// if ((ft_check_redir(arg, i) == 1 && (i + 1 >= arg->count))
 		// 	|| (ft_check_redir(arg, i) == 2 && (i + 2 >= arg->count)))
 		// 	{
 		// 		puts("c");
 		// 	return (ft_print("There is no command here...\n", -1), NULL);
 		// 	}
+		 printf("i = %d c = %d\n", i, arg->count);
 	while (i < arg->count)
 	{
 		if ((ft_check_redir(arg, i) == 1 && (i + 1 < arg->count))
@@ -49,20 +49,16 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 
 t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	if (ft_strncmp(cpy[0], "echo", ft_strlen(cpy[0])) == 0)
+	if (ft_strcmp(cpy[0], "echo") == 0)
 		return (ft_parse_echo(arg, cpy, cmd));
-	else if (ft_strncmp(cpy[0], "cd", ft_strlen(cpy[0])) == 0
-		|| ft_strncmp(cpy[0], "pwd", ft_strlen(cpy[0])) == 0
-		|| ft_strncmp(cpy[0], "export", ft_strlen(cpy[0])) == 0
-		|| ft_strncmp(cpy[0], "unset", ft_strlen(cpy[0])) == 0
-		|| ft_strncmp(cpy[0], "env", ft_strlen(cpy[0])) == 0
-		|| ft_strncmp(cpy[0], "exit", ft_strlen(cpy[0])) == 0)
+	else if (ft_strcmp(cpy[0], "cd") == 0 || ft_strcmp(cpy[0], "pwd") == 0
+		|| ft_strcmp(cpy[0], "export") == 0
+		|| ft_strcmp(cpy[0], "unset") == 0
+		|| ft_strcmp(cpy[0], "env") == 0 || ft_strcmp(cpy[0], "exit") == 0)
 		return (ft_parse_builtins(arg, cpy, cmd));
-	else if (ft_strncmp(cpy[0], "|", ft_strlen(cpy[0]))
-		&& ft_strncmp(cpy[0], ">", ft_strlen(cpy[0]))
-		&& ft_strncmp(cpy[0], ">>", ft_strlen(cpy[0]))
-		&& ft_strncmp(cpy[0], "<", ft_strlen(cpy[0]))
-		&& ft_strncmp(cpy[0], "<<", ft_strlen(cpy[0])))
+	else if (ft_strcmp(cpy[0], "|") && ft_strcmp(cpy[0], ">")
+		&& ft_strcmp(cpy[0], ">>") && ft_strcmp(cpy[0], "<")
+		&& ft_strcmp(cpy[0], "<<"))
 		return (ft_parse_other(arg, cpy, cmd));
 	return (NULL);
 }
@@ -73,13 +69,13 @@ int	ft_check_redir(t_arg *arg, int i)
 		|| ft_strcmp(arg->cmds[i], ">") == 0
 		|| ft_strcmp(arg->cmds[i], "<") == 0)
 		{
-			puts("che1");
+			//puts("che1");
 		return (1);
 		}
 	else if (ft_strcmp(arg->cmds[i], ">>") == 0
 		|| ft_strcmp(arg->cmds[i], "<<") == 0)
 		{
-		puts("che");
+		//puts("che");
 		return (2);
 		}
 	return (0);

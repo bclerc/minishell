@@ -160,8 +160,8 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
 t_cmd	*ft_redir(t_cmd *cmd);
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
-t_redir	*ft_right(t_cmd *cmd, t_redir *redir, int i);
-t_redir	*ft_left(t_cmd *cmd, t_redir *redir, int i);
+t_redir	*ft_right(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
 
 // utils

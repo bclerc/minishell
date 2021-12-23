@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/22 18:20:54 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/23 14:20:30 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	minishell(void)
 			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
 			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
+		puts("che");
     	cmd = ft_redir(cmd);
 		//printf("je suis \n");
 		m_pipe(cmd);

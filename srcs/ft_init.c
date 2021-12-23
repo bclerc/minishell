@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 10:02:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/23 13:31:16 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/23 14:44:01 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_init_arg(t_arg *arg, char *str)
 {
 	ft_bzero(arg, sizeof(t_arg));
-	// if (str)
-	// 	arg->count = 1;
+	if (str)
+		arg->count = 1;
 }
 
 int ft_init_cmd(t_cmd **cmd, t_arg *arg)

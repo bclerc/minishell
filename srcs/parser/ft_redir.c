@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/23 10:07:28 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/23 14:17:33 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 			exist = 1;
 		tmp = tmp->next;
 	}
-	printf("exist = %d\n", exist);
+	//printf("exist = %d\n", exist);
 	if (exist == 0)
 	{	
 		cmd->redir = NULL;
@@ -63,7 +63,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	printf("cmd = %s fdin = %s fdout = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
 	return (cmd);
 }
-
+/*
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 {
 	t_redir	*new;
@@ -98,7 +98,7 @@ t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 		tmp = tmp->previous;
 	}
 // 	cmd = cmd->next;
-// 	while (cmd/* && cmd->next != NULL*/)
+// 	while (cmd && cmd->next != NULL)
 // 	{
 // 		if (cmd->previous->std == 2 || cmd->previous->std == 3)
 // 		{
@@ -113,100 +113,66 @@ t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 // 	}
 	return (new);
 }
-
-/*
-t_redir	*ft_create_redir(t_cmd *cmd, t_redir *redir)
-{
-	t_redir	*new;
-	t_redir	*tmp;
-	t_cmd	*tmp_cmd;
-	
-	redir = NULL;
-	tmp = redir;
-	tmp_cmd = cmd;
-	while (redir != NULL && (redir)->next != NULL)
-	{
-		puts("che3");
-		redir = (redir)->next;
-	}
-	new = malloc(sizeof(t_redir));
-	if (!new)
-		return (0);
-	new->fd_out = NULL;
-	tmp_cmd = tmp_cmd->next;
-	//printf("tcmd = %s\n", tmp_cmd->cmd);
-	//while (tmp_cmd && tmp_cmd->next != NULL)
-	while (tmp_cmd && tmp_cmd->previous->std > 1 && tmp_cmd->previous->std <= 5)
-	{
-	printf("cmdin = %s in = %s std = %d\n", tmp_cmd->cmd, new->fd_in, tmp_cmd->previous->std);
-		if (tmp_cmd->previous->std == 4 || tmp_cmd->previous->std == 5)
-		{
-			
-			new->fd_in = tmp_cmd->cmd;
-			tmp_cmd->cmd = NULL;
-		}
-		tmp_cmd = tmp_cmd->next;
-	}
-	if (tmp == NULL)
-	{
-		puts("che1");
-		tmp = new;
-	}
-	else
-		(redir)->next = new;
-	return (tmp);
-}
-
-t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir)
-{
-	int	i;
-
-	i = 0;
-	*redir = NULL;
-	while (cmd->std > 1 && cmd->std <= 5)
-	{	
-		if (cmd->std == 2 || cmd->std == 3)
-			*redir = ft_left(cmd, *redir, i);
-		else if (cmd->std == 4 || cmd->std == 5)
-		{
-			*redir = ft_right(cmd, *redir, i);
-			i++;
-		}
-		cmd = cmd->next;
-	}
-	return (*redir);
-}
 */
-t_redir	*ft_right(t_cmd *cmd, t_redir *redir, int i)
+
+t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 {
 	t_redir	*new;
-	t_redir	*tmp;
-	t_cmd	*tmp_cmd;
+	t_redir	*tmp_re;
 
-	tmp = redir;
-	tmp_cmd = cmd;
+	//redir = NULL;
+	tmp_re = redir;
 	while (redir != NULL && redir->next != NULL)
 		redir = redir->next;
-	new = malloc(sizeof(t_redir));
-	if (!new)
-		return (0);
-	new = ft_newredir(new, cmd->std);
-	new->fd_out = NULL;
-	new->next = NULL;
-	if (tmp == NULL)
-	{
-		tmp = new;
+	while (cmd->std > 1 && cmd->std <= 5)
+	{	
+		new = malloc(sizeof(t_redir));
+		if (!new)
+			return (0);		
+		/*if (cmd->std == 2 || cmd->std == 3)
+			redir = ft_left(cmd, redir);
+		else if ((cmd->std == 4 || cmd->std == 5) && !new->fd_in)
+		*/	new = ft_right(tmp, redir);
+		printf("fdin = %s\n", new->fd_in);
+		cmd = cmd->next;
 	}
+	//printf("cmdin = %s in = %s out = %s\n", cmd->cmd, new->fd_in, new->fd_out);
+	if (tmp_re == NULL)
+		tmp_re = new;
 	else
-	{
-		
 		redir->next = new;
-	}
-	printf("cmdin = %s in = %s out = %s\n", cmd->cmd, new->fd_in, new->fd_out);
-	return (tmp);
+	return (new);
 }
 
-t_redir	*ft_left(t_cmd *cmd, t_redir *redir, int i)
+t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
+{
+	t_redir	*new;
+	t_redir	*tmp;
+
+	// tmp = redir;
+	// tmp_cmd = cmd;
+	// while (redir != NULL && redir->next != NULL)
+	// 	redir = redir->next;
+	// new = malloc(sizeof(t_redir));
+	// if (!new)
+	// 	return (0);
+	// new = ft_newredir(new, cmd->std);
+	new->fd_out = NULL;
+	new->next = NULL;
+	while (cmd && cmd->previous != NULL)
+	{
+		if ((cmd->previous->std == 4 || cmd->previous->std == 5) && !new->fd_in)
+		{
+			new->fd_in = cmd->cmd;
+			cmd->cmd = NULL;
+			break;
+		}
+		cmd = cmd->previous;
+	}
+	return (new);
+}
+
+t_redir	*ft_left(t_cmd *cmd, t_redir *redir)
 {
 	t_redir	*new;
 	t_redir	*tmp;
