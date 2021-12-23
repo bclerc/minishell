@@ -38,6 +38,7 @@ SOURCES =	srcs/main.c \
 			srcs/commands/commands.c \
 			srcs/commands/pipe.c \
 			srcs/commands/pipe_utils.c \
+			srcs/commands/redir_utils.c \
 			srcs/built-in/cd/cd.c \
 			srcs/built-in/echo/echo.c \
 			srcs/built-in/env/env.c \

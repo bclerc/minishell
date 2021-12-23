@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/21 15:50:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/23 11:54:21 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,21 @@
 int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
 {
     int fd;
+    char *here_doc;
+
     if (in)
     {
         if (cmd->redir && cmd->redir->fd_in != NULL)
-            fd = get_fd(cmd->redir->fd_in);
+        {
+            if (cmd->std == REDIR_APPEND_IN)
+            {
+                here_doc = heredoc(cmd);
+                fd = get_fd(here_doc);
+                free(here_doc);
+            }
+            else
+                fd = get_fd(cmd->redir->fd_in);
+        }
         else
             fd = pipes[i - 2];
         if (fd < 0)

@@ -162,6 +162,7 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
 
 // utils
+char	random_char(void);
 void    m_exit(t_cmd *cmd, int reason, char *function);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
@@ -188,7 +189,7 @@ int		open_pipe(int *tab_fd, int nb_pipes);
 // execution
 int		execute_commands(t_cmd *cmd);
 char	**get_argv(t_cmd *cmd);
-
+char	*heredoc(t_cmd *cmd);
 // built-in function
 void	export_sort(char **value, int len);
 void	free_env(char **env);
