@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:43:44 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/23 11:54:24 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/23 12:05:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char *random_name(void)
 {
     char *str;
+    char *tmp;
     int i;
 
     str = ft_itoa(getpid());
@@ -22,8 +23,9 @@ char *random_name(void)
         return (NULL);
     str[0] = '.';
     str[1] = 'M';
-    str = ft_strjoin("/tmp/", str);
-    return (str);
+    tmp = ft_strjoin("/tmp/", str);
+    free(str);
+    return (tmp);
 }
 
 int get_heredoc_fd(char *tmp_file)
@@ -45,7 +47,11 @@ char *heredoc(t_cmd *cmd)
     int fd;
 
     tmp_file = random_name();
+    if (!tmp_file)
+        return (-1);
     fd = get_heredoc_fd(tmp_file);
+    if (!fd < 0)
+        return (-1);
     status = 1;
     eof = cmd->redir->fd_in;
     while (status)

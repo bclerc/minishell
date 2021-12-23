@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/23 11:54:21 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/23 12:01:45 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
 {
     int fd;
 
-        printf("OUT:%s\n", cmd);
     if (cmd->next || (cmd->redir && cmd->redir->fd_out)) // pas la derniere commande;
     {
         fd = get_dup_fd(pipes, cmd, i, 0);
