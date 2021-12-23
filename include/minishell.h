@@ -14,6 +14,7 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 # define BUF_SIZE 42
 # define REDIR_OUT 2

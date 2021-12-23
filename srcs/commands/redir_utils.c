@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:43:44 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/23 12:05:03 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/23 13:36:28 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ char *heredoc(t_cmd *cmd)
 
     tmp_file = random_name();
     if (!tmp_file)
-        return (-1);
+        return (NULL);
     fd = get_heredoc_fd(tmp_file);
-    if (!fd < 0)
-        return (-1);
+    if (fd < 0)
+	{
+		free(tmp_file);
+        return (NULL);
+	}
     status = 1;
     eof = cmd->redir->fd_in;
     while (status)
