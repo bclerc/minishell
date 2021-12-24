@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/23 14:24:39 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/24 11:07:45 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 		// if (new->previous->std > 2 && new->previous->std <= 5)
 		// 	new = ft_redir(new);
 		cmd = new;
-	printf("new2 = %s next = %p std = %d\n", cmd->cmd, cmd->next, cmd->std);
+	//printf("new2 = %s next = %p std = %d\n", cmd->cmd, cmd->next, cmd->std);
 	}
 	return (tmp);
 }
@@ -107,7 +107,7 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 		// if (new->previous->std > 2 && new->previous->std <= 5)
 		// 	new = ft_redir(new);
 		cmd = new;
-	printf("new3 = %s next = %p std = %d\n", cmd->cmd, cmd->next, cmd->std);
+	//printf("new3 = %s next = %p std = %d\n", cmd->cmd, cmd->next, cmd->std);
 	}
 	return (tmp);
 }

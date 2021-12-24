@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/23 14:17:33 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/24 13:46:49 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 // 	printf("cmdc = %s in = %s out = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
 // 		}
 // 		cmd = cmd->next;
-// 	puts("che");
 // 		// if (!cmd->cmd && cmd->next != NULL)
 // 		// {
 // 		// 	while (!cmd->cmd)
@@ -46,21 +45,29 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	int		exist;
 
 	tmp = cmd;
+	redir = NULL;
 	while (tmp && tmp->next != NULL)
 	{
 		if (tmp->std > 1 && tmp->std <= 5)
 			exist = 1;
 		tmp = tmp->next;
 	}
-	//printf("exist = %d\n", exist);
+	tmp = cmd;
 	if (exist == 0)
 	{	
 		cmd->redir = NULL;
 		return (cmd);
 	}
 	else
-		cmd->redir = ft_create_redir(tmp, cmd, redir); // ou tmp->redir (en mettant la liste redir a la fin donc)
-	printf("cmd = %s fdin = %s fdout = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
+	{		
+		while (cmd->std > 1 && cmd->std <= 5)
+		{
+			cmd->redir = ft_create_redir(tmp, cmd, redir); // ou tmp->redir (en mettant la liste redir a la fin donc)
+	printf("cmd = %s fdin = %s fdout = %s %p\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir);
+			cmd = cmd->next;
+			//redir = redir->next;
+		}
+	}
 	return (cmd);
 }
 /*
@@ -124,32 +131,38 @@ t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 	tmp_re = redir;
 	while (redir != NULL && redir->next != NULL)
 		redir = redir->next;
-	while (cmd->std > 1 && cmd->std <= 5)
 	{	
 		new = malloc(sizeof(t_redir));
 		if (!new)
-			return (0);		
+			return (0);
+		printf("new = %p\n", new);	
 		/*if (cmd->std == 2 || cmd->std == 3)
 			redir = ft_left(cmd, redir);
-		else if ((cmd->std == 4 || cmd->std == 5) && !new->fd_in)
-		*/	new = ft_right(tmp, redir);
-		printf("fdin = %s\n", new->fd_in);
-		cmd = cmd->next;
-	}
+		else if ((cmd->std == 4 || cmd->std == 5) && !new->fd_in)*/
+		new = ft_fillfd(tmp, new);
+		//printf("fdin = %s fout = %s p %p\n", new->fd_in, new->fd_out, new);
+	
 	//printf("cmdin = %s in = %s out = %s\n", cmd->cmd, new->fd_in, new->fd_out);
 	if (tmp_re == NULL)
+	{
+		puts("che1");
 		tmp_re = new;
+	}
 	else
+	{
+		puts("che2");
 		redir->next = new;
-	return (new);
+	}
+	//printf("tmpre = %p\n", tmp_re);
+	}
+	return (tmp_re);
 }
 
-t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
+t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new)
 {
-	t_redir	*new;
+	//t_redir	*new;
 	t_redir	*tmp;
 
-	// tmp = redir;
 	// tmp_cmd = cmd;
 	// while (redir != NULL && redir->next != NULL)
 	// 	redir = redir->next;
@@ -157,18 +170,38 @@ t_redir	*ft_right(t_cmd *cmd, t_redir *redir)
 	// if (!new)
 	// 	return (0);
 	// new = ft_newredir(new, cmd->std);
-	new->fd_out = NULL;
-	new->next = NULL;
+	//new->fd_out = NULL;
+	tmp = new;
+	//printf("cmd = %s s = %d p = %p\n", cmd->cmd, cmd->previous->std, new);
 	while (cmd && cmd->previous != NULL)
 	{
 		if ((cmd->previous->std == 4 || cmd->previous->std == 5) && !new->fd_in)
 		{
 			new->fd_in = cmd->cmd;
+			//printf("fdin = %s\n", (*new))->fd_in);
 			cmd->cmd = NULL;
+			new->next = NULL;
 			break;
 		}
+		// else if (cmd->previous->std == 2 || cmd->previous->std == 3)
+		// {
+		// 	puts("che");
+		// 	if (!(*new))->fd_out)
+		// 	{
+		// 		new->fd_out = cmd->cmd;
+		// 		cmd->cmd = NULL;
+		// 	}
+		// 	else
+		// 	{
+		// 		new = new->next;
+		// 		new->fd_out = cmd->cmd;
+		// 		cmd->cmd = NULL;
+		// 	}
+			
+		// }
 		cmd = cmd->previous;
 	}
+	//printf("%p %p\n", tmp, new);
 	return (new);
 }
 
