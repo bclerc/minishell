@@ -6,11 +6,12 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/24 13:46:49 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/25 12:01:53 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 // t_cmd	*ft_redir(t_cmd *cmd)
 // {
@@ -45,28 +46,16 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	int		exist;
 
 	tmp = cmd;
-	redir = NULL;
+	cmd->redir = NULL;
+	exist = ft_exist(tmp);
 	while (tmp && tmp->next != NULL)
-	{
-		if (tmp->std > 1 && tmp->std <= 5)
-			exist = 1;
 		tmp = tmp->next;
-	}
-	tmp = cmd;
+	//printf("ex = %d tmp->cmd %s cmd = %s\n", exist, tmp->cmd, cmd->cmd);
 	if (exist == 0)
-	{	
-		cmd->redir = NULL;
 		return (cmd);
-	}
 	else
 	{		
-		while (cmd->std > 1 && cmd->std <= 5)
-		{
-			cmd->redir = ft_create_redir(tmp, cmd, redir); // ou tmp->redir (en mettant la liste redir a la fin donc)
-	printf("cmd = %s fdin = %s fdout = %s %p\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir);
-			cmd = cmd->next;
-			//redir = redir->next;
-		}
+		
 	}
 	return (cmd);
 }
