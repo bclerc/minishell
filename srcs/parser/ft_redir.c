@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/25 12:01:53 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/25 13:10:52 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,41 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	if (exist == 0)
 		return (cmd);
 	else
-	{		
-		
+	{	
+		redir = malloc(sizeof(t_redir));
+		if (!redir)
+			return (NULL);
+		if (exist == 1)
+		{
+			cmd->redir = ft_fillin(tmp, redir);
+			return (cmd);
+		}
 	}
 	return (cmd);
+}
+
+t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
+{
+	while (cmd && cmd->previous != NULL)
+	{
+		if (cmd->previous->std == 4 || cmd->previous->std == 5)
+		{
+			redir->fd_in = cmd->cmd;
+			cmd->cmd = NULL;
+			redir->redir_std = cmd->previous->std;
+			if (cmd->msg)
+			{
+				redir->redir_msg = cmd->msg;
+				cmd->msg = NULL;
+				//ft_lstdelone(cmd, cmd);
+			}
+			//ft_check_otherin > retirer les autres cmds in s'il y en a (ici ou dans ft_redir?)
+			//printf("redir : in %s std %d msg = %s\n", redir->fd_in, redir->redir_std, redir->redir_msg);
+			return (redir);		
+		}
+		cmd = cmd->previous;
+	}
+	return (redir);
 }
 /*
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)

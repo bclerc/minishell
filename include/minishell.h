@@ -60,6 +60,8 @@ struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
 	//char	*cmd_redir;
+	int		redir_std;
+	char	*redir_msg;
 	char	*fd_in;
 	char	*fd_out;
 	t_redir	*next;
@@ -111,7 +113,7 @@ t_cmd	*ft_launch_parser(char *str, t_cmd **cmd);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
-void	ft_count_arg(char *str, t_arg *arg);
+int		ft_count_arg(char *str, t_arg *arg);
 int		ft_stock_arg(t_arg *arg, char *str);
 char	*ft_parse_arg(char *str, int i, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
@@ -160,6 +162,7 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
 t_cmd	*ft_redir(t_cmd *cmd);
 int		ft_exist(t_cmd *tmp);
+t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
@@ -181,6 +184,7 @@ char	*get_promps(void);
 void	ft_free_arg(t_arg *arg);
 char	*ft_sep(t_arg *arg, int i, char c, int count);
 char	*ft_strtrim(char const *s1, char const *set);
+void	ft_lstdelone(t_cmd *lst, void (*del)(t_cmd *));
 
 // pipe
 int		get_pipe_count(t_cmd *cmd);

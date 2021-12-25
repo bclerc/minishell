@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/23 14:57:47 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/25 17:10:27 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ void	minishell(void)
 		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
 		if (!cmd)
-			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
+		{puts("che0");
+			exit(0);} // le temps de regler m_exit pour eviter les segfaults qui puent
 			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
-		puts("che0");
+		//printf("redir : in %s std %d msg = %s\n", cmd->redir->fd_in, cmd->redir->redir_std, cmd->redir->redir_msg);
 		//printf("je suis \n");
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
