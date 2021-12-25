@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 10:02:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/25 14:00:04 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/25 18:54:23 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int ft_init_cmd(t_cmd **cmd, t_arg *arg)
 	return (0);
 }
 
+int	ft_init_redir(t_redir *redir)
+{
+	ft_bzero(redir, sizeof(t_redir));
+	return (0);
+}
 // t_token	*ft_init_token(t_token *token)
 // {
 // 	token = malloc(sizeof(t_token));
