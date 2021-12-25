@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/25 13:10:52 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/25 18:09:52 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_cmd	*ft_redir(t_cmd *cmd)
 		if (exist == 1)
 		{
 			cmd->redir = ft_fillin(tmp, redir);
+			puts("check");
+			//printf("cmd in %s std %d msg %s\n", cmd->redir->fd_in, cmd->redir->redir_std, cmd->redir->redir_msg);
 			return (cmd);
 		}
 	}
@@ -71,7 +73,12 @@ t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
 {
 	while (cmd && cmd->previous != NULL)
 	{
-		if (cmd->previous->std == 4 || cmd->previous->std == 5)
+			//puts("check");
+		//printf("prev = %p cnd = %s\n", cmd->previous, cmd->cmd);
+		//printf("in = %s\n", redir->fd_in);
+		if ((cmd->previous->std == 4 || cmd->previous->std == 5) && redir->fd_in)
+			cmd->cmd = NULL;
+		else if ((cmd->previous->std == 4 || cmd->previous->std == 5) && !redir->fd_in)
 		{
 			redir->fd_in = cmd->cmd;
 			cmd->cmd = NULL;
@@ -82,12 +89,14 @@ t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
 				cmd->msg = NULL;
 				//ft_lstdelone(cmd, cmd);
 			}
-			//ft_check_otherin > retirer les autres cmds in s'il y en a (ici ou dans ft_redir?)
-			//printf("redir : in %s std %d msg = %s\n", redir->fd_in, redir->redir_std, redir->redir_msg);
-			return (redir);		
+			//printf("redir : in %s std %d msg = %s\n", redir->fd_in, redir->redir_std, redir->redir_msg);;		
 		}
+		if (!cmd->previous)
+			break ;
 		cmd = cmd->previous;
 	}
+	//	printf("prev 2 = %p cnd = %s\n", cmd->previous, cmd->cmd);
+	//	printf("redir in %s std %d", redir->fd_in, redir->std_redir);
 	return (redir);
 }
 /*
