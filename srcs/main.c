@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/26 15:36:13 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/26 18:11:33 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	minishell(void)
 		puts("main che");
 		if (cmd->redir)
 			printf("redir-main : p %p in %s out %s stdin %d stdout %d msg = %s\n", cmd->redir, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir->redir_std_in, cmd->redir->redir_std_out, cmd->redir->redir_msg);
-		//printf("je suis \n");
+		printf("je suis \n");
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
