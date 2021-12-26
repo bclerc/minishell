@@ -164,6 +164,9 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 t_cmd	*ft_redir(t_cmd *cmd);
 int		ft_exist(t_cmd *tmp);
 t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
+
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);

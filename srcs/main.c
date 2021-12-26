@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/25 18:57:00 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/26 13:23:17 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ void	minishell(void)
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
 		puts("main che");
-		printf("redir : in %s std %d msg = %s\n", cmd->redir->fd_in, cmd->redir->redir_std, cmd->redir->redir_msg);
+		if (cmd->redir)
+			printf("redir : p %p in %s out %s std %d msg = %s\n", cmd->redir, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir->redir_std, cmd->redir->redir_msg);
 		//printf("je suis \n");
-		//m_pipe(cmd);
+		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
 	m_exit(cmd, M_EXIT_SUCCESS, NULL);

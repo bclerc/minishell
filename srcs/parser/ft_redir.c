@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/25 18:57:59 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/26 13:46:03 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,28 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	int		exist;
 
 	tmp = cmd;
+	redir = NULL;
 	cmd->redir = NULL;
 	exist = ft_exist(tmp);
-	while (tmp && tmp->next != NULL)
-		tmp = tmp->next;
 	//printf("ex = %d tmp->cmd %s cmd = %s\n", exist, tmp->cmd, cmd->cmd);
 	if (exist == 0)
 		return (cmd);
 	else
 	{	
-		redir = malloc(sizeof(t_redir));
-		if (!redir)
-			return (NULL);
-		ft_init_redir(redir);
 		if (exist == 1)
 		{
-			//printf("redir %p\n", redir);
+			while (tmp && tmp->next != NULL)
+				tmp = tmp->next;
+			//printf("redir2 %p\n", cmd->redir);
 			cmd->redir = ft_fillin(tmp, redir);
-			//puts("check");
-			printf("cmd in %s std %d msg %s\n", cmd->redir->fd_in, cmd->redir->redir_std, cmd->redir->redir_msg);
+			//printf("cmd in %s std %d msg %s\n", cmd->redir->fd_in, cmd->redir->redir_std, cmd->redir->redir_msg);
+			return (cmd);
+		}
+		else if (exist == 2)
+		{
+			//printf("redir2 %p\n", cmd->redir);
+			cmd->redir = ft_fillout(cmd, redir);
+			//printf("cmd in %s std %d msg %s\n", cmd->redir->fd_in, cmd->redir->redir_std, cmd->redir->redir_msg);
 			return (cmd);
 		}
 	}
@@ -73,16 +76,17 @@ t_cmd	*ft_redir(t_cmd *cmd)
 
 t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
 {
-	//printf("redir2 = %p in %s\n", redir, redir->fd_in);
 	while (cmd && cmd->previous != NULL)
 	{
+		redir = malloc(sizeof(t_redir));
+		if (!redir)
+			return (NULL);
+		ft_init_redir(redir);
+		//printf("redir %p\n", redir);
 		//printf("std %d cnd = %s \n", cmd->previous->std, cmd->cmd);
 		//printf("in = %s\n", redir->fd_in);
 		if ((cmd->previous->std == 4 || cmd->previous->std == 5) && redir->fd_in)
-		{
-			puts("check");
 			cmd->cmd = NULL;	
-		}
 		else if ((cmd->previous->std == 4 || cmd->previous->std == 5) && !redir->fd_in)
 		{
 			redir->fd_in = cmd->cmd;
@@ -93,7 +97,7 @@ t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
 				redir->redir_msg = cmd->msg;
 				cmd->msg = NULL;
 			}
-			printf("redir : in %s std %d msg = %s\n", redir->fd_in, redir->redir_std, redir->redir_msg);;		
+			//printf("redir : in %s std %d msg = %s\n", redir->fd_in, redir->redir_std, redir->redir_msg);;		
 		}
 		if (!cmd->previous)
 			break ;
@@ -103,6 +107,52 @@ t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
 	//	printf("redir in %s std %d", redir->fd_in, redir->std_redir);
 	return (redir);
 }
+
+// peut-on mettre tous les > et >> dans le meme redir (ce que ca fait actuellement)
+// ou doit on faire des redir != si separes par des pipes? 
+t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir)
+{
+	while (cmd && cmd->next != NULL)
+	{
+		if (cmd->std == 2 || cmd->std == 3)
+			redir = ft_create_out(cmd, redir);
+		// else if (cmd->std == 1)
+		// 	cmd = cmd->next;
+		cmd = cmd->next;
+	}
+	return (redir);	
+}
+
+t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
+{
+	t_redir	*new;
+	t_redir	*tmp;
+
+	tmp = redir;
+	while (redir && redir->next != NULL)
+		redir = redir->next;
+	new = malloc(sizeof(t_redir));
+	if (!new)
+		return (0);
+	//ft_init_redir(redir);
+	new->redir_std = cmd->std;
+	new->fd_out = cmd->next->cmd;
+	cmd->cmd = NULL;
+	if (cmd->next->msg)
+	{
+		new->redir_msg = cmd->next->msg;
+		cmd->next->msg = NULL;
+	}
+	new->next = NULL;
+	printf("new : out %s std %d msg %s\n", new->fd_out, new->redir_std, new->redir_msg);
+	if (tmp == NULL)
+		tmp = new;
+	else
+		redir->next = new;
+	return (tmp);
+}
+
+
 /*
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 {
