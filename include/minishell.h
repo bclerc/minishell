@@ -60,7 +60,8 @@ struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
 	//char	*cmd_redir;
-	int		redir_std;
+	int		redir_std_in;
+	int		redir_std_out;
 	char	*redir_msg;
 	char	*fd_in;
 	char	*fd_out;
@@ -166,6 +167,7 @@ int		ft_exist(t_cmd *tmp);
 t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_fillinout(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new);
