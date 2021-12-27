@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/23 11:44:23 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/27 15:20:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,27 @@ t_core *core;
 
 void	signal_handler(int signum)
 {
-		if (signum == SIGINT)
+	if (signum == SIGQUIT)
+	{
+		if (core->child_exist)
+			return ;
+		return ;
+	}
+	if (signum == SIGINT)
+	{
+		if (core->child_exist)
 		{
-			if (core->child_exist)
-			{
-				if (core->child == 0)
-					exit(-1);
-			}
-			else
-			{
-				printf("\n");
-				rl_on_new_line();
-        		rl_replace_line("", 0);
-        		rl_redisplay();
-			}
+			if (core->child == 0)
+				exit(-1);
 		}
+		else
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+	}
 }
 
 void	minishell(void)
@@ -42,13 +48,14 @@ void	minishell(void)
 	while (core->status != 0)
 	{
 		prompt = get_promps();
-		str = ft_strdup(readline(prompt));
+		str = readline(prompt);
 		free(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
 			continue ;
 		}
+		str = ft_strdup(str);
 		add_history(str);
 		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
@@ -76,7 +83,8 @@ int	main(int ac, char **av, char **envp)
 	getEnv(envp);
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
-	//signal(SIGINT, signal_handler);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 	core->status = 1;
 	core->parent = getpid();
 	minishell();

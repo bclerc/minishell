@@ -179,6 +179,7 @@ char	*get_promps(void);
 void	ft_free_arg(t_arg *arg);
 char	*ft_sep(t_arg *arg, int i, char c, int count);
 char	*ft_strtrim(char const *s1, char const *set);
+int		is_eof(char *s);
 
 // pipe
 t_cmd	*dup_cmd(t_cmd *cmd);

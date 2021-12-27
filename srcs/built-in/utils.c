@@ -6,12 +6,23 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 13:20:10 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/27 15:18:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+int is_eof(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i] != -1)
+		i++;
+	if (s[i] == -1)
+		return (1);
+	return (0);
+}
 int get_fd(char *path)
 {
 	int fd;
