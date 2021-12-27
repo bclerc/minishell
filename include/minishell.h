@@ -60,7 +60,11 @@ typedef struct s_redir t_redir;
 struct s_redir
 {
 	int		std_redir; //en fonction du type de sortie 
-	char	*cmd_redir;
+	//char	*cmd_redir;
+	int		redir_std_in;
+	int		redir_std_out;
+	int		redir_std_pipe;
+	char	*redir_msg;
 	char	*fd_in;
 	char	*fd_out;
 	t_redir	*next;
@@ -71,11 +75,13 @@ typedef struct s_cmd t_cmd;
 struct s_cmd
 {
 	int		cpy_nb;
+	int		builtin; //1 builtin 0 pas builtin
 	char	*cmd; // ex echo
 	char	*spec; // ex -n
 	char	*msg; // ex coucou
 	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
 	t_redir	*redir;
+	t_cmd	*previous;
 	t_cmd	*next;
 };
 
@@ -104,13 +110,14 @@ t_list	*ft_get_env(t_list *env, char **envp);
 char	*ft_init_env(char **envp, t_list *env, int count);
 void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd **cmd, t_arg *arg);
+int		ft_init_redir(t_redir *redir);
 
 // parsing
 t_cmd	*ft_launch_parser(char *str, t_cmd **cmd);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
-void	ft_count_arg(char *str, t_arg *arg);
+int		ft_count_arg(char *str, t_arg *arg);
 int		ft_stock_arg(t_arg *arg, char *str);
 char	*ft_parse_arg(char *str, int i, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
@@ -146,6 +153,7 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int start, char *tmp);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg);
 char	*ft_parse_msg(char *cpy, t_arg *arg);
+char	*ft_check_quotes(char *str, t_arg *arg, char *tmp, int size);
 char	*ft_check_tmp(char *tmp, int pos_st, char *str, int i);
 char	*ft_sq(t_arg *arg, char *str, char *tmp);
 char	*ft_dq(t_arg *arg, char *str, char *tmp);
@@ -157,8 +165,16 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 // redir
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
 t_cmd	*ft_redir(t_cmd *cmd);
-t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir);
-t_redir	*ft_right(t_cmd *cmd, t_redir *redir);
+int		ft_exist(t_cmd *tmp);
+t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_fillinout(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
+t_redir	*ft_create_pipe(t_cmd *cmd, t_redir *redir);
+t_redir	*ft_create_out2(t_cmd *cmd, t_redir *redir);
+
+t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
+t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
 
@@ -180,6 +196,7 @@ void	ft_free_arg(t_arg *arg);
 char	*ft_sep(t_arg *arg, int i, char c, int count);
 char	*ft_strtrim(char const *s1, char const *set);
 int		is_eof(char *s);
+void	ft_lstdelone(t_cmd *lst, void (*del)(t_cmd *));
 
 // pipe
 t_cmd	*dup_cmd(t_cmd *cmd);
