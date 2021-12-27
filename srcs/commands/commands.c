@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 15:57:56 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/23 14:19:28 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,61 +44,60 @@ char **get_argv(t_cmd *cmd)
 	return (ret);	
 }
 
-char **get_splited_path(void)
+char *get_executable_path(t_cmd *cmd)
 {
-	char	*tmp;
-	char	**ret;
+    DIR *pdir;
+    struct dirent *pdirent;
+	char **path;
+	char *ret;
+	char *tmp;
+	int i;
 
-	tmp = get_env_variable("PATH");
-	if (!tmp)
+	path = ft_strsplit(get_env_variable("PATH"), ':');
+	if (!path)
 		return (NULL);
-	ret = ft_strsplit(tmp, ':');
-	return (ret);
-}
-
-char *get_path(char *path, char *cmd)
-{
-	char	*ret;
-	char	*tmp;
-
-	tmp = ft_strjoin(path, "/");
-	ret = ft_strjoin(tmp, cmd);
-	free(tmp);
-	
-	return (ret);
+	i = 0;
+	while (path[i])
+	{
+		pdir = opendir(path[i]);
+		if (pdir != NULL)
+		{
+			while ((pdirent = readdir(pdir)) != NULL)
+			{
+				if (ft_strcmp(cmd->cmd, pdirent->d_name) == 0)
+				{
+					closedir(pdir);
+					tmp = ft_strjoin(path[i], "/");
+					ret = ft_strjoin(tmp, cmd->cmd);
+					rm_split(path);
+					return (ret);
+				}
+			}
+		}
+		i++;
+	}
+	rm_split(path);
+	return (cmd->cmd);
 }
 
 int exec(t_cmd *cmd)
 {
-	char	**path;
+	char	*path;
 	char	**argv;
 	char	**tab_env;
 	int		status;
 	int		i;
 
-	status = 0;
-	path = get_splited_path();
-	if (!path)
-	{
-		printf("Execution path not found\n");
-		return (-1);
-	}
+	status = 1;
 	i = -1;
 	core->child_exist = 1;
 	argv = get_argv(cmd);
 	tab_env = env_to_char();
-	while (path[++i] && status == 0)
+	path = get_executable_path(cmd);
+	if (execve(path, argv, tab_env) < 0)
 	{
-		execve(get_path(path[i], cmd->cmd), argv, tab_env);
-	}
-	if (status == 0)
-	{
-		if (execve(cmd->cmd, argv, tab_env) < 0)
-		{
-			perror(cmd->cmd);
-			exit(EXIT_FAILURE);
-		}
-
+		printf("%s: command not found\n", cmd->cmd);
+		exit(EXIT_FAILURE);
 	}
 	rm_split(argv);
 	rm_split(tab_env);

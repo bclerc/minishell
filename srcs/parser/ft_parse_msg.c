@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/17 13:34:11 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 18:03:40 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp)
 	start = ft_which_cmd(cpy);
 	if (start == 7)
 	{
-		//printf("cpy = %s\n", cpy[1]);
 		start = ft_strlen(cpy[0]) + 1;
 		tmp = ft_other_msg(arg, start, tmp);
 	}	
@@ -45,12 +44,16 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 		if (str[arg->pos_i] == '\'')
 		{
 			str = ft_sq(arg, str, tmp);
+			if (!str)
+				return (NULL);
 			arg->pos_i -= 2;
 			size -= 2;
 		}
 		else if (str[arg->pos_i] == '"')
 		{
 			str = ft_dq(arg, str, tmp);
+			if (!str)
+				return (NULL);
 			arg->pos_i -= 2;
 			size -= 2;
 		}
@@ -66,39 +69,22 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 	int		pos_st;
 	int		pos_end;
 	int		i;
-	
+
 	i = arg->pos_i;
 	pos_st = i + 1;
 	i++;
-	while (str[i] != '\''/* && str[i]*/)
+	while (str[i] != '\'')
 	{
 		if (str[i] == '"')
 			arg->count_quotes++;
 		i++;
 	}
 	if (arg->count_quotes % 2 != 0)
-	{
-		ft_print("There is an error with quotes\n", -1);
-		return (NULL);
-	}
+		return (ft_print("There is an error with quotes\n", -1), NULL);
 	pos_end = i - 1;
 	arg->pos_i = i;
 	tmp = ft_cut_quote(str, pos_st, pos_end);
-	if (tmp)
-	{
-		if (pos_st != 1)
-			str = ft_special_cat(str, tmp, pos_st - 1, -1);
-		else
-			str = ft_special_cat(str, tmp, i + 1, 0); // i + 1 ne marche pas tjrs : pb des espaces dans cas particuliers
-		// ex : echo " " 'lol' un espace disparait
-		free (tmp);	
-	}
-	else if (!tmp)
-	{
-		str = ft_special_cat(str, tmp, i, 0);
-		free (tmp);	
-	}
-	//printf("str1 = %s\n", str);
+	str = ft_check_tmp(tmp, pos_st, str, i);
 	return (str);
 }
 
@@ -107,39 +93,39 @@ char	*ft_dq(t_arg *arg, char *str, char *tmp)
 	int		pos_st;
 	int		pos_end;
 	int		i;
-	
-	//printf("str = %s pos_i = %d \n", str, arg->pos_i);
+
 	i = arg->pos_i;
 	pos_st = i + 1;
 	i++;
-	while (str[i] != '"'/* && str[i]*/)
+	while (str[i] != '"')
 	{
 		if (str[i] == '\'')
 			arg->count_quote++;
 		i++;
 	}
 	if (arg->count_quote % 2 != 0)
-	{
-		ft_print("There is an error with quotes", -1);
-		return (NULL);
-	}
+		return (ft_print("There is an error with quotes", -1), NULL);
 	pos_end = i - 1;
 	arg->pos_i = i;
 	tmp = ft_cut_quote(str, pos_st, pos_end);
+	str = ft_check_tmp(tmp, pos_st, str, i);
+	return (str);
+}
+
+char	*ft_check_tmp(char *tmp, int pos_st, char *str, int i)
+{
 	if (tmp)
 	{
 		if (pos_st != 1)
 			str = ft_special_cat(str, tmp, pos_st - 1, -1);
-		// regarder ou est le debut de la chaine, pour prendre en compte le début si pas de quotes
 		else
 			str = ft_special_cat(str, tmp, i + 1, 0);
-		free (tmp);	
+		free (tmp);
 	}
 	else if (!tmp)
 	{
 		str = ft_special_cat(str, tmp, i, 0);
-		free (tmp);	
+		free (tmp); // ou str? vu que tmp est null
 	}
-	//printf("str2 = %s\n", str);
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/12/20 15:35:33 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 17:56:23 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		{
 			if (ft_check_n(cpy, j, arg, new) == 1)
 				return (NULL);
-			//arg->spec_n = new->spec;
 			j++;
 			if (cpy[j])
 			{
@@ -69,11 +68,6 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		new->std = 0;
 	else if (arg->i_cpy < arg->count)
 		new->std = ft_std(arg, arg->i_cpy + 1);
-	if (new->std >= 2 && new->std <= 5)
-	{
-		ft_fill_fd(arg, new);
-	}
-	//printf("echo2 : cmd = %s, spec = %s, msg = %s\n", new->cmd, new->spec, new->msg, new->std);
 	new->next = NULL;
 	if (tmp == NULL)
 		tmp = new;

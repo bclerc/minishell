@@ -6,11 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/12/20 15:47:21 by bclerc           ###   ########.fr       */
-=======
-/*   Updated: 2021/12/20 16:39:03 by asgaulti         ###   ########.fr       */
->>>>>>> 4c3d126e249047394afca21f3f54a1fe04c34257
+/*   Updated: 2021/12/27 15:20:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +16,27 @@ t_core *core;
 
 void	signal_handler(int signum)
 {
-		if (signum == SIGINT)
+	if (signum == SIGQUIT)
+	{
+		if (core->child_exist)
+			return ;
+		return ;
+	}
+	if (signum == SIGINT)
+	{
+		if (core->child_exist)
 		{
-			if (core->child_exist)
-			{
-				if (core->child == 0)
-					exit(-1);
-			}
-			else
-			{
-				printf("\n");
-				rl_on_new_line();
-        		rl_replace_line("", 0);
-        		rl_redisplay();
-			}
+			if (core->child == 0)
+				exit(-1);
 		}
+		else
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+	}
 }
 
 void	minishell(void)
@@ -46,19 +48,23 @@ void	minishell(void)
 	while (core->status != 0)
 	{
 		prompt = get_promps();
-		str = ft_strdup(readline(prompt));
+		str = readline(prompt);
 		free(prompt);
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
-			continue;
+			continue ;
 		}
+		str = ft_strdup(str);
 		add_history(str);
-		//str = transform_str(str);
+		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
+		if (!cmd)
+			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
+			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
-		//printf("cmd :cmd = %s, spec = %s, msg = %s, std = %d\n", cmd->cmd, cmd->spec, cmd->msg, cmd->std);
+		cmd = dup_cmd(cmd);
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
@@ -77,7 +83,8 @@ int	main(int ac, char **av, char **envp)
 	getEnv(envp);
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
-	//signal(SIGINT, signal_handler);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 	core->status = 1;
 	core->parent = getpid();
 	minishell();

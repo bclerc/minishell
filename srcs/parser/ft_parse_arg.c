@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/09 11:47:11 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/20 17:29:09 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 	if (str[i] == '|')
 	{
 		if (str[i + 1] == '|')
-			return (ft_print("There are two many pipes\n", -1) & -1); //gerer la sortie (actuellement continue a parser)
+			return (ft_print("There are two many pipes\n", -1) & -1);
 		ft_char(arg, c, '|', 1);
 	}
 	else if (str[i] == '<' || str[i] == '>')
@@ -97,6 +97,5 @@ char	*ft_nosep(int i, char *str, t_arg *arg)
 		arg->start++;
 	}
 	tmp[z] = '\0';
-	//printf("tmp = %s\n", tmp);
 	return (tmp);
 }

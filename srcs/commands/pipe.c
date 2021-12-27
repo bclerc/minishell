@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 16:43:09 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/23 15:02:37 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,31 @@
 int get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
 {
     int fd;
+    char *here_doc;
+
     if (in)
     {
         if (cmd->redir && cmd->redir->fd_in != NULL)
-            fd = get_fd(cmd->fd_in);
+        {
+            if (cmd->std == REDIR_APPEND_IN)
+            {
+                here_doc = heredoc(cmd);
+				fd = get_fd(here_doc);
+                free(here_doc);
+            }
+            else
+                fd = get_fd(cmd->redir->fd_in);
+        }
         else
-        */    fd = pipes[i - 2];
+            fd = pipes[i - 2];
         if (fd < 0)
             exit(EXIT_FAILURE);
         return (fd);
     }
-    if (cmd->redir && cmd->redir->fd_in != NULL)
-        fd = get_fd(cmd->fd_out);
+    if (cmd->redir && cmd->redir->fd_out != NULL)
+        fd = get_fd(cmd->redir->fd_out);
     else
-    */    fd = pipes [i + 1];
+        fd = pipes [i + 1];
     if (fd < 0)
     {
         printf("Minishell: Error on open FD\n");
@@ -40,7 +51,7 @@ int set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
 {
     int fd;
 
-    if (cmd->next) // pas la derniere commande;
+    if (cmd->next || (cmd->redir && cmd->redir->fd_out)) // pas la derniere commande;
     {
         fd = get_dup_fd(pipes, cmd, i, 0);
         if (dup2(fd, 1) <= -1)
@@ -50,7 +61,7 @@ int set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
         }
         close(fd);
     } 
-    if (cmd != first_cmd )
+    if (cmd != first_cmd || (cmd->redir && cmd->redir->fd_in))
     {
         fd = get_dup_fd(pipes, cmd, i, 1);
         if (dup2(fd, 0) <= -1) // copie l'entree standard i - 2 (i augmente de 2 si i = 2 i -2 = 0 entree standard

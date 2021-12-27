@@ -6,11 +6,59 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:09:19 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/14 15:11:04 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/21 15:41:38 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/minishell.h"
+
+int	add_value_to_stack(t_cmd *stack, t_cmd *stack2)
+{
+	t_cmd	*tmp;
+
+	tmp = stack2;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = stack;
+	return (1);
+}
+
+
+//
+//
+//  REBUILD CMD WITHOUT NULL CMD;
+//
+//
+t_cmd	*dup_cmd(t_cmd *cmd)
+{
+	int		i;
+	t_cmd	*list;
+	t_cmd	*tmp;
+    t_cmd   *tmpp;
+	list = 0;
+	i = 1;
+    tmp = cmd;
+	while (tmp)
+	{
+        if (tmp->cmd)
+        {
+            tmpp = (t_cmd *)malloc(sizeof(t_cmd));
+            tmpp->cmd = tmp->cmd;
+            tmpp->redir = tmp->redir;
+            tmpp->spec = tmp->spec;
+            tmpp->msg = tmp->msg;
+            tmpp->next = NULL;
+            free(tmp);
+            if (!list)
+                list = tmpp;
+            else
+                add_value_to_stack(tmpp, list);
+        }
+        tmp = tmp->next;
+	}
+	return (list);
+}
+
 
 int get_pipe_count(t_cmd *cmd)
 {

@@ -14,6 +14,7 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 # define BUF_SIZE 42
 # define REDIR_OUT 2
@@ -110,7 +111,7 @@ int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
 void	ft_count_arg(char *str, t_arg *arg);
-void	ft_stock_arg(t_arg *arg, char *str);
+int		ft_stock_arg(t_arg *arg, char *str);
 char	*ft_parse_arg(char *str, int i, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
@@ -125,8 +126,8 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
+void	ft_fill_std(t_arg *arg, t_cmd *new);
 int		ft_std(t_arg *arg, int i);
-void	ft_fill_fd(t_arg *arg, t_cmd *new);
 void	ft_spec_out(t_cmd *new, t_arg *arg);
 void	ft_spec_in(t_cmd *new, t_arg *arg);
 t_cmd	*ft_check_spec(t_cmd **cmd);
@@ -145,6 +146,7 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int start, char *tmp);
 char	*ft_which_nb(int start, char *tmp, t_arg *arg);
 char	*ft_parse_msg(char *cpy, t_arg *arg);
+char	*ft_check_tmp(char *tmp, int pos_st, char *str, int i);
 char	*ft_sq(t_arg *arg, char *str, char *tmp);
 char	*ft_dq(t_arg *arg, char *str, char *tmp);
 char	*ft_cut_quote(char *str, int start, int end);
@@ -158,10 +160,10 @@ t_cmd	*ft_redir(t_cmd *cmd);
 t_redir	*ft_create_redir(t_cmd *cmd, t_redir **redir);
 t_redir	*ft_right(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
-//t_redir	*ft_pipe(t_cmd *cmd, t_redir *redir);
-t_redir	*ft_newredir(t_cmd *cmd, t_redir *new, int i);
+t_redir	*ft_newredir(t_redir *new, int i);
 
 // utils
+char	random_char(void);
 void    m_exit(t_cmd *cmd, int reason, char *function);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
@@ -177,14 +179,10 @@ char	*get_promps(void);
 void	ft_free_arg(t_arg *arg);
 char	*ft_sep(t_arg *arg, int i, char c, int count);
 char	*ft_strtrim(char const *s1, char const *set);
-// gnl
-int		get_next_line(int fd, char **line);
-char	*ft_get_static(char *str, char buf[BUF_SIZE], int len);
-char	*ft_write_line(char *str, char **line);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strchr(const char *s, int c);
+int		is_eof(char *s);
 
 // pipe
+t_cmd	*dup_cmd(t_cmd *cmd);
 int		get_pipe_count(t_cmd *cmd);
 int		m_pipe(t_cmd *cmd);
 int		close_fd(int *tab_fd, int nb_pipes);
@@ -193,7 +191,7 @@ int		open_pipe(int *tab_fd, int nb_pipes);
 // execution
 int		execute_commands(t_cmd *cmd);
 char	**get_argv(t_cmd *cmd);
-
+char	*heredoc(t_cmd *cmd);
 // built-in function
 void	export_sort(char **value, int len);
 void	free_env(char **env);
