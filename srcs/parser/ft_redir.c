@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/27 15:10:38 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/27 16:32:12 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 	new->redir_std_out = cmd->std;
 	new->fd_out = cmd->next->cmd;
 //		puts("coucou");
-	cmd->cmd = NULL;
+	cmd->next->cmd = NULL;
 	new->fd_in = NULL;
 	if (cmd->next->msg)
 	{
