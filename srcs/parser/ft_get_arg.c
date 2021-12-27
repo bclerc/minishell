@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/27 18:32:32 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/27 20:02:13 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,29 +89,31 @@ int	ft_stock_arg(t_arg *arg, char *str)
 		if (str[i] == '<' || str[i] == '>' || str[i] == '|'
 			|| str[i] == '"' || str[i] == '\'')
 		{
-			if (str[i] == '"' || str[i] == '\'')
+			if (str[i] == '"' || str[i] == '\'') // ok pour le cas testé mais pb si "echo" car le compte comme une cmd séparée
 			{
 				i = ft_increase_quote(str, i);
 				//i++;
 			}
-			printf("i %d st = %d ch = %c\n", i, arg->start, str[i]);
+			printf("i %d st = %d ch = %c c = %d count %d\n", i, arg->start, str[i], c, arg->count);
 			arg->cmds[c] = ft_parse_arg(str, i, arg);
-			c++;
-			i = ft_check_char(str, i, c, arg);
-			printf("i2 %d\n", i);
+			//if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+			//	c++;
+			i = ft_check_char(str, i, c + 1, arg);
 			if (i == -1)
 				return (1);
 			arg->start = i;
+			//printf("i2 %d c = %d st = %d ch = %c\n", i, c, arg->start, str[i]);
 			c++;
 		}
 		i++;
 	}
-	if (c != arg->count)
+	if (c <= arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
+	//printf("cmd[%d] = %s\n", c, arg->cmds[c]);
 	c = 0;
 	while (c < arg->count)
 	{
-	printf("cmd = %s i = %d\n", arg->cmds[c], i);
+	printf("cmd = %s\n", arg->cmds[c]);
 		c++;
 	}
 	return (0);
