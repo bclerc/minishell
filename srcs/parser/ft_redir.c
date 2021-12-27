@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/27 14:14:14 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/27 15:10:38 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 				tmp = tmp->next;
 			cmd->redir = ft_fillin(tmp, redir);
 			cmd->redir = ft_fillinout(tmp, cmd, cmd->redir);
-			printf("redir3 %p in %s out %s\n", cmd->redir, cmd->redir->fd_in, cmd->redir->fd_out);
+			printf("redir3 %p cmd %s in %s out %s\n", cmd->redir, cmd->cmd, cmd->redir->fd_in, cmd->redir->fd_out);
 		}
 	}
 	return (cmd);
@@ -86,45 +86,45 @@ t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
 	return (redir);
 }
 
-// peut-on mettre tous les > et >> dans le meme redir (ce que ca fait actuellement)
-// ou doit on faire des redir != si separes par des pipes? 
-// dans ce cas : deplacer les maillons avec des pipes au debut dans la liste cmd? > non, pas le meme cptmt sur bash
-// ou plutot integrer les pipes
 t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir)
 {
 	while (cmd && cmd->next != NULL)
 	{
 		if (cmd->std == 2 || cmd->std == 3)
 		{
-			while (cmd->std == 2 || cmd->std == 3 && cmd->next != NULL)
+			while ((cmd->std == 2 || cmd->std == 3) && cmd->next != NULL)
 			{
+    			printf("out cmd %s std %d\n", cmd->cmd, cmd->std);
 				redir = ft_create_out(cmd, redir);
 				cmd = cmd->next;
-    	printf("cmd %s std %d\n", cmd->cmd, cmd->std);
 				
 			}
 		}
-		puts("che");
 		if (cmd->next != NULL)
 			cmd = cmd->next;
 	}
 	return (redir); 
 }
 
-t_redir	*ft_fillout2(t_cmd *cmd, t_redir *redir)
-{
-	while (cmd && cmd->next != NULL)
-	{
-		if (cmd->previous->std == 2 || cmd->previous->std == 3)
-		{
-			redir = ft_create_out(cmd, redir);
-		}
-		// else if (cmd->std == 1)
-		// 	redir = ft_create_pipe(cmd, redir);
-		cmd = cmd->next;
-	}
-	return (redir);
-}
+// t_redir	*ft_fillout2(t_cmd *cmd, t_redir *redir)
+// {
+// 	while (cmd && cmd->next != NULL)
+// 	{
+// 		if (cmd->previous->std == 2 || cmd->previous->std == 3)
+// 		{
+// 			while ((cmd->previous->std == 2 || cmd->previous->std == 3) && cmd->next != NULL)
+// 			{
+// 				printf("inout cmd %s std %d\n", cmd->cmd, cmd->previous->std);
+// 				redir = ft_create_out2(cmd, redir);
+// 				cmd = cmd->next;
+// 			}
+// 		}
+// 		puts("che2");
+// 		if (cmd->next != NULL)
+// 			cmd = cmd->next;
+// 	}
+// 	return (redir);
+// }
 
 t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 {
@@ -157,6 +157,36 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 	return (tmp);
 }
 
+t_redir	*ft_create_out2(t_cmd *cmd, t_redir *redir)
+{
+	t_redir	*new;
+	t_redir	*tmp;
+
+	tmp = redir;
+	while (redir && redir->next != NULL)
+		redir = redir->next;
+	new = malloc(sizeof(t_redir));
+	if (!new)
+		return (0);
+	ft_init_redir(new);
+	new->redir_std_out = cmd->previous->std;
+	new->fd_out = cmd->cmd;
+//		puts("coucou");
+	cmd->cmd = NULL;
+	if (cmd->next->msg)
+	{
+		new->redir_msg = cmd->next->msg;
+		cmd->next->msg = NULL;
+	}
+	new->next = NULL;
+	printf("new : p %p out %s std %d msg %s\n", new, new->fd_out, new->redir_std_out, new->redir_msg);
+	if (tmp == NULL)
+		tmp = new;
+	else
+		redir->next = new;
+	return (tmp);
+}
+
 t_redir	*ft_fillinout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 {
 	cmd = cmd->next;
@@ -167,13 +197,16 @@ t_redir	*ft_fillinout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 		cmd = cmd->next;
 	}
 	redir->fd_out = cmd->cmd;
-    //printf("redir p %p cmd %d in %s out %s\n", redir, cmd->previous->std, redir->fd_in, redir->fd_out);
+    //printf("redir std %d in %s out %s\n", cmd->previous->std, redir->fd_in, redir->fd_out);
 	cmd->cmd = NULL;
 	redir->redir_std_out = cmd->previous->std;
 	// if (cmd->next != NULL)
     // 	printf("cmd %s std %d\n", cmd->next->cmd, cmd->previous->std);
 	if (cmd && cmd->next != NULL)
-		redir = ft_fillout2(cmd, redir);
+	{
+		cmd = cmd->next;
+		redir = ft_fillout(cmd, redir);
+	}
 	return (redir);
 }
 
