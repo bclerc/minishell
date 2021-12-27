@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/27 16:27:33 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/27 17:26:38 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void	minishell(void)
 		add_history(str);
 		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
+		puts("main che");
 		if (!cmd)
 			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
 			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
 		cmd = dup_cmd(cmd);
-		//puts("main che");
 		if (cmd->redir)
 			printf("redir-main : p %p in %s out %s stdin %d stdout %d msg = %s\n", cmd->redir, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir->redir_std_in, cmd->redir->redir_std_out, cmd->redir->redir_msg);
 		//printf("je suis \n");

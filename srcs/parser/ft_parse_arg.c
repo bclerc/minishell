@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/25 16:57:13 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/27 18:32:42 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,21 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg)
 
 	c = 0;
 	tmp = malloc(sizeof(char) * (i + 1));
-	while (arg->start < i)
+	while (arg->start <= i)
 	{
 		tmp[c] = str[arg->start];
 		arg->start++;
 		c++;
 	}
 	tmp[c] = '\0';
+	printf("tmp %s\n", tmp);
 	return (tmp);
 }
 
 int	ft_check_char(char *str, int i, int c, t_arg *arg)
 {
+	if (str[i] == '"' || str[i] == '\'')
+		i++;
 	if (str[i] == '|')
 	{
 		if (str[i + 1] == '|')
