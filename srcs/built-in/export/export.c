@@ -6,16 +6,16 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 13:19:32 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:39:52 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 int	export_add(char *argv)
 {
+	char	**args;
 	int		b;
-	char 	**args;
 
 	args = ft_strsplit(argv, ' ');
 	b = 0;
@@ -29,7 +29,7 @@ int	export_add(char *argv)
 
 int	export(char *path, char *args)
 {
-	t_env 	*env;
+	t_env	*env;
 	int		fd;
 	int		i;
 
