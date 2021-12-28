@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 10:13:26 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/28 17:41:21 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:41:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int	unset(char *var)
 		del_env_variable(vars[i]);
 		i++;
 	}
-	rm_split(var);
+	rm_split(vars);
 	return (1);
 }
