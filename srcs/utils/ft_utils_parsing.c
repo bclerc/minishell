@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:41:17 by user42            #+#    #+#             */
-/*   Updated: 2021/10/15 10:51:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/21 15:37:48 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,25 @@ char	*ft_sep(t_arg *arg, int i, char c, int count)
 		z++;
 	}
 	return (arg->cmds[i]);
+}
+
+char	*ft_check_quotes(char *str, t_arg *arg, char *tmp, int size)
+{
+	if (str[arg->pos_i] == '\'')
+	{
+		str = ft_sq(arg, str, tmp);
+		if (!str)
+			return (NULL);
+		arg->pos_i -= 2;
+		size -= 2;
+	}
+	else if (str[arg->pos_i] == '"')
+	{
+		str = ft_dq(arg, str, tmp);
+		if (!str)
+			return (NULL);
+		arg->pos_i -= 2;
+		size -= 2;
+	}
+	return (str);
 }
