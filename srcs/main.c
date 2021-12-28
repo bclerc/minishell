@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/27 15:20:50 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 16:35:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	minishell(void)
 		prompt = get_promps();
 		str = readline(prompt);
 		free(prompt);
+		if (!str)
+			break ;
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
@@ -68,7 +70,7 @@ void	minishell(void)
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
-	m_exit(cmd, M_EXIT_SUCCESS, NULL);
+	//m_exit(cmd, M_EXIT_SUCCESS, NULL);
 	exit(EXIT_SUCCESS);
 }
 

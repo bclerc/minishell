@@ -36,6 +36,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_util_parsemsg.c \
 			srcs/utils/exit.c \
 			srcs/commands/commands.c \
+			srcs/commands/commands_utils.c \
 			srcs/commands/pipe.c \
 			srcs/commands/pipe_utils.c \
 			srcs/commands/redir_utils.c \
