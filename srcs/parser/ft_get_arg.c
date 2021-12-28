@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/27 20:02:13 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/28 12:14:09 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,38 +84,29 @@ int	ft_stock_arg(t_arg *arg, char *str)
 		return (1);
 	tmp = arg;
 	size = ft_strlen(str); // pas de +1!!
+	//printf("si = %d\n", size);
 	while (i < size)
 	{
-		if (str[i] == '<' || str[i] == '>' || str[i] == '|'
-			|| str[i] == '"' || str[i] == '\'')
+		while (str[i] != '<' && str[i] != '>' && str[i] != '|' && str[i] != '\0')
 		{
-			if (str[i] == '"' || str[i] == '\'') // ok pour le cas testé mais pb si "echo" car le compte comme une cmd séparée
-			{
+			if (str[i] == '"' || str[i] == '\'')
 				i = ft_increase_quote(str, i);
-				//i++;
-			}
-			printf("i %d st = %d ch = %c c = %d count %d\n", i, arg->start, str[i], c, arg->count);
-			arg->cmds[c] = ft_parse_arg(str, i, arg);
-			//if (str[i] == '<' || str[i] == '>' || str[i] == '|')
-			//	c++;
-			i = ft_check_char(str, i, c + 1, arg);
+			i++;	
+		}
+		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+		{
+			arg->cmds[c] = ft_parse_arg(str, i - 1, arg);
+			c++;
+			i = ft_check_char(str, i, c, arg);
 			if (i == -1)
 				return (1);
 			arg->start = i;
-			//printf("i2 %d c = %d st = %d ch = %c\n", i, c, arg->start, str[i]);
 			c++;
 		}
 		i++;
 	}
 	if (c <= arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	//printf("cmd[%d] = %s\n", c, arg->cmds[c]);
-	c = 0;
-	while (c < arg->count)
-	{
-	printf("cmd = %s\n", arg->cmds[c]);
-		c++;
-	}
 	return (0);
 }
 /*
