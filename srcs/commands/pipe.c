@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/28 16:56:51 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:45:44 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 	t_cmd	*tmp;
 	pid_t	pid;
 	int		i;
+	int		ret;
 
 	i = 0;
 	tmp = cmd;
@@ -92,11 +93,12 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 		{
 			set_in_out(pipes, tmp, cmd, i);
 			close_fd(pipes, nbpipe);
-			execute_commands(tmp);
+			ret = execute_commands(tmp);
 		}
 		tmp = tmp->next;
 		i = i + 2;
 	}
+	return (ret);
 }
 
 int	m_pipe(t_cmd *cmd)
