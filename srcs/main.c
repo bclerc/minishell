@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/28 16:35:13 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 11:01:49 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,24 @@ void	minishell(void)
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
+			if (!str)
+				core->status = 0;
 			continue ;
 		}
 		str = ft_strdup(str);
 		add_history(str);
 		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
+		puts("main che");
 		if (!cmd)
 			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
 			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
 		cmd = dup_cmd(cmd);
+		if (cmd->redir)
+			printf("redir-main : p %p in %s out %s stdin %d stdout %d msg = %s\n", cmd->redir, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir->redir_std_in, cmd->redir->redir_std_out, cmd->redir->redir_msg);
+		//printf("je suis \n");
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/20 18:03:40 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:35:33 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,8 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 	tmp = NULL;
 	while (arg->pos_i < size)
 	{
-		if (str[arg->pos_i] == '\'')
-		{
-			str = ft_sq(arg, str, tmp);
-			if (!str)
-				return (NULL);
-			arg->pos_i -= 2;
-			size -= 2;
-		}
-		else if (str[arg->pos_i] == '"')
-		{
-			str = ft_dq(arg, str, tmp);
-			if (!str)
-				return (NULL);
-			arg->pos_i -= 2;
-			size -= 2;
-		}
+		if (str[arg->pos_i] == '\'' || str[arg->pos_i] == '"')
+			str = ft_check_quotes(str, arg, tmp, size);
 		if (!str)
 			return (NULL);
 		arg->pos_i++;
@@ -125,7 +111,7 @@ char	*ft_check_tmp(char *tmp, int pos_st, char *str, int i)
 	else if (!tmp)
 	{
 		str = ft_special_cat(str, tmp, i, 0);
-		free (tmp); // ou str? vu que tmp est null
+		free (tmp); // ou str a free plus tard? vu que tmp est null
 	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/20 17:29:09 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:28:02 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg)
 
 int	ft_check_char(char *str, int i, int c, t_arg *arg)
 {
+	// if (str[i] == '"' || str[i] == '\'')
+	// 	i++;
 	if (str[i] == '|')
 	{
 		if (str[i + 1] == '|')
@@ -85,6 +87,7 @@ char	*ft_nosep(int i, char *str, t_arg *arg)
 	char	*tmp;
 
 	z = 0;
+	printf("i %d st %d cou %d ch %c\n", i, arg->start, arg->count, str[i]);
 	tmp = malloc(sizeof(char) * (i - arg->start) + 1);
 	if (!tmp)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/20 17:35:15 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/25 17:34:37 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 {
 	int		j;
 	t_cmd	*tmp;
+	t_cmd	*tmp2;
 	t_cmd	*new;
 
 	j = 0;
 	tmp = cmd;
+	tmp2 = cmd;
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
+	new->builtin = 1;
 	new->cmd = ft_strdup(cpy[j]);
 	j++;
 	ft_fill_std(arg, new);
@@ -35,9 +38,27 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 	new->spec = NULL;
 	new->next = NULL;
 	if (tmp == NULL)
+	{
+		new->previous = NULL;
 		tmp = new;
+	}
 	else
+	{
 		cmd->next = new;
+		if (tmp2->next != NULL)
+		{
+			while (tmp2->next->next != NULL)
+			{
+				tmp2 = tmp2->next;
+				
+			}		
+			new->previous = tmp2;
+		}
+		// if (new->previous->std > 2 && new->previous->std <= 5)
+		// 	new = ft_redir(new);
+		cmd = new;
+	//printf("new2 = %s next = %p std = %d\n", cmd->cmd, cmd->next, cmd->std);
+	}
 	return (tmp);
 }
 
@@ -45,15 +66,18 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 {
 	int		j;
 	t_cmd	*tmp;
+	t_cmd	*tmp2;
 	t_cmd	*new;
 
 	j = 0;
 	tmp = cmd;
+	tmp2 = cmd;
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
+	new->builtin = 0;
 	new->cmd = ft_strdup(cpy[j]);
 	j++;
 	ft_fill_std(arg, new);
@@ -64,9 +88,27 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	new->spec = NULL;
 	new->next = NULL;
 	if (tmp == NULL)
+	{
+		new->previous = NULL;
 		tmp = new;
+	}
 	else
+	{
 		cmd->next = new;
+		if (tmp2->next != NULL)
+		{
+			while (tmp2->next->next != NULL)
+			{
+				tmp2 = tmp2->next;
+				
+			}		
+			new->previous = tmp2;
+		}
+		// if (new->previous->std > 2 && new->previous->std <= 5)
+		// 	new = ft_redir(new);
+		cmd = new;
+	//printf("new3 = %s next = %p std = %d\n", cmd->cmd, cmd->next, cmd->std);
+	}
 	return (tmp);
 }
 
