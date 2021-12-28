@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 11:31:24 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:55:59 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	rm_split(char **split)
 	free(split);
 }
 
-int		get_count(char **str)
+int	get_count(char **str)
 {
 	int	i;
 	int	y;
@@ -49,6 +49,7 @@ int		get_count(char **str)
 	}
 	return (count);
 }
+
 char	*build_str(char **str)
 {
 	char	*final_str;
@@ -57,7 +58,7 @@ char	*build_str(char **str)
 	int		y;
 
 	count = get_count(str);
-	final_str = (char*)malloc(sizeof(char) * count + 1);
+	final_str = (char *)malloc(sizeof(char) * count + 1);
 	i = 0;
 	count = 0;
 	while (str[i])
@@ -95,7 +96,7 @@ char	*transform_str(char *str)
 		i++;
 	}
 	ret = build_str(split);
-	//rm_split(split);
+	rm_split(split);
 	free(str);
 	return (ret);
 }

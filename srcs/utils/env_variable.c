@@ -6,21 +6,15 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/18 17:28:30 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 18:03:37 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
-// TODO:
-//	Foncionne quand la variable possede les memes lettres que le debut d'une variable dans l'env
-// 	Ex: LS retourn LSCOLOR,
-//je sais le regler mais la j'ai la flemme donc je vais le faire plus tard
-
-
-int	getEnv(char **envp)
+int	getenv(char **envp)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -31,7 +25,7 @@ int	getEnv(char **envp)
 	return (1);
 }
 
-char	**env_to_char()
+char	**env_to_char(void)
 {
 	char	**char_env;
 	t_env	*env;
@@ -45,7 +39,7 @@ char	**env_to_char()
 		count++;
 		env = env->next;
 	}
-	char_env = (char **)malloc(sizeof(char*) * (count + 1));
+	char_env = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!char_env)
 		return (NULL);
 	env = core->env;
@@ -62,10 +56,11 @@ char	**env_to_char()
 
 int	add_env_variable(char *var)
 {
-	t_env *tmp;
-	t_env *env;
-	int i = 0;
+	t_env	*tmp;
+	t_env	*env;
+	int		i;
 
+	i = 0;
 	tmp = (t_env *)malloc(sizeof(t_env));
 	tmp->value = ft_strdup(var);
 	tmp->next = NULL;
@@ -86,8 +81,8 @@ int	add_env_variable(char *var)
 
 int	del_env_variable(char *var)
 {
-	t_env *tmp;
-	t_env *last;
+	t_env	*tmp;
+	t_env	*last;
 
 	tmp = core->env;
 	while (tmp)
@@ -111,10 +106,11 @@ int	del_env_variable(char *var)
 	return (1);
 }
 
-char *get_env_variable(char *var)
+char	*get_env_variable(char *var)
 {
 	t_env	*tmp;
 	int		i;
+
 	tmp = core->env;
 	while (tmp)
 	{
@@ -129,4 +125,3 @@ char *get_env_variable(char *var)
 	}
 	return (NULL);
 }
-
