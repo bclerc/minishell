@@ -6,52 +6,40 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/23 14:19:28 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:18:20 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char **get_argv(t_cmd *cmd)
+char	*read_folder(DIR *pdir, char *path, t_cmd *cmd)
 {
-	char	**ret;
-	char	**tmp;
-	int		i;
+	struct dirent	*pdirent;
+	char			*tmp;
+	char			*ret;
 
-	if (cmd->msg)
+	pdirent = readdir(pdir);
+	while (pdirent != NULL)
 	{
-		tmp = ft_strsplit(cmd->msg, ' ');
-		if (!tmp)
-			return (NULL);
-		i = 0;
-		while (tmp[i])
-			i++;
-		ret = (char **)malloc(sizeof(char *) * (i + 2));
-		ret[0] = cmd->cmd;
-		i = 0;
-		while (tmp[i])
+		if (ft_strcmp(cmd->cmd, pdirent->d_name) == 0)
 		{
-			ret[i + 1] = ft_strdup(tmp[i]);
-			i++;
+			closedir(pdir);
+			tmp = ft_strjoin(path, "/");
+			ret = ft_strjoin(tmp, cmd->cmd);
+			free(tmp);
+			return (ret);
 		}
-		ret[i + 1] = NULL;
-		rm_split(tmp);
-		return (ret);
+		pdirent = readdir(pdir);
 	}
-	ret = (char **)malloc(sizeof(char *) * 2);
-	ret[0] = cmd->cmd;
-	ret[1] = NULL;
-	return (ret);	
+	return (NULL);
 }
 
-char *get_executable_path(t_cmd *cmd)
+char	*get_executable_path(t_cmd *cmd)
 {
-    DIR *pdir;
-    struct dirent *pdirent;
-	char **path;
-	char *ret;
-	char *tmp;
-	int i;
+	DIR				*pdir;
+	char			**path;
+	char			*ret;
+	int				i;
 
 	path = ft_strsplit(get_env_variable("PATH"), ':');
 	if (!path)
@@ -62,16 +50,11 @@ char *get_executable_path(t_cmd *cmd)
 		pdir = opendir(path[i]);
 		if (pdir != NULL)
 		{
-			while ((pdirent = readdir(pdir)) != NULL)
+			ret = read_folder(pdir, path[i], cmd);
+			if (ret)
 			{
-				if (ft_strcmp(cmd->cmd, pdirent->d_name) == 0)
-				{
-					closedir(pdir);
-					tmp = ft_strjoin(path[i], "/");
-					ret = ft_strjoin(tmp, cmd->cmd);
-					rm_split(path);
-					return (ret);
-				}
+				rm_split(path);
+				return (ret);
 			}
 		}
 		i++;
@@ -80,7 +63,7 @@ char *get_executable_path(t_cmd *cmd)
 	return (cmd->cmd);
 }
 
-int exec(t_cmd *cmd)
+int	exec(t_cmd *cmd)
 {
 	char	*path;
 	char	**argv;
@@ -107,8 +90,8 @@ int exec(t_cmd *cmd)
 
 int	execute_commands(t_cmd *cmd)
 {
-	int		ret;
-	
+	int	ret;
+
 	ret = 0;
 	if (ft_strcmp(cmd->cmd, "cd") == 0)
 		ret = (cd(cmd->msg));
@@ -116,7 +99,7 @@ int	execute_commands(t_cmd *cmd)
 		ret = (echo(cmd->msg, 0, 0));
 	if (ft_strcmp(cmd->cmd, "env") == 0)
 		ret = (env(NULL));
-	if (ft_strcmp(cmd->cmd,	"export") == 0)
+	if (ft_strcmp(cmd->cmd, "export") == 0)
 		ret = (export(NULL, cmd->msg));
 	if (ft_strcmp(cmd->cmd, "pwd") == 0)
 		ret = (pwd(cmd->msg));
@@ -125,7 +108,7 @@ int	execute_commands(t_cmd *cmd)
 	if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
 		core->status = 0;
-		write(1,"exit 😱 😭\n", 16);
+		write(1, "exit 😱 😭\n", 16);
 		return (-1);
 	}
 	if (ret == 1 || ret == -1)
