@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/27 16:27:33 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/27 17:00:01 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	minishell(void)
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
+			if (!str)
+				core->status = 0;
 			continue ;
 		}
 		str = ft_strdup(str);
