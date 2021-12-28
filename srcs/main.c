@@ -50,6 +50,8 @@ void	minishell(void)
 		prompt = get_promps();
 		str = readline(prompt);
 		free(prompt);
+		if (!str)
+			break ;
 		if (!str || ft_strlen(str) == 0)
 		{
 			printf("\n");
@@ -74,7 +76,7 @@ void	minishell(void)
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
-	m_exit(cmd, M_EXIT_SUCCESS, NULL);
+	//m_exit(cmd, M_EXIT_SUCCESS, NULL);
 	exit(EXIT_SUCCESS);
 }
 
