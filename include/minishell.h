@@ -117,6 +117,8 @@ t_cmd	*ft_launch_parser(char *str, t_cmd **cmd);
 int		ft_get_arg(char *str, t_arg *arg);
 
 // parse arguments
+int		ft_quotes(char *str, t_arg *arg);
+int		ft_increase_quote(char *str, int i);
 int		ft_count_arg(char *str, t_arg *arg);
 int		ft_stock_arg(t_arg *arg, char *str);
 char	*ft_parse_arg(char *str, int i, t_arg *arg);
