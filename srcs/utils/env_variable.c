@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_variable.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/29 13:03:16 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/29 20:17:02 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,27 @@ int	del_env_variable(char *var)
 		tmp = tmp->next;
 	}
 	return (1);
+}
+
+char	*get_env_variable_str(char *var)
+{
+	t_env	*tmp;
+	int		len;
+	int		i;
+
+	tmp = core->env;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
+		{
+			i = 0;
+			while (tmp->value[i] != '=')
+				i++;
+			return (tmp->value + i + 1);
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
 
 char	*get_env_variable(char *var)

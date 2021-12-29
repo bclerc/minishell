@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:43:44 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/29 16:14:17 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/29 16:36:38 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ void	heredoc_read(int fd, char *eof)
 	while (status)
 	{	
 		str = readline("> ");
-		if (ft_strcmp(str, eof) == 0)
+		if (!str || ft_strcmp(str, eof) == 0)
 		{
 			status = 0;
 			break ;
 		}
+		add_history(str);
 		write(fd, str, ft_strlen(str));
 		write(fd, "\n", 1);
 	}
@@ -67,7 +68,7 @@ char	*heredoc(t_cmd *cmd)
 		return (NULL);
 	fd = get_heredoc_fd(tmp_file);
 	if (fd < 0)
-	{
+	{	
 		free(tmp_file);
 		return (NULL);
 	}
