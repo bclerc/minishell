@@ -6,14 +6,13 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:41:31 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 14:15:53 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:59:58 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-char *get_current_dir_name(void)
+char	*get_current_dir_name(void)
 {
 	char	*dir;
 	char	**tmps;
@@ -39,12 +38,12 @@ char *get_current_dir_name(void)
 	return (dir);
 }
 
-char *get_promps(void)
+char	*get_promps(void)
 {
-	char *prompts;
-	char *tmp;
-	char *tmp2;
-	char *pwd;
+	char	*prompts;
+	char	*tmp;
+	char	*tmp2;
+	char	*pwd;
 
 	pwd = get_current_dir_name();
 	tmp = ft_strdup("\e[1;36m(\e[1;34m");

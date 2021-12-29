@@ -147,7 +147,7 @@ int		ft_which_cmd(char **cpy);
 
 // Environnement
 char	**env_to_char();
-int		getEnv(char **envp);
+int		getenv(char **envp);
 int		del_env_variable(char *var);
 
 char	*ft_msg(t_arg *arg, int start, char *tmp);

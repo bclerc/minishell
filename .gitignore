@@ -1,0 +1,4 @@
+*.o
+.nfs*
+.vscode
+*.md

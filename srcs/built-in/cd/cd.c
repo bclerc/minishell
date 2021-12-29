@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 15:51:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:37:06 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	change_old_pwd(void)
 {
-	char *path;
-	char *tmp;
+	char	*path;
+	char	*tmp;
 
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("OLDPWD=");
@@ -23,18 +23,7 @@ int	change_old_pwd(void)
 	add_env_variable(ft_strjoin(tmp, path));
 	free(tmp);
 	free(path);
-
 	return (1);
-}
-
-char	*get_home(void)
-{
-	return (get_env_variable("HOME"));
-}
-
-char	*get_oldpwd(void)
-{
-	return (get_env_variable("OLDPWD"));
 }
 
 int	change_pwd(void)
@@ -51,22 +40,22 @@ int	change_pwd(void)
 	return (1);
 }
 
-char *get(char *path)
+char	*get(char *path)
 {
-	char *home;
+	char	*home;
 
 	if (path == 0)
 	{
 		if (get_env_variable("HOME") == NULL)
 			home = ft_strdup(getcwd(0, 0));
-		else		
+		else
 			home = ft_strdup(get_env_variable("HOME"));
 	}
 	else if (path[0] == 45)
 	{
 		if (get_env_variable("OLDPWD") == NULL)
 			home = ft_strdup(getcwd(0, 0));
-		else		
+		else
 			home = ft_strdup(get_env_variable("OLDPWD"));
 	}
 	else
@@ -74,11 +63,18 @@ char *get(char *path)
 	return (home);
 }
 
+void	change_directory(char *path)
+{
+	change_old_pwd();
+	chdir(path);
+	change_pwd();
+}
+
 int	cd(char *path)
 {
-	struct stat t_sb;
-	char	*home;
-	int		stats;
+	struct stat	t_sb;
+	char		*home;
+	int			stats;
 
 	home = get(path);
 	if (!home)
@@ -88,23 +84,15 @@ int	cd(char *path)
 	{
 		if (access(home, W_OK & R_OK) == -1)
 		{
-			printf("cd: cannot access directory '%s': Permission denied (cheh)\n", path);
+			printf("cd: cannot access directory '%s': Permission denied\n",
+				path);
 			return (1);
 		}
-		change_old_pwd();
-		chdir(home);
-		change_pwd();			
+		change_directory(home);
 	}
 	else if (path == NULL)
-	{
-		change_old_pwd();
-		chdir(ft_strdup(get_env_variable("HOME")));
-		change_pwd();		
-	}
+		change_directory(ft_strdup(get_env_variable("HOME")));
 	else
-	{
 		printf("cd: no such file or directory: %s\n", home);
-		return (1);
-	}
 	return (1);
 }
