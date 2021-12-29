@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/28 14:32:04 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 09:49:42 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ int	ft_stock_arg(t_arg *arg, char *str)
 			i++;
 	}
 	
+	printf("i = %d s = %d st %d c = %d count %d\n", i, size, arg->start, c, arg->count);
 	//printf("cmd[%d] %s\n", c, arg->cmds[c]);
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	printf("i = %d s = %d c = %d count %d\n", i, size, c, arg->count);
 	if ((ft_strcmp(arg->cmds[c], "<") == 0) || (ft_strcmp(arg->cmds[c], ">") == 0)
 		|| (ft_strcmp(arg->cmds[c], "<<") == 0) || (ft_strcmp(arg->cmds[c], "|") == 0)
 		|| (ft_strcmp(arg->cmds[c], ">>") == 0))

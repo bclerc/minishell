@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/28 14:28:02 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 09:56:43 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ char	*ft_nosep(int i, char *str, t_arg *arg)
 	tmp = malloc(sizeof(char) * (i - arg->start) + 1);
 	if (!tmp)
 		return (NULL);
-	if (arg->count != 1)
-		arg->start++;
+	// if (arg->count != 1)
+	// 	arg->start++;
 	while (arg->start < i)
 	{
 		tmp[z] = str[arg->start];
