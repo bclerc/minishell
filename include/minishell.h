@@ -181,7 +181,7 @@ t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
-
+int 	mul_redir(t_cmd *cmd);
 // utils
 char	random_char(void);
 void    m_exit(t_cmd *cmd, int reason, char *function);

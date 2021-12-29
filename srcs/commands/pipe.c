@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/28 17:46:59 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/29 16:14:43 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_in_fd(int *pipes, t_cmd *cmd, int i)
 
 	if (cmd->redir && cmd->redir->fd_in != NULL)
 	{
-		if (cmd->std == REDIR_APPEND_IN)
+		if (cmd->redir->redir_std_in == REDIR_APPEND_IN)
 		{
 			here_doc = heredoc(cmd);
 			fd = get_fd(here_doc);
@@ -39,11 +39,15 @@ int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
 {
 	char	*here_doc;
 	int		fd;
-
 	if (in)
 		return (get_in_fd(pipes, cmd, i));
 	if (cmd->redir && cmd->redir->fd_out != NULL)
-		fd = get_fd(cmd->redir->fd_out);
+	{
+		if (cmd->redir->next)
+			fd = mul_redir(cmd);
+		else
+			fd = get_fd(cmd->redir->fd_out);
+	}
 	else
 		fd = pipes [i + 1];
 	if (fd < 0)
@@ -58,18 +62,18 @@ int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
 {
 	int	fd;
 
-	if (cmd->next || (cmd->redir && cmd->redir->fd_out))
-	{
-		fd = get_dup_fd(pipes, cmd, i, 0);
-		if (dup2(fd, 1) <= -1)
-			perror("dup2 (out)");
-		close(fd);
-	}
 	if (cmd != first_cmd || (cmd->redir && cmd->redir->fd_in))
 	{
 		fd = get_dup_fd(pipes, cmd, i, 1);
 		if (dup2(fd, 0) <= -1)
 			perror("dup2 (in)");
+		close(fd);
+	}
+	if (cmd->next || (cmd->redir && cmd->redir->fd_out))
+	{
+		fd = get_dup_fd(pipes, cmd, i, 0);
+		if (dup2(fd, 1) <= -1)
+			perror("dup2 (out)");
 		close(fd);
 	}
 	return (1);

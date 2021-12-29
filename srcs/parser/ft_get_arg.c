@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 10:29:00 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 13:06:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_get_arg(char *str, t_arg *arg)
 	if (ft_stock_arg(arg, str) == -1)
 		return (-1);
 	arg->start = 0;
-puts("che");
 	// if (ft_check_args(arg) == -1)
 	// 	return (-1);
 	return (0);

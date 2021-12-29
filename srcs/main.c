@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/29 10:22:29 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 13:06:10 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,14 @@ void	minishell(void)
 		add_history(str);
 		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
-		puts("main che");
 		if (!cmd)
 			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
 			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
     	cmd = ft_redir(cmd);
 		cmd = dup_cmd(cmd);
-		if (cmd->redir)
-			printf("redir-main : p %p in %s out %s stdin %d stdout %d msg = %s\n", cmd->redir, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir->redir_std_in, cmd->redir->redir_std_out, cmd->redir->redir_msg);
+		//if (cmd->redir)
+		//	printf("redir-main : p %p in %s out %s stdin %d stdout %d msg = %s\n", cmd->redir, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir->redir_std_in, cmd->redir->redir_std_out, cmd->redir->redir_msg);
 		//printf("je suis \n");
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
