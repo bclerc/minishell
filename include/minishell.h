@@ -147,7 +147,7 @@ int		ft_which_cmd(char **cpy);
 
 // Environnement
 char	**env_to_char();
-int		getenv(char **envp);
+int		get_env(char **envp);
 int		del_env_variable(char *var);
 
 char	*ft_msg(t_arg *arg, int start, char *tmp);
@@ -179,7 +179,7 @@ t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
-
+int 	mul_redir(t_cmd *cmd);
 // utils
 char	random_char(void);
 void    m_exit(t_cmd *cmd, int reason, char *function);

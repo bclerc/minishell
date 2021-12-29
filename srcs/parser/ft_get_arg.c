@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/28 14:32:04 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 13:06:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_get_arg(char *str, t_arg *arg)
 	if (ft_stock_arg(arg, str) == -1)
 		return (-1);
 	arg->start = 0;
-puts("che");
 	// if (ft_check_args(arg) == -1)
 	// 	return (-1);
 	return (0);
@@ -112,7 +111,7 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	//printf("cmd[%d] %s\n", c, arg->cmds[c]);
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	printf("i = %d s = %d c = %d count %d\n", i, size, c, arg->count);
+	//printf("i = %d s = %d c = %d count %d\n", i, size, c, arg->count);
 	if ((ft_strcmp(arg->cmds[c], "<") == 0) || (ft_strcmp(arg->cmds[c], ">") == 0)
 		|| (ft_strcmp(arg->cmds[c], "<<") == 0) || (ft_strcmp(arg->cmds[c], "|") == 0)
 		|| (ft_strcmp(arg->cmds[c], ">>") == 0))

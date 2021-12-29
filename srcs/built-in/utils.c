@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/28 17:42:57 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/29 13:25:05 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,26 @@ int	is_eof(char *s)
 	return (0);
 }
 
+int	mul_redir(t_cmd *cmd)
+{
+	t_redir	*tmp;
+	int		fd;
+
+	tmp = cmd->redir;
+	while (tmp)
+	{
+		if (!tmp->next)
+			fd = get_fd(tmp->fd_out);
+		else
+		{
+			fd = get_fd(tmp->fd_out);
+			close(fd);
+		}
+		tmp = tmp->next;
+	}
+	return (fd);
+}
+
 int	get_fd(char *path)
 {
 	struct stat	buffer;
@@ -35,7 +55,7 @@ int	get_fd(char *path)
 		if (access(path, F_OK))
 			fd = open(path, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 		else
-			fd = open(path, O_RDONLY);
+			fd = open(path, O_RDWR);
 	}
 	if (fd < 0)
 	{
