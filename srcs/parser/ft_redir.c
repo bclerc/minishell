@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 14:49:40 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:20:08 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 		else if (exist == 2)
 		{
 			cmd->redir = ft_fillout(cmd, redir);
-			printf("redir2 cmd in %s std %d msg %s\n", cmd->redir->fd_in, cmd->redir->redir_std_out, cmd->redir->redir_msg);
+			//printf("redir2 cmd %s out %s std %d msg %s\n", cmd->cmd, cmd->redir->fd_out, cmd->redir->redir_std_out, cmd->redir->redir_msg);
 		}
 		else if (exist == 3)
 		{
@@ -94,8 +94,8 @@ t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir)
 		{
 			while ((cmd->std == 2 || cmd->std == 3) && cmd->next != NULL)
 			{
-				redir = ft_create_out(cmd, redir);
-    			//printf("out cmd %s std %d\n", cmd->cmd, cmd->std);
+				cmd->redir = ft_create_out(cmd, redir);
+    			printf("out cmd %s std %d\n", cmd->cmd, cmd->std);
 				cmd = cmd->next;
 				
 			}
@@ -103,7 +103,7 @@ t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir)
 		if (cmd->next != NULL)
 			cmd = cmd->next;
 	}
-	return (redir); 
+	return (cmd->redir); 
 }
 
 // t_redir	*ft_fillout2(t_cmd *cmd, t_redir *redir)
@@ -207,7 +207,7 @@ t_redir	*ft_fillinout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 	if (cmd && cmd->next != NULL)
 	{
 		cmd = cmd->next;
-		redir = ft_fillout(cmd, redir);
+		redir = ft_fillout(cmd, redir); // ou cmd->redir?
 	}
 	return (redir);
 }

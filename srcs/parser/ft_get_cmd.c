@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 16:07:00 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:11:45 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 			|| (ft_check_redir(arg, i) == 2 && (i + 1 < arg->count)))
 			i ++;
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
-		if (cpy[0][0] == '\'' || cpy[0][0] == '"')
+		if (cpy[0][0] == '\'' || cpy[0][0] == '"') // ou plutot si cpy[i][0]
 		{
-			cpy[0] = ft_strsub(cpy[0], 1, ft_strlen(cpy[0]) - 2);
+			cpy[0] = ft_strsub(cpy[0], 1, ft_strlen(cpy[0]) - 2); // ou plutot cpy[i]
 			//cpy[0] = ft_cmd_quotes(cpy[0]);
-			if (!cpy[0])
+			if (!cpy[0]) // ou plutot cpy[i]
 				return (NULL);
 			arg->q = 1;
 		}
-		printf("cpy[] %s\n", cpy[0]);
+		//printf("cpy[] %s\n", cpy[0]);
 		if (cpy[i] == NULL && i < arg->count)
 		{
 			cpy[i] = ft_strdup(arg->cmds[i]);

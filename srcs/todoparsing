@@ -5,5 +5,7 @@ echo "cat | " > lol |
 > ok
 
 "echo" "cat | " > lol | wc
-> dans parsing des cmds : rajouter une fct qui checke si " ou ' dans cmd[0]
-si oui : retirer quotes
+> ok
+
+ls | cat | cat | cat | cat | cat -e | grep srcs > k
+> ne recupere pas le bon msg pour grep dans redir?

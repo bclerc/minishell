@@ -1,6 +1,6 @@
-cat | 
-
-l
+srcs$
+e
+k
 lol
 Makefile
 minishell
