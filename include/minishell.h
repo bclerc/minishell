@@ -125,7 +125,7 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
 char	*ft_nosep(int i, char *str, t_arg *arg);
-int		ft_check_args(t_arg *arg);
+//int		ft_check_args(t_arg *arg);
 
 // parse cmds
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd);
@@ -147,7 +147,7 @@ int		ft_which_cmd(char **cpy);
 
 // Environnement
 char	**env_to_char();
-int		getenv(char **envp);
+int		get_env(char **envp);
 int		del_env_variable(char *var);
 
 char	*ft_msg(t_arg *arg, int start, char *tmp);

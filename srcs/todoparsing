@@ -2,7 +2,7 @@ echo "cat | " > lol | wc
 > ok
 
 echo "cat | " > lol |
-> pb : devrait rentrer dans "error in token" (ft_get_arg.c)
+> ok
 
 "echo" "cat | " > lol | wc
 > dans parsing des cmds : rajouter une fct qui checke si " ou ' dans cmd[0]

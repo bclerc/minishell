@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/20 17:52:58 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 14:31:11 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 	else
 	{
 		tmp = ft_search_msg(cpy, j, arg, tmp);
+		printf("tmp = %s\n", tmp);
 		tmp2 = ft_parse_msg(tmp, arg);
+	puts("h");
 		if (!tmp)
 			return (NULL);
 		return (tmp2);
