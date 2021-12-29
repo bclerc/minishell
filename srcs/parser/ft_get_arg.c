@@ -83,7 +83,6 @@ int	ft_stock_arg(t_arg *arg, char *str)
 		return (1);
 	tmp = arg;
 	size = ft_strlen(str); // pas de +1!!
-	//printf("si = %d\n", size);
 	while (i < size)
 	{
 		while (str[i] != '<' && str[i] != '>' && str[i] != '|' && str[i] != '\0')
@@ -100,18 +99,14 @@ int	ft_stock_arg(t_arg *arg, char *str)
 			if (i == -1)
 				return (1);
 			arg->start = i;
-			//if (i <= size - 1)
 			if (c < arg->count - 1)
 				c++;
 		}
 		if (i < size)
 			i++;
 	}
-	
-	//printf("cmd[%d] %s\n", c, arg->cmds[c]);
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	//printf("i = %d s = %d c = %d count %d\n", i, size, c, arg->count);
 	if ((ft_strcmp(arg->cmds[c], "<") == 0) || (ft_strcmp(arg->cmds[c], ">") == 0)
 		|| (ft_strcmp(arg->cmds[c], "<<") == 0) || (ft_strcmp(arg->cmds[c], "|") == 0)
 		|| (ft_strcmp(arg->cmds[c], ">>") == 0))
