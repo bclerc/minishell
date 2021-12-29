@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 14:26:12 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 16:07:00 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 			i ++;
 		cpy = ft_strsplit_s(arg->cmds[i], ' ');
 		if (cpy[0][0] == '\'' || cpy[0][0] == '"')
+		{
 			cpy[0] = ft_strsub(cpy[0], 1, ft_strlen(cpy[0]) - 2);
-		//printf("cpy[] %s\n", cpy[2]);
+			//cpy[0] = ft_cmd_quotes(cpy[0]);
+			if (!cpy[0])
+				return (NULL);
+			arg->q = 1;
+		}
+		printf("cpy[] %s\n", cpy[0]);
 		if (cpy[i] == NULL && i < arg->count)
 		{
 			cpy[i] = ft_strdup(arg->cmds[i]);
@@ -48,7 +54,6 @@ t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd)
 {
 	if (ft_strcmp(cpy[0], "echo") == 0)
 	{
-		
 		return (ft_parse_echo(arg, cpy, cmd));
 	}
 	else if (ft_strcmp(cpy[0], "cd") == 0 || ft_strcmp(cpy[0], "pwd") == 0
@@ -73,4 +78,27 @@ int	ft_check_redir(t_arg *arg, int i)
 		|| ft_strcmp(arg->cmds[i], "<<") == 0)
 		return (2);
 	return (0);
+}
+
+char	*ft_cmd_quotes(char *cpy)
+{
+	int		i;
+	int		j;
+	int		size;
+	char	*tmp;
+
+	i = 0;
+	j = 1;
+	size = ft_strlen(cpy) - 2;
+	tmp = malloc(sizeof(char) * (size + 1));
+	if (!tmp)
+		return (NULL);
+	while (i < size)
+	{
+		tmp[i] = cpy[j];
+		i++;
+		j++;
+	}
+	tmp[i] = '\0';
+	return (tmp);
 }

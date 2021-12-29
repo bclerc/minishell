@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 14:31:11 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 16:17:00 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 	}
 	else
 	{
+		printf("cpy[%d] %s\n", j, cpy[j]);
 		tmp = ft_search_msg(cpy, j, arg, tmp);
 		printf("tmp = %s\n", tmp);
 		tmp2 = ft_parse_msg(tmp, arg);
-	puts("h");
 		if (!tmp)
 			return (NULL);
 		return (tmp2);
@@ -60,7 +60,7 @@ char	*ft_msg(t_arg *arg, int start, char *tmp)
 	int	size;
 	int	a;
 
-	size = ft_strlen(arg->cmds[arg->i_cpy]);
+		size = ft_strlen(arg->cmds[arg->i_cpy]);
 	tmp = malloc(sizeof(char) * (size - start + 1));
 	if (!tmp)
 		return (NULL);
@@ -99,10 +99,14 @@ char	*ft_which_nb(int start, char *tmp, t_arg *arg)
 {
 	if (start == 1)
 	{
-		if (!arg->spec_n)
+		if (!arg->spec_n && arg->q == 0)
 			start = 5;
-		else if (ft_strcmp(arg->spec_n, "-n") == 0)
+		else if (!arg->spec_n && arg->q == 1)
+			start = 7;
+		else if (ft_strcmp(arg->spec_n, "-n") == 0 && arg->q == 0)
 			start = 6 + arg->n + 1;
+		else if (ft_strcmp(arg->spec_n, "-n") == 0 && arg->q == 1)
+			start = 8 + arg->n + 1;
 		tmp = ft_msg(arg, start, tmp);
 	}
 	else

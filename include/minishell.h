@@ -98,6 +98,7 @@ struct	s_arg
 	int		quote;
 	int		pos_i;
 	int		n;
+	int		q;
 	char	*spec_n;
 	char	*tmp;
 };
@@ -130,6 +131,7 @@ char	*ft_nosep(int i, char *str, t_arg *arg);
 // parse cmds
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd);
 int		ft_check_redir(t_arg *arg, int i);
+char	*ft_cmd_quotes(char *cpy);
 t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);

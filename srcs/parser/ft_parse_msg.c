@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 14:32:01 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 16:09:00 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp)
 		start = ft_strlen(cpy[0]) + 1;
 		tmp = ft_other_msg(arg, start, tmp);
 	}	
-	else if (j == 1)
-		tmp = ft_which_nb(start, tmp, arg);
-	else if (j == 2)
+	else if (j == 1 || j == 2)		
 		tmp = ft_which_nb(start, tmp, arg);
 	return (tmp);
 }
@@ -41,9 +39,11 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 	tmp = NULL;
 	while (arg->pos_i < size)
 	{
-		puts("h");
 		if (str[arg->pos_i] == '\'' || str[arg->pos_i] == '"')
+		{
 			str = ft_check_quotes(str, arg, tmp, size);
+			
+		}
 		if (!str)
 			return (NULL);
 		arg->pos_i++;
