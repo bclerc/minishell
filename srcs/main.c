@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/29 18:09:37 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/30 11:52:54 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	minishell(void)
 	char	*str;
 	char	*prompt;
 	t_cmd	*cmd;
+	t_cmd	*tmp;
 
 	while (core->status != 0)
 	{
@@ -67,6 +68,12 @@ void	minishell(void)
 			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
 			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
 		//cmd = ft_check_spec(&cmd);
+		tmp = cmd;
+		// while (tmp /*&& tmp->next != NULL*/)
+		// {
+		// 	printf("cmd %s std %d %p\n", tmp->cmd, tmp->std, tmp);
+		// 	tmp = tmp->next;
+		// }
     	cmd = ft_redir(cmd);
 		cmd = dup_cmd(cmd);
 		//if (cmd->redir)
