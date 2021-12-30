@@ -6,7 +6,7 @@
 /*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/30 16:10:51 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/30 16:56:56 by astrid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_cmd	*ft_redir(t_cmd *cmd)
 		{
 			while (tmp && tmp->next != NULL)
 				tmp = tmp->next;
-			cmd->redir = ft_fillin(tmp, redir);
+			cmd = ft_fillin(tmp, redir);
 			//printf("redir1 %p\n", cmd->redir);
-			printf("redir1 cmd in %s std %d msg %s\n", cmd->redir->fd_in, cmd->redir->redir_std_in, cmd->redir->redir_msg);
+			//printf("redir1 cmd in %s std %d msg %s\n", cmd->redir->fd_in, cmd->redir->redir_std_in, cmd->redir->redir_msg);
 		}
 		else if (exist == 2)
 		{
@@ -80,7 +80,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	return (cmd);
 }
 
-t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
+t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
 {
 	redir = malloc(sizeof(t_redir));
 	if (!redir)
@@ -103,7 +103,7 @@ t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
 				redir->redir_msg = cmd->msg;
 				cmd->msg = NULL;
 			}
-            //printf("redir : p %p in %s std %d msg = %s\n", redir, redir->fd_in, redir->redir_std_in, redir->redir_msg);;      
+            printf("redir : in %s std %d msg = %s\n", redir->fd_in, redir->redir_std_in, redir->redir_msg);;      
 		}
 		if (!cmd->previous)
 			break ;
@@ -111,7 +111,7 @@ t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir)
 	}
     //  printf("prev 2 = %p cnd = %s\n", cmd->previous, cmd->cmd);
     //  printf("redir in %s std %d", redir->fd_in, redir->std_redir);
-	return (redir);
+	return (cmd);
 }
 
 t_cmd	*ft_fillout(t_cmd *tmp, t_redir *redir)

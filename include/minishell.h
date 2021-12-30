@@ -170,7 +170,7 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
 t_cmd	*ft_redir(t_cmd *cmd);
 int		ft_exist(t_cmd *tmp);
-t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir);
+t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillout(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in);

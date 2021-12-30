@@ -11,7 +11,7 @@ ls | cat | cat | cat | cat | cat -e | grep srcs > k > l
 > ok
 
 ls | cat | cat | cat | cat | cat -e | grep srcs > k < Makefile
->
+> ok
 
 ls | cat | cat | cat | cat | cat -e | grep srcs < Makefile
-> 
+> ok
