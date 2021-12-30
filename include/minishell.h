@@ -172,9 +172,8 @@ t_cmd	*ft_redir(t_cmd *cmd);
 int		ft_exist(t_cmd *tmp);
 t_redir	*ft_fillin(t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillout(t_cmd *cmd, t_redir *redir);
-//t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
-t_redir	*ft_fillinout(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
+t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir);
 t_redir	*ft_create_pipe(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_out2(t_cmd *cmd, t_redir *redir);
 
