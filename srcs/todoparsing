@@ -7,5 +7,11 @@ echo "cat | " > lol |
 "echo" "cat | " > lol | wc
 > ok
 
-ls | cat | cat | cat | cat | cat -e | grep srcs > k
-> ne recupere pas le bon msg pour grep dans redir?
+ls | cat | cat | cat | cat | cat -e | grep srcs > k > l
+> ok
+
+ls | cat | cat | cat | cat | cat -e | grep srcs > k < Makefile
+>
+
+ls | cat | cat | cat | cat | cat -e | grep srcs < Makefile
+> 
