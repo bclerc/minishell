@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/30 15:13:08 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/31 12:04:56 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	minishell(void)
 	char	*rd;
 	char	*prompt;
 	t_cmd	*cmd;
+	t_cmd	*tmp;
 
 	while (core->status != 0)
 	{
