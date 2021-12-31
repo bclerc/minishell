@@ -98,6 +98,7 @@ struct	s_arg
 	int		quote;
 	int		pos_i;
 	int		n;
+	int		q;
 	char	*spec_n;
 	char	*tmp;
 };
@@ -125,11 +126,12 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
 char	*ft_nosep(int i, char *str, t_arg *arg);
-int		ft_check_args(t_arg *arg);
+//int		ft_check_args(t_arg *arg);
 
 // parse cmds
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd);
 int		ft_check_redir(t_arg *arg, int i);
+char	*ft_cmd_quotes(char *cpy);
 t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
@@ -147,7 +149,7 @@ int		ft_which_cmd(char **cpy);
 
 // Environnement
 char	**env_to_char();
-int		getEnv(char **envp);
+int		get_env(char **envp);
 int		del_env_variable(char *var);
 
 char	*ft_msg(t_arg *arg, int start, char *tmp);
@@ -179,7 +181,7 @@ t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
-
+int 	mul_redir(t_cmd *cmd);
 // utils
 char	random_char(void);
 void    m_exit(t_cmd *cmd, int reason, char *function);

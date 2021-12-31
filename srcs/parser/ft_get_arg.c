@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/27 20:02:13 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/29 13:06:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_get_arg(char *str, t_arg *arg)
 	if (ft_stock_arg(arg, str) == -1)
 		return (-1);
 	arg->start = 0;
-puts("che");
 	// if (ft_check_args(arg) == -1)
 	// 	return (-1);
 	return (0);
@@ -86,36 +85,32 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	size = ft_strlen(str); // pas de +1!!
 	while (i < size)
 	{
-		if (str[i] == '<' || str[i] == '>' || str[i] == '|'
-			|| str[i] == '"' || str[i] == '\'')
+		while (str[i] != '<' && str[i] != '>' && str[i] != '|' && str[i] != '\0')
 		{
-			if (str[i] == '"' || str[i] == '\'') // ok pour le cas testé mais pb si "echo" car le compte comme une cmd séparée
-			{
+			if (str[i] == '"' || str[i] == '\'')
 				i = ft_increase_quote(str, i);
-				//i++;
-			}
-			printf("i %d st = %d ch = %c c = %d count %d\n", i, arg->start, str[i], c, arg->count);
-			arg->cmds[c] = ft_parse_arg(str, i, arg);
-			//if (str[i] == '<' || str[i] == '>' || str[i] == '|')
-			//	c++;
-			i = ft_check_char(str, i, c + 1, arg);
+			i++;	
+		}
+		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+		{
+			arg->cmds[c] = ft_parse_arg(str, i - 1, arg);
+			c++;
+			i = ft_check_char(str, i, c, arg);
 			if (i == -1)
 				return (1);
 			arg->start = i;
-			//printf("i2 %d c = %d st = %d ch = %c\n", i, c, arg->start, str[i]);
-			c++;
+			if (c < arg->count - 1)
+				c++;
 		}
-		i++;
+		if (i < size)
+			i++;
 	}
-	if (c <= arg->count)
+	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	//printf("cmd[%d] = %s\n", c, arg->cmds[c]);
-	c = 0;
-	while (c < arg->count)
-	{
-	printf("cmd = %s\n", arg->cmds[c]);
-		c++;
-	}
+	if ((ft_strcmp(arg->cmds[c], "<") == 0) || (ft_strcmp(arg->cmds[c], ">") == 0)
+		|| (ft_strcmp(arg->cmds[c], "<<") == 0) || (ft_strcmp(arg->cmds[c], "|") == 0)
+		|| (ft_strcmp(arg->cmds[c], ">>") == 0))
+		return (ft_print("Error in token\n", -1) & -1);
 	return (0);
 }
 /*

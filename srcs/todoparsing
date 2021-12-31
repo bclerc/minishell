@@ -1,0 +1,9 @@
+echo "cat | " > lol | wc 
+> ok
+
+echo "cat | " > lol |
+> ok
+
+"echo" "cat | " > lol | wc
+> dans parsing des cmds : rajouter une fct qui checke si " ou ' dans cmd[0]
+si oui : retirer quotes

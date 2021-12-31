@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 11:31:24 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/30 15:13:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	rm_split(char **split)
 	free(split);
 }
 
-int		get_count(char **str)
+int	get_count(char **str)
 {
 	int	i;
 	int	y;
@@ -49,6 +49,7 @@ int		get_count(char **str)
 	}
 	return (count);
 }
+
 char	*build_str(char **str)
 {
 	char	*final_str;
@@ -57,7 +58,7 @@ char	*build_str(char **str)
 	int		y;
 
 	count = get_count(str);
-	final_str = (char*)malloc(sizeof(char) * count + 1);
+	final_str = (char *)malloc(sizeof(char) * count + 1);
 	i = 0;
 	count = 0;
 	while (str[i])
@@ -69,6 +70,8 @@ char	*build_str(char **str)
 			count++;
 			y++;
 		}
+		final_str[count] = ' ';
+		count++;
 		i++;
 	}
 	final_str[count] = 0;
@@ -82,20 +85,25 @@ char	*transform_str(char *str)
 	char	*env;
 	char	*ret;
 
-	split = ft_strsplit_s(str, '$');
+	split = ft_strsplit(str, ' ');
+
 	i = 0;
 	while (split[i])
 	{
 		if (split[i][0] == '$')
 		{
 			env = get_env_variable(split[i] + 1);
+			printf("Env is %s\n", env);
 			if (env)
-				split[i] = env;
+			{
+				free(split[i]);
+				split[i] = ft_strdup(env);
+			}
 		}
 		i++;
 	}
 	ret = build_str(split);
-	//rm_split(split);
+	rm_split(split);
 	free(str);
 	return (ret);
 }

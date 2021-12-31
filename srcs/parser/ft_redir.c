@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/27 16:32:12 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 14:49:40 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ t_redir	*ft_fillout(t_cmd *cmd, t_redir *redir)
 		{
 			while ((cmd->std == 2 || cmd->std == 3) && cmd->next != NULL)
 			{
-    			printf("out cmd %s std %d\n", cmd->cmd, cmd->std);
 				redir = ft_create_out(cmd, redir);
+    			//printf("out cmd %s std %d\n", cmd->cmd, cmd->std);
 				cmd = cmd->next;
 				
 			}
@@ -140,16 +140,18 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 	ft_init_redir(new);
 	new->redir_std_out = cmd->std;
 	new->fd_out = cmd->next->cmd;
+	
 //		puts("coucou");
 	cmd->next->cmd = NULL;
 	new->fd_in = NULL;
-	if (cmd->next->msg)
+	//	printf("msg = %s\n", cmd->msg);
+	if (cmd->msg)
 	{
-		new->redir_msg = cmd->next->msg;
+		new->redir_msg = cmd->msg;
 		cmd->next->msg = NULL;
 	}
 	new->next = NULL;
-	printf("new : p %p out %s std %d msg %s\n", new, new->fd_out, new->redir_std_out, new->redir_msg);
+	//printf("new : p %p out %s std %d msg %s\n", new, new->fd_out, new->redir_std_out, new->redir_msg);
 	if (tmp == NULL)
 		tmp = new;
 	else
@@ -179,7 +181,7 @@ t_redir	*ft_create_out2(t_cmd *cmd, t_redir *redir)
 		cmd->next->msg = NULL;
 	}
 	new->next = NULL;
-	printf("new : p %p out %s std %d msg %s\n", new, new->fd_out, new->redir_std_out, new->redir_msg);
+	//printf("new : p %p out %s std %d msg %s\n", new, new->fd_out, new->redir_std_out, new->redir_msg);
 	if (tmp == NULL)
 		tmp = new;
 	else

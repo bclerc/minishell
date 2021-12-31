@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/28 11:01:49 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/30 15:13:08 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,39 +42,38 @@ void	signal_handler(int signum)
 void	minishell(void)
 {
 	char	*str;
+	char	*rd;
 	char	*prompt;
 	t_cmd	*cmd;
 
 	while (core->status != 0)
 	{
 		prompt = get_promps();
-		str = readline(prompt);
+		rd = readline(prompt);
 		free(prompt);
-		if (!str || ft_strlen(str) == 0)
+		if (!rd)
+			break ;
+		if (!rd || ft_strlen(rd) == 0)
 		{
 			printf("\n");
-			if (!str)
+			if (!rd)
 				core->status = 0;
 			continue ;
 		}
-		str = ft_strdup(str);
+		str = ft_strdup(rd);
+		free(rd);
 		add_history(str);
 		str = transform_str(str);
     	cmd = ft_launch_parser(str, &cmd);
-		puts("main che");
+		free(str);
 		if (!cmd)
-			exit(0); // le temps de regler m_exit pour eviter les segfaults qui puent
-			//m_exit(cmd, M_EXIT_MALLOC_ERROR, NULL); // a modifier
-		//cmd = ft_check_spec(&cmd);
+			exit(0);
     	cmd = ft_redir(cmd);
 		cmd = dup_cmd(cmd);
-		if (cmd->redir)
-			printf("redir-main : p %p in %s out %s stdin %d stdout %d msg = %s\n", cmd->redir, cmd->redir->fd_in, cmd->redir->fd_out, cmd->redir->redir_std_in, cmd->redir->redir_std_out, cmd->redir->redir_msg);
-		//printf("je suis \n");
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
-	m_exit(cmd, M_EXIT_SUCCESS, NULL);
+	//m_exit(cmd, M_EXIT_SUCCESS, NULL);
 	exit(EXIT_SUCCESS);
 }
 
@@ -86,7 +85,7 @@ int	main(int ac, char **av, char **envp)
 		return (0);
 	core->child_exist = 0;
 	core->env = NULL;
-	getEnv(envp);
+	get_env(envp);
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);

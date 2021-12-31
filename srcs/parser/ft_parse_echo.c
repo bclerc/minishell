@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/12/25 17:34:30 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/29 14:29:06 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 			new->msg = ft_cpy_msg(arg, cpy, j, new);
 			if (!new->msg)
 				return (NULL);
+	puts("hey");
 		}	
 	}
 	if (arg->i_cpy == arg->count - 1)
@@ -93,7 +94,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		// 	new = ft_redir(new);
 		cmd = new;
 	}
-	//printf("new1 = %s next = %p std = %d\n", tmp->cmd, tmp->next, tmp->std);
+	printf("new1 = %s msg = %s std = %d\n", tmp->cmd, tmp->msg, tmp->std);
 	return (tmp);
 }
 

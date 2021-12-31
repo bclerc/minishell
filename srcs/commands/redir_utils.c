@@ -6,68 +6,73 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:43:44 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/23 13:36:28 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/29 16:36:38 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *random_name(void)
+char	*random_name(void)
 {
-    char *str;
-    char *tmp;
-    int i;
+	char	*str;
+	char	*tmp;
+	int		i;
 
-    str = ft_itoa(getpid());
-    if (!str)
-        return (NULL);
-    str[0] = '.';
-    str[1] = 'M';
-    tmp = ft_strjoin("/tmp/", str);
-    free(str);
-    return (tmp);
+	str = ft_itoa(getpid());
+	if (!str)
+		return (NULL);
+	str[0] = '.';
+	str[1] = 'M';
+	tmp = ft_strjoin("/tmp/", str);
+	free(str);
+	return (tmp);
 }
 
-int get_heredoc_fd(char *tmp_file)
+int	get_heredoc_fd(char *tmp_file)
 {
-    int fd;
+	int	fd;
 
-    fd = open(tmp_file, O_CREAT | O_EXCL | O_RDWR, 0644);
-    if (fd < 0)
-        return (-1);
-    return (fd);
+	fd = open(tmp_file, O_CREAT | O_EXCL | O_RDWR, 0644);
+	if (fd < 0)
+		return (-1);
+	return (fd);
 }
 
-char *heredoc(t_cmd *cmd)
+void	heredoc_read(int fd, char *eof)
 {
-    char *eof;
-    char *str;
-    char *tmp_file;
-    int status;
-    int fd;
+	char	*str;
+	int		status;
 
-    tmp_file = random_name();
-    if (!tmp_file)
-        return (NULL);
-    fd = get_heredoc_fd(tmp_file);
-    if (fd < 0)
-	{
-		free(tmp_file);
-        return (NULL);
+	status = 1;
+	while (status)
+	{	
+		str = readline("> ");
+		if (!str || ft_strcmp(str, eof) == 0)
+		{
+			status = 0;
+			break ;
+		}
+		add_history(str);
+		write(fd, str, ft_strlen(str));
+		write(fd, "\n", 1);
 	}
-    status = 1;
-    eof = cmd->redir->fd_in;
-    while (status)
-    {
-        str = readline("> ");
-        if (ft_strcmp(str, eof) == 0)
-        {
-            status = 0;
-            break ;
-        }
-        write(fd, str, ft_strlen(str));
-        write(fd, "\n", 1);
-    }
-    close(fd);
-    return (tmp_file);
+}
+
+char	*heredoc(t_cmd *cmd)
+{
+	char	*tmp_file;
+	int		fd;
+
+	tmp_file = random_name();
+	if (!tmp_file)
+		return (NULL);
+	fd = get_heredoc_fd(tmp_file);
+	if (fd < 0)
+	{	
+		free(tmp_file);
+		return (NULL);
+	}
+	heredoc_read(fd, cmd->redir->fd_in);
+	close(fd);
+	return (tmp_file);
 }
