@@ -6,12 +6,13 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/30 12:02:20 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/31 11:22:12 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// ft_utils_cmd.c for aux fcts
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 {
 	int		i;
@@ -22,19 +23,10 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	tmp = *cmd;
 	while (i < arg->count)
 	{
-		if ((ft_check_redir(arg, i) == 1 && (i + 1 < arg->count))
-			|| (ft_check_redir(arg, i) == 2 && (i + 1 < arg->count)))
-			i ++;
+		i = ft_cmd_i(arg, i);
 		cpy = ft_strsplit(arg->cmds[i], ' ');
-		if (cpy[0][0] == '\'' || cpy[0][0] == '"') // ou plutot si cpy[i][0]
-		{
-			cpy[0] = ft_strsub(cpy[0], 1, ft_strlen(cpy[0]) - 2); // ou plutot cpy[i]
-			//cpy[0] = ft_cmd_quotes(cpy[0]);
-			if (!cpy[0]) // ou plutot cpy[i]
-				return (NULL);
-			arg->q = 1;
-		}
-		//printf("cpy[] %s\n", cpy[0]);
+		if (cpy[0][0] == '\'' || cpy[0][0] == '"')
+			cpy[0] = ft_cpy0(cpy[0], arg);
 		if (cpy[i] == NULL && i < arg->count)
 		{
 			cpy[i] = ft_strdup(arg->cmds[i]);
@@ -45,7 +37,6 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 		*cmd = ft_parse_cmd(arg, cpy, *cmd);
 		if (!*cmd)
 			return (NULL);
-		
 	}
 	return (*cmd);
 }
@@ -78,27 +69,4 @@ int	ft_check_redir(t_arg *arg, int i)
 		|| ft_strcmp(arg->cmds[i], "<<") == 0)
 		return (2);
 	return (0);
-}
-
-char	*ft_cmd_quotes(char *cpy)
-{
-	int		i;
-	int		j;
-	int		size;
-	char	*tmp;
-
-	i = 0;
-	j = 1;
-	size = ft_strlen(cpy) - 2;
-	tmp = malloc(sizeof(char) * (size + 1));
-	if (!tmp)
-		return (NULL);
-	while (i < size)
-	{
-		tmp[i] = cpy[j];
-		i++;
-		j++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
 }

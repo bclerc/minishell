@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
+#    Updated: 2021/12/31 11:31:02 by asgaulti         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 PROJECT_NAME = minishell
 
@@ -34,6 +46,8 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_util_parsemsg.c \
 			srcs/utils/exit.c \
 			srcs/utils/ft_utils_redir.c \
+			srcs/utils/ft_utils_cmd.c \
+			srcs/utils/ft_utils.arg.c \
 			srcs/commands/commands.c \
 			srcs/commands/commands_utils.c \
 			srcs/commands/pipe.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 13:06:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/31 11:09:50 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	ft_get_arg(char *str, t_arg *arg)
 	if (ft_stock_arg(arg, str) == -1)
 		return (-1);
 	arg->start = 0;
-	// if (ft_check_args(arg) == -1)
-	// 	return (-1);
 	return (0);
 }
 
@@ -40,24 +38,16 @@ int	ft_count_arg(char *str, t_arg *arg)
 	{
 		i = ft_increase_quote(str, i);
 		if (((str[i] == '>' && str[i + 1] == '>')
-			|| (str[i] == '<' && str[i + 1] == '<')) && i != 0)
-		{
-			arg->count++;
-			i+=2;
-			if (str[i + 1])
-				arg->count++;
-		}
+				|| (str[i] == '<' && str[i + 1] == '<')) && i != 0)
+			i = ft_count1(str, i, arg);
 		else if (((str[i] == '>' && str[i + 1] != '>')
-			|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|') && i != 0)
-		{
-			arg->count++;
-			if (str[i + 1])
-				arg->count++;
-		}
+				|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|')
+			&& i != 0)
+			ft_count2(str, i, arg);
 		else if ((((str[i] == '>' && str[i + 1] == '>')
-			|| (str[i] == '<' && str[i + 1] == '<'))
-			|| ((str[i] == '>' && str[i + 1] != '>')
-			|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|'))
+					|| (str[i] == '<' && str[i + 1] == '<'))
+				|| ((str[i] == '>' && str[i + 1] != '>')
+					|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|'))
 			&& i == 0)
 			return (ft_print("There is no command here...\n", -1) & -1);
 		i++;
@@ -77,20 +67,15 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	t_arg	*tmp;
 
 	c = 0;
-	i = 0;	
+	i = 0;
 	arg->cmds = malloc(sizeof(char *) * (arg->count + 1));
 	if (!arg->cmds)
 		return (1);
 	tmp = arg;
-	size = ft_strlen(str); // pas de +1!!
+	size = ft_strlen(str);
 	while (i < size)
 	{
-		while (str[i] != '<' && str[i] != '>' && str[i] != '|' && str[i] != '\0')
-		{
-			if (str[i] == '"' || str[i] == '\'')
-				i = ft_increase_quote(str, i);
-			i++;	
-		}
+		i = ft_stock_i(str, i);
 		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
 		{
 			arg->cmds[c] = ft_parse_arg(str, i - 1, arg);
@@ -107,37 +92,14 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	}
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	if ((ft_strcmp(arg->cmds[c], "<") == 0) || (ft_strcmp(arg->cmds[c], ">") == 0)
-		|| (ft_strcmp(arg->cmds[c], "<<") == 0) || (ft_strcmp(arg->cmds[c], "|") == 0)
+	if ((ft_strcmp(arg->cmds[c], "<") == 0)
+		|| (ft_strcmp(arg->cmds[c], ">") == 0)
+		|| (ft_strcmp(arg->cmds[c], "<<") == 0)
+		|| (ft_strcmp(arg->cmds[c], "|") == 0)
 		|| (ft_strcmp(arg->cmds[c], ">>") == 0))
 		return (ft_print("Error in token\n", -1) & -1);
 	return (0);
 }
-/*
-int	ft_check_args(t_arg *arg)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < arg->count)
-	{
-		j = 0;
-		while (arg->cmds[i][j])
-		{
-			if (arg->cmds[i][j] == '\'')
-				arg->count_quote++;
-			else if (arg->cmds[i][j] == '"')
-				arg->count_quotes++;
-			j++;
-		}
-		if (arg->count_quotes % 2 != 0 || arg->count_quote % 2 != 0)
-			return (ft_print("Error : There is an odd number of quotes\n", -1));
-		i++;
-	}
-	return (0);
-}
-*/
 
 int	ft_quotes(char *str, t_arg *arg)
 {

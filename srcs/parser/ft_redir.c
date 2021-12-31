@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/30 16:56:56 by astrid           ###   ########.fr       */
+/*   Updated: 2021/12/31 10:49:33 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_cmd	*ft_redir(t_cmd *cmd)
 				tmp = tmp->previous;
             //printf("redir : p %p in %s std %d msg = %s\n", redir, redir->fd_in, redir->redir_std_in, redir->redir_msg);;      
 			}
-			printf("in %d\n", std_in);
 			// printf(" cmd = %s in redir %s\n", cmd->cmd, cmd->redir->fd_in);
 			tmp = cmd;
 			tmp = ft_fillinout(cmd, redir, in, std_in);
@@ -182,7 +181,7 @@ t_redir	*ft_create_out2(char *in, int std_in, t_cmd *cmd, t_redir *redir)
 	if (!new)
 		return (0);
 	ft_init_redir(new);
-		printf("cmd = %s msg = %s std %d\n", cmd->previous->cmd, cmd->previous->msg, cmd->previous->std);
+		printf("cmd = %s msg = %s std %d\n", cmd->cmd, cmd->previous->msg, cmd->previous->std);
 	new->redir_std_out = cmd->previous->std;
 	new->fd_out = cmd->cmd;
 	new->fd_in = in;
@@ -210,7 +209,6 @@ t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in)
 	t_cmd	*cmd;
 
 	cmd = tmp;
-	//printf("cmd %s std %d\n", tmp->cmd, tmp->std);
 	while (tmp && tmp->next != NULL)
 	{
 		if (tmp->std == 2 || tmp->std == 3)
@@ -218,6 +216,7 @@ t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in)
 			tmp = tmp->next;
 			while (tmp->previous->std == 2 || tmp->previous->std == 3)
 			{
+	//printf("cmd %s std %d\n", tmp->cmd, tmp->std);
 				tmp->redir = ft_create_out2(in, std_in, tmp, redir);
 				if (!tmp->next)
 					break;

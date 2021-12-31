@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
+/*   Updated: 2021/12/31 11:27:43 by asgaulti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -27,12 +39,9 @@
 # define M_EXIT_FORK 3
 typedef struct s_env
 {
-
-	char		*value;
-	struct s_env *next;	
-
+	char			*value;
+	struct s_env	*next;	
 }				t_env;
-
 typedef struct s_core
 {
 	char	*cmd;
@@ -59,8 +68,7 @@ struct s_list
 typedef struct s_redir t_redir;
 struct s_redir
 {
-	int		std_redir; //en fonction du type de sortie 
-	//char	*cmd_redir;
+	int		std_redir;
 	int		redir_std_in;
 	int		redir_std_out;
 	int		redir_std_pipe;
@@ -75,11 +83,11 @@ typedef struct s_cmd t_cmd;
 struct s_cmd
 {
 	int		cpy_nb;
-	int		builtin; //1 builtin 0 pas builtin
-	char	*cmd; // ex echo
-	char	*spec; // ex -n
-	char	*msg; // ex coucou
-	int 	std; // en fonction du type de sortie 0 ou 1 ou -1
+	int		builtin;
+	char	*cmd;
+	char	*spec;
+	char	*msg;
+	int		std;
 	t_redir	*redir;
 	t_cmd	*previous;
 	t_cmd	*next;
@@ -120,16 +128,22 @@ int		ft_get_arg(char *str, t_arg *arg);
 // parse arguments
 int		ft_quotes(char *str, t_arg *arg);
 int		ft_increase_quote(char *str, int i);
+int		ft_count1(char *str, int i, t_arg *arg);
+void	ft_count2(char *str, int i, t_arg *arg);
 int		ft_count_arg(char *str, t_arg *arg);
 int		ft_stock_arg(t_arg *arg, char *str);
+int		ft_stock_i(char *str, int i);
 char	*ft_parse_arg(char *str, int i, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
+int		ft_check_chevron(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
 char	*ft_nosep(int i, char *str, t_arg *arg);
 //int		ft_check_args(t_arg *arg);
 
 // parse cmds
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd);
+int		ft_cmd_i(t_arg *arg, int i);
+char	*ft_cpy0(char *cpy, t_arg *arg);
 int		ft_check_redir(t_arg *arg, int i);
 char	*ft_cmd_quotes(char *cpy);
 t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd);
@@ -148,7 +162,7 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new);
 int		ft_which_cmd(char **cpy);
 
 // Environnement
-char	**env_to_char();
+char	**env_to_char(void);
 int		get_env(char **envp);
 int		del_env_variable(char *var);
 
@@ -181,13 +195,13 @@ t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_redir	*ft_fillfd(t_cmd *cmd, t_redir *new);
 t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
-int 	mul_redir(t_cmd *cmd);
+int		mul_redir(t_cmd *cmd);
 // utils
 char	random_char(void);
-void    m_exit(t_cmd *cmd, int reason, char *function);
+void	m_exit(t_cmd *cmd, int reason, char *function);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
-int		ft_havechr(char* str, char c);
+int		ft_havechr(char *str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
 char	*transform_str(char *str);
