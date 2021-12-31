@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 11:38:36 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/31 11:29:12 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg)
 
 int	ft_check_char(char *str, int i, int c, t_arg *arg)
 {
-	// if (str[i] == '"' || str[i] == '\'')
-	// 	i++;
 	if (str[i] == '|')
 	{
 		if (str[i + 1] == '|')
@@ -42,10 +40,7 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 	else if (str[i] == '<' || str[i] == '>')
 	{
 		if (str[i] == '>' && str[i + 1] == '>')
-		{
-			ft_char(arg, c, '>', 2);
-			i++;
-		}
+			i = ft_check_chevron(str, i, c, arg);
 		else if (str[i] == '<' && str[i + 1] == '<')
 		{
 			ft_char(arg, c, '<', 2);
@@ -87,12 +82,9 @@ char	*ft_nosep(int i, char *str, t_arg *arg)
 	char	*tmp;
 
 	z = 0;
-	//printf("i %d st %d cou %d ch %c\n", i, arg->start, arg->count, str[i]);
 	tmp = malloc(sizeof(char) * (i - arg->start) + 1);
 	if (!tmp)
 		return (NULL);
-	// if (arg->count != 1)
-	// 	arg->start++;
 	while (arg->start < i)
 	{
 		tmp[z] = str[arg->start];
