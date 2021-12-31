@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 16:07:00 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/30 15:04:46 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 		if ((ft_check_redir(arg, i) == 1 && (i + 1 < arg->count))
 			|| (ft_check_redir(arg, i) == 2 && (i + 1 < arg->count)))
 			i ++;
-		cpy = ft_strsplit_s(arg->cmds[i], ' ');
+		cpy = ft_strsplit(arg->cmds[i], ' ');
+		if (!cpy[0])
+			m_exit(*cmd, M_EXIT_MALLOC_ERROR, "t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)");
 		if (cpy[0][0] == '\'' || cpy[0][0] == '"')
 		{
 			cpy[0] = ft_strsub(cpy[0], 1, ft_strlen(cpy[0]) - 2);

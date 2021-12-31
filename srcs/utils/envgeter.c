@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/29 21:19:04 by bclerc           ###   ########.fr       */
+/*   Updated: 2021/12/30 15:13:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*transform_str(char *str)
 	char	*env;
 	char	*ret;
 
-	split = ft_strsplit_s(str, '$');
+	split = ft_strsplit(str, ' ');
 
 	i = 0;
 	while (split[i])
@@ -93,8 +93,12 @@ char	*transform_str(char *str)
 		if (split[i][0] == '$')
 		{
 			env = get_env_variable(split[i] + 1);
+			printf("Env is %s\n", env);
 			if (env)
-				split[i] = env;
+			{
+				free(split[i]);
+				split[i] = ft_strdup(env);
+			}
 		}
 		i++;
 	}

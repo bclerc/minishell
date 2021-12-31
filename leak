@@ -1,299 +1,300 @@
-==36553== Memcheck, a memory error detector
-==36553== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==36553== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==36553== Command: ./minishell
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x404EAF: total_words (ft_strsplit_space.c:31)
-==36553==    by 0x404C79: ft_strsplit_s (ft_strsplit_space.c:57)
-==36553==    by 0x401879: transform_str (envgeter.c:88)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b197ff is 1 bytes before a block of size 4 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x40766A: ft_strdup (in /mnt/nfs/homes/bclerc/minishell/minishell)
-==36553==    by 0x40143F: minishell (main.c:63)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x404D2C: ft_strsplit_s (ft_strsplit_space.c:66)
-==36553==    by 0x401879: transform_str (envgeter.c:88)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b197ff is 1 bytes before a block of size 4 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x40766A: ft_strdup (in /mnt/nfs/homes/bclerc/minishell/minishell)
-==36553==    by 0x40143F: minishell (main.c:63)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid write of size 1
-==36553==    at 0x40184F: build_str (envgeter.c:77)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x407636: ft_strlen (in /mnt/nfs/homes/bclerc/minishell/minishell)
-==36553==    by 0x4019DF: ft_quotes (ft_get_arg.c:148)
-==36553==    by 0x401949: ft_get_arg (ft_get_arg.c:21)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x401ACF: ft_count_arg (ft_get_arg.c:39)
-==36553==    by 0x40196B: ft_get_arg (ft_get_arg.c:23)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x407636: ft_strlen (in /mnt/nfs/homes/bclerc/minishell/minishell)
-==36553==    by 0x401DE8: ft_stock_arg (ft_get_arg.c:85)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x401E05: ft_stock_arg (ft_get_arg.c:88)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x401E1F: ft_stock_arg (ft_get_arg.c:88)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x401E39: ft_stock_arg (ft_get_arg.c:88)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x401E53: ft_stock_arg (ft_get_arg.c:88)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x401EBF: ft_stock_arg (ft_get_arg.c:94)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x401ED4: ft_stock_arg (ft_get_arg.c:94)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x401EE9: ft_stock_arg (ft_get_arg.c:94)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553==  Address 0x4b1a9e3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x404EAF: total_words (ft_strsplit_space.c:31)
-==36553==    by 0x404C79: ft_strsplit_s (ft_strsplit_space.c:57)
-==36553==    by 0x402893: ft_get_cmd (ft_get_cmd.c:28)
-==36553==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==  Address 0x4b1aa7f is 1 bytes before a block of size 4 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4026B3: ft_nosep (ft_parse_arg.c:91)
-==36553==    by 0x401FB6: ft_stock_arg (ft_get_arg.c:109)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x404D2C: ft_strsplit_s (ft_strsplit_space.c:66)
-==36553==    by 0x402893: ft_get_cmd (ft_get_cmd.c:28)
-==36553==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==  Address 0x4b1aa7f is 1 bytes before a block of size 4 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4026B3: ft_nosep (ft_parse_arg.c:91)
-==36553==    by 0x401FB6: ft_stock_arg (ft_get_arg.c:109)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== Invalid read of size 1
-==36553==    at 0x404D2C: ft_strsplit_s (ft_strsplit_space.c:66)
-==36553==    by 0x401879: transform_str (envgeter.c:88)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==  Address 0x4b1cbbf is 1 bytes before a block of size 4 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x40766A: ft_strdup (in /mnt/nfs/homes/bclerc/minishell/minishell)
-==36553==    by 0x40143F: minishell (main.c:63)
-==36553== 
-==36553== Invalid write of size 1
-==36553==    at 0x40184F: build_str (envgeter.c:77)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==  Address 0x4b1cdb3 is 0 bytes after a block of size 3 alloc'd
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553== 
-==36553== 
-==36553== HEAP SUMMARY:
-==36553==     in use at exit: 211,089 bytes in 398 blocks
-==36553==   total heap usage: 699 allocs, 301 frees, 254,761 bytes allocated
-==36553== 
-==36553== 1 bytes in 1 blocks are definitely lost in loss record 1 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x489F00C: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==36553==    by 0x48782AB: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==36553==    by 0x4879504: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
-==36553==    by 0x4013CB: minishell (main.c:52)
-==36553== 
-==36553== 3 bytes in 1 blocks are definitely lost in loss record 3 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== 8 bytes in 2 blocks are definitely lost in loss record 10 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4017A8: build_str (envgeter.c:61)
-==36553==    by 0x4018FF: transform_str (envgeter.c:101)
-==36553==    by 0x40145E: minishell (main.c:66)
-==36553== 
-==36553== 20 (16 direct, 4 indirect) bytes in 1 blocks are definitely lost in loss record 19 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x401DB3: ft_stock_arg (ft_get_arg.c:81)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553==    by 0x4015B2: main (main.c:95)
-==36553== 
-==36553== 42 (32 direct, 10 indirect) bytes in 2 blocks are definitely lost in loss record 24 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x401DB3: ft_stock_arg (ft_get_arg.c:81)
-==36553==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
-==36553==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553== 
-==36553== 59 (48 direct, 11 indirect) bytes in 3 blocks are definitely lost in loss record 32 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x404C88: ft_strsplit_s (ft_strsplit_space.c:57)
-==36553==    by 0x402893: ft_get_cmd (ft_get_cmd.c:28)
-==36553==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553== 
-==36553== 64 bytes in 1 blocks are definitely lost in loss record 34 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4032B4: ft_parse_builtins (ft_parse_builtins.c:27)
-==36553==    by 0x402C27: ft_parse_cmd (ft_get_cmd.c:63)
-==36553==    by 0x4029C2: ft_get_cmd (ft_get_cmd.c:45)
-==36553==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553== 
-==36553== 128 bytes in 2 blocks are definitely lost in loss record 38 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x406916: dup_cmd (pipe_utils.c:40)
-==36553==    by 0x4014A4: minishell (main.c:72)
-==36553== 
-==36553== 136 (128 direct, 8 indirect) bytes in 2 blocks are definitely lost in loss record 39 of 82
-==36553==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==36553==    by 0x4034F4: ft_parse_other (ft_parse_builtins.c:77)
-==36553==    by 0x402CDC: ft_parse_cmd (ft_get_cmd.c:67)
-==36553==    by 0x4029C2: ft_get_cmd (ft_get_cmd.c:45)
-==36553==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
-==36553==    by 0x40146F: minishell (main.c:67)
-==36553== 
-==36553== LEAK SUMMARY:
-==36553==    definitely lost: 428 bytes in 15 blocks
-==36553==    indirectly lost: 33 bytes in 8 blocks
-==36553==      possibly lost: 0 bytes in 0 blocks
-==36553==    still reachable: 210,628 bytes in 375 blocks
-==36553==         suppressed: 0 bytes in 0 blocks
-==36553== Reachable blocks (those to which a pointer was found) are not shown.
-==36553== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==36553== 
-==36553== For lists of detected and suppressed errors, rerun with: -s
-==36553== ERROR SUMMARY: 54 errors from 26 contexts (suppressed: 0 from 0)
+==275440== Memcheck, a memory error detector
+==275440== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==275440== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==275440== Command: ./minishell
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x404EAF: total_words (ft_strsplit_space.c:31)
+==275440==    by 0x404C79: ft_strsplit_s (ft_strsplit_space.c:57)
+==275440==    by 0x401879: transform_str (envgeter.c:88)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1989f is 1 bytes before a block of size 7 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x40766A: ft_strdup (in /mnt/nfs/homes/bclerc/minishell/minishell)
+==275440==    by 0x40143F: minishell (main.c:63)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x404D2C: ft_strsplit_s (ft_strsplit_space.c:66)
+==275440==    by 0x401879: transform_str (envgeter.c:88)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1989f is 1 bytes before a block of size 7 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x40766A: ft_strdup (in /mnt/nfs/homes/bclerc/minishell/minishell)
+==275440==    by 0x40143F: minishell (main.c:63)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid write of size 1
+==275440==    at 0x40184F: build_str (envgeter.c:77)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x407636: ft_strlen (in /mnt/nfs/homes/bclerc/minishell/minishell)
+==275440==    by 0x4019DF: ft_quotes (ft_get_arg.c:148)
+==275440==    by 0x401949: ft_get_arg (ft_get_arg.c:21)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x401ACF: ft_count_arg (ft_get_arg.c:39)
+==275440==    by 0x40196B: ft_get_arg (ft_get_arg.c:23)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x407636: ft_strlen (in /mnt/nfs/homes/bclerc/minishell/minishell)
+==275440==    by 0x401DE8: ft_stock_arg (ft_get_arg.c:85)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x401E05: ft_stock_arg (ft_get_arg.c:88)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x401E1F: ft_stock_arg (ft_get_arg.c:88)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x401E39: ft_stock_arg (ft_get_arg.c:88)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x401E53: ft_stock_arg (ft_get_arg.c:88)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x401EBF: ft_stock_arg (ft_get_arg.c:94)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x401ED4: ft_stock_arg (ft_get_arg.c:94)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x401EE9: ft_stock_arg (ft_get_arg.c:94)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440==  Address 0x4b1aa86 is 0 bytes after a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x404EAF: total_words (ft_strsplit_space.c:31)
+==275440==    by 0x404C79: ft_strsplit_s (ft_strsplit_space.c:57)
+==275440==    by 0x402893: ft_get_cmd (ft_get_cmd.c:28)
+==275440==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==  Address 0x4b1ab1f is 1 bytes before a block of size 7 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4026B3: ft_nosep (ft_parse_arg.c:91)
+==275440==    by 0x401FB6: ft_stock_arg (ft_get_arg.c:109)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x404D2C: ft_strsplit_s (ft_strsplit_space.c:66)
+==275440==    by 0x402893: ft_get_cmd (ft_get_cmd.c:28)
+==275440==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==  Address 0x4b1ab1f is 1 bytes before a block of size 7 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4026B3: ft_nosep (ft_parse_arg.c:91)
+==275440==    by 0x401FB6: ft_stock_arg (ft_get_arg.c:109)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== Invalid read of size 1
+==275440==    at 0x404D2C: ft_strsplit_s (ft_strsplit_space.c:66)
+==275440==    by 0x401879: transform_str (envgeter.c:88)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==  Address 0x4b1c8ef is 1 bytes before a block of size 6 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x40766A: ft_strdup (in /mnt/nfs/homes/bclerc/minishell/minishell)
+==275440==    by 0x40143F: minishell (main.c:63)
+==275440== 
+==275440== Invalid write of size 1
+==275440==    at 0x40184F: build_str (envgeter.c:77)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==  Address 0x4b1cae5 is 0 bytes after a block of size 5 alloc'd
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440== 
+==275440== 
+==275440== HEAP SUMMARY:
+==275440==     in use at exit: 210,328 bytes in 370 blocks
+==275440==   total heap usage: 639 allocs, 269 frees, 242,582 bytes allocated
+==275440== 
+==275440== 5 bytes in 1 blocks are definitely lost in loss record 2 of 81
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440== 
+==275440== 6 bytes in 1 blocks are definitely lost in loss record 6 of 81
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4017A8: build_str (envgeter.c:61)
+==275440==    by 0x4018FF: transform_str (envgeter.c:101)
+==275440==    by 0x40145E: minishell (main.c:66)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== 22 (16 direct, 6 indirect) bytes in 1 blocks are definitely lost in loss record 20 of 81
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x401DB3: ft_stock_arg (ft_get_arg.c:81)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440== 
+==275440== 23 (16 direct, 7 indirect) bytes in 1 blocks are definitely lost in loss record 21 of 81
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x401DB3: ft_stock_arg (ft_get_arg.c:81)
+==275440==    by 0x40198D: ft_get_arg (ft_get_arg.c:25)
+==275440==    by 0x40276E: ft_launch_parser (ft_parser.c:25)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440==    by 0x4015B2: main (main.c:95)
+==275440== 
+==275440== 43 (32 direct, 11 indirect) bytes in 2 blocks are definitely lost in loss record 25 of 81
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x404C88: ft_strsplit_s (ft_strsplit_space.c:57)
+==275440==    by 0x402893: ft_get_cmd (ft_get_cmd.c:28)
+==275440==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440== 
+==275440== 64 bytes in 1 blocks are definitely lost in loss record 33 of 81
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x406916: dup_cmd (pipe_utils.c:40)
+==275440==    by 0x4014A4: minishell (main.c:72)
+==275440== 
+==275440== 64 bytes in 1 blocks are definitely lost in loss record 34 of 81
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4032B4: ft_parse_builtins (ft_parse_builtins.c:27)
+==275440==    by 0x402C27: ft_parse_cmd (ft_get_cmd.c:63)
+==275440==    by 0x4029C2: ft_get_cmd (ft_get_cmd.c:45)
+==275440==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440== 
+==275440== 71 (64 direct, 7 indirect) bytes in 1 blocks are definitely lost in loss record 35 of 81
+==275440==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==275440==    by 0x4034F4: ft_parse_other (ft_parse_builtins.c:77)
+==275440==    by 0x402CDC: ft_parse_cmd (ft_get_cmd.c:67)
+==275440==    by 0x4029C2: ft_get_cmd (ft_get_cmd.c:45)
+==275440==    by 0x4027B4: ft_launch_parser (ft_parser.c:29)
+==275440==    by 0x40146F: minishell (main.c:67)
+==275440== 
+==275440== LEAK SUMMARY:
+==275440==    definitely lost: 267 bytes in 9 blocks
+==275440==    indirectly lost: 31 bytes in 5 blocks
+==275440==      possibly lost: 0 bytes in 0 blocks
+==275440==    still reachable: 210,030 bytes in 356 blocks
+==275440==         suppressed: 0 bytes in 0 blocks
+==275440== Reachable blocks (those to which a pointer was found) are not shown.
+==275440== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==275440== 
+==275440== For lists of detected and suppressed errors, rerun with: -s
+==275440== ERROR SUMMARY: 38 errors from 25 contexts (suppressed: 0 from 0)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ==206699== 
+==206699== Process terminating with default action of signal 1 (SIGHUP)
+==206699==    at 0x48F955B: kill (syscall-template.S:78)
+==206699==    by 0x48907A2: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==206699==    by 0x48934AD: rl_read_key (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==206699==    by 0x4878C81: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==206699==    by 0x48794EC: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.0)
+==206699==    by 0x4013CB: minishell (main.c:52)
