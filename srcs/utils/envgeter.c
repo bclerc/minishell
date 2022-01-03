@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/03 11:03:12 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/03 11:36:27 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	get_count(char **str)
 			count++;
 			y++;
 		}
+		count++;
 		i++;
 	}
 	return (count);
@@ -53,13 +54,16 @@ int	get_count(char **str)
 char	*build_str(char **str)
 {
 	char	*final_str;
-	int		count;
+	int		count, b = 0;
 	int		i;
 	int		y;
 
 	count = get_count(str);
-	final_str = (char *)malloc(count + 4);
+	final_str = (char *)malloc(sizeof(char) * (count + 1));
+	if (!final_str)
+		return (NULL);
 	i = 0;
+	b = count;
 	count = 0;
 	ft_bzero(final_str, count + 4);
 	while (str[i])
@@ -75,8 +79,6 @@ char	*build_str(char **str)
 		count++;
 		i++;
 	}
-	printf("Writed :  %d Alloced : %d\n", count + 1, count + 1);
-	exit(1);
 	return (final_str);
 }
 
