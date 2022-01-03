@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/03 10:58:28 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/03 11:01:56 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
 		cmd->redir = malloc(sizeof(t_redir));
 		if (!cmd->redir)
 			return (NULL);
-		printf("p1 %p\n", cmd->redir);
+		//printf("p1 %p\n", cmd->redir);
 		ft_init_redir(cmd->redir);
 			//printf("p2 %p\n", cmd->redir);
 			cmd->redir->fd_in = cmd->next->cmd;
@@ -154,10 +154,10 @@ t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
 	}
 	while (cmd && cmd->previous != NULL)
 	{
-			puts("he");
+		//puts("he");
 		if ((cmd->previous->std == 4 || cmd->previous->std == 5))
 			cmd->cmd = NULL;
-	printf("cmd %s\n", cmd->cmd);
+	//printf("cmd %s\n", cmd->cmd);
 		
 		if (!cmd->previous)
 			break ;
