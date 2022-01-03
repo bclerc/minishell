@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/30 15:13:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/03 11:03:12 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ char	*build_str(char **str)
 	int		y;
 
 	count = get_count(str);
-	final_str = (char *)malloc(sizeof(char) * count + 1);
+	final_str = (char *)malloc(count + 4);
 	i = 0;
 	count = 0;
+	ft_bzero(final_str, count + 4);
 	while (str[i])
 	{
 		y = 0;
@@ -74,7 +75,8 @@ char	*build_str(char **str)
 		count++;
 		i++;
 	}
-	final_str[count] = 0;
+	printf("Writed :  %d Alloced : %d\n", count + 1, count + 1);
+	exit(1);
 	return (final_str);
 }
 
