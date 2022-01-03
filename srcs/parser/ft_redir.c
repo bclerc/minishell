@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/31 10:49:33 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/03 10:58:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 				tmp = tmp->previous;
             //printf("redir : p %p in %s std %d msg = %s\n", redir, redir->fd_in, redir->redir_std_in, redir->redir_msg);;      
 			}
-			// printf(" cmd = %s in redir %s\n", cmd->cmd, cmd->redir->fd_in);
+			 printf(" cmd = %s\n", tmp->cmd);
 			tmp = cmd;
 			tmp = ft_fillinout(cmd, redir, in, std_in);
 			//puts("che");
@@ -78,32 +78,87 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	}
 	return (cmd);
 }
+/*
+t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
+{
+	while (cmd && cmd->previous != NULL)
+	{
+		cmd->redir = malloc(sizeof(t_redir));
+		if (!cmd->redir)
+			return (NULL);
+		printf("p1 %p\n", cmd->redir);
+		ft_init_redir(cmd->redir);
+		//printf("redir %p\n", redir);
+        printf("std %d cnd = %s \n", cmd->previous->std, cmd->cmd);
+        //printf("in = %s\n", redir->fd_in);
+		if ((cmd->previous->std == 4 || cmd->previous->std == 5) && !cmd->redir->fd_in)
+		{
+			puts("he");
+			cmd = cmd->previous;
+	printf("cmd %s\n", cmd->cmd);
+			printf("p2 %p\n", cmd->redir);
+			cmd->redir->fd_in = cmd->next->cmd;
+			cmd->next->cmd = NULL;
+			cmd->redir->redir_std_in = cmd->std;
+			if (cmd->msg)
+			{
+				cmd->redir->redir_msg = cmd->msg;
+				//cmd->msg = NULL;
+			}
+            printf("cmd %s redir : in %s std %d msg = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->redir_std_in, cmd->redir->redir_msg);;      
+		}
+		else if ((cmd->previous->std == 4 || cmd->previous->std == 5) && redir->fd_in)
+			cmd->cmd = NULL;    
+		if (!cmd->previous)
+			break ;
+		cmd = cmd->previous;
+	}
+    //  printf("prev 2 = %p cnd = %s\n", cmd->previous, cmd->cmd);
+    //  printf("redir in %s std %d", redir->fd_in, redir->std_redir);
+	return (cmd);
+}*/
 
 t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
 {
-	redir = malloc(sizeof(t_redir));
-	if (!redir)
-		return (NULL);
-	ft_init_redir(redir);
 	while (cmd && cmd->previous != NULL)
 	{
 		//printf("redir %p\n", redir);
-        //printf("std %d cnd = %s \n", cmd->previous->std, cmd->cmd);
+        printf("std %d cnd = %s \n", cmd->previous->std, cmd->cmd);
         //printf("in = %s\n", redir->fd_in);
-		if ((cmd->previous->std == 4 || cmd->previous->std == 5) && redir->fd_in)
-			cmd->cmd = NULL;    
-		else if ((cmd->previous->std == 4 || cmd->previous->std == 5) && !redir->fd_in)
+		if (cmd->previous->std == 4 || cmd->previous->std == 5)
 		{
-			redir->fd_in = cmd->cmd;
-			cmd->cmd = NULL;
-			redir->redir_std_in = cmd->previous->std;
+			cmd = cmd->previous;
+		cmd->redir = malloc(sizeof(t_redir));
+		if (!cmd->redir)
+			return (NULL);
+		printf("p1 %p\n", cmd->redir);
+		ft_init_redir(cmd->redir);
+			//printf("p2 %p\n", cmd->redir);
+			cmd->redir->fd_in = cmd->next->cmd;
+			cmd->next->cmd = NULL;
+			cmd->redir->redir_std_in = cmd->std;
 			if (cmd->msg)
 			{
-				redir->redir_msg = cmd->msg;
-				cmd->msg = NULL;
+				cmd->redir->redir_msg = cmd->msg;
+				//cmd->msg = NULL;
 			}
-            printf("redir : in %s std %d msg = %s\n", redir->fd_in, redir->redir_std_in, redir->redir_msg);;      
+            printf("cmd %s redir : in %s std %d msg = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->redir_std_in, cmd->redir->redir_msg);;      
+			if (!cmd->previous)
+				break ;
+			cmd = cmd->previous;
+			break ;
 		}
+		if (!cmd->previous)
+			break ;
+		cmd = cmd->previous;
+	}
+	while (cmd && cmd->previous != NULL)
+	{
+			puts("he");
+		if ((cmd->previous->std == 4 || cmd->previous->std == 5))
+			cmd->cmd = NULL;
+	printf("cmd %s\n", cmd->cmd);
+		
 		if (!cmd->previous)
 			break ;
 		cmd = cmd->previous;
