@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/03 16:49:15 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/03 18:49:43 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,20 +177,23 @@ t_cmd	*ft_fillout(t_cmd *tmp, t_redir *redir)
 	{
 		if (tmp->std == 2 || tmp->std == 3)
 		{
-			tmp = tmp->next;
-			printf("cmd %s std %d\n", tmp->cmd, tmp->std);
-			//tmp->redir = ft_create_out(tmp, redir);
 				cmd = tmp;
-			
+			tmp = tmp->next;
+			//tmp->redir = ft_create_out(tmp, redir);
 			while (tmp->previous->std == 2 || tmp->previous->std == 3)
 			{
+			//printf("p cmd %p tmp %p\n", cmd, tmp);
 				cmd->redir = ft_create_out(tmp, redir);
+			printf("cmd %s tmp %s\n", cmd->cmd, tmp->cmd);
 				if (!tmp->next)
-					break;
+					break ;
+		//printf("std %d cmd %s\n", tmp->std, tmp->cmd);
+				if (tmp->std != 2 && tmp->std != 3)
+					break ;
 				tmp = tmp->next;
-		printf("std %d cmd %s\n", tmp->previous->std, tmp->previous->cmd);
 			}
-			tmp->redir = cmd->redir;
+			tmp = cmd;
+			printf("redir out %s cmd %s\n", tmp->redir->fd_out, tmp->cmd);
 		}
 		//if (tmp->std != 2 && tmp->std != 3)
 		tmp = tmp->next;
@@ -210,7 +213,7 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 	if (!new)
 		return (0);
 	ft_init_redir(new);
-		printf("cmd = %s msg = %s std %d\n", cmd->cmd, cmd->msg, cmd->std);
+	//	printf("cmd = %s msg = %s std %d\n", cmd->cmd, cmd->msg, cmd->std);
 	new->redir_std_out = cmd->previous->std;
 	cmd->previous->std = 0;
 	new->fd_out = cmd->cmd;
