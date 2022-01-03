@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/03 18:49:43 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/03 18:59:32 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,50 +88,35 @@ t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
 	fd_in = NULL;
 	msg = NULL;
 	std_in = 0;
-	//while (cmd && cmd->previous != NULL)
-	//{
-		while (cmd->previous->std != 4 && cmd->previous->std != 5)
-		{	
-			if (!cmd->previous)
-				break ;
-			cmd = cmd->previous;
-		}
-		while (cmd->previous != NULL && (cmd->previous->std == 4 || cmd->previous->std == 5))
+	while (cmd->previous->std != 4 && cmd->previous->std != 5)
+	{	
+		if (!cmd->previous)
+			break ;
+		cmd = cmd->previous;
+	}
+	while (cmd->previous != NULL && (cmd->previous->std == 4 || cmd->previous->std == 5))
+	{
+		if (!fd_in)
 		{
-			//printf("std %d cnd = %s\n", cmd->previous->std, cmd->cmd);
-			if (!fd_in)
-			{
-				fd_in = cmd->cmd;
-				std_in = cmd->previous->std;
-				cmd->cmd = NULL;
-			}
-			else if (fd_in)
-				cmd->cmd = NULL;
-			if (!cmd->previous)
-				break ;
-			cmd = cmd->previous;
-			// if (cmd->previous && cmd)
+			fd_in = cmd->cmd;
+			std_in = cmd->previous->std;
+			cmd->cmd = NULL;
 		}
-			//printf("cmd = %s\n", cmd->cmd);
-		//	cmd = cmd->previous;
-		cmd->redir = malloc(sizeof(t_redir));
-		if (!cmd->redir)
-			return (NULL);
-		ft_init_redir(cmd->redir);
-		cmd->redir->fd_in = fd_in;
-		//	cmd->next->cmd = NULL;
-		cmd->redir->redir_std_in = std_in;
-		if (cmd->msg)
-		{
-			cmd->redir->redir_msg = cmd->msg;
-			//cmd->msg = NULL;
-		}
-        printf("cmd %s redir : in %s std %d msg = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->redir_std_in, cmd->redir->redir_msg);;      
-		// if (!cmd->previous)
-		// 	break ;
-		// cmd = cmd->previous;
-		// break ;
-	//}
+		else if (fd_in)
+			cmd->cmd = NULL;
+		if (!cmd->previous)
+			break ;
+		cmd = cmd->previous;
+	}
+	cmd->redir = malloc(sizeof(t_redir));
+	if (!cmd->redir)
+		return (NULL);
+	ft_init_redir(cmd->redir);
+	cmd->redir->fd_in = fd_in;
+	cmd->redir->redir_std_in = std_in;
+	if (cmd->msg)
+		cmd->redir->redir_msg = cmd->msg;
+    //printf("cmd %s redir : in %s std %d msg = %s\n", cmd->cmd, cmd->redir->fd_in, cmd->redir->redir_std_in, cmd->redir->redir_msg);
 	while (cmd && cmd->previous != NULL)
 	{
 		if ((cmd->previous->std == 4 || cmd->previous->std == 5))
@@ -144,58 +129,29 @@ t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
 	//printf("cmd2 %s\n", cmd->cmd);
 	return (cmd);
 }
-/*
-t_cmd	*ft_fillout(t_cmd *tmp, t_redir *redir)
-{
-   	//printf("cmd %s std %d\n", tmp->cmd, tmp->previous->std);
-	while (tmp && tmp->next != NULL)
-	{
-		if (tmp->std == 2 || tmp->std == 3)
-		{
-			tmp = tmp->next;
-			while (tmp->previous->std == 2 || tmp->previous->std == 3)
-			{
-				tmp->redir = ft_create_out(tmp, redir);
-				if (!tmp->next)
-					break;
-				tmp = tmp->next;
-			}
-		}
-		//printf("std %d cmd %s\n", tmp->std, tmp->cmd);
-		if (tmp->std != 2 && tmp->std != 3)
-			tmp = tmp->next;
-	}
-	return (tmp);
-}
-*/
+
 t_cmd	*ft_fillout(t_cmd *tmp, t_redir *redir)
 {
 	t_cmd	*cmd;
 
-	
 	while (tmp && tmp->next != NULL)
 	{
 		if (tmp->std == 2 || tmp->std == 3)
 		{
-				cmd = tmp;
+			cmd = tmp;
 			tmp = tmp->next;
-			//tmp->redir = ft_create_out(tmp, redir);
 			while (tmp->previous->std == 2 || tmp->previous->std == 3)
 			{
-			//printf("p cmd %p tmp %p\n", cmd, tmp);
 				cmd->redir = ft_create_out(tmp, redir);
-			printf("cmd %s tmp %s\n", cmd->cmd, tmp->cmd);
 				if (!tmp->next)
 					break ;
-		//printf("std %d cmd %s\n", tmp->std, tmp->cmd);
 				if (tmp->std != 2 && tmp->std != 3)
 					break ;
 				tmp = tmp->next;
 			}
 			tmp = cmd;
-			printf("redir out %s cmd %s\n", tmp->redir->fd_out, tmp->cmd);
+			//printf("redir out %s cmd %s\n", tmp->redir->fd_out, tmp->cmd);
 		}
-		//if (tmp->std != 2 && tmp->std != 3)
 		tmp = tmp->next;
 	}
 	return (tmp);
@@ -213,7 +169,6 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 	if (!new)
 		return (0);
 	ft_init_redir(new);
-	//	printf("cmd = %s msg = %s std %d\n", cmd->cmd, cmd->msg, cmd->std);
 	new->redir_std_out = cmd->previous->std;
 	cmd->previous->std = 0;
 	new->fd_out = cmd->cmd;
@@ -223,10 +178,9 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 		new->redir_msg = cmd->previous->msg;
 		if (cmd->std == 2 || cmd->std == 3)
 			cmd->msg = cmd->previous->msg;
-		//cmd->previous->msg = NULL;
 	}
 	new->next = NULL;
-	printf("new : cmd %s out %s std %d msg %s\n", cmd->previous->cmd, new->fd_out, new->redir_std_out, new->redir_msg);
+	//printf("new : cmd %s out %s std %d msg %s\n", cmd->previous->cmd, new->fd_out, new->redir_std_out, new->redir_msg);
 	if (tmp == NULL)
 		tmp = new;
 	else
