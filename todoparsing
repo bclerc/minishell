@@ -2,16 +2,16 @@ echo "cat | " > lol | wc
 > ok
 
 echo "cat | " > lol |
-> ok
+> pas ok (segfault)
 
 "echo" "cat | " > lol | wc
 > ok
 
 ls | cat | cat | cat | cat | cat -e | grep srcs > k > l
-> ok
+> pas ok
 
 ls | cat | cat | cat | cat | cat -e | grep srcs > k < Makefile
-> ok
+> a faire
 
 ls | cat | cat | cat | cat | cat -e | grep srcs < Makefile
 > ok
