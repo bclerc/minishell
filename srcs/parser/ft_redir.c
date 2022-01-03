@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/31 10:49:33 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/03 11:52:35 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
 		return (NULL);
 	ft_init_redir(redir);
 	while (cmd && cmd->previous != NULL)
-	{
+{
 		//printf("redir %p\n", redir);
         //printf("std %d cnd = %s \n", cmd->previous->std, cmd->cmd);
         //printf("in = %s\n", redir->fd_in);

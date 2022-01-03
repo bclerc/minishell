@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/28 17:58:53 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/03 14:08:57 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,25 @@ void	del_env(void)
 	}
 }
 
+void	del_cmd(t_cmd *cmd)
+{
+	if (cmd != NULL)
+	{
+		del_cmd(cmd->next);
+		if (cmd->msg != NULL)
+			free(cmd->msg);
+		if (cmd->spec != NULL)
+			free(cmd->spec);
+		free(cmd);
+	}
+}
 void	m_exit(t_cmd *cmd, int reason, char *function)
 {
 	t_redir	*redir;
 	t_cmd	*tmp;
 	int		i;
 
-	redir = cmd->redir;
-	while (cmd)
-	{
-		free(cmd->msg);
-		if (cmd->spec)
-			free(cmd->spec);
-		tmp = cmd->next;
-		cmd = tmp;
-	}
-	if (cmd)
-		free(cmd);
+	del_cmd(cmd);
 	cmd = NULL;
 	if (reason != M_EXIT_FORK)
 		del_env();

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/03 11:36:27 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/03 14:17:29 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	rm_split(char **split)
 	if (!split)
 		return ;
 	i = 0;
-	while (split[i])
+	while (split[i] != '\0')
 		i++;
 	while (i >= 0)
 	{
@@ -47,25 +47,25 @@ int	get_count(char **str)
 		}
 		count++;
 		i++;
-	}
+}
 	return (count);
 }
 
 char	*build_str(char **str)
 {
 	char	*final_str;
-	int		count, b = 0;
 	int		i;
+	int		count;
 	int		y;
 
+	final_str = NULL;
 	count = get_count(str);
-	final_str = (char *)malloc(sizeof(char) * (count + 1));
+	final_str = (char *)malloc(sizeof(char) * (count + 2));
 	if (!final_str)
 		return (NULL);
 	i = 0;
-	b = count;
 	count = 0;
-	ft_bzero(final_str, count + 4);
+	ft_bzero(final_str, count + 1);
 	while (str[i])
 	{
 		y = 0;
@@ -79,6 +79,7 @@ char	*build_str(char **str)
 		count++;
 		i++;
 	}
+	final_str[count] = '\0';
 	return (final_str);
 }
 
