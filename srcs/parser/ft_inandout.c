@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 13:28:55 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/05 15:50:58 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/05 18:12:53 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 					cpy->next->cmd = NULL;
 					tmp->redir->redir_std_out = cpy->std;
 					tmp->redir->next = NULL;
-			fd_in = NULL;
+					fd_in = NULL;
 				}
 				else if ((cpy->std == 2 || cpy->std == 3) && !fd_in)
 				{	//tmp->redir = 
@@ -67,17 +67,34 @@ t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 					if (tmp->redir->redir_msg)
 						msg = tmp->redir->redir_msg;
 					tmp->redir = ft_out(cpy, tmp->redir, msg);
-					printf("p2 %p\n", tmp->redir);
+				//	printf("p2 %p\n", tmp->redir);
 				}
-			printf("tmp p3 %p in %s out %s std %d msg %s\n", tmp->redir, tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_in, tmp->redir->redir_msg);
+				cpy = cpy->next;
+			}
+			printf("tmp in %s out %s std %d msg %s\n", tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_in, tmp->redir->redir_msg);
+		}
+		else if (!fd_in)
+		{
+			redir = NULL;
+			tmp->redir = NULL;
+			cpy = tmp;
+	//printf(" %p cpy %s std %d \n", tmp->redir, cpy->cmd, cpy->std);
+			while (cpy->next != NULL && (cpy->std == 2 || cpy->std == 3))
+			{
+					printf("p2 %p\n", tmp->redir);
+				{
+					tmp->redir = ft_out(cpy, tmp->redir, msg);
+				}
 		//puts("che");
 				cpy = cpy->next;
 			}
+			printf("tmp %p in %s out %s std %d msg %s\n", tmp->redir, tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_out, tmp->redir->redir_msg);
 		}
 		if (!tmp->previous)
 			break;
 		tmp = tmp->previous;
 	}
+		puts("che");
 	return (tmp);
 }
 
@@ -101,23 +118,17 @@ t_redir	*ft_out(t_cmd *cmd, t_redir *redir, char *msg)
 	t_redir	*tmp;
 
 	tmp = redir;
-			printf("p %p\n", tmp);
 	while (redir && redir->next != NULL)
 		redir = redir->next;
+	printf("%ld\n", sizeof(t_redir));
 	new = malloc(sizeof(t_redir));
+	puts("h");
 	if (!new)
-		return (0);
+		return (NULL);
 	ft_init_redir(new);
 	new->redir_std_out = cmd->std;
-	//cmd->std = 0;
 	new->fd_out = cmd->next->cmd;
 	cmd->next->cmd = NULL;
-	// if (cmd->msg)
-	// {
-	// 	new->redir_msg = cmd->msg;
-	// 	if (cmd->next->std == 2 || cmd->next->std == 3)
-	// 		cmd->msg = cmd->previous->msg;
-	// }
 	if (msg)
 		new->redir_msg = msg;
 	new->next = NULL;

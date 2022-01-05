@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/05 15:34:15 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:51:13 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,16 @@ t_cmd	*ft_redir(t_cmd *cmd)
 			while (tmp && tmp->next != NULL)
 				tmp = tmp->next;
 			cmd = ft_fillin(tmp, redir);
+			if (!cmd)
+				return (NULL);
 			//printf("redir1 %p\n", cmd->redir);
 			//printf("redir1 cmd in %s std %d msg %s\n", cmd->redir->fd_in, cmd->redir->redir_std_in, cmd->redir->redir_msg);
 		}
 		else if (exist == 2)
 		{
 			tmp = ft_fillout(cmd, redir);
+			if (!tmp)
+				return (NULL);
 			tmp = cmd;
 			return (tmp);
 			//printf("redir2 cmd %s out %s std %d msg %s\n", tmp->cmd, tmp->redir->fd_out, tmp->redir->redir_std_out, tmp->redir->redir_msg);
@@ -118,6 +122,8 @@ t_cmd	*ft_fillout(t_cmd *tmp, t_redir *redir)
 			while (tmp->previous->std == 2 || tmp->previous->std == 3)
 			{
 				cmd->redir = ft_create_out(tmp, redir);
+				if (!cmd->redir)
+					return (NULL);
 				if (!tmp->next)
 					break ;
 				if (tmp->std != 2 && tmp->std != 3)
