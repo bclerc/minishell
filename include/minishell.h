@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/04 16:18:30 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/05 15:45:56 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,8 @@ t_cmd	*ft_fillout(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in);
 t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
+t_cmd	*ft_in(char *fd_in, char *msg, int std_in, t_cmd *tmp, t_redir *redir);
+t_redir	*ft_out(t_cmd *cmd, t_redir *redir, char *msg);
 t_redir	*ft_create_out2(char *in, int std_in, t_cmd *cmd, t_redir *redir);
 
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);

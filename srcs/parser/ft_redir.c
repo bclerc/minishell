@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/04 17:55:59 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/05 15:34:15 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_cmd	*ft_redir(t_cmd *cmd)
 		else if (exist == 3)
 		{
 			tmp = ft_inout(tmp, cmd, redir);
+			if (!tmp)
+				return (NULL);
 			tmp = cmd;
 			return (tmp);
 		}
@@ -221,7 +223,7 @@ t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in)
 	}
 	return (tmp);
 }
-
+/*
 t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 {
 	t_cmd	*cpy;
@@ -263,3 +265,4 @@ t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 	// }
 	return (tmp);
 }
+*/
