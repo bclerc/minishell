@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/31 12:04:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/06 12:40:33 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	t_cmd	*tmp;
 
 	i = 0;
+	cpy = NULL;
 	tmp = *cmd;
 	while (i < arg->count)
 	{

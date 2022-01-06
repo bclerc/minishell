@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/06 11:43:25 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:43:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	ft_no(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i + 1] != '\0')
 		i++;
-	if (str[i - 2] == '|' || str[i - 2] == '>' || str[i - 2] == '<')
+	if (str[i - 1] == '|' || str[i - 1] == '>' || str[i - 1] == '<')
 		return (-1);
 	return (0);
 }
