@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/29 16:14:43 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/03 11:57:07 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_in_fd(int *pipes, t_cmd *cmd, int i)
 	char	*here_doc;
 	int		fd;
 
-	if (cmd->redir && cmd->redir->fd_in != NULL)
+	if (cmd->redir != NULL && cmd->redir->fd_in != NULL)
 	{
 		if (cmd->redir->redir_std_in == REDIR_APPEND_IN)
 		{
@@ -61,7 +61,7 @@ int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
 int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
 {
 	int	fd;
-
+	fd = 0;
 	if (cmd != first_cmd || (cmd->redir && cmd->redir->fd_in))
 	{
 		fd = get_dup_fd(pipes, cmd, i, 1);
@@ -69,7 +69,7 @@ int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
 			perror("dup2 (in)");
 		close(fd);
 	}
-	if (cmd->next || (cmd->redir && cmd->redir->fd_out))
+	if (cmd->next || (cmd->redir != NULL && cmd->redir->fd_out != NULL))
 	{
 		fd = get_dup_fd(pipes, cmd, i, 0);
 		if (dup2(fd, 1) <= -1)

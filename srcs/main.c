@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/06 14:05:32 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/03 14:11:01 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,13 @@ void	minishell(void)
 			continue ;
 		}
 		str = ft_strdup(rd);
+		if (!str)
+			break ;
 		free(rd);
 		add_history(str);
-		str = transform_str(str);
-    	cmd = ft_launch_parser(str, &cmd);
-		free(str);
+		rd = transform_str(str);
+    	cmd = ft_launch_parser(rd, &cmd);
+		free(rd);
 		if (!cmd)
 			exit(0);
     	cmd = ft_redir(cmd);
@@ -74,7 +76,8 @@ void	minishell(void)
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
-	//m_exit(cmd, M_EXIT_SUCCESS, NULL);
+	free(rd);
+	
 	exit(EXIT_SUCCESS);
 }
 

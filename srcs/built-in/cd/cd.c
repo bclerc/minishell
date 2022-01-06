@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/28 17:37:06 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/05 14:22:32 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,26 @@ char	*get(char *path)
 	if (path == 0)
 	{
 		if (get_env_variable("HOME") == NULL)
-			home = ft_strdup(getcwd(0, 0));
+			home = getcwd(0, 0);
 		else
-			home = ft_strdup(get_env_variable("HOME"));
+			home = get_env_variable("HOME");
 	}
 	else if (path[0] == 45)
 	{
 		if (get_env_variable("OLDPWD") == NULL)
-			home = ft_strdup(getcwd(0, 0));
+			home = getcwd(0, 0);
 		else
 			home = ft_strdup(get_env_variable("OLDPWD"));
 	}
 	else
-		home = ft_strdup(path);
+		home = path;
 	return (home);
 }
 
 void	change_directory(char *path)
 {
 	change_old_pwd();
+	printf("PATH IS : %s\n", path);
 	chdir(path);
 	change_pwd();
 }
