@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/31 11:09:50 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:06:21 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	ft_count_arg(char *str, t_arg *arg)
 	}
 	if (i == 0)
 		arg->count = 0; // ou return (-1)?
+	if (arg->count % 2 == 0)
+		return (-1);
 	return (0);
 }
 
