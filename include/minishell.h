@@ -124,6 +124,7 @@ int		ft_init_redir(t_redir *redir);
 // parsing
 t_cmd	*ft_launch_parser(char *str, t_cmd **cmd);
 int		ft_get_arg(char *str, t_arg *arg);
+int		ft_no(char *str);
 
 // parse arguments
 int		ft_quotes(char *str, t_arg *arg);
@@ -188,7 +189,9 @@ t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillout(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in);
-t_redir	*ft_create_pipe(t_cmd *cmd, t_redir *redir);
+t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
+t_cmd	*ft_in(char *fd_in, char *msg, int std_in, t_cmd *tmp, t_redir *redir);
+t_redir	*ft_out(t_cmd *cmd, t_redir *redir, char *msg);
 t_redir	*ft_create_out2(char *in, int std_in, t_cmd *cmd, t_redir *redir);
 
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);

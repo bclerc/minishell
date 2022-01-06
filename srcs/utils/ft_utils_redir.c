@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 11:52:29 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/25 12:58:06 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:16:53 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,4 @@ int	ft_exist(t_cmd *tmp)
 		tmp = tmp->next;
 	}
 	return (exist);
-}
-
-void	ft_lstdelone(t_cmd *lst, void (*del)(t_cmd *))
-{
-	if (!lst || !del)
-		return ;
-	(*del)(lst);
-	// (*del)(lst->cpy_nb);
-	// (*del)(lst->builtin);
-	// (*del)(lst->cmd);
-	// (*del)(lst->spec);
-	// (*del)(lst->msg);
-	// (*del)(lst->std);
-	free(lst);
 }

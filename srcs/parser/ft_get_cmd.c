@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
 /*   Updated: 2022/01/03 14:22:51 by bclerc           ###   ########.fr       */
@@ -20,10 +20,12 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	t_cmd	*tmp;
 
 	i = 0;
+	cpy = NULL;
 	tmp = *cmd;
 	while (i < arg->count)
 	{
 		i = ft_cmd_i(arg, i);
+		//printf("cmds[%d] %s\n", i, arg->cmds[i]);
 		cpy = ft_strsplit(arg->cmds[i], ' ');
 		if (cpy[0][0] == '\'' || cpy[0][0] == '"')
 			cpy[0] = ft_cpy0(cpy[0], arg);
@@ -33,10 +35,12 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 			if (!cpy[i])
 				return (NULL);
 		}
+		//printf("cpy%d %s\n", i, cpy[i]);
 		arg->i_cpy = i++;
 		*cmd = ft_parse_cmd(arg, cpy, *cmd);
 		if (!*cmd)
 			return (NULL);
+		free (cpy);
 	}
 	return (*cmd);
 }

@@ -31,3 +31,15 @@ t_cmd	*ft_launch_parser(char *str, t_cmd **cmd)
 		return (NULL);
 	return (*cmd);
 }
+
+int	ft_no(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i + 1] != '\0')
+		i++;
+	if (str[i - 1] == '|' || str[i - 1] == '>' || str[i - 1] == '<')
+		return (-1);
+	return (0);
+}

@@ -8,10 +8,13 @@ echo "cat | " > lol |
 > ok
 
 ls | cat | cat | cat | cat | cat -e | grep srcs > k > l
-> ok
+> pas ok
 
 ls | cat | cat | cat | cat | cat -e | grep srcs > k < Makefile
-> ok
+> a faire
 
 ls | cat | cat | cat | cat | cat -e | grep srcs < Makefile
 > ok
+
+echo co < Makefile | wc < l< lol
+> pas ok ( pb espace manquant?)

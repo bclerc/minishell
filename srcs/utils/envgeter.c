@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   envgeter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
 /*   Updated: 2022/01/04 15:21:10 by bclerc           ###   ########.fr       */

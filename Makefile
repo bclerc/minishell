@@ -6,8 +6,7 @@
 #    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/03 13:48:38 by bclerc           
-###   ########.fr        #
+#    Updated: 2022/01/03 13:48:38 by bclerc                                    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +37,7 @@ SOURCES =	srcs/main.c \
 			srcs/parser/ft_parse_msg.c \
 			srcs/parser/ft_spec.c \
 			srcs/parser/ft_redir.c \
+			srcs/parser/ft_inandout.c \
 			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/prompts.c \
 			srcs/utils/env_variable.c \

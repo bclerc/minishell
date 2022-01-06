@@ -18,6 +18,9 @@
 int	ft_get_arg(char *str, t_arg *arg)
 {
 	ft_init_arg(arg, str);
+	if (ft_no(str) == -1)
+		return (ft_print("syntax error near unexpected token `newline'\n", -1)
+			& -1);
 	if (ft_quotes(str, arg) == -1)
 		return (-1);
 	if (ft_count_arg(str, arg) == -1)
@@ -54,6 +57,8 @@ int	ft_count_arg(char *str, t_arg *arg)
 	}
 	if (i == 0)
 		arg->count = 0; // ou return (-1)?
+	if (arg->count % 2 == 0)
+		return (-1);
 	return (0);
 }
 
@@ -92,12 +97,6 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	}
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	if ((ft_strcmp(arg->cmds[c], "<") == 0)
-		|| (ft_strcmp(arg->cmds[c], ">") == 0)
-		|| (ft_strcmp(arg->cmds[c], "<<") == 0)
-		|| (ft_strcmp(arg->cmds[c], "|") == 0)
-		|| (ft_strcmp(arg->cmds[c], ">>") == 0))
-		return (ft_print("Error in token\n", -1) & -1);
 	return (0);
 }
 
