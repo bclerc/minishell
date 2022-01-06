@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/05 15:45:56 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:36:06 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int		ft_init_redir(t_redir *redir);
 // parsing
 t_cmd	*ft_launch_parser(char *str, t_cmd **cmd);
 int		ft_get_arg(char *str, t_arg *arg);
+int		ft_no(char *str);
 
 // parse arguments
 int		ft_quotes(char *str, t_arg *arg);

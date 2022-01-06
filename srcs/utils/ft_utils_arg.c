@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:30:13 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/06 10:08:49 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:44:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_count1(char *str, int i, t_arg *arg)
 {
 	arg->count++;
 	i += 2;
-	if (str[i + 1] && str[i + 2] == ' ')
+	if (str[i + 1])
 		arg->count++;
 	return (i);
 }
@@ -24,7 +24,7 @@ int	ft_count1(char *str, int i, t_arg *arg)
 void	ft_count2(char *str, int i, t_arg *arg)
 {
 	arg->count++;
-	if (str[i + 1] && str[i + 2] == ' ')
+	if (str[i + 1])
 		arg->count++;
 }
 

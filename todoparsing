@@ -2,7 +2,7 @@ echo "cat | " > lol | wc
 > ok
 
 echo "cat | " > lol |
-> pas ok (segfault)
+> ok
 
 "echo" "cat | " > lol | wc
 > ok

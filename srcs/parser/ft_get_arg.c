@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/06 10:06:21 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:45:08 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 int	ft_get_arg(char *str, t_arg *arg)
 {
 	ft_init_arg(arg, str);
+	if (ft_no(str) == -1)
+		return (ft_print("syntax error near unexpected token `newline'\n", -1)
+			& -1);
 	if (ft_quotes(str, arg) == -1)
 		return (-1);
 	if (ft_count_arg(str, arg) == -1)
@@ -94,12 +97,12 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	}
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	if ((ft_strcmp(arg->cmds[c], "<") == 0)
-		|| (ft_strcmp(arg->cmds[c], ">") == 0)
-		|| (ft_strcmp(arg->cmds[c], "<<") == 0)
-		|| (ft_strcmp(arg->cmds[c], "|") == 0)
-		|| (ft_strcmp(arg->cmds[c], ">>") == 0))
-		return (ft_print("Error in token\n", -1) & -1);
+	// if ((ft_strcmp(arg->cmds[c], "<") == 0)
+	// 	|| (ft_strcmp(arg->cmds[c], ">") == 0)
+	// 	|| (ft_strcmp(arg->cmds[c], "<<") == 0)
+	// 	|| (ft_strcmp(arg->cmds[c], "|") == 0)
+	// 	|| (ft_strcmp(arg->cmds[c], ">>") == 0))
+	// 	return (ft_print("Error in token\n", -1) & -1);
 	return (0);
 }
 

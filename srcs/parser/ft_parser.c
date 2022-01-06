@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/27 16:49:22 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:43:25 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,16 @@ t_cmd	*ft_launch_parser(char *str, t_cmd **cmd)
 	if (!*cmd)
 		return (NULL);
 	return (*cmd);
+}
+
+int	ft_no(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	if (str[i - 2] == '|' || str[i - 2] == '>' || str[i - 2] == '<')
+		return (-1);
+	return (0);
 }
