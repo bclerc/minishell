@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/06 11:45:08 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 17:55:17 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,6 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	}
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	// if ((ft_strcmp(arg->cmds[c], "<") == 0)
-	// 	|| (ft_strcmp(arg->cmds[c], ">") == 0)
-	// 	|| (ft_strcmp(arg->cmds[c], "<<") == 0)
-	// 	|| (ft_strcmp(arg->cmds[c], "|") == 0)
-	// 	|| (ft_strcmp(arg->cmds[c], ">>") == 0))
-	// 	return (ft_print("Error in token\n", -1) & -1);
 	return (0);
 }
 

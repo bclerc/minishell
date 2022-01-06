@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/05 17:51:13 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 14:04:22 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cmd	*ft_redir(t_cmd *cmd)
 	cmd->redir = NULL;
 	exist = ft_exist(tmp);
 	//printf("ex = %d tmp->cmd %s cmd = %s\n", exist, tmp->cmd, cmd->cmd);
+			
 	if (exist == 0)
 		return (cmd);
 	else

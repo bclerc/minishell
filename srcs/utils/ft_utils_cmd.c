@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:13:16 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/31 11:26:46 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/06 14:19:31 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_cmd_i(t_arg *arg, int i)
 {
 	if ((ft_check_redir(arg, i) == 1 && (i + 1 < arg->count))
 		|| (ft_check_redir(arg, i) == 2 && (i + 1 < arg->count)))
-		i ++;
+		i++;
 	return (i);
 }
 
