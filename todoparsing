@@ -2,19 +2,21 @@ echo "cat | " > lol | wc
 > ok
 
 echo "cat | " > lol |
-> ok
+> ok ( mais changer le fait que ca fasse exit actuellement) + pb : quand c un | ne met pas le msg d erreur de bash
 
 "echo" "cat | " > lol | wc
 > ok
 
 ls | cat | cat | cat | cat | cat -e | grep srcs > k > l
-> pas ok
+> ok
 
 ls | cat | cat | cat | cat | cat -e | grep srcs > k < Makefile
-> a faire
+> ok (printf de debug)
 
 ls | cat | cat | cat | cat | cat -e | grep srcs < Makefile
 > ok
 
 echo co < Makefile | wc < l< lol
 > pas ok ( pb espace manquant?)
+
+pb de unconditionnal jump dans getcmd

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/03 14:22:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/07 14:10:37 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,18 @@
 // stock arg
 int	ft_get_arg(char *str, t_arg *arg)
 {
+	int	ret;
+
 	ft_init_arg(arg, str);
-	if (ft_no(str) == -1)
-		return (ft_print("syntax error near unexpected token `newline'\n", -1)
-			& -1);
+	ret = ft_no(str);
+	if (ret != 0)
+	{
+		if (ret == -1)
+			return (-1); // devrait faire un heredoc > et on tape kk chose avant d'en ressortir
+		else if (ret == -2)
+			return (ft_print("syntax error near unexpected token `newline'\n", -1)
+				& -1);
+	}
 	if (ft_quotes(str, arg) == -1)
 		return (-1);
 	if (ft_count_arg(str, arg) == -1)
@@ -56,9 +64,7 @@ int	ft_count_arg(char *str, t_arg *arg)
 		i++;
 	}
 	if (i == 0)
-		arg->count = 0; // ou return (-1)?
-	if (arg->count % 2 == 0)
-		return (-1);
+		arg->count = 0;
 	return (0);
 }
 
@@ -69,14 +75,12 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	int		c;
 	int		i;
 	int		size;
-	t_arg	*tmp;
 
 	c = 0;
 	i = 0;
 	arg->cmds = malloc(sizeof(char *) * (arg->count + 1));
 	if (!arg->cmds)
 		return (1);
-	tmp = arg;
 	size = ft_strlen(str);
 	while (i < size)
 	{
@@ -84,6 +88,8 @@ int	ft_stock_arg(t_arg *arg, char *str)
 		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
 		{
 			arg->cmds[c] = ft_parse_arg(str, i - 1, arg);
+			if (!arg->cmds[c])
+				return (1);
 			c++;
 			i = ft_check_char(str, i, c, arg);
 			if (i == -1)
@@ -97,6 +103,7 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	}
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
+	// c++; et arg->cmds[c] = NULL; ? (pour initialiser le dernier a null?)
 	return (0);
 }
 

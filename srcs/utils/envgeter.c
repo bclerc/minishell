@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/04 15:21:10 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/07 11:28:03 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ char	*transform_str(char *str)
 	char	*ret;
 
 	split = ft_strsplit(str, ' ');
-
 	i = 0;
 	while (split[i])
 	{
