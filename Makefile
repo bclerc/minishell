@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
+#    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/03 13:48:38 by bclerc                                    #
+#    Updated: 2022/01/07 17:07:16 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_redir.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
+			srcs/utils/ft_utils_builtin.c \
 			srcs/commands/commands.c \
 			srcs/commands/commands_utils.c \
 			srcs/commands/pipe.c \

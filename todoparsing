@@ -17,6 +17,7 @@ ls | cat | cat | cat | cat | cat -e | grep srcs < Makefile
 > ok
 
 echo co < Makefile | wc < l< lol
-> pas ok ( pb espace manquant?)
+> ok
 
 pb de unconditionnal jump dans getcmd
+>ok

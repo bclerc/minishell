@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/07 13:56:42 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/07 15:26:23 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 		else if (str[i] == '>' && str[i + 1] != '>')
 			ft_char(arg, c, '>', 1);
 	}
-	// printf("str[%d] %c\n", i, str[i]);
-	// if (str[i + 1] == ' ')
-		i++;
+	i++;
 	// printf("str[%d] %c\n", i, str[i]);
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/07 14:00:35 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/07 15:59:37 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	t_cmd	*tmp;
 
 	i = 0;
-	cpy = NULL;
+	//cpy = NULL;
 	tmp = *cmd;
 	while (i < arg->count)
 	{
@@ -51,9 +51,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd)
 {
 	if (ft_strcmp(cpy[0], "echo") == 0)
-	{
 		return (ft_parse_echo(arg, cpy, cmd));
-	}
 	else if (ft_strcmp(cpy[0], "cd") == 0 || ft_strcmp(cpy[0], "pwd") == 0
 		|| ft_strcmp(cpy[0], "export") == 0
 		|| ft_strcmp(cpy[0], "unset") == 0

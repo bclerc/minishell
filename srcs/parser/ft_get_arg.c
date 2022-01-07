@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/07 14:10:37 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/07 18:39:09 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_get_arg(char *str, t_arg *arg)
 	if (ret != 0)
 	{
 		if (ret == -1)
-			return (-1); // devrait faire un heredoc > et on tape kk chose avant d'en ressortir
+			return (ft_print("syntax error\n", -1) & -1);
 		else if (ret == -2)
 			return (ft_print("syntax error near unexpected token `newline'\n", -1)
 				& -1);

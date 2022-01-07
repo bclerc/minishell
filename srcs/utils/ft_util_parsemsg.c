@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_util_parsemsg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:38:22 by astrid            #+#    #+#             */
-/*   Updated: 2021/11/09 15:16:00 by astrid           ###   ########.fr       */
+/*   Updated: 2022/01/07 15:11:53 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // concatenation quand tmp n est pas au depart de la str
 char	*ft_retneg(int i, char *str, char *tmp, char *new)
 {
-	int start;
+	int	start;
 	int	size;
 	int	j;
 
@@ -52,7 +52,7 @@ char	*ft_retneg(int i, char *str, char *tmp, char *new)
 // concatenation quand tmp est au depart de la str
 char	*ft_retnoneg(int i, char *str, char *tmp, char *new)
 {
-	int start;
+	int	start;
 	int	size;
 	int	j;
 
@@ -79,11 +79,11 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new)
 char	*ft_special_cat(char *str, char *tmp, int i, int ret)
 {
 	char	*new;
-	int	start;
+	int		start;
 	int		size;
 
 	start = 0;
-	size = ft_strlen(str) - 2;
+	size = ft_strlen(str) - 1; // et non -2 qui fait un invalid read de 1
 	new = malloc(sizeof(char) * (size + 1));
 	if (!new)
 		return (NULL);
@@ -92,7 +92,7 @@ char	*ft_special_cat(char *str, char *tmp, int i, int ret)
 	else
 		new = ft_retnoneg(i, str, tmp, new);
 	free (str);
-	return (new);	
+	return (new);
 }
 
 char	*ft_cut_quote(char *str, int start, int end)
