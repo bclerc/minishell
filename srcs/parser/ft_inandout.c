@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inandout.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 13:28:55 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/05 18:12:53 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/08 18:09:52 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 		//puts("che");
 				cpy = cpy->next;
 			}
-			printf("tmp %p in %s out %s std %d msg %s\n", tmp->redir, tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_out, tmp->redir->redir_msg);
 		}
 		if (!tmp->previous)
 			break;

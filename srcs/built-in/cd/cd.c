@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/08 16:33:13 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 17:59:18 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,5 @@ int	cd(char *path)
 		printf("cd: no such file or directory: %s\n", home);
 		return (1);
 	}
+	return (0);
 }

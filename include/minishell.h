@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/08 16:29:30 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 18:01:20 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ int		add_env_variable(char *var);
 int		get_env_length(char **env);
 int		export(char *path, char *argv);
 int		get_fd(char *path);
-int		echo(char *str, char *path, int flag_n);
+int		echo(t_cmd *cmd);
 int		env(char *path);
 int		pwd(char *path);
 int		cd(char *path);
