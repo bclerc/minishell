@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:39:56 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/20 13:17:02 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 14:11:14 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ int	env(char *path)
 		env = env->next;
 	}
 	exit(EXIT_SUCCESS);
-	return (1);
 }

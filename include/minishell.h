@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/07 17:18:24 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/08 18:01:20 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ typedef struct s_env
 }				t_env;
 typedef struct s_core
 {
-	char	*cmd;
-	char	**envp;
 	t_env	*env;
 	pid_t	parent;
 	pid_t	child;
 	int		child_exist;
-	int		fd[2];
-	int		status;
 }				t_core;
 
 extern t_core *core;
@@ -208,7 +204,7 @@ int		get_env_length(char **env);
 int		ft_havechr(char *str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
-char	*transform_str(char *str);
+char	*transform_str(char *str, int status);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
@@ -240,7 +236,7 @@ int		add_env_variable(char *var);
 int		get_env_length(char **env);
 int		export(char *path, char *argv);
 int		get_fd(char *path);
-int		echo(char *str, char *path, int flag_n);
+int		echo(t_cmd *cmd);
 int		env(char *path);
 int		pwd(char *path);
 int		cd(char *path);
