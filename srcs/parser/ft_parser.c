@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/08 15:01:18 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/08 15:14:38 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ t_cmd	*ft_launch_parser(char *str, t_cmd **cmd)
 	if (!*cmd)
 		return (NULL);
 	ft_free_arg(&arg);
-	puts("l");
 	return (*cmd);
 }
