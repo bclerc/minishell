@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/07 15:23:00 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/08 11:14:29 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ void	minishell(void)
     	cmd = ft_launch_parser(rd, &cmd);
 		free(rd);
 		if (!cmd)
-			exit(0);
+			exit(0); // fct exit avec free
     	cmd = ft_redir(cmd);
+		if (!cmd)
+			exit(0); // fct exit avec free
 		cmd = dup_cmd(cmd);
 		m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);

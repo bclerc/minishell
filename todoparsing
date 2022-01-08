@@ -21,3 +21,5 @@ echo co < Makefile | wc < l< lol
 
 pb de unconditionnal jump dans getcmd
 >ok
+
+echo '$USER' > ligne vide pas ok : devrait ecrire $USER

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/07 18:39:09 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/08 15:08:46 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_stock_arg(t_arg *arg, char *str)
 
 	c = 0;
 	i = 0;
-	arg->cmds = malloc(sizeof(char *) * (arg->count + 1));
+	arg->cmds = malloc(sizeof(char *) * (arg->count));
 	if (!arg->cmds)
 		return (1);
 	size = ft_strlen(str);
@@ -103,7 +103,6 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	}
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);
-	// c++; et arg->cmds[c] = NULL; ? (pour initialiser le dernier a null?)
 	return (0);
 }
 

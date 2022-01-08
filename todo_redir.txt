@@ -24,3 +24,11 @@ CMD | CMD < FILE | .. (Change the stdin of the cmd)
 
 
 attention : getpid est une fct interdite!
+
+echo -n a gerer (+ pb de munmap_chunk > a l'exec apparemment)
+
+exit | une autre cmd a gerer
+
+cd .. : PATH is : .. (pas le bon msg?)
+
+apres les pwd : exit ne sort plus
