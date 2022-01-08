@@ -94,7 +94,6 @@ char	*transform_str(char *str, int status)
 	char	*ret;
 
 	split = ft_strsplit(str, ' ');
-
 	i = 0;
 	while (split[i])
 	{

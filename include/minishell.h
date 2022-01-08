@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
 /*   Updated: 2022/01/08 18:01:20 by bclerc           ###   ########.fr       */
@@ -147,6 +147,7 @@ t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
+t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
 void	ft_fill_std(t_arg *arg, t_cmd *new);
 int		ft_std(t_arg *arg, int i);

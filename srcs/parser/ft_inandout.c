@@ -71,7 +71,7 @@ t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 				}
 				cpy = cpy->next;
 			}
-			printf("tmp in %s out %s std %d msg %s\n", tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_in, tmp->redir->redir_msg);
+			//printf("tmp in %s out %s std %d msg %s\n", tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_in, tmp->redir->redir_msg);
 		}
 		else if (!fd_in)
 		{
@@ -88,12 +88,13 @@ t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 		//puts("che");
 				cpy = cpy->next;
 			}
+			//printf("tmp %p in %s out %s std %d msg %s\n", tmp->redir, tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_out, tmp->redir->redir_msg);
 		}
 		if (!tmp->previous)
 			break;
 		tmp = tmp->previous;
 	}
-		puts("che");
+	//	puts("che");
 	return (tmp);
 }
 
@@ -119,9 +120,9 @@ t_redir	*ft_out(t_cmd *cmd, t_redir *redir, char *msg)
 	tmp = redir;
 	while (redir && redir->next != NULL)
 		redir = redir->next;
-	printf("%ld\n", sizeof(t_redir));
+	//printf("%ld\n", sizeof(t_redir));
 	new = malloc(sizeof(t_redir));
-	puts("h");
+	// puts("h");
 	if (!new)
 		return (NULL);
 	ft_init_redir(new);
@@ -131,7 +132,7 @@ t_redir	*ft_out(t_cmd *cmd, t_redir *redir, char *msg)
 	if (msg)
 		new->redir_msg = msg;
 	new->next = NULL;
-	printf("new : %p cmd %s out %s std %d msg %s\n", new, cmd->cmd, new->fd_out, new->redir_std_out, new->redir_msg);
+	// printf("new : %p cmd %s out %s std %d msg %s\n", new, cmd->cmd, new->fd_out, new->redir_std_out, new->redir_msg);
 	if (tmp == NULL)
 		tmp = new;
 	else

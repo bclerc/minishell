@@ -72,8 +72,10 @@ void	minishell(void)
     	cmd = ft_launch_parser(rd, &cmd);
 		free(rd);
 		if (!cmd)
-			exit(0);
+			exit(0); // fct exit avec free
     	cmd = ft_redir(cmd);
+		if (!cmd)
+			exit(0); // fct exit avec free
 		cmd = dup_cmd(cmd);
 		status = m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);

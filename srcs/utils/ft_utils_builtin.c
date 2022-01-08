@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parser.c                                        :+:      :+:    :+:   */
+/*   ft_utils_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/08 15:14:38 by asgaulti         ###   ########.fr       */
+/*   Created: 2022/01/07 17:06:28 by asgaulti          #+#    #+#             */
+/*   Updated: 2022/01/07 17:17:57 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// launch parsing
-// init struct arg & cmd
-t_cmd	*ft_launch_parser(char *str, t_cmd **cmd)
+t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg)
 {
-	int		i;
-	t_arg	arg;
-	t_cmd	*tmp;
+	int	tmp_nb;
+	int	j;
 
-	i = 0;
-	tmp = *cmd;
-	if (ft_get_arg(str, &arg) == -1)
+	tmp_nb = 0;
+	j = 0;
+	while (cpy[tmp_nb])
+		tmp_nb++;
+	new->cpy_nb = tmp_nb;
+	new->builtin = 1;
+	new->cmd = ft_strdup(cpy[j]);
+	if (!new->cmd)
 		return (NULL);
-	if (ft_init_cmd(cmd, &arg) < 0)
-		return (NULL);
-	*cmd = ft_get_cmd(&arg, cmd);
-	if (!*cmd)
-		return (NULL);
-	ft_free_arg(&arg);
-	return (*cmd);
+	j++;
+	ft_fill_std(arg, new);
+	if (!cpy[j])
+		new->msg = NULL;
+	else
+	{
+		new->msg = ft_cpy_msg(arg, cpy, j, new);
+		if (!new->msg)
+			return (NULL);
+	}
+	new->spec = NULL;
+	new->next = NULL;
+	return (new);
 }

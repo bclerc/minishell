@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:13:16 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/06 14:19:31 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/07 13:22:09 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,4 @@ char	*ft_cpy0(char *cpy, t_arg *arg)
 		return (NULL);
 	arg->q = 1;
 	return (cpy);
-}
-
-int	ft_check_chevron(char *str, int i, int c, t_arg *arg)
-{
-	ft_char(arg, c, '>', 2);
-	i++;
-	return (i);
 }
