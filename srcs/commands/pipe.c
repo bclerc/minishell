@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/08 16:23:06 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 17:04:53 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
 	return (1);
 }
 
+int is_forkable(t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->cmd, "unset") == 0 
+		|| ft_strcmp(cmd->cmd, "export") == 0)
+		return (0);
+	return (1);
+}
+
 int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 {
 	t_cmd	*tmp;
@@ -90,17 +98,25 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 	tmp = cmd;
 	while (tmp)
 	{
-		pid = fork();
-		core->child_exist = 1;
-		core->child = pid;
-		if (pid == 0)
+		if (ft_strcmp(tmp->cmd, "exit") == 0)
 		{
-			set_in_out(pipes, tmp, cmd, i);
-			close_fd(pipes, nbpipe);
-			execute_commands(tmp);
+			if (!tmp->next)
+				return (0);
+			else
+				tmp = tmp->next;
 		}
+		if (is_forkable(tmp))
+				pid = fork();
+			core->child_exist = 1;
+			core->child = pid;
+			if (!is_forkable(tmp) || pid == 0)
+			{
+				set_in_out(pipes, tmp, cmd, i);
+				close_fd(pipes, nbpipe);
+				ret = execute_commands(tmp);
+			}
+			i = i + 2;
 		tmp = tmp->next;
-		i = i + 2;
 	}
 	return (ret);
 }
@@ -112,7 +128,7 @@ int	m_pipe(t_cmd *cmd)
 	int		i;
 	int		status;
 
-	if (ft_strcmp(cmd->cmd, "exit") == 0
+	if ((ft_strcmp(cmd->cmd, "exit") == 0 && !cmd->next)
 		|| ft_strcmp(cmd->cmd, "cd") == 0)
 		return (execute_commands(cmd));
 	nbpipe = get_pipe_count(cmd);

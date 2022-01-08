@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 10:13:26 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/08 14:12:21 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:57:15 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	unset(char *var)
 	int		i;
 
 	if (!var)
-		exit(EXIT_FAILURE);
+		return (-1);
 	vars = ft_strsplit(var, ' ');
 	if (!vars)
-		exit(EXIT_FAILURE);
+		return (-1);
 	i = 0;
 	while (vars[i])
 	{
@@ -29,5 +29,5 @@ int	unset(char *var)
 		i++;
 	}
 	rm_split(vars);
-	exit(EXIT_SUCCESS);
+	return (0);
 }
