@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/03 11:57:07 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:23:06 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 		{
 			set_in_out(pipes, tmp, cmd, i);
 			close_fd(pipes, nbpipe);
-			ret = execute_commands(tmp);
+			execute_commands(tmp);
 		}
 		tmp = tmp->next;
 		i = i + 2;
@@ -110,6 +110,7 @@ int	m_pipe(t_cmd *cmd)
 	int		nbpipe;
 	int		*pipes;
 	int		i;
+	int		status;
 
 	if (ft_strcmp(cmd->cmd, "exit") == 0
 		|| ft_strcmp(cmd->cmd, "cd") == 0)
@@ -122,9 +123,13 @@ int	m_pipe(t_cmd *cmd)
 	i = 0;
 	while (i < nbpipe + 2)
 	{
-		wait(NULL);
+		wait(&status);
 		i++;
 	}
 	free(pipes);
-	return (1);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		status = WTERMSIG(status);
+	return (status);
 }

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/03 13:57:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:29:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ typedef struct s_env
 }				t_env;
 typedef struct s_core
 {
-	char	*cmd;
-	char	**envp;
 	t_env	*env;
 	pid_t	parent;
 	pid_t	child;
 	int		child_exist;
-	int		fd[2];
-	int		status;
 }				t_core;
 
 extern t_core *core;
@@ -207,7 +203,7 @@ int		get_env_length(char **env);
 int		ft_havechr(char *str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
-char	*transform_str(char *str);
+char	*transform_str(char *str, int status);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);

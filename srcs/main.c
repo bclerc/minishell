@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/03 14:11:01 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:28:54 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ void	signal_handler(int signum)
 
 void	minishell(void)
 {
+	t_cmd	*tmp;
+	t_cmd	*cmd;
 	char	*str;
 	char	*rd;
 	char	*prompt;
-	t_cmd	*cmd;
-	t_cmd	*tmp;
+	int		status;
 
-	while (core->status != 0)
+	status = 0;
+	while (status != -1)
 	{
 		prompt = get_promps();
 		rd = readline(prompt);
@@ -58,7 +60,7 @@ void	minishell(void)
 		{
 			printf("\n");
 			if (!rd)
-				core->status = 0;
+				status = -1;
 			continue ;
 		}
 		str = ft_strdup(rd);
@@ -66,17 +68,16 @@ void	minishell(void)
 			break ;
 		free(rd);
 		add_history(str);
-		rd = transform_str(str);
+		rd = transform_str(str, status);
     	cmd = ft_launch_parser(rd, &cmd);
 		free(rd);
 		if (!cmd)
 			exit(0);
     	cmd = ft_redir(cmd);
 		cmd = dup_cmd(cmd);
-		m_pipe(cmd);
+		status = m_pipe(cmd);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
-	free(rd);
 	
 	exit(EXIT_SUCCESS);
 }
@@ -94,7 +95,6 @@ int	main(int ac, char **av, char **envp)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	core->status = 1;
 	core->parent = getpid();
 	minishell();
 	return (0);

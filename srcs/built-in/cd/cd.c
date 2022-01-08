@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/05 14:22:32 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:33:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	*get(char *path)
 void	change_directory(char *path)
 {
 	change_old_pwd();
-	printf("PATH IS : %s\n", path);
 	chdir(path);
 	change_pwd();
 }
@@ -79,7 +78,7 @@ int	cd(char *path)
 
 	home = get(path);
 	if (!home)
-		return (-1);
+		return (1);
 	stats = stat(home, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{
@@ -87,13 +86,15 @@ int	cd(char *path)
 		{
 			printf("cd: cannot access directory '%s': Permission denied\n",
 				path);
-			return (1);
+			return (126);
 		}
 		change_directory(home);
 	}
 	else if (path == NULL)
 		change_directory(ft_strdup(get_env_variable("HOME")));
 	else
+	{
 		printf("cd: no such file or directory: %s\n", home);
-	return (1);
+		return (1);
+	}
 }

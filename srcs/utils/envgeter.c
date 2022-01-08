@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envgeter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/04 15:21:10 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:29:02 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*build_str(char **str)
 	return (final_str);
 }
 
-char	*transform_str(char *str)
+char	*transform_str(char *str, int status)
 {
 	int		i;
 	char	**split;
@@ -100,12 +100,19 @@ char	*transform_str(char *str)
 	{
 		if (split[i][0] == '$')
 		{
-			env = get_env_variable(split[i] + 1);
-			printf("Env is %s\n", env);
-			if (env)
+			if (split[i][1] == '?')
 			{
 				free(split[i]);
-				split[i] = ft_strdup(env);
+				split[i] = ft_itoa(status);			
+			}
+			else
+			{
+				env = get_env_variable(split[i] + 1);
+				if (env)
+				{
+					free(split[i]);
+					split[i] = ft_strdup(env);
+				}
 			}
 		}
 		i++;

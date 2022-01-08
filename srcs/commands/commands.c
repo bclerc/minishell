@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/28 17:18:20 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:32:32 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,42 +77,40 @@ int	exec(t_cmd *cmd)
 	argv = get_argv(cmd);
 	tab_env = env_to_char();
 	path = get_executable_path(cmd);
-	if (execve(path, argv, tab_env) < 0)
+	if ((status = execve(path, argv, tab_env)) < 0)
 	{
 		printf("%s: command not found\n", cmd->cmd);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	rm_split(argv);
 	rm_split(tab_env);
 	core->child_exist = 0;
-	return (1);
+	return (status);
 }
 
 int	execute_commands(t_cmd *cmd)
 {
 	int	ret;
 
-	ret = 0;
+	ret = 1;
 	if (ft_strcmp(cmd->cmd, "cd") == 0)
-		ret = (cd(cmd->msg));
-	if (ft_strcmp(cmd->cmd, "echo") == 0)
-		ret = (echo(cmd->msg, 0, 0));
-	if (ft_strcmp(cmd->cmd, "env") == 0)
-		ret = (env(NULL));
-	if (ft_strcmp(cmd->cmd, "export") == 0)
-		ret = (export(NULL, cmd->msg));
-	if (ft_strcmp(cmd->cmd, "pwd") == 0)
-		ret = (pwd(cmd->msg));
-	if (ft_strcmp(cmd->cmd, "unset") == 0)
-		ret = unset(cmd->msg);
-	if (ft_strcmp(cmd->cmd, "exit") == 0)
+		ret = cd(cmd->msg);
+	else if (ft_strcmp(cmd->cmd, "echo") == 0)
+		echo(cmd->msg, 0, 0);
+	else if (ft_strcmp(cmd->cmd, "env") == 0)
+		(env(NULL));
+	else if (ft_strcmp(cmd->cmd, "export") == 0)
+		(export(NULL, cmd->msg));
+	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
+		(pwd(cmd->msg));
+	else if (ft_strcmp(cmd->cmd, "unset") == 0)
+		unset(cmd->msg);
+	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
-		core->status = 0;
 		write(1, "exit 😱 😭\n", 16);
 		return (-1);
 	}
-	if (ret == 1 || ret == -1)
-		return (ret);
-	exec(cmd);
-	return (1);
+	else
+		ret = exec(cmd);
+	return (ret);
 }
