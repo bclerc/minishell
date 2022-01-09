@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 12:16:17 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:14:30 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	del_cmd(t_cmd *cmd)
 			free(cmd->msg);
 		if (cmd->spec != NULL)
 			free(cmd->spec);
-		if (cmd->cmd)
-			free(cmd->cmd);
+		// if (cmd->cmd)
+		// 	free(cmd->cmd);
 		free(cmd);
 	}
 }

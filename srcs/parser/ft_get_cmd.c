@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/07 15:59:37 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 15:46:25 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	int		i;
 	int		j;
 	char	**cpy;
-	t_cmd	*tmp;
 
 	i = 0;
-	//cpy = NULL;
-	tmp = *cmd;
 	while (i < arg->count)
 	{
 		i = ft_cmd_i(arg, i);

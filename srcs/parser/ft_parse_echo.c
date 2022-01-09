@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/09 12:16:09 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 15:49:19 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		{
 			while (tmp2->next->next != NULL)
 			{
-				tmp2 = tmp2->next;
-				
+				tmp2 = tmp2->next;	
 			}		
 			new->previous = tmp2;
 		}
@@ -93,7 +92,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		// 	new = ft_redir(new);
 		cmd = new;
 	}
-	printf("new1 = %s sp %s msg = %s std = %d\n", tmp->cmd, tmp->spec, tmp->msg, tmp->std);
+	//printf("new1 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
 	return (tmp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/08 16:30:16 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 15:48:00 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ int	ft_get_arg(char *str, t_arg *arg)
 // determiner le nb d args (en fct des sep | < >)
 int	ft_count_arg(char *str, t_arg *arg)
 {
-	int		i;
+	int	i;
+	int	size;
 
 	i = 0;
-	while (str[i])
+	size = ft_strlen(str);
+	while (i < size)
 	{
 		i = ft_increase_quote(str, i);
 		if (((str[i] == '>' && str[i + 1] == '>')
@@ -91,7 +93,7 @@ int	ft_stock_arg(t_arg *arg, char *str)
 			arg->cmds[c] = ft_parse_arg(str, i - 1, arg);
 			if (!arg->cmds[c])
 				return (1);
-			//printf("cmd1 p %p %s\n", arg->cmds[c], arg->cmds[c]);
+			// printf("cmd1 p %p %s\n", arg->cmds[c], arg->cmds[c]);
 			c++;
 			i = ft_check_char(str, i, c, arg);
 			//printf("cmd2 p %p %s\n", arg->cmds[c], arg->cmds[c]);
@@ -140,7 +142,7 @@ int	ft_increase_quote(char *str, int i)
 	else if (str[i] == '\'')
 	{
 		i++;
-		while (str[i != '\''])
+		while (str[i] != '\'')
 			i++;
 	}
 	return (i);

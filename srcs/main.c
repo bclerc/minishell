@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/09 11:59:09 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:42:02 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	minishell(void)
 			exit(0); // fct exit avec free
 		cmd = dup_cmd(cmd);
 		status = m_pipe(cmd);
+		//exit(0);
 		m_exit(cmd, M_EXIT_FORK, NULL);
 	}
-	
 	exit(EXIT_SUCCESS);
 }
 
