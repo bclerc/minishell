@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/03 14:08:57 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 12:16:17 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	del_env(void)
 	}
 }
 
+// del tout le maillon, pas uniquement msg et spec a priori
 void	del_cmd(t_cmd *cmd)
 {
 	if (cmd != NULL)
@@ -34,9 +35,12 @@ void	del_cmd(t_cmd *cmd)
 			free(cmd->msg);
 		if (cmd->spec != NULL)
 			free(cmd->spec);
+		if (cmd->cmd)
+			free(cmd->cmd);
 		free(cmd);
 	}
 }
+
 void	m_exit(t_cmd *cmd, int reason, char *function)
 {
 	t_redir	*redir;
