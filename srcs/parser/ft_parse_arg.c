@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/08 16:30:12 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 14:37:52 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 void	ft_char(t_arg *arg, int c, char s, int nb)
 {
 	if (nb == 1)
-	{
 		arg->cmds[c] = malloc(sizeof(char) + 1);
-		printf("p %p\n", arg->cmds[c]); 
-	}
 	else if (nb == 2)
 		arg->cmds[c] = malloc(sizeof(char) * 2 + 1);
 	if (!arg->cmds[c])
@@ -73,7 +70,6 @@ void	ft_char(t_arg *arg, int c, char s, int nb)
 	if (nb == 2)
 		arg->cmds[c][1] = s;
 	arg->cmds[c][1 + (nb == 2)] = '\0';
-	//printf("p %p %s c %d \n", arg->cmds[c], arg->cmds[c], c);
 }
 
 char	*ft_nosep(int i, char *str, t_arg *arg)

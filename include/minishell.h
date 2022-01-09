@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/09 18:20:22 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 19:29:28 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ struct	s_arg
 {
 	char	**cmds;
 	int		i_cpy;
+	int		j;
 	int		count;
 	int		count_quote;
 	int		count_quotes;
@@ -148,6 +149,8 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg);
+t_cmd	*ft_fill_other(char **cpy, t_cmd *new, t_arg *arg);
+t_cmd	*ft_cmd_builtin(t_cmd *cmd, t_cmd *tmp2, t_cmd *new);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
 void	ft_fill_std(t_arg *arg, t_cmd *new);
 int		ft_std(t_arg *arg, int i);

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/09 14:55:54 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 19:29:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	ft_get_arg(char *str, t_arg *arg)
 		if (ret == -1)
 			return (ft_print("syntax error\n", -1) & -1);
 		else if (ret == -2)
-			return (ft_print("syntax error near unexpected token `newline'\n", -1)
-				& -1);
+			return (ft_print("syntax error near unexpected token `newline'\n",
+					-1) & -1);
 	}
 	if (ft_quotes(str, arg) == -1)
 		return (-1);
@@ -42,18 +42,19 @@ int	ft_get_arg(char *str, t_arg *arg)
 // determiner le nb d args (en fct des sep | < >)
 int	ft_count_arg(char *str, t_arg *arg)
 {
-	int		i;
+	int	i;
+	int	size;
 
 	i = 0;
-	while (str[i])
+	size = ft_strlen(str);
+	while (i < size)
 	{
 		i = ft_increase_quote(str, i);
 		if (((str[i] == '>' && str[i + 1] == '>')
 				|| (str[i] == '<' && str[i + 1] == '<')) && i != 0)
 			i = ft_count1(str, i, arg);
-		else if (((str[i] == '>' && str[i + 1] != '>')
-				|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|')
-			&& i != 0)
+		else if (i != 0 && ((str[i] == '>' && str[i + 1] != '>')
+				|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|'))
 			ft_count2(str, i, arg);
 		else if ((((str[i] == '>' && str[i + 1] == '>')
 					|| (str[i] == '<' && str[i + 1] == '<'))
@@ -75,7 +76,6 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	int		c;
 	int		i;
 	int		size;
-	char	*tmp;
 
 	c = 0;
 	i = 0;
@@ -91,18 +91,15 @@ int	ft_stock_arg(t_arg *arg, char *str)
 			arg->cmds[c] = ft_parse_arg(str, i - 1, arg);
 			if (!arg->cmds[c])
 				return (1);
-			//printf("cmd1 p %p %s\n", arg->cmds[c], arg->cmds[c]);
 			c++;
 			i = ft_check_char(str, i, c, arg);
-			//printf("cmd2 p %p %s\n", arg->cmds[c], arg->cmds[c]);
 			if (i == -1)
 				return (1);
 			arg->start = i;
 			if (c < arg->count - 1)
 				c++;
 		}
-		if (i < size)
-			i++;
+		i++;
 	}
 	if (c != arg->count)
 		arg->cmds[c] = ft_nosep(i, str, arg);

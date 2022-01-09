@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 17:36:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 19:30:07 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	del_env(void)
 	}
 }
 
+// del tout le maillon, pas uniquement msg et spec a priori
 void	del_cmd(t_cmd *cmd)
 {
 	if (cmd != NULL)
@@ -37,6 +38,8 @@ void	del_cmd(t_cmd *cmd)
 		}
 		if (cmd->spec != NULL)
 			free(cmd->spec);
+		// if (cmd->cmd)
+		// 	free(cmd->cmd);
 		free(cmd);
 	}
 }

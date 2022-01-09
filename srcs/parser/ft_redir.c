@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/07 14:09:23 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 17:48:57 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 t_cmd	*ft_redir(t_cmd *cmd)
 {
-	t_cmd   *tmp;
-	t_redir *redir;
-	int     exist;
+	t_cmd	*tmp;
+	t_redir	*redir;
+	int		exist;
 
 	tmp = cmd;
 	redir = NULL;
 	cmd->redir = NULL;
 	exist = ft_exist(tmp);
-	//printf("ex = %d tmp->cmd %s cmd = %s\n", exist, tmp->cmd, cmd->cmd);
-			
 	if (exist == 0)
 		return (cmd);
 	else
-	{   
+	{
 		if (exist == 1)
 		{
 			while (tmp && tmp->next != NULL)
@@ -46,7 +44,6 @@ t_cmd	*ft_redir(t_cmd *cmd)
 			tmp = cmd;
 			return (tmp);
 			//printf("redir2 cmd %s out %s std %d msg %s\n", tmp->cmd, tmp->redir->fd_out, tmp->redir->redir_std_out, tmp->redir->redir_msg);
-			
 		}
 		else if (exist == 3)
 		{
@@ -106,7 +103,6 @@ t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir)
 			break ;
 		cmd = cmd->previous;
 	}
-	//printf("cmd2 %s\n", cmd->cmd);
 	return (cmd);
 }
 
