@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:43:44 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 14:43:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 14:48:04 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	random_char(void)
 
 	fd = open("/dev/random", O_RDONLY);
 	if (fd < 0)
-		return (NULL);
+		return (-1);
 	read(fd, buff, 4);
 	value = *(int*)buff;
 	close(fd);

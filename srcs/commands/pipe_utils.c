@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:09:19 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/03 13:57:21 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 15:51:37 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,25 @@ t_cmd	*dup_cmd(t_cmd *cmd)
 {
 	t_cmd	*list;
 	t_cmd	*tmp;
-	t_cmd	*tmpp;
+	t_cmd	*last;
 	int		i;
-
-	list = 0;
-	i = 1;
+	
 	tmp = cmd;
+	last = cmd;
 	while (tmp)
 	{
-		if (tmp->cmd)
+		if (tmp->cmd == NULL)
 		{
-			tmpp = (t_cmd *)malloc(sizeof(t_cmd));
-			tmpp->cmd = tmp->cmd;
-			tmpp->redir = tmp->redir;
-			tmpp->spec = tmp->spec;
-			tmpp->msg = tmp->msg;
-			tmpp->next = NULL;
-			if (!list)
-				list = tmpp;
-			else
-				add_value_to_stack(tmpp, list);
+			last->next = tmp->next;
+			free(tmp);
+			tmp = last->next;
+			last = tmp;
+			continue ;
 		}
+		last = tmp;
 		tmp = tmp->next;
 	}
-	return (list);
+	return (cmd);
 }
 
 int	get_pipe_count(t_cmd *cmd)

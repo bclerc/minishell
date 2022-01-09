@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/08 16:30:16 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 14:55:54 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int	ft_increase_quote(char *str, int i)
 	else if (str[i] == '\'')
 	{
 		i++;
-		while (str[i != '\''])
+		while (str[i] != '\'')
 			i++;
 	}
 	return (i);
