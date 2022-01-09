@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/08 17:54:20 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 13:53:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
 
 int is_forkable(t_cmd *cmd)
 {
-	if (ft_strcmp(cmd->cmd, "unset") == 0 
-		|| ft_strcmp(cmd->cmd, "export") == 0)
+	if ((ft_strcmp(cmd->cmd, "unset") == 0  && cmd->msg != NULL)
+		|| ft_strcmp(cmd->cmd, "export") == 0 && cmd->msg != NULL)
 		return (0);
 	return (1);
 }
@@ -106,16 +106,20 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 				tmp = tmp->next;
 		}
 		if (is_forkable(tmp))
-				pid = fork();
+		{
+			pid = fork();
 			core->child_exist = 1;
 			core->child = pid;
-			if (!is_forkable(tmp) || pid == 0)
+			if (pid == 0)
 			{
 				set_in_out(pipes, tmp, cmd, i);
 				close_fd(pipes, nbpipe);
 				ret = execute_commands(tmp);
 			}
 			i = i + 2;
+		}
+			else
+		ret = execute_commands(tmp);
 		tmp = tmp->next;
 	}
 	return (ret);
