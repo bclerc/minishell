@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/08 18:01:20 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 14:22:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
 int		mul_redir(t_cmd *cmd);
 // utils
-char	random_char(void);
+int		random_char(void);
 void	m_exit(t_cmd *cmd, int reason, char *function);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
