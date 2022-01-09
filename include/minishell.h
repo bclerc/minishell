@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/31 11:27:43 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 18:20:22 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ typedef struct s_env
 }				t_env;
 typedef struct s_core
 {
-	char	*cmd;
-	char	**envp;
 	t_env	*env;
 	pid_t	parent;
 	pid_t	child;
 	int		child_exist;
-	int		fd[2];
-	int		status;
 }				t_core;
 
 extern t_core *core;
@@ -124,6 +120,7 @@ int		ft_init_redir(t_redir *redir);
 // parsing
 t_cmd	*ft_launch_parser(char *str, t_cmd **cmd);
 int		ft_get_arg(char *str, t_arg *arg);
+int		ft_no(char *str);
 
 // parse arguments
 int		ft_quotes(char *str, t_arg *arg);
@@ -150,6 +147,7 @@ t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
 int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
+t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg);
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd);
 void	ft_fill_std(t_arg *arg, t_cmd *new);
 int		ft_std(t_arg *arg, int i);
@@ -188,7 +186,9 @@ t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillout(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in);
-t_redir	*ft_create_pipe(t_cmd *cmd, t_redir *redir);
+t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
+t_cmd	*ft_in(char *fd_in, char *msg, int std_in, t_cmd *tmp, t_redir *redir);
+t_redir	*ft_out(t_cmd *cmd, t_redir *redir, char *msg);
 t_redir	*ft_create_out2(char *in, int std_in, t_cmd *cmd, t_redir *redir);
 
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
@@ -197,14 +197,14 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
 int		mul_redir(t_cmd *cmd);
 // utils
-char	random_char(void);
+int		random_char(void);
 void	m_exit(t_cmd *cmd, int reason, char *function);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
 int		ft_havechr(char *str, char c);
 void	rm_split(char **split);
 char	**ft_strsplit_s(char const *s, char c);
-char	*transform_str(char *str);
+char	*transform_str(char *str, int status);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
@@ -236,7 +236,7 @@ int		add_env_variable(char *var);
 int		get_env_length(char **env);
 int		export(char *path, char *argv);
 int		get_fd(char *path);
-int		echo(char *str, char *path, int flag_n);
+int		echo(t_cmd *cmd);
 int		env(char *path);
 int		pwd(char *path);
 int		cd(char *path);

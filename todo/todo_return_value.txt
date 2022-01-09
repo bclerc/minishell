@@ -1,0 +1,8 @@
+Exec Success : 0
+Exec Fails : 1;
+Missing arguments : 2
+Permission or Not exectuable: 126
+Invalid arguments to exit: 128
+Command not found : 127
+CTRL-C KILL: 130
+exit status out of range : 255

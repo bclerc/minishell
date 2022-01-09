@@ -1,4 +1,5 @@
 #include "libft.h"
+// #include <stdio.h>
 
 static	int		ft_count_words(const char *str, char c)
 {
@@ -60,5 +61,11 @@ char			**ft_strsplit(const char *str, char c)
 		j++;
 	}
 	s[j] = NULL;
+	// j = 0;
+	// while (s[j])
+	// {
+	// 	printf("s[%d] %s\n", j, s[j]);
+	// 	j++;
+	// }
 	return (s);
 }

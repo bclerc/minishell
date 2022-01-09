@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/29 16:09:00 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/07 15:08:45 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 	while (arg->pos_i < size)
 	{
 		if (str[arg->pos_i] == '\'' || str[arg->pos_i] == '"')
-		{
 			str = ft_check_quotes(str, arg, tmp, size);
-			
-		}
 		if (!str)
 			return (NULL);
 		arg->pos_i++;

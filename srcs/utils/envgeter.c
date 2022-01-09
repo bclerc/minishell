@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/30 15:13:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/08 16:29:02 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	rm_split(char **split)
 	if (!split)
 		return ;
 	i = 0;
-	while (split[i])
+	while (split[i] != NULL)
 		i++;
 	while (i >= 0)
 	{
@@ -45,22 +45,27 @@ int	get_count(char **str)
 			count++;
 			y++;
 		}
+		count++;
 		i++;
-	}
+}
 	return (count);
 }
 
 char	*build_str(char **str)
 {
 	char	*final_str;
-	int		count;
 	int		i;
+	int		count;
 	int		y;
 
+	final_str = NULL;
 	count = get_count(str);
-	final_str = (char *)malloc(sizeof(char) * count + 1);
+	final_str = (char *)malloc(sizeof(char) * (count + 2));
+	if (!final_str)
+		return (NULL);
 	i = 0;
 	count = 0;
+	ft_bzero(final_str, count + 1);
 	while (str[i])
 	{
 		y = 0;
@@ -70,15 +75,18 @@ char	*build_str(char **str)
 			count++;
 			y++;
 		}
-		final_str[count] = ' ';
-		count++;
+		if (str[i + 1] != NULL)
+		{
+			final_str[count] = ' ';
+			count++;
+		}
 		i++;
 	}
-	final_str[count] = 0;
+	final_str[count] = '\0';
 	return (final_str);
 }
 
-char	*transform_str(char *str)
+char	*transform_str(char *str, int status)
 {
 	int		i;
 	char	**split;
@@ -86,18 +94,24 @@ char	*transform_str(char *str)
 	char	*ret;
 
 	split = ft_strsplit(str, ' ');
-
 	i = 0;
 	while (split[i])
 	{
 		if (split[i][0] == '$')
 		{
-			env = get_env_variable(split[i] + 1);
-			printf("Env is %s\n", env);
-			if (env)
+			if (split[i][1] == '?')
 			{
 				free(split[i]);
-				split[i] = ft_strdup(env);
+				split[i] = ft_itoa(status);			
+			}
+			else
+			{
+				env = get_env_variable(split[i] + 1);
+				if (env)
+				{
+					free(split[i]);
+					split[i] = ft_strdup(env);
+				}
 			}
 		}
 		i++;

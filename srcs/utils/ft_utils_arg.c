@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:30:13 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/31 11:30:31 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/07 14:04:00 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,25 @@ int	ft_stock_i(char *str, int i)
 		i++;
 	}
 	return (i);
+}
+
+int	ft_check_chevron(char *str, int i, int c, t_arg *arg)
+{
+	ft_char(arg, c, '>', 2);
+	i++;
+	return (i);
+}
+
+int	ft_no(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i + 1] != '\0')
+		i++;
+	if (str[i] == '|')
+		return (-1);
+	else if (str[i] == '>' || str[i] == '<')
+		return (-2);
+	return (0);
 }

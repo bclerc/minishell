@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/31 12:04:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/07 15:59:37 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,34 @@
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 {
 	int		i;
+	int		j;
 	char	**cpy;
 	t_cmd	*tmp;
 
 	i = 0;
+	//cpy = NULL;
 	tmp = *cmd;
 	while (i < arg->count)
 	{
 		i = ft_cmd_i(arg, i);
 		cpy = ft_strsplit(arg->cmds[i], ' ');
-		if (cpy[0][0] == '\'' || cpy[0][0] == '"')
+		if (!cpy)
+			return (NULL);
+		if (cpy[0] && (cpy[0][0] == '\'' || cpy[0][0] == '"'))
 			cpy[0] = ft_cpy0(cpy[0], arg);
-		if (cpy[i] == NULL && i < arg->count)
+		j = 0;
+		if (cpy[j] == NULL && i < arg->count)
 		{
-			cpy[i] = ft_strdup(arg->cmds[i]);
-			if (!cpy[i])
+			cpy[j] = ft_strdup(arg->cmds[i]);
+			if (!cpy[j])
 				return (NULL);
 		}
 		arg->i_cpy = i++;
 		*cmd = ft_parse_cmd(arg, cpy, *cmd);
 		if (!*cmd)
 			return (NULL);
+		if (cpy)
+			free (cpy); // tq c pas nul : free?
 	}
 	return (*cmd);
 }
@@ -44,9 +51,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd)
 {
 	if (ft_strcmp(cpy[0], "echo") == 0)
-	{
 		return (ft_parse_echo(arg, cpy, cmd));
-	}
 	else if (ft_strcmp(cpy[0], "cd") == 0 || ft_strcmp(cpy[0], "pwd") == 0
 		|| ft_strcmp(cpy[0], "export") == 0
 		|| ft_strcmp(cpy[0], "unset") == 0

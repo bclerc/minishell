@@ -6,25 +6,48 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:43:44 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/29 16:36:38 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 19:27:11 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+int	random_char(void)
+{
+	char	*buff[4];
+	int		fd;
+	int		value;
+
+	fd = open("/dev/random", O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	read(fd, buff, 4);
+	value = *(int*)buff;
+	close(fd);
+	if (value < 0)
+		value = -value;
+	return ('a' + value % 26);
+}
+
 char	*random_name(void)
 {
-	char	*str;
+	char 	*random_str;
 	char	*tmp;
+	char	*path = "/tmp/.shell_";
 	int		i;
 
-	str = ft_itoa(getpid());
-	if (!str)
+	i = 0;
+	random_str = malloc(sizeof(char) * 8);
+	if (!random_str)
 		return (NULL);
-	str[0] = '.';
-	str[1] = 'M';
-	tmp = ft_strjoin("/tmp/", str);
-	free(str);
+	while (i < 7)
+	{
+		random_str[i] = random_char();
+		i++;
+	}
+	random_str[i] = '\0';
+	tmp = ft_strjoin(path, random_str);
+	free(random_str);
 	return (tmp);
 }
 

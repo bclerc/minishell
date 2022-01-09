@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/31 12:04:17 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 19:10:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 {
 	int		j;
+	int		tmp_nb;
 	t_cmd	*tmp;
 	t_cmd	*tmp2;
 	t_cmd	*new;
@@ -22,11 +23,19 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 	j = 0;
 	tmp = cmd;
 	tmp2 = cmd;
+	tmp_nb = 0;
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
+	new->redir = NULL;
 	if (!new)
 		return (NULL);
+	// new = ft_fill_builtin(cpy, new, arg);
+	// if (!new)
+	// 	return (NULL);
+	while (cpy[tmp_nb])
+		tmp_nb++;
+	new->cpy_nb = tmp_nb;
 	new->builtin = 1;
 	new->cmd = ft_strdup(cpy[j]);
 	j++;
@@ -59,6 +68,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 {
 	int		j;
+	int		tmp_nb;
 	t_cmd	*tmp;
 	t_cmd	*tmp2;
 	t_cmd	*new;
@@ -66,11 +76,16 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	j = 0;
 	tmp = cmd;
 	tmp2 = cmd;
+	tmp_nb = 0;
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
+	new->redir = NULL;
 	if (!new)
 		return (NULL);
+	while (cpy[tmp_nb])
+		tmp_nb++;
+	new->cpy_nb = tmp_nb;
 	new->builtin = 0;
 	new->cmd = ft_strdup(cpy[j]);
 	j++;

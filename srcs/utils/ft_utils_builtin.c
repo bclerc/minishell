@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_utils_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 12:13:52 by user42            #+#    #+#             */
-/*   Updated: 2022/01/08 16:04:24 by asgaulti         ###   ########.fr       */
+/*   Created: 2022/01/07 17:06:28 by asgaulti          #+#    #+#             */
+/*   Updated: 2022/01/07 17:17:57 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_arg(t_arg *arg)
+t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg)
 {
-	int	i;
-	int	c;
+	int	tmp_nb;
+	int	j;
 
-	i = 0;
-	c = arg->count;
-	while (i < c)
+	tmp_nb = 0;
+	j = 0;
+	while (cpy[tmp_nb])
+		tmp_nb++;
+	new->cpy_nb = tmp_nb;
+	new->builtin = 1;
+	new->cmd = ft_strdup(cpy[j]);
+	if (!new->cmd)
+		return (NULL);
+	j++;
+	ft_fill_std(arg, new);
+	if (!cpy[j])
+		new->msg = NULL;
+	else
 	{
-		printf("cmd p %p %s i %d\n", arg->cmds[i], arg->cmds[i], i);
-		free(arg->cmds[i]);
-		i++;
+		new->msg = ft_cpy_msg(arg, cpy, j, new);
+		if (!new->msg)
+			return (NULL);
 	}
-	if (arg->cmds)
-		free(arg->cmds);
+	new->spec = NULL;
+	new->next = NULL;
+	return (new);
 }

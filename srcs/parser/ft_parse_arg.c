@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2021/12/31 11:29:12 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/08 16:30:12 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg)
 
 	c = 0;
 	tmp = malloc(sizeof(char) * (i + 1));
+	if (!tmp)
+		return (NULL);
 	while (arg->start < i)
 	{
 		tmp[c] = str[arg->start];
@@ -51,29 +53,27 @@ int	ft_check_char(char *str, int i, int c, t_arg *arg)
 		else if (str[i] == '>' && str[i + 1] != '>')
 			ft_char(arg, c, '>', 1);
 	}
-	if (str[i + 1] == ' ')
-		i++;
+	i++;
+	// printf("str[%d] %c\n", i, str[i]);
 	return (i);
 }
 
 void	ft_char(t_arg *arg, int c, char s, int nb)
 {
 	if (nb == 1)
-		arg->cmds[c] = malloc(sizeof(char));
+	{
+		arg->cmds[c] = malloc(sizeof(char) + 1);
+		printf("p %p\n", arg->cmds[c]); 
+	}
 	else if (nb == 2)
-		arg->cmds[c] = malloc(sizeof(char) * 2);
+		arg->cmds[c] = malloc(sizeof(char) * 2 + 1);
 	if (!arg->cmds[c])
 		return ;
-	if (s == '|')
-		arg->cmds[c] = "|";
-	else if (s == '>' && nb == 2)
-		arg->cmds[c] = ">>";
-	else if (s == '>' && nb == 1)
-		arg->cmds[c] = ">";
-	else if (s == '<' && nb == 2)
-		arg->cmds[c] = "<<";
-	else if (s == '<' && nb == 1)
-		arg->cmds[c] = "<";
+	arg->cmds[c][0] = s;
+	if (nb == 2)
+		arg->cmds[c][1] = s;
+	arg->cmds[c][1 + (nb == 2)] = '\0';
+	//printf("p %p %s c %d \n", arg->cmds[c], arg->cmds[c], c);
 }
 
 char	*ft_nosep(int i, char *str, t_arg *arg)
