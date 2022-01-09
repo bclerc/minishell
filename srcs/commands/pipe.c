@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 18:27:13 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 19:18:58 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 	tmp = cmd;
 	while (tmp)
 	{
+		if (tmp->cmd == NULL)
+		{
+			tmp = tmp->next;
+			continue;
+		}
 		if (ft_strcmp(tmp->cmd, "exit") == 0)
 		{
 			if (!tmp->next)
