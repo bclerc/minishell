@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/09 15:50:16 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 18:35:12 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	minishell(void)
 	char	*prompt;
 	int		status;
 
-	tmp = cmd;
 	status = 0;
 	while (status != -1)
 	{
@@ -77,6 +76,7 @@ void	minishell(void)
     	cmd = ft_redir(cmd);
 		if (!cmd)
 			exit(0); // fct exit avec free
+		tmp = cmd;
 		cmd = dup_cmd(cmd);
 		status = m_pipe(cmd);
 		m_exit(tmp, M_EXIT_FORK, NULL);

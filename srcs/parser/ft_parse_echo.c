@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/07 18:33:49 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 18:34:09 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
+	new->redir = NULL;
 	if (!new)
 		return (NULL);
 	while (cpy[tmp_nb])

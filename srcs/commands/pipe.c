@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 14:42:29 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 18:27:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	get_in_fd(int *pipes, t_cmd *cmd, int i)
 	return (fd);
 }
 
-int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
+int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in, int nbpipes)
 {
 	char	*here_doc;
 	int		fd;
@@ -53,25 +53,26 @@ int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
 	if (fd < 0)
 	{
 		printf("Minishell: Error on open FD\n");
+		close_fd(pipes, nbpipes);
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
 }
 
-int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i)
+int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i, int nbpipes)
 {
 	int	fd;
 	fd = 0;
 	if (cmd != first_cmd || (cmd->redir && cmd->redir->fd_in))
 	{
-		fd = get_dup_fd(pipes, cmd, i, 1);
+		fd = get_dup_fd(pipes, cmd, i, 1, nbpipes);
 		if (dup2(fd, 0) <= -1)
 			perror("dup2 (in)");
 		close(fd);
 	}
 	if (cmd->next || (cmd->redir != NULL && cmd->redir->fd_out != NULL))
 	{
-		fd = get_dup_fd(pipes, cmd, i, 0);
+		fd = get_dup_fd(pipes, cmd, i, 0, nbpipes);
 		if (dup2(fd, 1) <= -1)
 			perror("dup2 (out)");
 		close(fd);
@@ -112,7 +113,7 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 			core->child = pid;
 			if (pid == 0)
 			{
-				set_in_out(pipes, tmp, cmd, i);
+				set_in_out(pipes, tmp, cmd, i, nbpipe);
 				close_fd(pipes, nbpipe);
 				ret = execute_commands(tmp);
 			}
@@ -132,11 +133,15 @@ int	m_pipe(t_cmd *cmd)
 	int		i;
 	int		status;
 
+	pipes = 0;
+	nbpipe = 0;
 	if ((ft_strcmp(cmd->cmd, "exit") == 0 && !cmd->next)
 		|| ft_strcmp(cmd->cmd, "cd") == 0)
 		return (execute_commands(cmd));
 	nbpipe = get_pipe_count(cmd);
 	pipes = (int *)malloc(sizeof(int) * (nbpipe * 2));
+	if (!pipes)
+		return (1);
 	open_pipe(pipes, nbpipe);
 	fork_cmd(pipes, cmd, nbpipe);
 	close_fd(pipes, nbpipe);

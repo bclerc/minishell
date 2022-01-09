@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/07 17:28:39 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 18:34:40 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
+	new->redir = NULL;
 	if (!new)
 		return (NULL);
 	// new = ft_fill_builtin(cpy, new, arg);
@@ -79,6 +80,7 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
+	new->redir = NULL;
 	if (!new)
 		return (NULL);
 	while (cpy[tmp_nb])

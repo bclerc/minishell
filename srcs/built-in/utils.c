@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 14:46:04 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 17:20:32 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	get_fd(char *path)
 	}
 	if (fd < 0)
 	{
-		printf("Something wrong (error: %d)...\n", fd);
+		printf("Something wrong (error: %d) : %s\n", fd, path);
 		perror("open: ");
-		exit (1);
+		exit (EXIT_FAILURE);
 	}
 	return (fd);
 }

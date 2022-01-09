@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/03 14:08:57 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 17:36:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,52 @@ void	del_cmd(t_cmd *cmd)
 	{
 		del_cmd(cmd->next);
 		if (cmd->msg != NULL)
+		{
+			ft_bzero(cmd->msg, ft_strlen(cmd->msg));
 			free(cmd->msg);
+		}
 		if (cmd->spec != NULL)
 			free(cmd->spec);
 		free(cmd);
 	}
 }
+
+void del_redir(t_redir *redir)
+{
+	int i;
+
+	if (redir == NULL)
+		return ;
+	if (!redir->next)
+	{
+		if (redir->fd_in)
+			free(redir->fd_in);;
+		if (redir->fd_out)
+			free(redir->fd_out);
+		free(redir);
+	}
+	else
+	{	
+		if (redir->next)
+		{
+			del_redir(redir->next);
+			if (redir->fd_in)
+				free(redir->fd_in);;
+			if (redir->fd_out)
+				free(redir->fd_out);
+			if (redir->next)
+				free(redir);
+		}
+	}
+}
+
 void	m_exit(t_cmd *cmd, int reason, char *function)
 {
 	t_redir	*redir;
 	t_cmd	*tmp;
 	int		i;
 
+	del_redir(cmd->redir);
 	del_cmd(cmd);
 	cmd = NULL;
 	if (reason != M_EXIT_FORK)
