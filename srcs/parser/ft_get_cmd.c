@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/09 15:46:25 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 17:43:06 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 {
 	int		i;
-	int		j;
 	char	**cpy;
 
 	i = 0;
@@ -28,11 +27,10 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 			return (NULL);
 		if (cpy[0] && (cpy[0][0] == '\'' || cpy[0][0] == '"'))
 			cpy[0] = ft_cpy0(cpy[0], arg);
-		j = 0;
-		if (cpy[j] == NULL && i < arg->count)
+		if (cpy[0] == NULL && i < arg->count)
 		{
-			cpy[j] = ft_strdup(arg->cmds[i]);
-			if (!cpy[j])
+			cpy[0] = ft_strdup(arg->cmds[i]);
+			if (!cpy[0])
 				return (NULL);
 		}
 		arg->i_cpy = i++;

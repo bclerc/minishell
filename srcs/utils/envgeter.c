@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envgeter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/08 16:29:02 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/09 16:57:32 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_count(char **str)
 		}
 		count++;
 		i++;
-}
+	}
 	return (count);
 }
 

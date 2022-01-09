@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/09 13:06:43 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 16:10:30 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ struct	s_arg
 {
 	char	**cmds;
 	int		i_cpy;
+	int		j;
 	int		count;
 	int		count_quote;
 	int		count_quotes;

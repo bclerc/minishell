@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/09 15:49:19 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 17:07:10 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	int		j;
+	// int		j;
 	int		tmp_nb;
 	t_cmd	*tmp;
-	t_cmd	*tmp2;
 	t_cmd	*new;
 
-	j = 0;
+	// j = 0;
 	tmp_nb = arg->i_cpy;
 	tmp = cmd;
-	tmp2 = cmd;
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
@@ -33,24 +31,25 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		tmp_nb++;
 	new->cpy_nb = tmp_nb;
 	new->builtin = 1;
-	new->cmd = ft_strdup(cpy[j]);
-	j++;
-	if (cpy[j])
+	new->cmd = ft_strdup(cpy[arg->j]);
+	arg->j++;
+	if (cpy[arg->j])
 	{
-		if (ft_strncmp(cpy[j], "-", 1) == 0)
+		//new = ft_fill_echo(cpy, arg, new);
+		if (ft_strncmp(cpy[arg->j], "-", 1) == 0)
 		{
-			if (ft_check_n(cpy, j, arg, new) == 1)
+			if (ft_check_n(cpy, arg->j, arg, new) == 1)
 				return (NULL);
-			j++;
-			if (cpy[j])
+			arg->j++;
+			if (cpy[arg->j])
 			{
-				new->msg = ft_cpy_msg(arg, cpy, j, new);
+				new->msg = ft_cpy_msg(arg, cpy, arg->j, new);
 				if (!new->msg)
 					return (NULL);
 			}	
-			else if (!cpy[j])
+			else if (!cpy[arg->j])
 			{
-				new->msg = NULL;
+				//new->msg = NULL;
 				new->next = NULL;
 				if (tmp == NULL)
 					tmp = new;
@@ -62,7 +61,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		else
 		{
 			new->spec = NULL;
-			new->msg = ft_cpy_msg(arg, cpy, j, new);
+			new->msg = ft_cpy_msg(arg, cpy, arg->j, new);
 			if (!new->msg)
 				return (NULL);
 		}	
@@ -78,21 +77,8 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		tmp = new;
 	}
 	else
-	{
-		cmd->next = new;
-		if (tmp2->next != NULL)
-		{
-			while (tmp2->next->next != NULL)
-			{
-				tmp2 = tmp2->next;	
-			}		
-			new->previous = tmp2;
-		}
-		// if (new->previous->std > 2 && new->previous->std <= 5)
-		// 	new = ft_redir(new);
-		cmd = new;
-	}
-	//printf("new1 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
+		cmd = ft_cmd_builtin(cmd, tmp, new);
+	printf("new1 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
 	return (tmp);
 }
 
