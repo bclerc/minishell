@@ -79,7 +79,7 @@ void	minishell(void)
 		tmp = cmd;
 		cmd = dup_cmd(cmd);
 		status = m_pipe(cmd);
-		m_exit(tmp, M_EXIT_FORK, NULL);
+		//m_exit(tmp, M_EXIT_FORK, NULL);
 	}
 	exit(EXIT_SUCCESS);
 }

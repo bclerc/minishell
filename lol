@@ -104,4 +104,4 @@ fclean: clean
 
 doclean: all clean
 
-re: fclean all
+re: fclean allfclean all
