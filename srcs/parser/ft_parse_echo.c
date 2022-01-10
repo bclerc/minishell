@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/09 19:29:47 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 11:14:48 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
 	new->redir = NULL;
+	new->msg = NULL;
+	new->spec = NULL;
 	if (!new)
 		return (NULL);
 	while (cpy[tmp_nb])
@@ -44,7 +46,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 			arg->j++;
 			if (cpy[arg->j])
 			{
-				new->msg = ft_cpy_msg(arg, cpy, arg->j, new);
+				new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
 				if (!new->msg)
 					return (NULL);
 			}	
@@ -62,7 +64,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 		else
 		{
 			new->spec = NULL;
-			new->msg = ft_cpy_msg(arg, cpy, arg->j, new);
+			new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
 			if (!new->msg)
 				return (NULL);
 		}	
@@ -79,7 +81,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	}
 	else
 		cmd = ft_cmd_builtin(cmd, tmp, new);
-	printf("new1 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
+	//printf("new1 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
 	return (tmp);
 }
 

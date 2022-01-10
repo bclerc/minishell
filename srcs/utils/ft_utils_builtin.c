@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:06:28 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/09 13:06:28 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/10 11:16:56 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg)
 		new->msg = NULL;
 	else
 	{
-		new->msg = ft_cpy_msg(arg, cpy, j, new);
+		new->msg = ft_strdup(ft_cpy_msg(arg, cpy, j, new));
 		if (!new->msg)
 			return (NULL);
 	}
@@ -58,7 +58,7 @@ t_cmd	*ft_fill_other(char **cpy, t_cmd *new, t_arg *arg)
 	if (!cpy[j])
 		new->msg = NULL;
 	else
-		new->msg = ft_cpy_msg(arg, cpy, j, new);
+		new->msg = ft_strdup(ft_cpy_msg(arg, cpy, j, new));
 	new->spec = NULL;
 	new->next = NULL;
 	return (new);
