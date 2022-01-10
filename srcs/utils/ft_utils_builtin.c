@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:06:28 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/07 17:17:57 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:06:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,40 @@ t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg)
 	new->spec = NULL;
 	new->next = NULL;
 	return (new);
+}
+
+t_cmd	*ft_fill_other(char **cpy, t_cmd *new, t_arg *arg)
+{
+	int	tmp_nb;
+	int	j;
+
+	tmp_nb = 0;
+	j = 0;
+	while (cpy[tmp_nb])
+		tmp_nb++;
+	new->cpy_nb = tmp_nb;
+	new->builtin = 0;
+	new->cmd = ft_strdup(cpy[j]);
+	j++;
+	ft_fill_std(arg, new);
+	if (!cpy[j])
+		new->msg = NULL;
+	else
+		new->msg = ft_cpy_msg(arg, cpy, j, new);
+	new->spec = NULL;
+	new->next = NULL;
+	return (new);
+}
+
+t_cmd	*ft_cmd_builtin(t_cmd *cmd, t_cmd *tmp, t_cmd *new)
+{
+	cmd->next = new;
+	if (tmp->next != NULL)
+	{
+		while (tmp->next->next != NULL)
+			tmp = tmp->next;
+		new->previous = tmp;
+	}
+	cmd = new;
+	return (cmd);
 }
