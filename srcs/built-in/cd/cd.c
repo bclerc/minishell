@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 11:25:37 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 12:10:23 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*get(char *path)
 			home = ft_strdup(get_env_variable("OLDPWD"));
 	}
 	else
-		home = path;
+		home = ft_strdup(path);
 	return (home);
 }
 
@@ -100,16 +100,22 @@ int	cd(char *path)
 		{
 			printf("cd: cannot access directory '%s': Permission denied\n",
 				path);
+			free(home);
 			return (126);
 		}
 		change_directory(home);
 	}
 	else if (path == NULL)
-		change_directory(ft_strdup(get_env_variable("HOME")));
+	{
+		home = ft_strdup(get_env_variable("HOME"));
+		change_directory(home);
+	}
 	else
 	{
 		printf("cd: no such file or directory: %s\n", home);
+		free(home);
 		return (1);
 	}
+	free(home);
 	return (0);
 }
