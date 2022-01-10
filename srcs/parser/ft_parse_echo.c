@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/09 19:29:47 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 12:25:55 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	}
 	else
 		cmd = ft_cmd_builtin(cmd, tmp, new);
-	printf("new1 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
+	//printf("new1 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
 	return (tmp);
 }
 

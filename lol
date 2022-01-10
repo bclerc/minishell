@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    lol                                                :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/09 19:30:23 by bclerc           ###   ########.fr        #
+#    Updated: 2022/01/09 19:14:59 by bclerc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,8 +67,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -g3
-CC = clang
+CFLAGS = -g3 
 
 .PHONY: all re clean fclean libft force doclean
 
@@ -105,4 +104,4 @@ fclean: clean
 
 doclean: all clean
 
-re: fclean all
+re: fclean allfclean all

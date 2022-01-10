@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/01/09 18:35:12 by bclerc           ###   ########.fr       */
-=======
-/*   Updated: 2022/01/09 13:42:02 by asgaulti         ###   ########.fr       */
->>>>>>> bc659bdd87e87e62b4fc8aafa733a8e192f61d96
+/*   Created: 2022/01/10 12:23:15 by asgaulti          #+#    #+#             */
+/*   Updated: 2022/01/10 12:27:38 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +79,7 @@ void	minishell(void)
 		tmp = cmd;
 		cmd = dup_cmd(cmd);
 		status = m_pipe(cmd);
-		m_exit(tmp, M_EXIT_FORK, NULL);
+		//m_exit(tmp, M_EXIT_FORK, NULL);
 	}
 	exit(EXIT_SUCCESS);
 }
