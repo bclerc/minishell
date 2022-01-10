@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 19:08:12 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 17:37:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	mul_redir(t_cmd *cmd)
 	while (tmp)
 	{
 		if (!tmp->next)
-			fd = get_fd(tmp->fd_out);
+			fd = get_fd(tmp->fd_out, tmp->std_redir);
 		else
 		{
-			fd = get_fd(tmp->fd_out);
+			fd = get_fd(tmp->fd_out, tmp->std_redir);
 			close(fd);
 		}
 		tmp = tmp->next;
@@ -44,7 +44,7 @@ int	mul_redir(t_cmd *cmd)
 	return (fd);
 }
 
-int	get_fd(char *path)
+int	get_fd(char *path, int append)
 {
 	struct stat	buffer;
 	int			fd;
@@ -54,8 +54,12 @@ int	get_fd(char *path)
 	{
 		if (access(path, F_OK))
 			fd = open(path, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+		else if (append == REDIR_APPEND_OUT)
+			fd = open(path, O_RDWR | O_APPEND);
+		else if (append == REDIR_OUT)
+			fd = open(path, O_RDWR | O_TRUNC);
 		else
-			fd = open(path, O_RDWR);
+			fd = open(path, O_RDONLY);
 	}
 	if (fd < 0)
 	{
