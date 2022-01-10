@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/09 19:29:28 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 16:12:47 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,9 +185,13 @@ char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
 t_cmd	*ft_redir(t_cmd *cmd);
 int		ft_exist(t_cmd *tmp);
+t_cmd	*ft_isredir(int exist, t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_fillin(t_cmd *cmd, t_redir *redir);
+t_cmd	*ft_util_in1(t_cmd *cmd);
+t_cmd	*ft_util_in2(t_redir *redir, t_cmd *cmd, char *fd_in, int std_in);
 t_cmd	*ft_fillout(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
+void	ft_util_out(t_redir *new, t_cmd *cmd);
 t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in);
 t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
 t_cmd	*ft_in(char *fd_in, char *msg, int std_in, t_cmd *tmp, t_redir *redir);
