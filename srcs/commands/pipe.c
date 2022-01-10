@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 15:29:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:32:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ int	m_pipe(t_cmd *cmd)
 		i++;
 	}
 	free(pipes);
+	pipes = NULL;
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))

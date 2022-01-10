@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
+#    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/10 17:49:22 by asgaulti         ###   ########.fr        #
+#    Updated: 2022/01/10 18:56:56 by bclerc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -g3
+CFLAGS = -g3 -fsanitize=address
 
 .PHONY: all re clean fclean libft force doclean
 

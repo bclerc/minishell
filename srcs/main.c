@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 15:05:15 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:59:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	minishell(void)
 		tmp = cmd;
 		cmd = dup_cmd(cmd);
 		status = m_pipe(cmd);
-		//m_exit(tmp, M_EXIT_FORK, NULL);
+		m_exit(tmp, M_EXIT_FORK, NULL);
 	}
 	exit(EXIT_SUCCESS);
 }

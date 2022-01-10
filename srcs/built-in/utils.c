@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 17:37:50 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:40:21 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	mul_redir(t_cmd *cmd)
 	while (tmp)
 	{
 		if (!tmp->next)
-			fd = get_fd(tmp->fd_out, tmp->std_redir);
+			fd = get_fd(tmp->fd_out, tmp->redir_std_out);
 		else
 		{
-			fd = get_fd(tmp->fd_out, tmp->std_redir);
+			fd = get_fd(tmp->fd_out, tmp->redir_std_out);
 			close(fd);
 		}
 		tmp = tmp->next;

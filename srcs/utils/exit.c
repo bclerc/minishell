@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 11:53:37 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:36:49 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ void	del_cmd(t_cmd *cmd)
 		del_cmd(cmd->next);
 		if (cmd->msg != NULL)
 		{
-			ft_bzero(cmd->msg, ft_strlen(cmd->msg));
 			free(cmd->msg);
 		}
-		 if (cmd->cmd)
+		if (cmd->cmd)
 		 	free(cmd->cmd);
 		free(cmd);
 	}
@@ -78,6 +77,7 @@ void	m_exit(t_cmd *cmd, int reason, char *function)
 	int		i;
 
 	del_redir(cmd->redir);
+	printf("JE SUIS BIEN ICI\n");
 	del_cmd(cmd);
 	cmd = NULL;
 	if (reason != M_EXIT_FORK)
