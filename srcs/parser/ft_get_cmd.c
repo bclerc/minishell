@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/09 17:43:06 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/10 11:48:46 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 		if (!*cmd)
 			return (NULL);
 		if (cpy)
-			free (cpy); // tq c pas nul : free?
+			rm_split(cpy); // tq c pas nul : free? Bah non mdr
 	}
 	return (*cmd);
 }

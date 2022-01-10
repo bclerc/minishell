@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:23:17 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 17:11:58 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 11:08:22 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	echo(t_cmd *cmd)
 	char *str;
 
 	str = cmd->msg;
-	if (isalpha(str[0]))
+	if (str)
 		write(1, str, ft_strlen(str));
 	if (!cmd->spec)
 		write(1, "\n", 1);
