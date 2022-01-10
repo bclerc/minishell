@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 15:20:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:43:42 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ struct	s_arg
 	int		pos_i;
 	int		n;
 	int		q;
+	int		c;
+	int		i;
 	char	*spec_n;
 	char	*tmp;
 };
@@ -115,7 +117,7 @@ t_list	*ft_get_env(t_list *env, char **envp);
 // init
 char	*ft_init_env(char **envp, t_list *env, int count);
 void	ft_init_arg(t_arg *cmd, char *str);
-int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
+int		ft_init_cmd(t_cmd **cmd, t_arg *arg);
 int		ft_init_redir(t_redir *redir);
 
 // parsing

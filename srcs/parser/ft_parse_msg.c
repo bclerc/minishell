@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_msg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/10 11:17:14 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:54:24 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp)
 		start = ft_strlen(cpy[0]) + 1;
 		tmp = ft_other_msg(arg, start, tmp);
 	}	
-	else if (j == 1 || j == 2)		
+	else if (j == 1 || j == 2)
 		tmp = ft_which_nb(start, tmp, arg);
 	return (tmp);
 }
@@ -109,7 +109,7 @@ char	*ft_check_tmp(char *tmp, int pos_st, char *str, int i)
 	else if (!tmp)
 	{
 		str = ft_special_cat(str, tmp, i, 0);
-		free (tmp); // ou str a free plus tard? vu que tmp est null
+		free (tmp);
 	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 10:02:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 17:36:24 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/10 18:36:35 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_init_arg(t_arg *arg, char *str)
 		arg->count = 1;
 }
 
-int	ft_init_cmd(t_cmd *cmd, t_arg *arg)
+int	ft_init_cmd(t_cmd **cmd, t_arg *arg)
 {
 	(void)arg;
 	ft_bzero(cmd, sizeof(t_cmd));

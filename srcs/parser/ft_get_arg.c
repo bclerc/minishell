@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/09 19:29:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:46:03 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,36 +73,29 @@ int	ft_count_arg(char *str, t_arg *arg)
 // + check args (quotes, no sep)
 int	ft_stock_arg(t_arg *arg, char *str)
 {
-	int		c;
-	int		i;
-	int		size;
-
-	c = 0;
-	i = 0;
 	arg->cmds = malloc(sizeof(char *) * (arg->count));
 	if (!arg->cmds)
 		return (1);
-	size = ft_strlen(str);
-	while (i < size)
+	while (arg->i < ft_strlen(str))
 	{
-		i = ft_stock_i(str, i);
-		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+		arg->i = ft_stock_i(str, arg->i);
+		if (str[arg->i] == '<' || str[arg->i] == '>' || str[arg->i] == '|')
 		{
-			arg->cmds[c] = ft_parse_arg(str, i - 1, arg);
-			if (!arg->cmds[c])
+			arg->cmds[arg->c] = ft_parse_arg(str, arg->i - 1, arg);
+			if (!arg->cmds[arg->c])
 				return (1);
-			c++;
-			i = ft_check_char(str, i, c, arg);
-			if (i == -1)
+			arg->c++;
+			arg->i = ft_check_char(str, arg->i, arg->c, arg);
+			if (arg->i == -1)
 				return (1);
-			arg->start = i;
-			if (c < arg->count - 1)
-				c++;
+			arg->start = arg->i;
+			if (arg->c < arg->count - 1)
+				arg->c++;
 		}
-		i++;
+		arg->i++;
 	}
-	if (c != arg->count)
-		arg->cmds[c] = ft_nosep(i, str, arg);
+	if (arg->c != arg->count)
+		arg->cmds[arg->c] = ft_nosep(arg->i, str, arg);
 	return (0);
 }
 
