@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/10 11:45:01 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 17:48:58 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,65 +14,20 @@
 
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	// int		j;
-	int		tmp_nb;
 	t_cmd	*tmp;
 	t_cmd	*new;
 
-	// j = 0;
-	tmp_nb = arg->i_cpy;
 	tmp = cmd;
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
-	new = malloc(sizeof(t_cmd));
-	new->redir = NULL;
-	new->msg = NULL;
-	new->spec = NULL;
+	new = ft_fill_echo1(new, arg, cpy);
 	if (!new)
 		return (NULL);
-	while (cpy[tmp_nb])
-		tmp_nb++;
-	new->cpy_nb = tmp_nb;
-	new->builtin = 1;
-	new->cmd = ft_strdup(cpy[arg->j]);
-	arg->j++;
 	if (cpy[arg->j])
-	{
-		//new = ft_fill_echo(cpy, arg, new);
-		if (ft_strncmp(cpy[arg->j], "-", 1) == 0)
-		{
-			if (ft_check_n(cpy, arg->j, arg, new) == 1)
-				return (NULL);
-			arg->j++;
-			if (cpy[arg->j])
-			{
-				new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
-				if (!new->msg)
-					return (NULL);
-			}	
-			else if (!cpy[arg->j])
-			{
-				//new->msg = NULL;
-				new->next = NULL;
-				if (tmp == NULL)
-					tmp = new;
-				else
-					cmd->next = new;
-				return (tmp);
-			}
-		}
-		else
-		{
-			new->spec = NULL;
-			new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
-			if (!new->msg)
-				return (NULL);
-		}	
-	}
-	if (arg->i_cpy == arg->count - 1)
-		new->std = 0;
-	else if (arg->i_cpy < arg->count)
-		new->std = ft_std(arg, arg->i_cpy + 1);
+		new = ft_fill_echo2(cpy, arg, new);
+	if (!new)
+		return (NULL);
+	new->std = ft_fill_echostd(arg, new);
 	new->next = NULL;
 	if (tmp == NULL)
 	{
@@ -81,7 +36,6 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	}
 	else
 		cmd = ft_cmd_builtin(cmd, tmp, new);
-	//printf("new1 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
 	return (tmp);
 }
 
@@ -104,4 +58,59 @@ int	ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new)
 	}
 	new->spec = "-n";
 	return (0);
+}
+
+t_cmd	*ft_fill_echo1(t_cmd *new, t_arg *arg, char **cpy)
+{
+	int		tmp_nb;
+
+	new = malloc(sizeof(t_cmd));
+	if (!new)
+		return (NULL);
+	tmp_nb = arg->i_cpy;
+	new->redir = NULL;
+	new->msg = NULL;
+	new->spec = NULL;
+	while (cpy[tmp_nb])
+		tmp_nb++;
+	new->cpy_nb = tmp_nb;
+	new->builtin = 1;
+	new->cmd = ft_strdup(cpy[arg->j]);
+	if (!new->cmd)
+		return (NULL);
+	arg->j++;
+	return (new);
+}
+
+t_cmd	*ft_fill_echo2(char **cpy, t_arg *arg, t_cmd *new)
+{
+	if (ft_strncmp(cpy[arg->j], "-", 1) == 0)
+	{
+		if (ft_check_n(cpy, arg->j, arg, new) == 1)
+			return (NULL);
+		arg->j++;
+		if (cpy[arg->j])
+		{
+			new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
+			if (!new->msg)
+				return (NULL);
+		}	
+	}
+	else
+	{
+		new->spec = NULL;
+		new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
+		if (!new->msg)
+			return (NULL);
+	}
+	return (new);
+}
+
+int	ft_fill_echostd(t_arg *arg, t_cmd *new)
+{
+	if (arg->i_cpy == arg->count - 1)
+		new->std = 0;
+	else if (arg->i_cpy < arg->count)
+		new->std = ft_std(arg, arg->i_cpy + 1);
+	return (new->std);
 }

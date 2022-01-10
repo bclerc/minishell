@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
+#    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/10 11:51:13 by bclerc           ###   ########.fr        #
+#    Updated: 2022/01/10 17:49:22 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,7 @@ GREEN = \033[1;32m
 
 SOURCES =	srcs/main.c \
 			srcs/ft_init.c \
-			srcs/utils/envgeter.c \
 			srcs/parser/ft_get_arg.c\
-			srcs/utils/ft_utils.c \
 			srcs/parser/ft_parse_arg.c \
 			srcs/parser/ft_parser.c \
 			srcs/parser/ft_get_cmd.c \
@@ -38,6 +36,8 @@ SOURCES =	srcs/main.c \
 			srcs/parser/ft_spec.c \
 			srcs/parser/ft_redir.c \
 			srcs/parser/ft_inandout.c \
+			srcs/utils/envgeter.c \
+			srcs/utils/ft_utils.c \
 			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/prompts.c \
 			srcs/utils/env_variable.c \
@@ -46,7 +46,8 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_strtrim.c \
 			srcs/utils/ft_util_parsemsg.c \
 			srcs/utils/exit.c \
-			srcs/utils/ft_utils_redir.c \
+			srcs/utils/ft_utils_redir_in.c \
+			srcs/utils/ft_utils_redir_out.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
 			srcs/utils/ft_utils_builtin.c \
