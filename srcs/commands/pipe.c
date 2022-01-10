@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/09 19:18:58 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 11:59:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int	m_pipe(t_cmd *cmd)
 
 	pipes = 0;
 	nbpipe = 0;
+	status = 0;
 	if ((ft_strcmp(cmd->cmd, "exit") == 0 && !cmd->next)
 		|| ft_strcmp(cmd->cmd, "cd") == 0)
 		return (execute_commands(cmd));

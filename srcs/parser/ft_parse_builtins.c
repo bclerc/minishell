@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/09 19:29:43 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 11:54:17 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	while (cmd != NULL && cmd->next != NULL)
 		cmd = cmd->next;
 	new = malloc(sizeof(t_cmd));
-	new->redir = NULL;
 	if (!new)
 		return (NULL);
+	new->msg = NULL;
+	new->redir = NULL;
 	new = ft_fill_other(cpy, new, arg);
 	if (tmp == NULL)
 	{

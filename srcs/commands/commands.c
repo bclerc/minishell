@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/08 18:09:39 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 11:35:57 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*read_folder(DIR *pdir, char *path, t_cmd *cmd)
 	{
 		if (ft_strcmp(cmd->cmd, pdirent->d_name) == 0)
 		{
-			closedir(pdir);
 			tmp = ft_strjoin(path, "/");
 			ret = ft_strjoin(tmp, cmd->cmd);
 			free(tmp);
@@ -53,11 +52,13 @@ char	*get_executable_path(t_cmd *cmd)
 			ret = read_folder(pdir, path[i], cmd);
 			if (ret)
 			{
+				closedir(pdir);
 				rm_split(path);
 				return (ret);
 			}
 		}
 		i++;
+		closedir(pdir);
 	}
 	rm_split(path);
 	return (cmd->cmd);
