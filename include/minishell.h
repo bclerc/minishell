@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 16:12:47 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/10 17:44:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_list	*ft_get_env(t_list *env, char **envp);
 // init
 char	*ft_init_env(char **envp, t_list *env, int count);
 void	ft_init_arg(t_arg *cmd, char *str);
-int		ft_init_cmd(t_cmd **cmd, t_arg *arg);
+int		ft_init_cmd(t_cmd *cmd, t_arg *arg);
 int		ft_init_redir(t_redir *redir);
 
 // parsing
@@ -146,6 +146,10 @@ int		ft_check_redir(t_arg *arg, int i);
 char	*ft_cmd_quotes(char *cpy);
 t_cmd	*ft_parse_cmd(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd);
+t_cmd	*ft_fill_echo1(t_cmd *new, t_arg *arg, char **cpy);
+t_cmd	*ft_fill_echo2(char **cpy, t_arg *arg, t_cmd *new);
+int		ft_fill_echostd(t_arg *arg, t_cmd *new);
+
 int		ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new);
 t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd);
 t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg);

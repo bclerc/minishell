@@ -6,7 +6,7 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/10 17:49:22 by asgaulti         ###   ########.fr        #
+#    Updated: 2022/01/10 17:21:55 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
 			srcs/utils/ft_utils_builtin.c \
+			srcs/utils/ft_utils_echo.c \
 			srcs/commands/commands.c \
 			srcs/commands/commands_utils.c \
 			srcs/commands/pipe.c \

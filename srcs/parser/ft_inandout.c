@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inandout.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 13:28:55 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/09 19:29:38 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 17:03:27 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 		tmp = tmp->next;
 	while (tmp && tmp->previous != NULL)
 	{
-		while (tmp->previous != NULL && (tmp->previous->std >= 2 && tmp->previous->std <= 5))
+		while (tmp->previous != NULL && (tmp->previous->std >= 2
+				&& tmp->previous->std <= 5))
 		{
 			if ((tmp->previous->std == 4 || tmp->previous->std == 5) && !fd_in)
 			{
@@ -36,7 +37,8 @@ t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 				if (tmp->previous->msg)
 					msg = tmp->previous->msg;
 			}
-			else if ((tmp->previous->std == 4 || tmp->previous->std == 5) && fd_in)
+			else if ((tmp->previous->std == 4 || tmp->previous->std == 5)
+				&& fd_in)
 				tmp->cmd = NULL;
 			tmp = tmp->previous;
 		}
