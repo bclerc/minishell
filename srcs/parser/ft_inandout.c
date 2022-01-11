@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 13:28:55 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 17:03:27 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:44:50 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,89 +14,37 @@
 
 t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 {
-	char	*fd_in;
-	char	*msg;
-	int		std_in;
-	t_cmd	*cpy;
+	t_data	*data;
 
-	fd_in = NULL;
-	cpy = NULL;
-	msg = NULL;
-	while (tmp && tmp->next != NULL)
-		tmp = tmp->next;
-	while (tmp && tmp->previous != NULL)
+	data = ft_init_data(data);
+	if (!data)
+		return (NULL);
+	while (tmp && tmp->prev != NULL)
 	{
-		while (tmp->previous != NULL && (tmp->previous->std >= 2
-				&& tmp->previous->std <= 5))
+		while (tmp->prev && (tmp->prev->std >= 2 && tmp->prev->std <= 5))
 		{
-			if ((tmp->previous->std == 4 || tmp->previous->std == 5) && !fd_in)
-			{
-				fd_in = tmp->cmd;
-				tmp->cmd = NULL;
-				std_in = tmp->previous->std;
-				if (tmp->previous->msg)
-					msg = tmp->previous->msg;
-			}
-			else if ((tmp->previous->std == 4 || tmp->previous->std == 5)
-				&& fd_in)
-				tmp->cmd = NULL;
-			tmp = tmp->previous;
+			data = ft_check_in(tmp, data);
+			tmp = tmp->prev;
 		}
 		if (tmp->std != 0)
 			cmd = tmp;
-		if (fd_in)
-		{
-			tmp = ft_in(fd_in, msg, std_in, tmp, redir);
-			if (!tmp)
-				return (NULL);
-			cpy = tmp;
-			while (cpy->next != NULL && (cpy->std >= 2 && cpy->std <= 5))
-			{
-				if ((cpy->std == 2 || cpy->std == 3) && fd_in)
-				{
-					tmp->redir->fd_out = cpy->next->cmd;
-					cpy->next->cmd = NULL;
-					tmp->redir->redir_std_out = cpy->std;
-					tmp->redir->next = NULL;
-					fd_in = NULL;
-				}
-				else if ((cpy->std == 2 || cpy->std == 3) && !fd_in)
-				{
-					if (tmp->redir->redir_msg)
-						msg = tmp->redir->redir_msg;
-					tmp->redir = ft_out(cpy, tmp->redir, msg);
-				}
-				cpy = cpy->next;
-			}
-			//printf("tmp in %s out %s std %d msg %s\n", tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_in, tmp->redir->redir_msg);
-		}
-		else if (!fd_in)
-		{
-			redir = NULL;
-			tmp->redir = NULL;
-			cpy = tmp;
-			while (cpy->next != NULL && (cpy->std == 2 || cpy->std == 3))
-			{
-				tmp->redir = ft_out(cpy, tmp->redir, msg);
-				cpy = cpy->next;
-			}
-			//printf("tmp %p in %s out %s std %d msg %s\n", tmp->redir, tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_out, tmp->redir->redir_msg);
-		}
-		if (!tmp->previous)
+		tmp = ft_util_inout(data, tmp, redir);
+		if (!tmp->prev)
 			break ;
-		tmp = tmp->previous;
+		tmp = tmp->prev;
 	}
+	free (data);
 	return (tmp);
 }
 
-t_cmd	*ft_in(char *fd_in, char *msg, int std_in, t_cmd *tmp, t_redir *redir)
+t_cmd	*ft_in(t_data *data, t_cmd *tmp, t_redir *redir)
 {
 	tmp->redir = malloc(sizeof(t_redir));
 	if (!tmp->redir)
 		return (NULL);
 	ft_init_redir(tmp->redir);
-	tmp->redir->fd_in = fd_in;
-	tmp->redir->redir_std_in = std_in;
+	tmp->redir->fd_in = data->fd_in;
+	tmp->redir->redir_std_in = data->std_in;
 	if (tmp->msg)
 		tmp->redir->redir_msg = tmp->msg;
 	return (tmp);

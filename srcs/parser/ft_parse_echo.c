@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/10 17:48:58 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 14:03:46 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 	new->next = NULL;
 	if (tmp == NULL)
 	{
-		new->previous = NULL;
+		new->prev = NULL;
 		tmp = new;
 	}
 	else

@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parser.c                                        :+:      :+:    :+:   */
+/*   ft_inout.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 11:29:13 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 12:09:04 by bclerc           ###   ########.fr       */
+/*   Created: 2022/01/11 13:56:36 by asgaulti          #+#    #+#             */
+/*   Updated: 2022/01/11 14:27:36 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// launch parsing
-// init struct arg & cmd
-t_cmd	*ft_launch_parser(char *str, t_cmd **cmd)
+t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 {
-	int		i;
-	t_arg	arg;
+	t_cmd	*cpy;
+	t_data	*data;
 
-	i = 0;
-	if (ft_get_arg(str, &arg) == -1)
-		return (NULL);
-	if (ft_init_cmd(cmd, &arg) < 0)
-		return (NULL);
-	*cmd = ft_get_cmd(&arg, cmd);
-	if (!*cmd)
-		return (NULL);
-	ft_free_arg(&arg);
-	return (*cmd);
+	ft_bzero(data, sizeof(t_data));
+	while (tmp && tmp->prev != NULL)
+	{
+		while (tmp->prev && (tmp->prev->std >= 2 && tmp->prev->std <= 5))
+			data = ft_check_in(tmp, data);
+	}
+	printf("data fd %s std %d msg %s\n", data->fd_in, data->std_in, data->msg);
+	return (NULL);
+}
+
+t_data	*ft_check_in(t_cmd *tmp, t_data *data)
+{
+	
 }

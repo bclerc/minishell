@@ -75,11 +75,13 @@ t_cmd	*ft_isredir(int exist, t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 	}
 	else if (exist == 3)
 	{
-		tmp = ft_inout(tmp, cmd, redir);
-		if (!tmp)
+		while (tmp && tmp->next != NULL)
+			tmp = tmp->next;
+		cmd = ft_inout(tmp, cmd, redir);
+		if (!cmd)
 			return (NULL);
-		tmp = cmd;
-		return (tmp);
+		// tmp = cmd;
+		// return (tmp);
 	}
 	return (cmd);
 }

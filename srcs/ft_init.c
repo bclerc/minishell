@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 10:02:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 17:36:24 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 15:36:58 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,18 @@ void	ft_init_arg(t_arg *arg, char *str)
 		arg->count = 1;
 }
 
-int	ft_init_cmd(t_cmd *cmd, t_arg *arg)
+t_data	*ft_init_data(t_data *data)
+{
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	data->fd_in = NULL;
+	data->msg = NULL;
+	data->std_in = 0;
+	return (data);
+}
+
+int	ft_init_cmd(t_cmd **cmd, t_arg *arg)
 {
 	(void)arg;
 	ft_bzero(cmd, sizeof(t_cmd));

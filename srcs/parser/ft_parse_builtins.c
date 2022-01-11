@@ -29,12 +29,11 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 		return (NULL);
 	if (tmp == NULL)
 	{
-		new->previous = NULL;
+		new->prev = NULL;
 		tmp = new;
 	}
 	else
 		cmd = ft_cmd_builtin(cmd, tmp, new);
-	//printf("new2 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
 	return (tmp);
 }
 
@@ -54,12 +53,11 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	new = ft_fill_other(cpy, new, arg);
 	if (tmp == NULL)
 	{
-		new->previous = NULL;
+		new->prev = NULL;
 		tmp = new;
 	}
 	else
 		cmd = ft_cmd_builtin(cmd, tmp, new);
-	//printf("new3 = %s sp %s msg = %s std = %d\n", new->cmd, new->spec, new->msg, new->std);
 	return (tmp);
 }
 

@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
 /*   Updated: 2022/01/11 12:10:12 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:53:21 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +16,29 @@
 // ft_utils_cmd.c for aux fcts
 t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 {
-	int		i;
 	char	**cpy;
 
-	i = 0;
-	while (i < arg->count)
+	arg->i = 0;
+	while (arg->i < arg->count)
 	{
-		i = ft_cmd_i(arg, i);
-		cpy = ft_strsplit(arg->cmds[i], ' ');
+		arg->i = ft_cmd_i(arg, arg->i);
+		cpy = ft_strsplit(arg->cmds[arg->i], ' ');
 		if (!cpy)
 			return (NULL);
 		if (cpy[0] && (cpy[0][0] == '\'' || cpy[0][0] == '"'))
 			cpy[0] = ft_cpy0(cpy[0], arg);
-		if (cpy[0] == NULL && i < arg->count)
+		if (cpy[0] == NULL && arg->i < arg->count)
 		{
-			cpy[0] = ft_strdup(arg->cmds[i]);
+			cpy[0] = ft_strdup(arg->cmds[arg->i]);
 			if (!cpy[0])
 				return (NULL);
 		}
-		arg->i_cpy = i++;
+		arg->i_cpy = arg->i++;
 		*cmd = ft_parse_cmd(arg, cpy, *cmd);
 		if (!*cmd)
 			return (NULL);
 		if (cpy)
-			rm_split(cpy); // tq c pas nul : free? Bah non mdr
+			rm_split(cpy);
 	}
 	return (*cmd);
 }

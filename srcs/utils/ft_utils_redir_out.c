@@ -22,7 +22,7 @@ t_cmd	*ft_fillout(t_cmd *tmp, t_redir *redir)
 		{
 			cmd = tmp;
 			tmp = tmp->next;
-			while (tmp->previous->std == 2 || tmp->previous->std == 3)
+			while (tmp->prev->std == 2 || tmp->prev->std == 3)
 			{
 				cmd->redir = ft_create_out(tmp, cmd->redir);
 				if (!cmd->redir)
@@ -55,11 +55,11 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 		return (0);
 	ft_init_redir(new);
 	ft_util_out(new, cmd);
-	if (cmd->previous->msg)
+	if (cmd->prev->msg)
 	{
-		new->redir_msg = cmd->previous->msg;
+		new->redir_msg = cmd->prev->msg;
 		if (cmd->std == 2 || cmd->std == 3)
-			cmd->msg = cmd->previous->msg;
+			cmd->msg = cmd->prev->msg;
 	}
 	new->next = NULL;
 	if (tmp == NULL)
@@ -71,8 +71,8 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 
 void	ft_util_out(t_redir *new, t_cmd *cmd)
 {
-	new->redir_std_out = cmd->previous->std;
-	cmd->previous->std = 0;
+	new->redir_std_out = cmd->prev->std;
+	cmd->prev->std = 0;
 	new->fd_out = cmd->cmd;
 	cmd->cmd = NULL;
 }
