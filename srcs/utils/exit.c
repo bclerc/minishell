@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 18:36:49 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 16:58:33 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,6 @@ void	del_env(void)
 }
 
 // del tout le maillon, pas uniquement msg et spec a priori
-void	del_cmd(t_cmd *cmd)
-{
-	if (cmd != NULL)
-	{
-		del_cmd(cmd->next);
-		if (cmd->msg != NULL)
-		{
-			free(cmd->msg);
-		}
-		if (cmd->cmd)
-		 	free(cmd->cmd);
-		free(cmd);
-	}
-}
 
 void del_redir(t_redir *redir)
 {
@@ -47,26 +33,33 @@ void del_redir(t_redir *redir)
 
 	if (redir == NULL)
 		return ;
-	if (!redir->next)
+	if (redir->next)
+		del_redir(redir->next);
+	if (redir->fd_in)
+		free(redir->fd_in);;
+	if (redir->fd_out)
+		free(redir->fd_out);
+	free(redir);	
+}
+
+void	del_cmd(t_cmd *cmd)
+{
+	if (cmd != NULL)
 	{
-		if (redir->fd_in)
-			free(redir->fd_in);;
-		if (redir->fd_out)
-			free(redir->fd_out);
-		free(redir);
-	}
-	else
-	{	
-		if (redir->next)
-		{
-			del_redir(redir->next);
-			if (redir->fd_in)
-				free(redir->fd_in);;
-			if (redir->fd_out)
-				free(redir->fd_out);
-			if (redir->next)
-				free(redir);
-		}
+		if (cmd->next)
+			del_cmd(cmd->next);
+		del_redir(cmd->redir);
+		if (cmd->msg != NULL)
+			free(cmd->msg);
+		if (cmd->cmd != NULL)
+		 	free(cmd->cmd);
+		cmd->next = NULL;
+		cmd->cmd = NULL;
+		cmd->previous = NULL;
+		cmd->msg = NULL;
+		cmd->redir = NULL;
+		cmd->spec = NULL;
+		free(cmd);
 	}
 }
 
@@ -76,8 +69,6 @@ void	m_exit(t_cmd *cmd, int reason, char *function)
 	t_cmd	*tmp;
 	int		i;
 
-	del_redir(cmd->redir);
-	printf("JE SUIS BIEN ICI\n");
 	del_cmd(cmd);
 	cmd = NULL;
 	if (reason != M_EXIT_FORK)

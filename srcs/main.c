@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 18:59:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 16:57:04 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	minishell(void)
 		}
 		str = ft_strdup(rd);
 		if (!str)
+		{
+			free(rd);
 			break ;
+		}
 		free(rd);
 		add_history(str);
 		rd = transform_str(str, status);
@@ -76,11 +79,12 @@ void	minishell(void)
     	cmd = ft_redir(cmd);
 		if (!cmd)
 			exit(0); // fct exit avec free
-		tmp = cmd;
-		cmd = dup_cmd(cmd);
-		status = m_pipe(cmd);
+		tmp = dupp_cmd(cmd);
+		status = m_pipe(tmp);
 		m_exit(tmp, M_EXIT_FORK, NULL);
 	}
+	del_env();
+	free(core);
 	exit(EXIT_SUCCESS);
 }
 

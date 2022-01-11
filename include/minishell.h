@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 15:20:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 14:19:26 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int		ft_which_cmd(char **cpy);
 char	**env_to_char(void);
 int		get_env(char **envp);
 int		del_env_variable(char *var);
+void	del_env(void);
 
 char	*ft_msg(t_arg *arg, int start, char *tmp);
 char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
@@ -251,5 +252,5 @@ int		echo(t_cmd *cmd);
 int		env(char *path);
 int		pwd(char *path);
 int		cd(char *path);
-
+t_cmd *dupp_cmd(t_cmd *cmd);
 #endif

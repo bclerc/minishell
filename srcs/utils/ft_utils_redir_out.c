@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_redir_out.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:14:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 16:14:58 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:37:33 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir)
 	while (redir && redir->next != NULL)
 		redir = redir->next;
 	new = malloc(sizeof(t_redir));
+	printf("MALLOC\n");
 	if (!new)
 		return (0);
 	ft_init_redir(new);

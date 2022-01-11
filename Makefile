@@ -6,7 +6,7 @@
 #    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/10 18:56:56 by bclerc           ###   ########.fr        #
+#    Updated: 2022/01/11 16:11:12 by bclerc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_arg.c \
 			srcs/utils/ft_utils_builtin.c \
 			srcs/commands/commands.c \
+			srcs/commands/dup_cmd.c \
 			srcs/commands/commands_utils.c \
 			srcs/commands/pipe.c \
 			srcs/commands/pipe_utils.c \
