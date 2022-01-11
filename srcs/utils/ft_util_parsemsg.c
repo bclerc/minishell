@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_util_parsemsg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:38:22 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/09 17:22:39 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 20:39:24 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char	*ft_special_cat(char *str, char *tmp, int i, int ret)
 		new = ft_retneg(i, str, tmp, new);
 	else
 		new = ft_retnoneg(i, str, tmp, new);
-	free (str);
 	return (new);
 }
 

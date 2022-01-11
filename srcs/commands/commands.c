@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 11:36:04 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 18:01:17 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ char	*get_executable_path(t_cmd *cmd)
 	char			*ret;
 	int				i;
 
-	path = ft_strsplit(get_env_variable("PATH"), ':');
-	if (!path)
+	ret = get_env_variable("PATH");
+	if (!ret)
 		return (NULL);
+	path = ft_strsplit(ret, ':');
 	i = 0;
 	while (path[i])
 	{

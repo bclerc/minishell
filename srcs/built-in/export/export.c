@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 17:43:00 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 18:43:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	export(char *path, char *args)
 
 	(void)path;
 	if (args)
-		return (export_add(path));
+		return (export_add(args));
 	i = 0;
 	fd = 1;
 	env = core->env;

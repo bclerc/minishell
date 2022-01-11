@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 16:58:33 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 17:48:07 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	del_cmd(t_cmd *cmd)
 		 	free(cmd->cmd);
 		cmd->next = NULL;
 		cmd->cmd = NULL;
-		cmd->previous = NULL;
 		cmd->msg = NULL;
 		cmd->redir = NULL;
 		cmd->spec = NULL;
