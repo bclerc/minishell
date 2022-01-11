@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 11:35:16 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 21:14:22 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ char	**env_to_char(void)
 
 	count = 0;
 	env = core->env;
+	if (!env)
+		add_env_variable(getcwd(0, 0));
+	env = core->env;
 	while (env->next)
 	{
 		count++;
@@ -43,12 +46,11 @@ char	**env_to_char(void)
 	if (!char_env)
 		return (NULL);
 	env = core->env;
-	i = 0;
-	while (i < count)
+	i = -1;
+	while (++i < count)
 	{
 		char_env[i] = ft_strdup(env->value);
 		env = env->next;
-		i++;
 	}
 	char_env[i] = NULL;
 	return (char_env);
@@ -97,7 +99,9 @@ int	del_env_variable(char *var)
 				core->env = tmp;
 			ft_bzero(tmp->value, ft_strlen(tmp->value));
 			free(tmp->value);
+			tmp->value = NULL;
 			free(tmp);
+			tmp = NULL;
 			return (1);
 		}
 		last = tmp;
@@ -133,6 +137,8 @@ char	*get_env_variable(char *var)
 	int		i;
 
 	tmp = core->env;
+	if (!tmp)
+		return (NULL);
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)

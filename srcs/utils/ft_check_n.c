@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_n.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 17:09:05 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/09 17:15:27 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 21:13:23 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_check_n(char *str)
 					return (ft_print("Error in specification\n", -1) && NULL);
 			}
 			tmp[i++] = "-n";
-			while (ft_strcmp(tmp[i], "-n") == 0) // a revoir
+			while (ft_strcmp(tmp[i], "-n") == 0)
 				tmp[i++] = NULL;
 		}
 	}

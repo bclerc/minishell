@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_inout.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:52:06 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/11 16:07:27 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 21:13:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ t_cmd	*ft_util_inout(t_data *data, t_cmd *tmp, t_redir *redir)
 			tmp->redir = ft_out(cpy, tmp->redir, data->msg);
 			cpy = cpy->next;
 		}
-			//printf("tmp %p in %s out %s std %d msg %s\n", tmp->redir, tmp->redir->fd_in, tmp->redir->fd_out, tmp->redir->redir_std_out, tmp->redir->redir_msg);
 	}
 	return (tmp);
 }
