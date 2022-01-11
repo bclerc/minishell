@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 17:37:50 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 16:55:21 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	get_fd(char *path, int append)
 		else if (append == REDIR_OUT)
 			fd = open(path, O_RDWR | O_TRUNC);
 		else
-			fd = open(path, O_RDONLY);
+			fd = open(path, O_RDWR);
 	}
 	if (fd < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/10 18:46:03 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 17:12:12 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_count_arg(char *str, t_arg *arg)
 				|| ((str[i] == '>' && str[i + 1] != '>')
 					|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|'))
 			&& i == 0)
-			return (ft_print("There is no command here...\n", -1) & -1);
+			return (-1);
 		i++;
 	}
 	if (i == 0)

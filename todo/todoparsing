@@ -19,6 +19,9 @@ ls | cat | cat | cat | cat | cat -e | grep srcs < Makefile
 echo co < Makefile | wc < l< lol
 > plus de segfault mais pas bon result (ouiiiiiin)
 
+echo co | cat -e > p < srcs/main.c > l
+> ok
+
 pb de unconditionnal jump dans getcmd
 >ok
 
