@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/10 18:53:45 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 14:04:00 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 		return (NULL);
 	if (tmp == NULL)
 	{
-		new->previous = NULL;
+		new->prev = NULL;
 		tmp = new;
 	}
 	else
@@ -53,7 +53,7 @@ t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 	new = ft_fill_other(cpy, new, arg);
 	if (tmp == NULL)
 	{
-		new->previous = NULL;
+		new->prev = NULL;
 		tmp = new;
 	}
 	else

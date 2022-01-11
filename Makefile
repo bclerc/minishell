@@ -6,7 +6,7 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/10 17:49:22 by asgaulti         ###   ########.fr        #
+#    Updated: 2022/01/11 15:54:40 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/exit.c \
 			srcs/utils/ft_utils_redir_in.c \
 			srcs/utils/ft_utils_redir_out.c \
+			srcs/utils/ft_utils_inout.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
 			srcs/utils/ft_utils_builtin.c \

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 18:43:42 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 15:53:07 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ struct s_cmd
 	char	*msg;
 	int		std;
 	t_redir	*redir;
-	t_cmd	*previous;
+	t_cmd	*prev;
 	t_cmd	*next;
 };
 
@@ -110,6 +110,15 @@ struct	s_arg
 	char	*tmp;
 };
 
+typedef struct s_data t_data;
+
+struct s_data
+{
+	char	*fd_in;
+	char	*msg;
+	int		std_in;
+};
+
 int		main(int ac, char **av, char **envp);
 char	*readline(const char *prompt);
 t_list	*ft_get_env(t_list *env, char **envp);
@@ -119,6 +128,7 @@ char	*ft_init_env(char **envp, t_list *env, int count);
 void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd **cmd, t_arg *arg);
 int		ft_init_redir(t_redir *redir);
+t_data	*ft_init_data(t_data *data);
 
 // parsing
 t_cmd	*ft_launch_parser(char *str, t_cmd **cmd);
@@ -200,8 +210,12 @@ t_redir	*ft_create_out(t_cmd *cmd, t_redir *redir);
 void	ft_util_out(t_redir *new, t_cmd *cmd);
 t_cmd	*ft_fillinout(t_cmd *tmp, t_redir *redir, char *in, int std_in);
 t_cmd	*ft_inout(t_cmd *tmp, t_cmd *cmd, t_redir *redir);
-t_cmd	*ft_in(char *fd_in, char *msg, int std_in, t_cmd *tmp, t_redir *redir);
+t_cmd	*ft_in(t_data *data, t_cmd *tmp, t_redir *redir);
 t_redir	*ft_out(t_cmd *cmd, t_redir *redir, char *msg);
+t_data	*ft_check_in(t_cmd *tmp, t_data *data);
+t_cmd	*ft_util_inout(t_data *data, t_cmd *tmp, t_redir *redir);
+
+int		ft_recup_in(char **fd_in, t_cmd *tmp, int std_in);
 t_redir	*ft_create_out2(char *in, int std_in, t_cmd *cmd, t_redir *redir);
 
 t_redir	*ft_create_redir(t_cmd *tmp, t_cmd *cmd, t_redir *redir);

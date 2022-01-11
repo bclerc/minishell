@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:06:28 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/10 11:16:56 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 14:04:57 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_cmd	*ft_cmd_builtin(t_cmd *cmd, t_cmd *tmp, t_cmd *new)
 	{
 		while (tmp->next->next != NULL)
 			tmp = tmp->next;
-		new->previous = tmp;
+		new->prev = tmp;
 	}
 	cmd = new;
 	return (cmd);

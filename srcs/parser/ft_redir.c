@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/10 16:15:04 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 14:02:13 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ t_cmd	*ft_isredir(int exist, t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 	}
 	else if (exist == 3)
 	{
-		tmp = ft_inout(tmp, cmd, redir);
-		if (!tmp)
+		while (tmp && tmp->next != NULL)
+			tmp = tmp->next;
+		cmd = ft_inout(tmp, cmd, redir);
+		if (!cmd)
 			return (NULL);
-		tmp = cmd;
-		return (tmp);
+		// tmp = cmd;
+		// return (tmp);
 	}
 	return (cmd);
 }
