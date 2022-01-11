@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 14:05:38 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 16:07:55 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 17:21:22 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_cmd *dupp_cmd(t_cmd *cmd)
 		next = cmd->next;
 		if (cmd->cmd != NULL)
 		{
-			printf("CMD CMD IS = %s\n", cmd->cmd);
 			new = (t_cmd *)malloc(sizeof(t_cmd));
 			if (cmd->msg)
 				new->msg = ft_strdup(cmd->msg);
@@ -62,14 +61,10 @@ t_cmd *dupp_cmd(t_cmd *cmd)
 				cmd->cmd = NULL;
 			}
 			free(cmd);
-			cmd = next;
 		}
 		else
-		{
-
 			free(cmd);
-			cmd = next;
-		}
+		cmd = next;
 	}
 	return (ret);
 }
