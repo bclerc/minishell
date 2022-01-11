@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 11:35:57 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 11:36:04 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int	exec(t_cmd *cmd)
 	path = get_executable_path(cmd);
 	if ((status = execve(path, argv, tab_env)) < 0)
 	{
-		printf("%s: command not found\n", cmd->cmd);
+		write(2, cmd->cmd, ft_strlen(cmd->cmd));
+		write(2, " command not found\n", 19);
+		rm_split(argv);
+		rm_split(tab_env);
 		exit(127);
 	}
 	rm_split(argv);

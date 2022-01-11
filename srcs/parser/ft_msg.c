@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_msg.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/09 13:37:28 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:36:36 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*ft_other_msg(t_arg *arg, int start, char *tmp)
 	int	a;
 
 	size = ft_strlen(arg->cmds[arg->i_cpy]);
+	free(tmp);
 	tmp = malloc(sizeof(char) * (size - start + 1));
 	if (!tmp)
 		return (NULL);

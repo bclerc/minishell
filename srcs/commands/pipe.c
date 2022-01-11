@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 15:29:41 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 14:20:00 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,19 @@ int is_forkable(t_cmd *cmd)
 	return (1);
 }
 
+t_cmd *get_next(t_cmd *cmd)
+{
+	t_cmd *tmp;
+
+	tmp = cmd;
+	while (tmp)
+	{
+		if (tmp->msg != NULL)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
 int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 {
 	t_cmd	*tmp;
@@ -99,11 +112,6 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 	tmp = cmd;
 	while (tmp)
 	{
-		if (tmp->cmd == NULL)
-		{
-			tmp = tmp->next;
-			continue;
-		}
 		if (ft_strcmp(tmp->cmd, "exit") == 0)
 		{
 			if (!tmp->next)
@@ -158,6 +166,7 @@ int	m_pipe(t_cmd *cmd)
 		i++;
 	}
 	free(pipes);
+	pipes = NULL;
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))

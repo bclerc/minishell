@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 12:01:29 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 17:43:00 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ int	export_add(char *argv)
 	char	**args;
 	int		b;
 
+	if (!ft_strchr(argv, '='))
+		return (0);
 	args = ft_strsplit(argv, ' ');
 	b = 0;
 	while (args[b])
 	{
+		del_env_variable(args[b]);
 		add_env_variable(args[b]);
 		b++;
 	}
@@ -36,10 +39,7 @@ int	export(char *path, char *args)
 
 	(void)path;
 	if (args)
-	{
-		if (export_add(args) == -1)
-			return (-1);
-	}
+		return (export_add(path));
 	i = 0;
 	fd = 1;
 	env = core->env;

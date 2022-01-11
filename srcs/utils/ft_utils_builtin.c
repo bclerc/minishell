@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:06:28 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/11 14:04:57 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:34:15 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_cmd	*ft_fill_other(char **cpy, t_cmd *new, t_arg *arg)
 {
 	int	tmp_nb;
 	int	j;
+	char *test;
 
 	tmp_nb = 0;
 	j = 0;
@@ -58,7 +59,10 @@ t_cmd	*ft_fill_other(char **cpy, t_cmd *new, t_arg *arg)
 	if (!cpy[j])
 		new->msg = NULL;
 	else
-		new->msg = ft_strdup(ft_cpy_msg(arg, cpy, j, new));
+	{
+		test = ft_cpy_msg(arg, cpy, j, new);
+		new->msg = ft_strdup(test);
+	}
 	new->spec = NULL;
 	new->next = NULL;
 	return (new);

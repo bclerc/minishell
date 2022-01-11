@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:13:16 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/07 13:22:09 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/11 12:49:08 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	ft_cmd_i(t_arg *arg, int i)
 
 char	*ft_cpy0(char *cpy, t_arg *arg)
 {
-	cpy = ft_strsub(cpy, 1, ft_strlen(cpy) - 2);
+	char *tmp;
+	tmp = cpy;
+	cpy = ft_strsub(tmp, 1, ft_strlen(tmp) - 2);
+	free(tmp);
 	if (!cpy)
 		return (NULL);
 	arg->q = 1;
