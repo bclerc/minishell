@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/07 17:06:28 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/11 16:34:15 by bclerc           ###   ########.fr       */
+/*   Created: 2022/01/11 21:11:09 by bclerc            #+#    #+#             */
+/*   Updated: 2022/01/11 21:11:39 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_cmd	*ft_fill_builtin(char **cpy, t_cmd *new, t_arg *arg)
 
 t_cmd	*ft_fill_other(char **cpy, t_cmd *new, t_arg *arg)
 {
-	int	tmp_nb;
-	int	j;
-	char *test;
+	char	*test;
+	int		tmp_nb;
+	int		j;
 
 	tmp_nb = 0;
 	j = 0;

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 20:31:58 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 21:06:32 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*transform_str(char *str, int status)
 			if (split[i][1] == '?')
 			{
 				free(split[i]);
-				split[i] = ft_itoa(status);			
+				split[i] = ft_itoa(status);
 			}
 			else
 			{

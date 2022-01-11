@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:09:19 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 13:43:22 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 21:16:44 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_cmd	*dup_cmd(t_cmd *cmd)
 	t_cmd	*tmp;
 	t_cmd	*last;
 	int		i;
-	
+
 	tmp = cmd;
 	last = cmd;
 	while (tmp)

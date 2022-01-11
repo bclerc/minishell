@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 17:48:07 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 21:09:43 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,19 @@ void	del_env(void)
 	}
 }
 
-// del tout le maillon, pas uniquement msg et spec a priori
-
-void del_redir(t_redir *redir)
+void	del_redir(t_redir *redir)
 {
-	int i;
+	int	i;
 
 	if (redir == NULL)
 		return ;
 	if (redir->next)
 		del_redir(redir->next);
 	if (redir->fd_in)
-		free(redir->fd_in);;
+		free(redir->fd_in);
 	if (redir->fd_out)
 		free(redir->fd_out);
-	free(redir);	
+	free(redir);
 }
 
 void	del_cmd(t_cmd *cmd)
@@ -52,7 +50,7 @@ void	del_cmd(t_cmd *cmd)
 		if (cmd->msg != NULL)
 			free(cmd->msg);
 		if (cmd->cmd != NULL)
-		 	free(cmd->cmd);
+			free(cmd->cmd);
 		cmd->next = NULL;
 		cmd->cmd = NULL;
 		cmd->msg = NULL;
@@ -64,7 +62,7 @@ void	del_cmd(t_cmd *cmd)
 
 void	m_exit(t_cmd *cmd, int reason, char *function)
 {
-	t_redir	*redir;
+	t_redir	redir;
 	t_cmd	*tmp;
 	int		i;
 

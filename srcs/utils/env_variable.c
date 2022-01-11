@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 18:10:28 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 21:14:22 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ char	**env_to_char(void)
 	if (!char_env)
 		return (NULL);
 	env = core->env;
-	i = 0;
-	while (i < count)
+	i = -1;
+	while (++i < count)
 	{
 		char_env[i] = ft_strdup(env->value);
 		env = env->next;
-		i++;
 	}
 	char_env[i] = NULL;
 	return (char_env);

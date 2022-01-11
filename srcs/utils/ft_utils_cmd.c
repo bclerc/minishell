@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:13:16 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/11 12:49:08 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 21:12:46 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_cmd_i(t_arg *arg, int i)
 
 char	*ft_cpy0(char *cpy, t_arg *arg)
 {
-	char *tmp;
+	char	*tmp;
+
 	tmp = cpy;
 	cpy = ft_strsub(tmp, 1, ft_strlen(tmp) - 2);
 	free(tmp);
