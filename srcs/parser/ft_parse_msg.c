@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_msg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/12 13:49:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 17:58:06 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 	{
 		if (str[arg->pos_i] == '\'' || str[arg->pos_i] == '"')
 			str = ft_check_quotes(str, arg, tmp, size);
-		//printf("str %s\n", str);
 		if (!str)
 			return (NULL);
 		arg->pos_i++;
