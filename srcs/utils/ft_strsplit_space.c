@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 10:46:29 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 17:25:11 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 18:35:32 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static	int	ft_count_words(const char *str, char *set)
 	return (word);
 }
 
-static	char	*ft_word(const char *str, char *set, int *i)
+static	char	*ft_word(const char *str, char *set, int *i, int status)
 {
 	char	*s;
 	int		k;
@@ -48,7 +48,7 @@ static	char	*ft_word(const char *str, char *set, int *i)
 	else if (*i != 0)
 		save = str[*i - 1];
 	s = fill(str, set, i);
-	replace_var(save, &s);
+	replace_var(save, &s, status);
 	if (!s)
 		return (NULL);
 	while (is_in_set(str[*i], set) && str[*i])
@@ -56,7 +56,7 @@ static	char	*ft_word(const char *str, char *set, int *i)
 	return (s);
 }
 
-char	**ft_strsplit_s(const char *str, char *set)
+char	**ft_strsplit_s(const char *str, char *set, int status)
 {
 	int		i;
 	int		j;
@@ -73,7 +73,7 @@ char	**ft_strsplit_s(const char *str, char *set)
 		i++;
 	while (j < wrd && str[i])
 	{
-		s[j] = ft_word(str, set, &i);
+		s[j] = ft_word(str, set, &i, status);
 		j++;
 	}
 	s[j] = NULL;

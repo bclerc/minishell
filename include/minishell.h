@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 19:06:35 by asgaulti         ###   ########.fr       */
+/*   Created: 2022/01/12 19:59:55 by asgaulti          #+#    #+#             */
+/*   Updated: 2022/01/12 19:59:59 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,8 +242,8 @@ int		get_env_length(char **env);
 int		ft_havechr(char *str, char c);
 void	rm_split(char **split);
 char	*fill(const char *str, char *set, int *i);
-void	replace_var(char save, char **s);
-char	**ft_strsplit_s(const char *str, char *set);
+void	replace_var(char save, char **s, int status);
+char	**ft_strsplit_s(const char *str, char *set, int status);
 char	*transform_str(char *str, int status);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);
