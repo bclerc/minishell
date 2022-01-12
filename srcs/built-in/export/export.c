@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:14:55 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:47:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 18:36:26 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	export_add(char *argv)
 
 	if (!ft_strchr(argv, '='))
 		return (0);
-	args = ft_strsplit_s(argv, "^=");
+	args = ft_strsplit_s(argv, "^=", 0);
 	b = 0;
 	i = 0;
 	while (args[b])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 17:25:22 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:47:10 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ t_core	*g_core;
 void	signal_handler(int signum)
 {
 	if (signum == SIGQUIT)
-	{
-		if (g_core->child_exist)
-			return ;
+	{	
+		
 		return ;
 	}
 	if (signum == SIGINT)
@@ -31,7 +30,7 @@ void	signal_handler(int signum)
 		}
 		else
 		{
-			printf("\n");
+			write(1, "\n", 1);
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
@@ -99,7 +98,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	g_core->parent = getpid();
 	minishell();
 	return (0);
