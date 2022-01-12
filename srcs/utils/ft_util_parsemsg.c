@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:38:22 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/12 16:17:28 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:31:00 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,34 +111,6 @@ char	*ft_cut_quote(char *str, int start, int end)
 	while (start <= end)
 		dest[i++] = str[start++];
 	if (i < size - 1)
-	{
-		while (i < size)
-		{
-			dest[i] = str[start + 1];
-			start++;
-			i++;
-		}
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char	*ft_cut_quote_export(char *str, int start, int end)
-{
-	char	*dest;
-	int		size;
-	int		i;
-
-	size = ft_strlen(str) - start;
-	i = 0;
-	dest = malloc(sizeof(char) * (size + 2));
-	if (!dest)
-		return (NULL);
-	while (start <= end)
-		dest[i++] = str[start++];
-	dest[i] = '^';
-	i++;
-	if (i < size -1)
 	{
 		while (i < size)
 		{

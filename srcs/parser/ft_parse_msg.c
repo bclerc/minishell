@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/12 13:49:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 18:06:05 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 	{
 		if (str[arg->pos_i] == '\'' || str[arg->pos_i] == '"')
 			str = ft_check_quotes(str, arg, tmp, size);
-		//printf("str %s\n", str);
 		if (!str)
 			return (NULL);
 		arg->pos_i++;
@@ -55,48 +54,9 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 	int		pos_end;
 	int		i;
 
-	i = arg->pos_i;
-	pos_st = i + 1;
-	i++;
-	if (!str)
-		return (str);
-	while (str[i] != '\'')
-	{
-		if (str[i] == '"')
-			arg->count_quotes++;
-		i++;
-	}
-	if (arg->count_quotes % 2 != 0)
-		return (ft_print("There is an error with quotes\n", -1), NULL);
+	pos_st = arg->pos_i + 1;
+	i = ft_i_quote(i, arg, str);
 	pos_end = i - 1;
-	arg->pos_i = i;
-	if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) != 0)
-		tmp = ft_cut_quote(str, pos_st, pos_end);
-	else if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) == 0)
-		tmp = ft_cut_quote_export(str, pos_st, pos_end);
-	str = ft_check_tmp(tmp, pos_st, str, i);
-	return (str);
-}
-
-char	*ft_dq(t_arg *arg, char *str, char *tmp)
-{
-	int		pos_st;
-	int		pos_end;
-	int		i;
-
-	i = arg->pos_i;
-	pos_st = i + 1;
-	i++;
-	while (str[i] != '"')
-	{
-		if (str[i] == '\'')
-			arg->count_quote++;
-		i++;
-	}
-	if (arg->count_quote % 2 != 0)
-		return (ft_print("There is an error with quotes", -1), NULL);
-	pos_end = i - 1;
-	arg->pos_i = i;
 	if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) != 0)
 	{
 		tmp = ft_cut_quote(str, pos_st, pos_end);
@@ -109,6 +69,42 @@ char	*ft_dq(t_arg *arg, char *str, char *tmp)
 			str = ft_special_cat_export(str, tmp, pos_st - 1, -1);
 		else
 			str = ft_special_cat_export(str, tmp, i + 1, 0);
+		if (!str)
+			return (NULL);
+		free (tmp);
+	}
+	// if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) != 0)
+	// 	tmp = ft_cut_quote(str, pos_st, pos_end);
+	// else if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) == 0)
+	// 	tmp = ft_cut_quote_export(str, pos_st, pos_end);
+	// str = ft_check_tmp(tmp, pos_st, str, i);
+	return (str);
+}
+
+char	*ft_dq(t_arg *arg, char *str, char *tmp)
+{
+	int		pos_st;
+	int		pos_end;
+	int		i;
+
+	pos_st = arg->pos_i + 1;
+	i = ft_i_quotes(i, arg, str);
+	pos_end = i - 1;
+	if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) != 0)
+	{
+		tmp = ft_cut_quote(str, pos_st, pos_end);
+		str = ft_check_tmp(tmp, pos_st, str, i);
+	}
+	else if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) == 0)
+	{
+		tmp = ft_cut_quote_export(str, pos_st, pos_end);
+		if (pos_st != 1)
+			str = ft_special_cat_export(str, tmp, pos_st - 1, -1);
+		else
+			str = ft_special_cat_export(str, tmp, i + 1, 0);
+		if (!str)
+			return (NULL);
+		free (tmp);
 	}	
 	return (str);
 }
