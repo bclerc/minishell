@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 18:05:09 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:24:49 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,26 @@
 # define M_EXIT_MALLOC_ERROR 1
 # define M_EXIT_SUCCESS 2
 # define M_EXIT_FORK 3
+
 typedef struct s_env
 {
 	char			*value;
 	struct s_env	*next;	
-}				t_env;
+}						t_env;
+
 typedef struct s_core
 {
 	t_env	*env;
 	pid_t	parent;
 	pid_t	child;
 	int		child_exist;
-}				t_core;
+}						t_core;
 
-extern t_core *core;
+extern t_core			*g_core;
 
 //liste chainee pour stocker env
-typedef struct s_list t_list;
+typedef struct s_list	t_list;
+
 struct s_list
 {
 	char	*content;
@@ -61,7 +64,7 @@ struct s_list
 };
 
 // liste chainee redirection
-typedef struct s_redir t_redir;
+typedef struct s_redir	t_redir;
 struct s_redir
 {
 	int		std_redir;
@@ -75,7 +78,8 @@ struct s_redir
 };
 
 // liste chainee pour stocker cmds
-typedef struct s_cmd t_cmd;
+typedef struct s_cmd	t_cmd;
+
 struct s_cmd
 {
 	int		cpy_nb;
@@ -90,7 +94,7 @@ struct s_cmd
 };
 
 // struct recuperant les cmds envoyees par l'user
-typedef struct s_arg t_arg;
+typedef struct s_arg	t_arg;
 struct	s_arg
 {
 	char	**cmds;
@@ -111,7 +115,7 @@ struct	s_arg
 	char	*tmp;
 };
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 struct s_data
 {
@@ -202,7 +206,6 @@ int		get_env(char **envp);
 int		del_env_variable(char *var);
 void	del_env(void);
 
-
 // redir
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);
 t_cmd	*ft_redir(t_cmd *cmd);
@@ -230,12 +233,16 @@ t_redir	*ft_left(t_cmd *cmd, t_redir *redir);
 t_redir	*ft_newredir(t_redir *new, int i);
 int		mul_redir(t_cmd *cmd);
 // utils
+
+int		is_in_set(char c, char *set);
 int		random_char(void);
 void	m_exit(t_cmd *cmd, int reason, char *function);
 void	change_env(char	**new_env);
 int		get_env_length(char **env);
 int		ft_havechr(char *str, char c);
 void	rm_split(char **split);
+char	*fill(const char *str, char *set, int *i);
+void	replace_var(char save, char **s);
 char	**ft_strsplit_s(const char *str, char *set);
 char	*transform_str(char *str, int status);
 int		ft_print(char *str, int res);
@@ -277,5 +284,6 @@ int		echo(t_cmd *cmd);
 int		env(char *path);
 int		pwd(char *path);
 int		cd(char *path);
-t_cmd *dupp_cmd(t_cmd *cmd);
+t_cmd	*dupp_cmd(t_cmd *cmd);
+
 #endif

@@ -12,21 +12,21 @@
 
 #include "../include/minishell.h"
 
-t_core *core;
+t_core	*g_core;
 
 void	signal_handler(int signum)
 {
 	if (signum == SIGQUIT)
 	{
-		if (core->child_exist)
+		if (g_core->child_exist)
 			return ;
 		return ;
 	}
 	if (signum == SIGINT)
 	{
-		if (core->child_exist)
+		if (g_core->child_exist)
 		{
-			if (core->child == 0)
+			if (g_core->child == 0)
 				exit(-1);
 		}
 		else
@@ -39,11 +39,27 @@ void	signal_handler(int signum)
 	}
 }
 
+int	start(char *str)
+{
+	t_cmd	*cmd;
+	t_cmd	*tmp;
+	int		status;
+
+	cmd = ft_launch_parser(str, &cmd);
+	if (!cmd)
+		exit(0);
+	cmd = ft_redir(cmd);
+	if (!cmd)
+		exit(0);
+	tmp = dupp_cmd(cmd);
+	status = m_pipe(tmp);
+	free(str);
+	m_exit(tmp, M_EXIT_FORK, NULL);
+	return (status);
+}
+
 void	minishell(void)
 {
-	t_cmd	*tmp;
-	t_cmd	*cmd;
-	char	*str;
 	char	*rd;
 	char	*prompt;
 	int		status;
@@ -63,46 +79,28 @@ void	minishell(void)
 				status = -1;
 			continue ;
 		}
-		str = ft_strdup(rd);
-		if (!str)
-		{
-			free(rd);
-			break ;
-		}
-		free(rd);
-		add_history(str);
-		rd = transform_str(str, status);
-		//printf("str : %s\n", rd);
-    	cmd = ft_launch_parser(rd, &cmd);
-		free(rd);
-		if (!cmd)
-			exit(0); // fct exit avec free
-    	cmd = ft_redir(cmd);
-		if (!cmd)
-			exit(0); // fct exit avec free
-		tmp = dupp_cmd(cmd);
-		status = m_pipe(tmp);
-		m_exit(tmp, M_EXIT_FORK, NULL);
+		add_history(rd);
+		status = start(transform_str(rd, status));
 	}
 	del_env();
-	free(core);
+	free(g_core);
 	exit(EXIT_SUCCESS);
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	(void)av;
-	core = (t_core *)malloc(sizeof(t_core));
-	if (!core)
+	g_core = (t_core *)malloc(sizeof(t_core));
+	if (!g_core)
 		return (0);
-	core->child_exist = 0;
-	core->env = NULL;
+	g_core->child_exist = 0;
+	g_core->env = NULL;
 	get_env(envp);
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	core->parent = getpid();
+	g_core->parent = getpid();
 	minishell();
 	return (0);
 }

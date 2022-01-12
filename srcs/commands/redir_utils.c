@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:43:44 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/10 15:26:15 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 17:46:05 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	random_char(void)
 	if (fd < 0)
 		return (-1);
 	read(fd, buff, 4);
-	value = *(int*)buff;
+	value = *(int *)buff;
 	close(fd);
 	if (value < 0)
 		value = -value;
@@ -31,12 +31,13 @@ int	random_char(void)
 
 char	*random_name(void)
 {
-	char 	*random_str;
+	char	*random_str;
 	char	*tmp;
-	char	*path = "/tmp/.shell_";
+	char	*path;
 	int		i;
 
 	i = 0;
+	path = "/tmp/.shell_\0";
 	random_str = malloc(sizeof(char) * 8);
 	if (!random_str)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:19:51 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 17:56:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	get_in_fd(int *pipes, t_cmd *cmd, int i)
 	return (fd);
 }
 
-int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in, int nbpipes)
+int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in)
 {
 	char	*here_doc;
 	int		fd;
@@ -54,7 +54,7 @@ int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in, int nbpipes)
 	if (fd < 0)
 	{
 		printf("Minishell: Error on open FD\n");
-		close_fd(pipes, nbpipes);
+		close_fd(pipes, cmd->std);
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
@@ -64,17 +64,18 @@ int	set_in_out(int *pipes, t_cmd *cmd, int i, int nbpipes)
 {
 	int	fd;
 
+	cmd->std = nbpipes;
 	fd = 0;
 	if (i > 0 || (cmd->redir && cmd->redir->fd_in))
 	{
-		fd = get_dup_fd(pipes, cmd, i, 1, nbpipes);
+		fd = get_dup_fd(pipes, cmd, i, 1);
 		if (dup2(fd, 0) <= -1)
 			perror("dup2 (in)");
 		close(fd);
 	}
 	if (cmd->next || (cmd->redir != NULL && cmd->redir->fd_out != NULL))
 	{
-		fd = get_dup_fd(pipes, cmd, i, 0, nbpipes);
+		fd = get_dup_fd(pipes, cmd, i, 0);
 		if (dup2(fd, 1) <= -1)
 			perror("dup2 (out)");
 		close(fd);

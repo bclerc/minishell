@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 21:09:43 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:47:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	del_env(void)
 {
 	t_env	*tmp;
 
-	while (core->env)
+	while (g_core->env)
 	{
-		tmp = core->env->next;
-		free(core->env->value);
-		free(core->env);
-		core->env = tmp;
+		tmp = g_core->env->next;
+		free(g_core->env->value);
+		free(g_core->env);
+		g_core->env = tmp;
 	}
 }
 
