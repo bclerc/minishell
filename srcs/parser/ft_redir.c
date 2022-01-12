@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:55:07 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/11 12:13:46 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 10:39:11 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ t_cmd	*ft_isredir(int exist, t_cmd *tmp, t_cmd *cmd, t_redir *redir)
 		cmd = ft_inout(tmp, cmd, redir);
 		if (!cmd)
 			return (NULL);
-		// tmp = cmd;
-		// return (tmp);
 	}
 	return (cmd);
 }

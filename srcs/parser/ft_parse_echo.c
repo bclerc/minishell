@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/11 14:03:46 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 11:51:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new)
 		j++;
 	}
 	new->spec = "-n";
+	arg->spec_n = 1;
 	return (0);
 }
 
