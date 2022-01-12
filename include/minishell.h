@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 11:47:40 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 10:47:48 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void	change_env(char	**new_env);
 int		get_env_length(char **env);
 int		ft_havechr(char *str, char c);
 void	rm_split(char **split);
-char	**ft_strsplit_s(char const *s, char c);
+char	**ft_strsplit_s(const char *str, char *set);
 char	*transform_str(char *str, int status);
 int		ft_print(char *str, int res);
 t_list	*ft_lstnew(void *content);

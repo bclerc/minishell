@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_msg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/10 18:54:24 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:56:04 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 	i = arg->pos_i;
 	pos_st = i + 1;
 	i++;
+	if (!str)
+		return (str);
 	while (str[i] != '\'')
 	{
 		if (str[i] == '"')
