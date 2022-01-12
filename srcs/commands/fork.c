@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:18:03 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:25:35 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:29:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	execute(t_cmd *tmp, int i, int nbpipe, int *pipes)
 		close_fd(pipes, nbpipe);
 		ret = execute_commands(tmp);
 	}
+	return (ret);
 }
 
 int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)

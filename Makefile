@@ -35,7 +35,6 @@ SOURCES =	srcs/main.c \
 			srcs/utils/exit.c \
 			srcs/utils/ft_utils_redir_in.c \
 			srcs/utils/ft_utils_redir_out.c \
-			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/ft_utils_inout.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
