@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
+#    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/11 20:34:08 by bclerc           ###   ########.fr        #
+#    Updated: 2022/01/12 10:46:08 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ SOURCES =	srcs/main.c \
 			srcs/parser/ft_inandout.c \
 			srcs/utils/envgeter.c \
 			srcs/utils/ft_utils.c \
-			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/prompts.c \
 			srcs/utils/env_variable.c \
 			srcs/utils/ft_free.c \
@@ -70,7 +69,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -g3 -fsanitize=address
+CFLAGS = -g3 
 
 .PHONY: all re clean fclean libft force doclean
 

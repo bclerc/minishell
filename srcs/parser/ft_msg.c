@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_msg.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:10:09 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/11 16:36:36 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 11:51:03 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ char	*ft_which_nb(int start, char *tmp, t_arg *arg)
 {
 	if (start == 1)
 	{
-		if (!arg->spec_n && arg->q == 0)
+		if (arg->spec_n == 0 && arg->q == 0)
 			start = 5;
-		else if (!arg->spec_n && arg->q == 1)
+		else if (arg->spec_n == 0 && arg->q == 1)
 			start = 7;
-		else if (ft_strcmp(arg->spec_n, "-n") == 0 && arg->q == 0)
+		else if (arg->spec_n == 1 && arg->q == 0)
 			start = 6 + arg->n + 1;
-		else if (ft_strcmp(arg->spec_n, "-n") == 0 && arg->q == 1)
+		else if (arg->spec_n == 1 && arg->q == 0)
 			start = 8 + arg->n + 1;
 		tmp = ft_msg(arg, start, tmp);
 	}
