@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 10:47:48 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:24:44 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,9 @@ int		get_pipe_count(t_cmd *cmd);
 int		m_pipe(t_cmd *cmd);
 int		close_fd(int *tab_fd, int nb_pipes);
 int		open_pipe(int *tab_fd, int nb_pipes);
+int		fork_cmd(int *pipes, t_cmd *cmd, int nbpipe);
+int		is_forkable(t_cmd *cmd);
+int		set_in_out(int *pipes, t_cmd *cmd, int i, int nbpipes);
 
 // execution
 int		execute_commands(t_cmd *cmd);
@@ -263,6 +266,7 @@ int		unset(char *var);
 int		add_env_variable(char *var);
 int		get_env_length(char **env);
 int		export(char *path, char *argv);
+int		have_access(char *home, char *path);
 int		get_fd(char *path, int append);
 int		echo(t_cmd *cmd);
 int		env(char *path);

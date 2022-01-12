@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 12:40:52 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 13:50:04 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	minishell(void)
 		free(rd);
 		add_history(str);
 		rd = transform_str(str, status);
+		printf("str : %s\n", rd);
     	cmd = ft_launch_parser(rd, &cmd);
 		free(rd);
 		if (!cmd)

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 14:20:00 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:19:51 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_in_fd(int *pipes, t_cmd *cmd, int i)
 		if (cmd->redir->redir_std_in == REDIR_APPEND_IN)
 		{
 			here_doc = heredoc(cmd);
-			fd = get_fd(here_doc,  0);
+			fd = get_fd(here_doc, 0);
 			free(here_doc);
 		}
 		else
@@ -39,6 +39,7 @@ int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in, int nbpipes)
 {
 	char	*here_doc;
 	int		fd;
+
 	if (in)
 		return (get_in_fd(pipes, cmd, i));
 	if (cmd->redir && cmd->redir->fd_out != NULL)
@@ -59,11 +60,12 @@ int	get_dup_fd(int *pipes, t_cmd *cmd, int i, int in, int nbpipes)
 	return (fd);
 }
 
-int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i, int nbpipes)
+int	set_in_out(int *pipes, t_cmd *cmd, int i, int nbpipes)
 {
 	int	fd;
+
 	fd = 0;
-	if (cmd != first_cmd || (cmd->redir && cmd->redir->fd_in))
+	if (i > 0 || (cmd->redir && cmd->redir->fd_in))
 	{
 		fd = get_dup_fd(pipes, cmd, i, 1, nbpipes);
 		if (dup2(fd, 0) <= -1)
@@ -80,70 +82,31 @@ int	set_in_out(int *pipes, t_cmd *cmd, t_cmd *first_cmd, int i, int nbpipes)
 	return (1);
 }
 
-int is_forkable(t_cmd *cmd)
+int	get_status(int nbpipe, int *pipes)
 {
-	if ((ft_strcmp(cmd->cmd, "unset") == 0  && cmd->msg != NULL)
-		|| ft_strcmp(cmd->cmd, "export") == 0 && cmd->msg != NULL)
-		return (0);
-	return (1);
-}
-
-t_cmd *get_next(t_cmd *cmd)
-{
-	t_cmd *tmp;
-
-	tmp = cmd;
-	while (tmp)
-	{
-		if (tmp->msg != NULL)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
-{
-	t_cmd	*tmp;
-	pid_t	pid;
-	int		i;
-	int		ret;
+	int	status;
+	int	i;
 
 	i = 0;
-	tmp = cmd;
-	while (tmp)
+	status = 0;
+	while (i < nbpipe + 2)
 	{
-		if (ft_strcmp(tmp->cmd, "exit") == 0)
-		{
-			if (!tmp->next)
-				return (0);
-			else
-				tmp = tmp->next;
-		}
-		if (is_forkable(tmp))
-		{
-			pid = fork();
-			core->child_exist = 1;
-			core->child = pid;
-			if (pid == 0)
-			{
-				set_in_out(pipes, tmp, cmd, i, nbpipe);
-				close_fd(pipes, nbpipe);
-				ret = execute_commands(tmp);
-			}
-			i = i + 2;
-		}
-			else
-		ret = execute_commands(tmp);
-		tmp = tmp->next;
+		wait(&status);
+		i++;
 	}
-	return (ret);
+	free(pipes);
+	pipes = NULL;
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		status = WTERMSIG(status);
+	return (status);
 }
 
 int	m_pipe(t_cmd *cmd)
 {
 	int		nbpipe;
 	int		*pipes;
-	int		i;
 	int		status;
 
 	pipes = 0;
@@ -159,17 +122,6 @@ int	m_pipe(t_cmd *cmd)
 	open_pipe(pipes, nbpipe);
 	fork_cmd(pipes, cmd, nbpipe);
 	close_fd(pipes, nbpipe);
-	i = 0;
-	while (i < nbpipe + 2)
-	{
-		wait(&status);
-		i++;
-	}
-	free(pipes);
-	pipes = NULL;
-	if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
-		status = WTERMSIG(status);
+	status = get_status(nbpipe, pipes);
 	return (status);
 }
