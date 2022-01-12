@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:05:27 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:47:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	exec(t_cmd *cmd)
 
 	status = 1;
 	i = -1;
-	core->child_exist = 1;
+	g_core->child_exist = 1;
 	argv = get_argv(cmd);
 	tab_env = env_to_char();
 	path = get_executable_path(cmd);
@@ -93,7 +93,7 @@ int	exec(t_cmd *cmd)
 	}
 	rm_split(argv);
 	rm_split(tab_env);
-	core->child_exist = 0;
+	g_core->child_exist = 0;
 	return (status);
 }
 

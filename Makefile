@@ -28,6 +28,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils.c \
 			srcs/utils/prompts.c \
 			srcs/utils/env_variable.c \
+			srcs/utils/env_utils.c \
 			srcs/utils/ft_free.c \
 			srcs/utils/ft_utils_parsing.c \
 			srcs/utils/ft_strtrim.c \
@@ -35,11 +36,12 @@ SOURCES =	srcs/main.c \
 			srcs/utils/exit.c \
 			srcs/utils/ft_utils_redir_in.c \
 			srcs/utils/ft_utils_redir_out.c \
-			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/ft_utils_inout.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
 			srcs/utils/ft_utils_builtin.c \
+			srcs/utils/ft_strsplit_space.c \
+			srcs/utils/split_utils.c \
 			srcs/commands/commands.c \
 			srcs/commands/dup_cmd.c \
 			srcs/commands/commands_utils.c \

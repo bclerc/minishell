@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 12:32:21 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:55:57 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,20 @@ char	*build_str(char **str)
 	final_str = (char *)malloc(sizeof(char) * (count + 2));
 	if (!final_str)
 		return (NULL);
-	i = 0;
+	i = -1;
 	count = 0;
 	ft_bzero(final_str, count + 1);
-	while (str[i])
+	while (str[++i])
 	{
-		y = 0;
-		while (str[i][y])
-		{
-			final_str[count] = str[i][y];
-			count++;
-			y++;
-		}
+		y = -1;
+		while (str[i][++y])
+			final_str[count++] = str[i][y];
 		if (str[i + 1] != NULL)
-		{
-			final_str[count] = ' ';
-			count++;
-		}
-		i++;
+			final_str[count++] = ' ';
 	}
 	final_str[count] = '\0';
 	return (final_str);
 }
-
 
 char	*transform_str(char *str, int status)
 {
@@ -94,6 +85,7 @@ char	*transform_str(char *str, int status)
 	char	**split;
 	char	*env;
 	char	*ret;
+
 	split = ft_strsplit_s(str, "$ ");
 	ret = build_str(split);
 	rm_split(split);
