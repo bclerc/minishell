@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 11:47:40 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 11:59:39 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ struct	s_arg
 	int		c;
 	int		i;
 	int		spec_n;
+	int		sp;
 	char	*tmp;
 };
 

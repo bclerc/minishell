@@ -25,4 +25,8 @@ echo co | cat -e > p < srcs/main.c > l
 pb de unconditionnal jump dans getcmd
 >ok
 
+echo "ghgjfdhg" '   ' fjhg | wc
+      1       2      16
+> retire les sp dans ' '
+
 echo '$USER' > ok
