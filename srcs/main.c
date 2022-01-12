@@ -6,27 +6,27 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 13:50:04 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:50:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_core *core;
+t_core *g_core;
 
 void	signal_handler(int signum)
 {
 	if (signum == SIGQUIT)
 	{
-		if (core->child_exist)
+		if (g_core->child_exist)
 			return ;
 		return ;
 	}
 	if (signum == SIGINT)
 	{
-		if (core->child_exist)
+		if (g_core->child_exist)
 		{
-			if (core->child == 0)
+			if (g_core->child == 0)
 				exit(-1);
 		}
 		else
@@ -72,7 +72,6 @@ void	minishell(void)
 		free(rd);
 		add_history(str);
 		rd = transform_str(str, status);
-		printf("str : %s\n", rd);
     	cmd = ft_launch_parser(rd, &cmd);
 		free(rd);
 		if (!cmd)
@@ -85,24 +84,24 @@ void	minishell(void)
 		m_exit(tmp, M_EXIT_FORK, NULL);
 	}
 	del_env();
-	free(core);
+	free(g_core);
 	exit(EXIT_SUCCESS);
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	(void)av;
-	core = (t_core *)malloc(sizeof(t_core));
-	if (!core)
+	g_core = (t_core *)malloc(sizeof(t_core));
+	if (!g_core)
 		return (0);
-	core->child_exist = 0;
-	core->env = NULL;
+	g_core->child_exist = 0;
+	g_core->env = NULL;
 	get_env(envp);
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	core->parent = getpid();
+	g_core->parent = getpid();
 	minishell();
 	return (0);
 }

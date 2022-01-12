@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_inandout.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 13:28:55 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/11 16:44:50 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:38:05 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_redir	*ft_out(t_cmd *cmd, t_redir *redir, char *msg)
 	if (msg)
 		new->redir_msg = msg;
 	new->next = NULL;
-	// printf("new : %p cmd %s out %s std %d msg %s\n", new, cmd->cmd, new->fd_out, new->redir_std_out, new->redir_msg);
 	if (tmp == NULL)
 		tmp = new;
 	else

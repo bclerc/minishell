@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:18:03 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:29:03 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:47:34 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	execute(t_cmd *tmp, int i, int nbpipe, int *pipes)
 
 	ret = 0;
 	pid = fork();
-	core->child_exist = 1;
-	core->child = pid;
+	g_core->child_exist = 1;
+	g_core->child = pid;
 	if (pid == 0)
 	{
 		set_in_out(pipes, tmp, i, nbpipe);
