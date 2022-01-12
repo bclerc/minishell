@@ -107,6 +107,7 @@ struct	s_arg
 	int		c;
 	int		i;
 	int		spec_n;
+	int		sp;
 	char	*tmp;
 };
 
@@ -177,13 +178,6 @@ t_cmd	*ft_check_spec(t_cmd **cmd);
 //parse msg
 char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new);
 int		ft_which_cmd(char **cpy);
-
-// Environnement
-char	**env_to_char(void);
-int		get_env(char **envp);
-int		del_env_variable(char *var);
-void	del_env(void);
-
 char	*ft_msg(t_arg *arg, int start, char *tmp);
 char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp);
 char	*ft_other_msg(t_arg *arg, int start, char *tmp);
@@ -195,8 +189,17 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp);
 char	*ft_dq(t_arg *arg, char *str, char *tmp);
 char	*ft_cut_quote(char *str, int start, int end);
 char	*ft_special_cat(char *str, char *tmp, int i, int ret);
+char	*ft_special_cat_export(char *str, char *tmp, int i, int ret);
 char	*ft_retneg(int i, char *str, char *tmp, char *new);
 char	*ft_retnoneg(int i, char *str, char *tmp, char *new);
+char	*ft_cut_quote_export(char *str, int start, int end);
+
+// Environnement
+char	**env_to_char(void);
+int		get_env(char **envp);
+int		del_env_variable(char *var);
+void	del_env(void);
+
 
 // redir
 //t_redir	*ft_redir(t_arg *arg, char **cpy, t_cmd *cmd, t_redir **redir);

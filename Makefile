@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/12 16:17:18 by bclerc           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 PROJECT_NAME = minishell
 
@@ -52,6 +40,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
 			srcs/utils/ft_utils_builtin.c \
+			srcs/utils/ft_strsplit_space.c \
 			srcs/commands/commands.c \
 			srcs/commands/dup_cmd.c \
 			srcs/commands/commands_utils.c \

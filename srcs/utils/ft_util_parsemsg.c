@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_util_parsemsg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:38:22 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/11 20:39:24 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:17:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,22 @@ char	*ft_special_cat(char *str, char *tmp, int i, int ret)
 	return (new);
 }
 
+char	*ft_special_cat_export(char *str, char *tmp, int i, int ret)
+{
+	char	*new;
+	int		size;
+
+	size = ft_strlen(str);
+	new = malloc(sizeof(char) * (size + 1));
+	if (!new)
+		return (NULL);
+	if (ret == -1)
+		new = ft_retneg(i, str, tmp, new);
+	else
+		new = ft_retnoneg(i, str, tmp, new);
+	return (new);
+}
+
 char	*ft_cut_quote(char *str, int start, int end)
 {
 	char	*dest;
@@ -95,6 +111,34 @@ char	*ft_cut_quote(char *str, int start, int end)
 	while (start <= end)
 		dest[i++] = str[start++];
 	if (i < size - 1)
+	{
+		while (i < size)
+		{
+			dest[i] = str[start + 1];
+			start++;
+			i++;
+		}
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_cut_quote_export(char *str, int start, int end)
+{
+	char	*dest;
+	int		size;
+	int		i;
+
+	size = ft_strlen(str) - start;
+	i = 0;
+	dest = malloc(sizeof(char) * (size + 2));
+	if (!dest)
+		return (NULL);
+	while (start <= end)
+		dest[i++] = str[start++];
+	dest[i] = '^';
+	i++;
+	if (i < size -1)
 	{
 		while (i < size)
 		{
