@@ -6,13 +6,13 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 16:50:30 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 18:06:02 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_core *g_core;
+t_core	*g_core;
 
 void	signal_handler(int signum)
 {
@@ -39,11 +39,27 @@ void	signal_handler(int signum)
 	}
 }
 
+int	start(char *str)
+{
+	t_cmd	*cmd;
+	t_cmd	*tmp;
+	int		status;
+
+	cmd = ft_launch_parser(str, &cmd);
+	if (!cmd)
+		exit(0);
+	cmd = ft_redir(cmd);
+	if (!cmd)
+		exit(0);
+	tmp = dupp_cmd(cmd);
+	status = m_pipe(tmp);
+	free(str);
+	m_exit(tmp, M_EXIT_FORK, NULL);
+	return (status);
+}
+
 void	minishell(void)
 {
-	t_cmd	*tmp;
-	t_cmd	*cmd;
-	char	*str;
 	char	*rd;
 	char	*prompt;
 	int		status;
@@ -63,25 +79,8 @@ void	minishell(void)
 				status = -1;
 			continue ;
 		}
-		str = ft_strdup(rd);
-		if (!str)
-		{
-			free(rd);
-			break ;
-		}
-		free(rd);
-		add_history(str);
-		rd = transform_str(str, status);
-    	cmd = ft_launch_parser(rd, &cmd);
-		free(rd);
-		if (!cmd)
-			exit(0); // fct exit avec free
-    	cmd = ft_redir(cmd);
-		if (!cmd)
-			exit(0); // fct exit avec free
-		tmp = dupp_cmd(cmd);
-		status = m_pipe(tmp);
-		m_exit(tmp, M_EXIT_FORK, NULL);
+		add_history(rd);
+		status = start(transform_str(rd, status));
 	}
 	del_env();
 	free(g_core);
