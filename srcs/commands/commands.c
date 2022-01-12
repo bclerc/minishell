@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 21:16:53 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:05:27 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ char	*read_folder(DIR *pdir, char *path, t_cmd *cmd)
 	return (NULL);
 }
 
+char	*return_norm(DIR *pdir, char **path, char *ret)
+{
+	closedir(pdir);
+	rm_split(path);
+	return (ret);
+}
+
 char	*get_executable_path(t_cmd *cmd)
 {
 	DIR				*pdir;
@@ -41,9 +48,9 @@ char	*get_executable_path(t_cmd *cmd)
 	int				i;
 
 	ret = get_env_variable("PATH");
-	if (!ret)
-		return (NULL);
 	path = ft_strsplit(ret, ':');
+	if (!path)
+		return (NULL);
 	i = 0;
 	while (path[i])
 	{
@@ -52,11 +59,7 @@ char	*get_executable_path(t_cmd *cmd)
 		{
 			ret = read_folder(pdir, path[i], cmd);
 			if (ret)
-			{
-				closedir(pdir);
-				rm_split(path);
-				return (ret);
-			}
+				return (return_norm(pdir, path, ret));
 		}
 		i++;
 		closedir(pdir);
@@ -79,7 +82,8 @@ int	exec(t_cmd *cmd)
 	argv = get_argv(cmd);
 	tab_env = env_to_char();
 	path = get_executable_path(cmd);
-	if ((status = execve(path, argv, tab_env)) < 0)
+	status = execve(path, argv, tab_env);
+	if (status < 0)
 	{
 		write(2, cmd->cmd, ft_strlen(cmd->cmd));
 		write(2, " command not found\n", 19);
@@ -96,6 +100,7 @@ int	exec(t_cmd *cmd)
 int	execute_commands(t_cmd *cmd)
 {
 	int	ret;
+
 	ret = 1;
 	if (ft_strcmp(cmd->cmd, "cd") == 0)
 		ret = cd(cmd->msg);

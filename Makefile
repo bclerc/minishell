@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/12/31 11:16:20 by asgaulti          #+#    #+#              #
-#    Updated: 2022/01/12 14:33:25 by asgaulti         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 PROJECT_NAME = minishell
 
@@ -47,6 +35,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/exit.c \
 			srcs/utils/ft_utils_redir_in.c \
 			srcs/utils/ft_utils_redir_out.c \
+			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/ft_utils_inout.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
@@ -56,9 +45,11 @@ SOURCES =	srcs/main.c \
 			srcs/commands/dup_cmd.c \
 			srcs/commands/commands_utils.c \
 			srcs/commands/pipe.c \
+			srcs/commands/fork.c \
 			srcs/commands/pipe_utils.c \
 			srcs/commands/redir_utils.c \
 			srcs/built-in/cd/cd.c \
+			srcs/built-in/cd/cd_utils.c \
 			srcs/built-in/echo/echo.c \
 			srcs/built-in/env/env.c \
 			srcs/built-in/export/export.c \
@@ -70,7 +61,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -g3 
+CFLAGS = -g3 -fsanitize=address
 
 .PHONY: all re clean fclean libft force doclean
 
