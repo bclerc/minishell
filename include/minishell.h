@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
 /*   Updated: 2022/01/12 17:24:49 by bclerc           ###   ########.fr       */
@@ -191,6 +191,8 @@ char	*ft_check_quotes(char *str, t_arg *arg, char *tmp, int size);
 char	*ft_check_tmp(char *tmp, int pos_st, char *str, int i);
 char	*ft_sq(t_arg *arg, char *str, char *tmp);
 char	*ft_dq(t_arg *arg, char *str, char *tmp);
+int		ft_i_quotes(int i, t_arg *arg, char *str);
+int		ft_i_quote(int i, t_arg *arg, char *str);
 char	*ft_cut_quote(char *str, int start, int end);
 char	*ft_special_cat(char *str, char *tmp, int i, int ret);
 char	*ft_special_cat_export(char *str, char *tmp, int i, int ret);

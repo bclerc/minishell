@@ -34,6 +34,7 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 		tmp2 = ft_parse_msg(tmp, arg);
 		if (!tmp2)
 			return (NULL);
+		free (tmp);
 		return (tmp2);
 	}
 }
