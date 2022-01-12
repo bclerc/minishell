@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/12 18:06:05 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/12 18:08:48 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,6 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 			return (NULL);
 		free (tmp);
 	}
-	// if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) != 0)
-	// 	tmp = ft_cut_quote(str, pos_st, pos_end);
-	// else if (ft_strncmp(arg->cmds[arg->i_cpy], "export", 6) == 0)
-	// 	tmp = ft_cut_quote_export(str, pos_st, pos_end);
-	// str = ft_check_tmp(tmp, pos_st, str, i);
 	return (str);
 }
 
