@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:55:57 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 18:35:12 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*transform_str(char *str, int status)
 	char	*env;
 	char	*ret;
 
-	split = ft_strsplit_s(str, "$ ");
+	split = ft_strsplit_s(str, "$ ", status);
 	ret = build_str(split);
 	rm_split(split);
 	free(str);

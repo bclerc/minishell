@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:19:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 17:25:15 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 18:38:50 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,21 @@ char	*fill(const char *str, char *set, int *i)
 	return (s);
 }
 
-void	replace_var(char save, char **s)
+void	replace_var(char save, char **s, int status)
 {
 	char	*tmp;
+	char	*stat;
 
 	if (save == '$')
 	{
+		tmp = *s;
+		if (tmp[0] == '?')
+		{
+			stat = ft_itoa(status);
+			*s = ft_strjoin(stat, *s + 1);
+			free(tmp);
+			free(stat);
+		}
 		tmp = *s;
 		if (ft_strlen(*s) > 0)
 			*s = ft_strdup(get_env_variable(tmp));
