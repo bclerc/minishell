@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/12 13:38:19 by asgaulti         ###   ########.fr       */
+/*   Created: 2022/01/12 13:54:59 by asgaulti          #+#    #+#             */
+/*   Updated: 2022/01/12 13:55:54 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 // trouver le msg ds cpy (non splité) et le copier dans tmp
 char	*ft_search_msg(char **cpy, int j, t_arg *arg, char *tmp)
@@ -57,6 +57,8 @@ char	*ft_sq(t_arg *arg, char *str, char *tmp)
 	i = arg->pos_i;
 	pos_st = i + 1;
 	i++;
+	if (!str)
+		return (str);
 	while (str[i] != '\'')
 	{
 		if (str[i] == '"')

@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/11 21:06:32 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 12:32:21 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	rm_split(char **split)
 		i++;
 	while (i >= 0)
 	{
-		free(split[i]);
+		if (split[i])
+			free(split[i]);
 		i--;
 	}
 	free(split);
@@ -86,36 +87,14 @@ char	*build_str(char **str)
 	return (final_str);
 }
 
+
 char	*transform_str(char *str, int status)
 {
 	int		i;
 	char	**split;
 	char	*env;
 	char	*ret;
-
-	split = ft_strsplit(str, ' ');
-	i = 0;
-	while (split[i])
-	{
-		if (split[i][0] == '$')
-		{
-			if (split[i][1] == '?')
-			{
-				free(split[i]);
-				split[i] = ft_itoa(status);
-			}
-			else
-			{
-				env = get_env_variable(split[i] + 1);
-				if (env)
-				{
-					free(split[i]);
-					split[i] = ft_strdup(env);
-				}
-			}
-		}
-		i++;
-	}
+	split = ft_strsplit_s(str, "$ ");
 	ret = build_str(split);
 	rm_split(split);
 	free(str);
