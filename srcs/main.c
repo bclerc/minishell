@@ -6,17 +6,20 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:41:06 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/13 10:41:11 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:21:45by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/minishell.h"
 
 t_core	*g_core;
 
 void	signal_handler(int signum)
 {
 	if (signum == SIGQUIT)
-	{	
-		
+	{
+		if (g_core->child_exist)
+			return ;
 		return ;
 	}
 	if (signum == SIGINT)
@@ -28,7 +31,7 @@ void	signal_handler(int signum)
 		}
 		else
 		{
-			write(1, "\n", 1);
+			printf("\n");
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
@@ -36,37 +39,42 @@ void	signal_handler(int signum)
 	}
 }
 
-int	start(char *str)
+int	start(t_cmd *cmd, char *str)
 {
-	t_cmd	*cmd;
 	t_cmd	*tmp;
 	int		status;
 
-	cmd = ft_launch_parser(str, &cmd);
 	if (!cmd)
-		exit(0);
+		return (-2);
 	cmd = ft_redir(cmd);
 	if (!cmd)
-		exit(0);
+		return (-2);
+	status = 0;
 	tmp = dupp_cmd(cmd);
 	status = m_pipe(tmp);
-	free(str);
 	m_exit(tmp, M_EXIT_FORK, NULL);
 	return (status);
 }
 
-void	minishell(void)
+char	*start_prompt(void)
 {
-	char	*rd;
 	char	*prompt;
-	int		status;
+	char	*ret;
 
-	status = 0;
+	prompt = get_promps();
+	ret = readline(prompt);
+	free(prompt);
+	return (ret);
+}
+
+void	minishell(char *rd, int status)
+{
+	t_cmd	*cmd;
+
+	cmd = NULL;
 	while (status != -1)
 	{
-		prompt = get_promps();
-		rd = readline(prompt);
-		free(prompt);
+		rd = start_prompt();
 		if (!rd)
 			break ;
 		if (!rd || ft_strlen(rd) == 0)
@@ -77,8 +85,12 @@ void	minishell(void)
 			continue ;
 		}
 		add_history(rd);
-		status = start(transform_str(rd, status));
+		rd = transform_str(rd, status);
+		cmd = ft_launch_parser(rd, (t_cmd *[1]){(&(t_cmd){})});
+		status = start(cmd, rd);
+		free(rd);
 	}
+	write(1, "\n", 1);
 	del_env();
 	free(g_core);
 	exit(EXIT_SUCCESS);
@@ -86,8 +98,11 @@ void	minishell(void)
 
 int	main(int ac, char **av, char **envp)
 {
+	char	*rd;
+	int		status;
+
 	(void)av;
-	g_core = (t_core *)malloc(sizeof(t_core));
+	g_core = (t_core *)malloc(sizeof(*g_core));
 	if (!g_core)
 		return (0);
 	g_core->child_exist = 0;
@@ -98,6 +113,6 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	g_core->parent = getpid();
-	minishell();
+	minishell(rd, status);
 	return (0);
 }

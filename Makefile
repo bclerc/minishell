@@ -39,6 +39,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_inout.c \
 			srcs/utils/ft_utils_cmd.c \
 			srcs/utils/ft_utils_arg.c \
+			srcs/utils/ft_utils_arg2.c \
 			srcs/utils/ft_utils_builtin.c \
 			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/split_utils.c \
@@ -62,7 +63,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -g3 #-fsanitize=address
+CFLAGS = -g3 -fsanitize=address
 
 .PHONY: all re clean fclean libft force doclean
 
