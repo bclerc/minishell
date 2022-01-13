@@ -6,13 +6,13 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/13 12:25:25 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/13 12:32:43 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_core *g_core;
+t_core	*g_core;
 
 void	signal_handler(int signum)
 {
@@ -39,10 +39,10 @@ void	signal_handler(int signum)
 	}
 }
 
-int		start(t_cmd *cmd, char *str)
+int	start(t_cmd *cmd, char *str)
 {
+	t_cmd	*tmp;
 	int		status;
-	t_cmd *tmp;
 
 	if (!cmd)
 		return (-2);
@@ -56,10 +56,10 @@ int		start(t_cmd *cmd, char *str)
 	return (status);
 }
 
-char *start_prompt(void)
+char	*start_prompt(void)
 {
-	char *prompt;
-	char *ret;
+	char	*prompt;
+	char	*ret;
 
 	prompt = get_promps();
 	ret = readline(prompt);
@@ -67,13 +67,10 @@ char *start_prompt(void)
 	return (ret);
 }
 
-void	minishell(void)
+void	minishell(char *rd, int status)
 {
 	t_cmd	*cmd;
-	char	*rd;
-	int		status;
 
-	status = 0;
 	while (status != -1)
 	{
 		rd = start_prompt();
@@ -100,6 +97,9 @@ void	minishell(void)
 
 int	main(int ac, char **av, char **envp)
 {
+	char	*rd;
+	int		status;
+
 	(void)av;
 	g_core = (t_core *)malloc(sizeof(g_core));
 	if (!g_core)
@@ -110,8 +110,8 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);
-	signal(SIGQUIT,	SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	g_core->parent = getpid();
-	minishell();
+	minishell(rd, status);
 	return (0);
 }
