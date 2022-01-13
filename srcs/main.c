@@ -3,18 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/01/12 18:58:12 by asgaulti         ###   ########.fr       */
-=======
-/*   Updated: 2022/01/12 18:47:10 by bclerc           ###   ########.fr       */
->>>>>>> c74489f9bc24329db4d1759ae3098f756c98ed78
+/*   Created: 2022/01/13 10:41:06 by asgaulti          #+#    #+#             */
+/*   Updated: 2022/01/13 10:41:11 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../include/minishell.h"
 
 t_core	*g_core;
 
