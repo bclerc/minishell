@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 20:04:35 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/13 12:25:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,44 @@ void	signal_handler(int signum)
 	}
 }
 
+int		start(t_cmd *cmd, char *str)
+{
+	int		status;
+	t_cmd *tmp;
+
+	if (!cmd)
+		return (-2);
+	cmd = ft_redir(cmd);
+	if (!cmd)
+		return (-2);
+	status = 0;
+	tmp = dupp_cmd(cmd);
+	status = m_pipe(tmp);
+	m_exit(tmp, M_EXIT_FORK, NULL);
+	return (status);
+}
+
+char *start_prompt(void)
+{
+	char *prompt;
+	char *ret;
+
+	prompt = get_promps();
+	ret = readline(prompt);
+	free(prompt);
+	return (ret);
+}
+
 void	minishell(void)
 {
-	t_cmd	*tmp;
 	t_cmd	*cmd;
-	char	*str;
 	char	*rd;
-	char	*prompt;
 	int		status;
 
 	status = 0;
 	while (status != -1)
 	{
-		prompt = get_promps();
-		rd = readline(prompt);
-		free(prompt);
+		rd = start_prompt();
 		if (!rd)
 			break ;
 		if (!rd || ft_strlen(rd) == 0)
@@ -63,26 +86,13 @@ void	minishell(void)
 				status = -1;
 			continue ;
 		}
-		str = ft_strdup(rd);
-		if (!str)
-		{
-			free(rd);
-			break ;
-		}
+		add_history(rd);
+		rd = transform_str(rd, status);
+		cmd = ft_launch_parser(rd, &cmd);
+		status = start(cmd, rd);
 		free(rd);
-		add_history(str);
-		rd = transform_str(str, status);
-    	cmd = ft_launch_parser(rd, &cmd);
-		free(rd);
-		if (!cmd)
-			continue ;
-    	cmd = ft_redir(cmd);
-		if (!cmd)
-			continue ;
-		tmp = dupp_cmd(cmd);
-		status = m_pipe(tmp);
-		m_exit(tmp, M_EXIT_FORK, NULL);
 	}
+	write(1, "\n", 1);
 	del_env();
 	free(g_core);
 	exit(EXIT_SUCCESS);
@@ -100,7 +110,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	signal(SIGQUIT,	SIG_IGN);
 	g_core->parent = getpid();
 	minishell();
 	return (0);

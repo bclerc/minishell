@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:47:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/13 12:04:55 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ int	execute_commands(t_cmd *cmd)
 	else if (ft_strcmp(cmd->cmd, "export") == 0)
 		(export(NULL, cmd->msg));
 	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
-		(pwd(cmd->msg));
+		(pwd(NULL));
 	else if (ft_strcmp(cmd->cmd, "unset") == 0)
 		unset(cmd->msg);
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 	{
-		write(1, "exit 😱 😭\n", 16);
+		write(1, "exit 😱 😭", 15);
 		return (-1);
 	}
 	else
