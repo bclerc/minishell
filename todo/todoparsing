@@ -30,3 +30,10 @@ echo "ghgjfdhg" '   ' fjhg | wc
 > retire les sp dans ' '
 
 echo '$USER' > ok
+
+ls|ls
+
+echo -nnn avec plusieurs args pas ok
+
+> jjj : doit creer un fichier vide
+< gg : doit??

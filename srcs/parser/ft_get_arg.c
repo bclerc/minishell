@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/11 17:12:12 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:08:28 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	ft_count_arg(char *str, t_arg *arg)
 
 	i = 0;
 	size = ft_strlen(str);
+	i = ft_begin_chevron(str, i, size, arg);
+	if (i < 0)
+		return (-1);
 	while (i < size)
 	{
 		i = ft_increase_quote(str, i);
@@ -56,12 +59,6 @@ int	ft_count_arg(char *str, t_arg *arg)
 		else if (i != 0 && ((str[i] == '>' && str[i + 1] != '>')
 				|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|'))
 			ft_count2(str, i, arg);
-		else if ((((str[i] == '>' && str[i + 1] == '>')
-					|| (str[i] == '<' && str[i + 1] == '<'))
-				|| ((str[i] == '>' && str[i + 1] != '>')
-					|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|'))
-			&& i == 0)
-			return (-1);
 		i++;
 	}
 	if (i == 0)
@@ -76,6 +73,9 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	arg->cmds = malloc(sizeof(char *) * (arg->count));
 	if (!arg->cmds)
 		return (1);
+	arg->i = ft_special_chev(arg, str);
+	if (arg->i < 0)
+		return (1);
 	while (arg->i < ft_strlen(str))
 	{
 		arg->i = ft_stock_i(str, arg->i);
@@ -88,9 +88,7 @@ int	ft_stock_arg(t_arg *arg, char *str)
 			arg->i = ft_check_char(str, arg->i, arg->c, arg);
 			if (arg->i == -1)
 				return (1);
-			arg->start = arg->i;
-			if (arg->c < arg->count - 1)
-				arg->c++;
+			ft_util_stockarg(arg);
 		}
 		arg->i++;
 	}
