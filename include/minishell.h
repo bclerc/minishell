@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 19:59:55 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/13 15:23:48 by asgaulti         ###   ########.fr       */
+/*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
+/*   Updated: 2022/01/13 18:28:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;	
 }						t_env;
+
+typedef struct s_split
+{
+
+	char			value;
+	struct s_split	*next;
+
+}				t_split;
 
 typedef struct s_core
 {
@@ -146,16 +154,12 @@ int		ft_increase_quote(char *str, int i);
 int		ft_count1(char *str, int i, t_arg *arg);
 void	ft_count2(char *str, int i, t_arg *arg);
 int		ft_count_arg(char *str, t_arg *arg);
-int		ft_begin_chevron(char *str, int i, int size, t_arg *arg);
-int		ft_begin_util(char *str, int i, int size, t_arg *arg);
 int		ft_stock_arg(t_arg *arg, char *str);
-int		ft_special_chev(t_arg *arg, char *str);
 int		ft_stock_i(char *str, int i);
 char	*ft_parse_arg(char *str, int i, t_arg *arg);
 int		ft_check_char(char *str, int i, int c, t_arg *arg);
 int		ft_check_chevron(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
-void	ft_util_stockarg(t_arg *arg);
 char	*ft_nosep(int i, char *str, t_arg *arg);
 //int		ft_check_args(t_arg *arg);
 
