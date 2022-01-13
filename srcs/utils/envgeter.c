@@ -6,26 +6,25 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/13 17:15:32 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/13 18:13:11 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 void	add_value(t_split *src, t_split *dst)
 {
-	t_split *tmp;
+	t_split	*tmp;
 
 	tmp = dst;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-	tmp->next = src;	
+	tmp->next = src;
 }
 
 char	*to_string(t_split *split)
 {
-	t_split *tmp;
+	t_split	*tmp;
 	int		len;
 	char	*ret;
 
@@ -55,7 +54,7 @@ char	*to_string(t_split *split)
 t_split	*get_str(char *str, int len)
 {
 	t_split	*split;
-	t_split *new;
+	t_split	*new;
 	int		i;
 
 	i = 0;
@@ -74,10 +73,10 @@ t_split	*get_str(char *str, int len)
 	return (split);
 }
 
-t_split *change_value(t_split *start, t_split *end, int status)
+t_split	*change_value(t_split *start, t_split *end, int status)
 {
-	t_split *tmp_spl;
-	t_split *test;
+	t_split	*tmp_spl;
+	t_split	*test;
 	char	*tmp;
 	char	*env;
 
@@ -89,6 +88,7 @@ t_split *change_value(t_split *start, t_split *end, int status)
 	tmp_spl = get_str(env, ft_strlen(env));
 	if (ft_strcmp(tmp, "?") == 0)
 		free(env);
+	free(tmp);
 	test = tmp_spl;
 	while (test->next)
 		test = test->next;
@@ -96,29 +96,34 @@ t_split *change_value(t_split *start, t_split *end, int status)
 	return (tmp_spl);
 }
 
-t_split *change_str(t_split *split, int status)
+t_split	*find_start(t_split *start)
 {
-	t_split *tmp;
+	while (start->next && start->next->value != ' ' && start->next->value != '$'
+		&& start->next->value != '"')
+		start = start->next;
+	return (start);
+}
+
+char	*change_str(t_split *split, int status)
+{
+	t_split	*tmp;
 	t_split	*start;
-	t_split *end;
+	t_split	*end;
 	t_split	*next;
 	t_split	*last;
 
 	start = NULL;
-	end	= NULL;
+	end = NULL;
 	tmp = split;
 	last = tmp;
-
 	while (tmp)
 	{
-		if (tmp->value == '$' && tmp->next && tmp->next->value != ' ' && last->value != '\'')
+		if (tmp->value == '$' && tmp->next && tmp->next->value != ' '
+			&& last->value != '\'')
 		{
 			start = tmp->next;
 			if (start->value != '?')
-			{
-				while (start->next && start->next->value != ' ' && start->next->value != '$' && start->next->value != '"')
-				start = start->next;
-			}
+				start = find_start(start);
 			next = start->next;
 			start->next = NULL;
 			end = start;
@@ -154,19 +159,15 @@ void	rm_split(char **split)
 	free(split);
 }
 
-//		blabla$HOME bllabla
 char	*transform_str(char *str, int status)
 {
-	int		i;
-	char	**split;
-	char	*env;
+	t_split	*test;
 	char	*ret;
-	char	*lop;
-	t_split *test;
-	
+	int		i;
+
+	ret = 0;
 	test = get_str(str, ft_strlen(str));
-	lop = change_str(test, status);
-	printf("%s\n", lop);
-	exit(1);
+	ret = change_str(test, status);
+	printf("Retour de commande %s\n", ret);
 	return (ret);
 }
