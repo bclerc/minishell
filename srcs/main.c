@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
 /*   Updated: 2022/01/13 16:08:42 by bclerc           ###   ########.fr       */
@@ -71,6 +71,7 @@ void	minishell(char *rd, int status)
 {
 	t_cmd	*cmd;
 
+	cmd = NULL;
 	while (status != -1)
 	{
 		rd = start_prompt();
@@ -85,7 +86,7 @@ void	minishell(char *rd, int status)
 		}
 		add_history(rd);
 		rd = transform_str(rd, status);
-		cmd = ft_launch_parser(rd, &cmd);
+		cmd = ft_launch_parser(rd, (t_cmd *[1]){(&(t_cmd){})});
 		status = start(cmd, rd);
 		free(rd);
 	}
@@ -101,7 +102,7 @@ int	main(int ac, char **av, char **envp)
 	int		status;
 
 	(void)av;
-	g_core = (t_core *)malloc(sizeof(g_core));
+	g_core = (t_core *)malloc(sizeof(*g_core));
 	if (!g_core)
 		return (0);
 	g_core->child_exist = 0;
