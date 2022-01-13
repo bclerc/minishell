@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 18:32:15 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/13 14:12:49 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;	
 }						t_env;
+
+typedef struct s_split
+{
+
+	char			value;
+	struct s_split	*next;
+
+}				t_split;
 
 typedef struct s_core
 {

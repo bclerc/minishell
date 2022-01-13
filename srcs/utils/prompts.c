@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:41:31 by bclerc            #+#    #+#             */
-/*   Updated: 2021/12/28 17:59:58 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/13 12:37:40 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_promps(void)
 	tmp2 = ft_strjoin(tmp, pwd);
 	free(pwd);
 	free(tmp);
-	tmp = ft_strdup("\e[1;36m) \e[1;35m🐧 \e[0;37m");
+	tmp = ft_strdup("\e[1;36m) \e[1;35m🚬 \e[0;37m");
 	prompts = ft_strjoin(tmp2, tmp);
 	free(tmp2);
 	free(tmp);
