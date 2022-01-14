@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 21:11:09 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/13 18:06:55 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:40:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_cmd	*ft_fill_other(char **cpy, t_cmd *new, t_arg *arg)
 	int		tmp_nb;
 	int		j;
 
+	if (!cpy)
+		return (NULL);
 	tmp_nb = 0;
 	j = 0;
 	while (cpy[tmp_nb])

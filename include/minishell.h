@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/14 12:39:45 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 13:06:26 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ char	*ft_cut_quote_export(char *str, int start, int end);
 
 // Environnement
 char	**env_to_char(void);
-int		fill_env(void);
+void	fill_env(void);
 int		get_env(char **envp);
 int		del_env_variable(char *var);
 void	del_env(void);

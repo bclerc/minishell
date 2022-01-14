@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/13 18:13:11 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 14:50:24 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,14 @@ char	*transform_str(char *str, int status)
 	ret = 0;
 	test = get_str(str, ft_strlen(str));
 	ret = change_str(test, status);
-	printf("Retour de commande %s\n", ret);
-	return (ret);
+	printf("Retour de commande  %s \n", ret);
+	i = 0;
+	while (ret[i])
+	{
+		if (ret[i] != ' ')
+			return (ret);
+		i++;
+	}
+	free(ret);
+	return (NULL);
 }

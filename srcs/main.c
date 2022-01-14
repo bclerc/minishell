@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/14 13:03:35 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 14:50:03 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@ t_core	*g_core;
 
 void	signal_handler(int signum)
 {
-	if (signum == SIGQUIT)
-	{
-		if (g_core->child_exist)
-			return ;
-		return ;
-	}
 	if (signum == SIGINT)
 	{
 		if (g_core->child_exist)
@@ -86,6 +80,8 @@ void	minishell(char *rd, int status)
 		}
 		add_history(rd);
 		rd = transform_str(rd, status);
+		if (!rd)
+			continue ;
 		cmd = ft_launch_parser(rd, (t_cmd *[1]){(&(t_cmd){})});
 		status = start(cmd, rd);
 		free(rd);
@@ -102,6 +98,7 @@ int	main(int ac, char **av, char **envp)
 	int		status;
 
 	(void)av;
+	status = 0;
 	g_core = (t_core *)malloc(sizeof(*g_core));
 	if (!g_core)
 		return (0);
