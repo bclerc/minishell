@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:03:46 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/14 13:03:35 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 13:52:02 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-int	fill_env(void)
-{
-	char *var;
-	char *tmp;
-
-	tmp = getcwd(NULL, 0);
-	var = ft_strjoin("PWD=", tmp);
-	add_env_variable(var);
-	free(var);
-	var = ft_strjoin("OLDPWD=", tmp);
-	add_env_variable(var);
-	free(var);
-	var = ft_strjoin("HOME=", tmp);
-	add_env_variable(var);
-	free(var);
-	free(tmp);
-	add_env_variable("PATH=/bin/");
-}
-
 int	fill_env(void)
 {
 	char *var;
