@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:30:28 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/12 18:33:34 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 12:04:10 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 {
 	char	*tmp;
-	char	*tmp2;
 
 	tmp = NULL;
-	tmp2 = NULL;
 	if (j == new->cpy_nb - 1)
 	{
 		tmp = ft_parse_msg(cpy[j], arg);
@@ -31,11 +29,10 @@ char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new)
 		tmp = ft_search_msg(cpy, j, arg, tmp);
 		if (!tmp)
 			return (NULL);
-		tmp2 = ft_parse_msg(tmp, arg);
-		if (!tmp2)
+		tmp = ft_parse_msg(tmp, arg);
+		if (!tmp)
 			return (NULL);
-		free (tmp);
-		return (tmp2);
+		return (tmp);
 	}
 }
 

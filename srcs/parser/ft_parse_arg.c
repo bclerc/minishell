@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/14 11:22:11 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 12:10:16 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg)
 		c++;
 	}
 	tmp[c] = '\0';
-	printf("tmp %s\n", tmp);
 	return (tmp);
 }
 
