@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/14 10:49:53 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 12:39:45 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ char	*ft_cut_quote_export(char *str, int start, int end);
 
 // Environnement
 char	**env_to_char(void);
+int		fill_env(void);
 int		get_env(char **envp);
 int		del_env_variable(char *var);
 void	del_env(void);
