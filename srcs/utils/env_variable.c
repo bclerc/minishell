@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/13 17:43:02 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 13:03:06 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,22 @@ int	del_env_variable(char *var)
 	t_env	*last;
 
 	tmp = g_core->env;
+	last = NULL;
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
 		{
-			if (last)
+			if (last && tmp->next)
 				last->next = tmp->next;
-			else if (tmp->next)
-				g_core->env = NULL;
+			else if (!last && tmp->next)
+				g_core->env = tmp->next;
+			else if (last && !tmp->next)
+				last->next = NULL;
 			else
-				g_core->env = tmp;
-			ft_bzero(tmp->value, ft_strlen(tmp->value));
+				g_core->env = NULL;
 			free(tmp->value);
-			tmp->value = NULL;
-			free(tmp);
-			tmp = NULL;
+			tmp->next = NULL;
+			free(tmp);	
 			return (1);
 		}
 		last = tmp;
