@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 14:38:12 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/13 15:21:24 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:22:11 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg)
 	int		c;
 
 	c = 0;
+	if (arg->i - 1 != ' ')
+		i = i + 1;
 	tmp = malloc(sizeof(char) * (i + 1));
 	if (!tmp)
 		return (NULL);
@@ -28,6 +30,7 @@ char	*ft_parse_arg(char *str, int i, t_arg *arg)
 		c++;
 	}
 	tmp[c] = '\0';
+	printf("tmp %s\n", tmp);
 	return (tmp);
 }
 

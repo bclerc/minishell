@@ -43,6 +43,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_builtin.c \
 			srcs/utils/ft_strsplit_space.c \
 			srcs/utils/split_utils.c \
+			srcs/utils/ft_utils_chevron.c \
 			srcs/commands/commands.c \
 			srcs/commands/dup_cmd.c \
 			srcs/commands/commands_utils.c \

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:05:34 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/13 18:32:11 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:18:27 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	// 	|| !ft_strcmp(arg->cmds[arg->i], "<<")
 	// 	|| !ft_strcmp(arg->cmds[arg->i], ">>"))
 	// {
-	// 	*cmd = ft_special_chev(arg, cpy, *cmd);
+	// 	*cmd = ft_chevron(arg, *cmd);
 	// 	if (*cmd)
 	// 		return (NULL);
 	// 	return (*cmd);
 	// }
-//		printf("i %s\n", arg->cmds[arg->i]);
+		printf("cmd[%d] %s\n", arg->i, arg->cmds[arg->i]);
 	while (arg->i < arg->count)
 	{
 		arg->i = ft_cmd_i(arg, arg->i);
