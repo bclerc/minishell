@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:04:00 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/14 14:47:12 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 17:25:20 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ char	*ft_parse_msg(char *str, t_arg *arg)
 	char	*tmp;
 
 	i = 0;
+	size = 0;
 	while (str[i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+			size--;
 		i++;
-	if (str[i - 1] == ' ')
-		size = ft_strlen(str) - 1;
-	else
-		size = ft_strlen(str);
+	}
+	size += ft_strlen(str);
 	arg->pos_i = 0;
 	tmp = NULL;
 	while (arg->pos_i < size)

@@ -32,7 +32,6 @@ SOURCES =	srcs/main.c \
 			srcs/utils/env_utils.c \
 			srcs/utils/ft_free.c \
 			srcs/utils/ft_utils_parsing.c \
-			srcs/utils/ft_strtrim.c \
 			srcs/utils/ft_util_parsemsg.c \
 			srcs/utils/exit.c \
 			srcs/utils/ft_utils_redir_in.c \
