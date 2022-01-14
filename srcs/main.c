@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/13 18:28:03 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 12:41:24 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	signal_handler(int signum)
 		{
 			printf("\n");
 			rl_on_new_line();
-			rl_replace_line("", 0);
+			//rl_replace_line("", 0);
 			rl_redisplay();
 		}
 	}
@@ -108,6 +108,8 @@ int	main(int ac, char **av, char **envp)
 	g_core->child_exist = 0;
 	g_core->env = NULL;
 	get_env(envp);
+	if (!g_core->env)
+		fill_env();
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);
