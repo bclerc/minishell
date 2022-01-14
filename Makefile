@@ -25,6 +25,7 @@ SOURCES =	srcs/main.c \
 			srcs/parser/ft_redir.c \
 			srcs/parser/ft_inandout.c \
 			srcs/utils/envgeter.c \
+			srcs/utils/envgeter_utils.c \
 			srcs/utils/ft_utils.c \
 			srcs/utils/prompts.c \
 			srcs/utils/env_variable.c \
@@ -46,7 +47,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_chevron.c \
 			srcs/commands/commands.c \
 			srcs/commands/dup_cmd.c \
-			 srcs/commands/commands_utils.c \
+			srcs/commands/commands_utils.c \
 			srcs/commands/pipe.c \
 			srcs/commands/fork.c \
 			srcs/commands/pipe_utils.c \
@@ -64,7 +65,7 @@ SOURCES =	srcs/main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address
-CFLAGS = -g3 #-fsanitize=address
+CFLAGS = -g3
 
 .PHONY: all re clean fclean libft force doclean
 
