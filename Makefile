@@ -60,8 +60,8 @@ SOURCES =	srcs/main.c \
 			srcs/built-in/export/export_utils.c \
 			srcs/built-in/pwd/pwd.c \
 			srcs/built-in/utils.c \
+			srcs/built-in/exit/exit.c \
 			srcs/built-in/unset/unset.c
-
 OBJECTS = $(SOURCES:.c=.o)
 
 FSANITIZE = -fsanitize=address

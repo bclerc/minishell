@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/14 16:14:57 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 17:16:26 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,15 +279,15 @@ void	ft_lstdelone(t_cmd *lst, void (*del)(t_cmd *));
 // pipe
 t_cmd	*dup_cmd(t_cmd *cmd);
 int		get_pipe_count(t_cmd *cmd);
-int		m_pipe(t_cmd *cmd);
+int		m_pipe(t_cmd *cmd, int status);
 int		close_fd(int *tab_fd, int nb_pipes);
 int		open_pipe(int *tab_fd, int nb_pipes);
-int		fork_cmd(int *pipes, t_cmd *cmd, int nbpipe);
+int		fork_cmd(int *pipes, t_cmd *cmd, int nbpipe, int status);
 int		is_forkable(t_cmd *cmd);
 int		set_in_out(int *pipes, t_cmd *cmd, int i, int nbpipes);
 
 // execution
-int		execute_commands(t_cmd *cmd);
+int		execute_commands(t_cmd *cmd, int status);
 char	**get_argv(t_cmd *cmd);
 char	*heredoc(t_cmd *cmd);
 // built-in function
@@ -295,6 +295,7 @@ void	export_sort(char **value, int len);
 void	free_env(char **env);
 char	**re_alloc(char **env);
 int		unset(char *var);
+int		builtin_exit(t_cmd *cmd, int status);
 int		add_env_variable(char *var);
 int		get_env_length(char **env);
 int		export(char *path, char *argv);

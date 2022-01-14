@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/13 12:25:56 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 17:25:00 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	exec(t_cmd *cmd)
 	return (status);
 }
 
-int	execute_commands(t_cmd *cmd)
+int	execute_commands(t_cmd *cmd, int status)
 {
 	int	ret;
 
@@ -115,10 +115,7 @@ int	execute_commands(t_cmd *cmd)
 	else if (ft_strcmp(cmd->cmd, "unset") == 0)
 		unset(cmd->msg);
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
-	{
-		write(1, "exit 😱 😭", 15);
-		return (-1);
-	}
+		ret = builtin_exit(cmd, status);
 	else
 		ret = exec(cmd);
 	return (ret);

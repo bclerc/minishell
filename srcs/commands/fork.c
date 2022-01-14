@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:18:03 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:47:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 17:36:13 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	execute(t_cmd *tmp, int i, int nbpipe, int *pipes)
 	{
 		set_in_out(pipes, tmp, i, nbpipe);
 		close_fd(pipes, nbpipe);
-		ret = execute_commands(tmp);
+		ret = execute_commands(tmp, tmp->std);
 	}
 	return (ret);
 }
 
-int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
+int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe, int status)
 {
 	t_cmd	*tmp;
 	int		i;
@@ -48,6 +48,7 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 	tmp = cmd;
 	while (tmp)
 	{
+		cmd->std = status;
 		if (ft_strcmp(tmp->cmd, "exit") == 0)
 		{
 			if (!tmp->next)
@@ -61,7 +62,7 @@ int	fork_cmd(int *pipes, t_cmd *cmd, int nbpipe)
 			i = i + 2;
 		}
 		else
-			ret = execute_commands(tmp);
+			ret = execute_commands(tmp, status);
 		tmp = tmp->next;
 	}
 	return (ret);

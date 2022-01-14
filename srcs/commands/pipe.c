@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 12:36:56 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 17:56:30 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 17:35:33 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,27 +101,27 @@ int	get_status(int nbpipe, int *pipes)
 		status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
 		status = WTERMSIG(status);
+	if (status == 2)
+		status += 128;
 	return (status);
 }
 
-int	m_pipe(t_cmd *cmd)
+int	m_pipe(t_cmd *cmd, int status)
 {
 	int		nbpipe;
 	int		*pipes;
-	int		status;
 
 	pipes = 0;
 	nbpipe = 0;
-	status = 0;
 	if ((ft_strcmp(cmd->cmd, "exit") == 0 && !cmd->next)
 		|| ft_strcmp(cmd->cmd, "cd") == 0)
-		return (execute_commands(cmd));
+		return (execute_commands(cmd, status));
 	nbpipe = get_pipe_count(cmd);
 	pipes = (int *)malloc(sizeof(int) * (nbpipe * 2));
 	if (!pipes)
 		return (1);
 	open_pipe(pipes, nbpipe);
-	fork_cmd(pipes, cmd, nbpipe);
+	fork_cmd(pipes, cmd, nbpipe, status);
 	close_fd(pipes, nbpipe);
 	status = get_status(nbpipe, pipes);
 	return (status);

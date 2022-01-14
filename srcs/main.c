@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/14 16:16:31 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 17:26:08 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	signal_handler(int signum)
 		if (g_core->child_exist)
 		{
 			if (g_core->child == 0)
-				exit(-1);
+				kill(g_core->child, 9);
 		}
 		else
 		{
-			printf("\n");
+			write(1, "\n", 1);
 			rl_on_new_line();
 			//rl_replace_line("", 0);
 			rl_redisplay();
@@ -45,17 +45,17 @@ int	start(t_cmd *cmd, char *str)
 		return (-2);
 	status = 0;
 	tmp = dupp_cmd(cmd);
-	status = m_pipe(tmp);
+	status = m_pipe(tmp, status);
 	m_exit(tmp, M_EXIT_FORK, NULL);
 	return (status);
 }
 
-void	quit_minishell(void)
+void	quit_minishell(int status)
 {
-	write(1, "\n", 1);
+	printf("\nBye\n");
 	del_env();
 	free(g_core);
-	exit(EXIT_SUCCESS);
+	exit(status);
 }
 
 void	minishell(char *rd, int status)
@@ -63,14 +63,13 @@ void	minishell(char *rd, int status)
 	t_cmd	*cmd;
 
 	cmd = NULL;
-	while (status != -1)
+	while (status > -1)
 	{
 		rd = start_prompt();
 		if (!rd)
 			break ;
 		if (!rd || ft_strlen(rd) == 0)
 		{
-			printf("\n");
 			if (!rd)
 				status = -1;
 			continue ;
@@ -83,7 +82,7 @@ void	minishell(char *rd, int status)
 		status = start(cmd, rd);
 		free(rd);
 	}
-	quit_minishell();
+	quit_minishell(status + 300);
 }
 
 int	main(int ac, char **av, char **envp)
