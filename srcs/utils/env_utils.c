@@ -6,15 +6,16 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:03:46 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/14 13:52:02 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 13:29:00 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-int	fill_env(void)
+
+void	fill_env(void)
 {
-	char *var;
-	char *tmp;
+	char	*var;
+	char	*tmp;
 
 	tmp = getcwd(NULL, 0);
 	var = ft_strjoin("PWD=", tmp);

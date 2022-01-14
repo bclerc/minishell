@@ -6,11 +6,23 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/14 13:03:06 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 13:38:23 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	rebuild_env(t_env *tmp, t_env *last)
+{
+	if (last && tmp->next)
+		last->next = tmp->next;
+	else if (!last && tmp->next)
+		g_core->env = tmp->next;
+	else if (last && !tmp->next)
+		last->next = NULL;
+	else
+		g_core->env = NULL;
+}
 
 int	del_env_variable(char *var)
 {
@@ -23,17 +35,10 @@ int	del_env_variable(char *var)
 	{
 		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
 		{
-			if (last && tmp->next)
-				last->next = tmp->next;
-			else if (!last && tmp->next)
-				g_core->env = tmp->next;
-			else if (last && !tmp->next)
-				last->next = NULL;
-			else
-				g_core->env = NULL;
+			rebuild_env(tmp, last);
 			free(tmp->value);
 			tmp->next = NULL;
-			free(tmp);	
+			free(tmp);
 			return (1);
 		}
 		last = tmp;

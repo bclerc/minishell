@@ -46,7 +46,7 @@ SOURCES =	srcs/main.c \
 			srcs/utils/ft_utils_chevron.c \
 			srcs/commands/commands.c \
 			srcs/commands/dup_cmd.c \
-			srcs/commands/commands_utils.c \
+			 srcs/commands/commands_utils.c \
 			srcs/commands/pipe.c \
 			srcs/commands/fork.c \
 			srcs/commands/pipe_utils.c \

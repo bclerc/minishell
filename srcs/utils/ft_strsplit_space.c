@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 10:46:29 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/13 14:14:40 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 13:29:16 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static	char	*ft_word(const char *str, char *set, int *i, int status)
 		*i += 1;
 	return (s);
 }
-
 
 char	**ft_strsplit_s(const char *str, char *set, int status)
 {
