@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/14 15:53:18 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 16:14:57 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ char	*readline(const char *prompt);
 t_list	*ft_get_env(t_list *env, char **envp);
 
 // init
+char	*start_prompt(void);
 char	*ft_init_env(char **envp, t_list *env, int count);
 void	ft_init_arg(t_arg *cmd, char *str);
 int		ft_init_cmd(t_cmd **cmd, t_arg *arg);

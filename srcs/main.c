@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/14 14:50:03 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 16:16:31 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,12 @@ int	start(t_cmd *cmd, char *str)
 	return (status);
 }
 
-char	*start_prompt(void)
+void	quit_minishell(void)
 {
-	char	*prompt;
-	char	*ret;
-
-	prompt = get_promps();
-	ret = readline(prompt);
-	free(prompt);
-	return (ret);
+	write(1, "\n", 1);
+	del_env();
+	free(g_core);
+	exit(EXIT_SUCCESS);
 }
 
 void	minishell(char *rd, int status)
@@ -86,10 +83,7 @@ void	minishell(char *rd, int status)
 		status = start(cmd, rd);
 		free(rd);
 	}
-	write(1, "\n", 1);
-	del_env();
-	free(g_core);
-	exit(EXIT_SUCCESS);
+	quit_minishell();
 }
 
 int	main(int ac, char **av, char **envp)
