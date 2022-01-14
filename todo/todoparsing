@@ -2,7 +2,7 @@ echo "cat | " > lol | wc
 > ok
 
 echo "cat | " > lol |
-> ok ( mais changer le fait que ca fasse exit actuellement) + pb : quand c un | ne met pas le msg d erreur de bash
+> ok
 
 "echo" "cat | " > lol | wc
 > ok
@@ -27,13 +27,14 @@ pb de unconditionnal jump dans getcmd
 
 echo "ghgjfdhg" '   ' fjhg | wc
       1       2      16
-> retire les sp dans ' '
+> ok
 
 echo '$USER' > ok
 
 ls|ls
+> ok
 
-echo -nnn avec plusieurs args pas ok
+echo -nnn avec plusieurs args > ok
 
 > jjj : doit creer un fichier vide
-< gg : doit??
+< gg : doit

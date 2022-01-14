@@ -26,8 +26,7 @@ t_cmd	*ft_get_cmd(t_arg *arg, t_cmd **cmd)
 	// 	if (*cmd)
 	// 		return (NULL);
 	// 	return (*cmd);
-// }
-		printf("cmd[%d] %s\n", arg->i, arg->cmds[arg->i]);
+	// }
 	while (arg->i < arg->count)
 	{
 		arg->i = ft_cmd_i(arg, arg->i);
