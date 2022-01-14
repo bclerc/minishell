@@ -6,11 +6,22 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:41:31 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/13 12:37:40 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 16:14:28 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	*start_prompt(void)
+{
+	char	*prompt;
+	char	*ret;
+
+	prompt = get_promps();
+	ret = readline(prompt);
+	free(prompt);
+	return (ret);
+}
 
 char	*get_current_dir_name(void)
 {
