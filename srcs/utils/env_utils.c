@@ -30,6 +30,25 @@ int	fill_env(void)
 	add_env_variable("PATH=/bin/");
 }
 
+int	fill_env(void)
+{
+	char *var;
+	char *tmp;
+
+	tmp = getcwd(NULL, 0);
+	var = ft_strjoin("PWD=", tmp);
+	add_env_variable(var);
+	free(var);
+	var = ft_strjoin("OLDPWD=", tmp);
+	add_env_variable(var);
+	free(var);
+	var = ft_strjoin("HOME=", tmp);
+	add_env_variable(var);
+	free(var);
+	free(tmp);
+	add_env_variable("PATH=/bin/");
+}
+
 int	get_env(char **envp)
 {
 	int	i;

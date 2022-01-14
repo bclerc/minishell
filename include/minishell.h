@@ -6,7 +6,7 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 11:00:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/13 18:28:03 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 12:39:45 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_env
 
 typedef struct s_split
 {
-
 	char			value;
 	struct s_split	*next;
 
@@ -120,6 +119,7 @@ struct	s_arg
 	int		i;
 	int		spec_n;
 	int		sp;
+	int		std;
 	char	*tmp;
 };
 
@@ -161,6 +161,10 @@ int		ft_check_char(char *str, int i, int c, t_arg *arg);
 int		ft_check_chevron(char *str, int i, int c, t_arg *arg);
 void	ft_char(t_arg *arg, int c, char s, int nb);
 char	*ft_nosep(int i, char *str, t_arg *arg);
+int		ft_begin_chevron(char *str, int i, int size, t_arg *arg);
+int		ft_begin_util(char *str, int i, int size, t_arg *arg);
+void	ft_util_stockarg(t_arg *arg);
+int		ft_special_chev(t_arg *arg, char *str);
 //int		ft_check_args(t_arg *arg);
 
 // parse cmds
@@ -186,6 +190,8 @@ int		ft_std(t_arg *arg, int i);
 void	ft_spec_out(t_cmd *new, t_arg *arg);
 void	ft_spec_in(t_cmd *new, t_arg *arg);
 t_cmd	*ft_check_spec(t_cmd **cmd);
+int		ft_special_exist(t_arg *arg);
+t_cmd	*ft_chevron(t_arg *arg, t_cmd *cmd);
 
 //parse msg
 char	*ft_cpy_msg(t_arg *arg, char **cpy, int j, t_cmd *new);
@@ -210,6 +216,7 @@ char	*ft_cut_quote_export(char *str, int start, int end);
 
 // Environnement
 char	**env_to_char(void);
+int		fill_env(void);
 int		get_env(char **envp);
 int		del_env_variable(char *var);
 void	del_env(void);

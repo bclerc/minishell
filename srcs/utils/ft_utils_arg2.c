@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:08 by asgaulti          #+#    #+#             */
-/*   Updated: 2022/01/13 16:44:26 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 10:56:25 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,27 @@ int	ft_special_chev(t_arg *arg, char *str)
 		if (!arg->cmds[arg->c])
 			return (1);
 		arg->c++;
-		while (arg->c < arg->count)
+		if (arg->c < arg->count)
 		{
-			if (str[arg->i] == '<' || str[arg->i] == '>')
+			while (arg->c < arg->count)
 			{
-				arg->i = ft_check_char(str, arg->i, arg->c, arg);
-				if (arg->i == -1)
-					return (1);
-				arg->start = arg->i;
-				while (str[arg->i] && str[arg->i] != '<' && str[arg->i] != '>')
-					arg->i++;
-				if (arg->c < arg->count - 1)
+				if (str[arg->i] == '<' || str[arg->i] == '>')
+				{
+					arg->i = ft_check_char(str, arg->i, arg->c, arg);
+					if (arg->i == -1)
+						return (1);
+					arg->start = arg->i;
+					while (str[arg->i] && str[arg->i] != '<' && str[arg->i] != '>')
+						arg->i++;
+					if (arg->c < arg->count - 1)
+						arg->c++;
+					arg->cmds[arg->c] = ft_parse_arg(str, arg->i, arg);
 					arg->c++;
-				arg->cmds[arg->c] = ft_parse_arg(str, arg->i, arg);
-				arg->c++;
+				}
+				arg->i++;
 			}
-			arg->i++;
+			return (arg->i);
 		}
-		return (arg->i);
 	}
 	return (0);
 }

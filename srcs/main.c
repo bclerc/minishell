@@ -108,6 +108,8 @@ int	main(int ac, char **av, char **envp)
 	g_core->child_exist = 0;
 	g_core->env = NULL;
 	get_env(envp);
+	if (!g_core->env)
+		fill_env();
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
 	signal(SIGINT, signal_handler);

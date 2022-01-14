@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/13 18:08:28 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 10:56:44 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_stock_arg(t_arg *arg, char *str)
 	arg->cmds = malloc(sizeof(char *) * (arg->count));
 	if (!arg->cmds)
 		return (1);
-	arg->i = ft_special_chev(arg, str);
+	// arg->i = ft_special_chev(arg, str);
 	if (arg->i < 0)
 		return (1);
 	while (arg->i < ft_strlen(str))
