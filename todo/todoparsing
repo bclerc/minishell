@@ -1,0 +1,40 @@
+echo "cat | " > lol | wc 
+> ok
+
+echo "cat | " > lol |
+> ok
+
+"echo" "cat | " > lol | wc
+> ok
+
+ls | cat | cat | cat | cat | cat -e | grep srcs > k > l
+> ok
+
+ls | cat | cat | cat | cat | cat -e | grep srcs > k < Makefile
+> ok (printf de debug)
+
+ls | cat | cat | cat | cat | cat -e | grep srcs < Makefile
+> ok
+
+echo co < Makefile | wc < l< lol
+> plus de segfault mais pas bon result (ouiiiiiin)
+
+echo co | cat -e > p < srcs/main.c > l
+> ok
+
+pb de unconditionnal jump dans getcmd
+>ok
+
+echo "ghgjfdhg" '   ' fjhg | wc
+      1       2      16
+> ok
+
+echo '$USER' > ok
+
+ls|ls
+> ok
+
+echo -nnn avec plusieurs args > ok
+
+> jjj : doit creer un fichier vide
+< gg : doit

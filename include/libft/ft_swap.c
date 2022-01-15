@@ -6,15 +6,14 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 14:00:36 by bclerc            #+#    #+#             */
-/*   Updated: 2021/08/28 17:32:38 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:33:30 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_swap(char *a, char *b)
 {
-	char	*tmp;
+	int	i;
 
-	tmp = a;
-	a = b;
-	b = tmp;
+	i = 0;
+	i++;
 }

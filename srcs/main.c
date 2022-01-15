@@ -3,95 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:28:32 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/10/25 08:42:19 by astrid           ###   ########.fr       */
+/*   Updated: 2022/01/14 17:26:08 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_core core;
+t_core	*g_core;
 
-void	signal_handler(int signum, siginfo_t *info, void *context)
+void	signal_handler(int signum)
 {
-		if (signum == SIGINT)
-		{
-			if (core.child_exist)
-			{
-				if (core.child == 0)
-					exit(-1);
-			}
-			else
-			{
-				printf("\n");
-				rl_on_new_line();
-        		rl_replace_line("", 0);
-        		rl_redisplay();
-			}
-		}
-}
-
-void	minishell(int ac, char **av, char **envp)
-{
-	char	*str;
-	char	*prompt;
-
-	while (core.status)
+	if (signum == SIGINT)
 	{
-		prompt = get_promps(envp);
-		str = readline(prompt);
-		if (!str || ft_strlen(str) == 0)
+		if (g_core->child_exist)
 		{
-			printf("\n");
-			continue;
+			if (g_core->child == 0)
+				kill(g_core->child, 9);
 		}
-		add_history(str);
-		str = transform_str(str, envp);
-
-		ft_parser(str, envp);
-		if (execute_commands(str, envp, 0) == -1)
+		else
 		{
-		free(prompt);
-		free(str);
-		break ;
+			write(1, "\n", 1);
+			rl_on_new_line();
+			//rl_replace_line("", 0);
+			rl_redisplay();
 		}
-		free(prompt);	
-		free(str);
-
 	}
 }
 
-struct sigaction	init_signal(void)
+int	start(t_cmd *cmd, char *str)
 {
-	struct sigaction	sa;
+	t_cmd	*tmp;
+	int		status;
 
-	sa.sa_sigaction = signal_handler;
-	sigemptyset(&sa.sa_mask);
-	return (sa);
+	if (!cmd)
+		return (-2);
+	cmd = ft_redir(cmd);
+	if (!cmd)
+		return (-2);
+	status = 0;
+	tmp = dupp_cmd(cmd);
+	status = m_pipe(tmp, status);
+	m_exit(tmp, M_EXIT_FORK, NULL);
+	return (status);
+
+void	quit_minishell(int status)
+{
+	printf("\nBye\n");
+	del_env();
+	free(g_core);
+	exit(status);
+}
+
+void	minishell(char *rd, int status)
+{
+	t_cmd	*cmd;
+
+	cmd = NULL;
+	while (status > -1)
+	{
+		rd = start_prompt();
+		if (!rd)
+			break ;
+		if (!rd || ft_strlen(rd) == 0)
+		{
+			if (!rd)
+				status = -1;
+			continue ;
+		}
+		add_history(rd);
+		rd = transform_str(rd, status);
+		if (!rd)
+			continue ;
+		cmd = ft_launch_parser(rd, (t_cmd *[1]){(&(t_cmd){})});
+		status = start(cmd, rd);
+		free(rd);
+	}
+	quit_minishell(status + 300);
 }
 
 int	main(int ac, char **av, char **envp)
 {
-	int		i;
-	char	*str;
-	char	readbuffer[3];
-	t_list	*env;
-	struct sigaction	sa;
+	char	*rd;
+	int		status;
 
 	(void)av;
-	core.child_exist = 0;
-	env = NULL;
-	i = 0;
+	status = 0;
+	g_core = (t_core *)malloc(sizeof(*g_core));
+	if (!g_core)
+		return (0);
+	g_core->child_exist = 0;
+	g_core->env = NULL;
+	get_env(envp);
+	if (!g_core->env)
+		fill_env();
 	if (ac != 1)
 		return (ft_print("There are too many arguments!\n", 1));
-	while (envp[i])
-		i++;
-	sa = init_signal();
-	//sigaction(SIGINT, &sa, NULL);
-	core.status = 1;
-	core.parent = getpid();
-	minishell(ac, av, envp);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+	g_core->parent = getpid();
+	minishell(rd, status);
 	return (0);
 }

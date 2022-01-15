@@ -5,72 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 08:18:03 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 12:39:49 by bclerc           ###   ########.fr       */
+/*   Created: 2022/01/12 10:46:29 by bclerc            #+#    #+#             */
+/*   Updated: 2022/01/14 15:26:01 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
-static size_t	ft_countword(char const *s, char c)
+static	int	ft_count_words(const char *str, char *set)
 {
-	int count_word;
-	int i;
+	int	word;
+	int	i;
 
-	count_word = 0;
 	i = 0;
-	while (s[i])
+	word = 0;
+	if (!str)
+		return (0);
+	while (str[i])
 	{
-		if ((s[i] != c || s[i] != ' ') && (s[i + 1] == c || s[i + 1] == ' ' || s[i + 1] == '\0'))
-			count_word++;
+		if (is_in_set(str[i], set) && !is_in_set(str[i + 1], set))
+			word++;
 		i++;
 	}
-	return (count_word);
+	if (str[0] != '\0')
+		word++;
+	return (word);
 }
 
-static size_t	ltab(char const *s, int i, char c)
+static	char	*ft_word(const char *str, char *set, int *i, int status)
 {
-	size_t len;
+	char	*s;
+	int		k;
+	char	save;
+	char	*tmp;
 
-	len = 0;
-	while (s[i])
+	save = 0;
+	if (*i == 0 && str[*i] == '$')
 	{
-		if (s[i] == c || s[i] == ' ')
-			return (len);
-		len++;
-		i++;
+		save = str[*i];
+		*i += 1;
 	}
-	return (len);
+	else if (*i != 0)
+		save = str[*i - 1];
+	s = fill(str, set, i);
+	replace_var(save, &s, status);
+	if (!s)
+		return (NULL);
+	while (is_in_set(str[*i], set) && str[*i])
+		*i += 1;
+	return (s);
 }
 
-char			**ft_strsplit_s(char const *s, char c)
+char	**ft_strsplit_s(const char *str, char *set, int status)
 {
 	int		i;
 	int		j;
-	int		k;
-	char	**tab;
+	int		wrd;
+	char	**s;
 
-	i = -1;
+	i = 0;
 	j = 0;
-	k = 0;
-	tab = malloc(sizeof(char*) * (ft_countword(s, c) + 2));
-	if (!tab)
+	wrd = ft_count_words(str, set);
+	s = (char **)malloc(sizeof(s) * (ft_count_words(str, set) + 2));
+	if (!(s))
 		return (NULL);
-	while (s[++i])
+	while (str[i] == ' ')
+		i++;
+	while (j < wrd && str[i])
 	{
-		if (s[i] != c || s[i] != ' ')
-		{
-			if (k == 0)
-				tab[j] = malloc(sizeof(char) * (ltab(s, i, c) + 2));
-				if (!tab)
-					return (NULL);
-			tab[j][k] = s[i];
-			tab[j][++k] = '\0';
-		}
-		if (( ( (s[i] != c && (s[i + 1] == c || !s[i + 1]) || (s[i] != ' ' && (s[i + 1] == ' ' || !s[i + 1]))) 
-			&& k > 0) && !(k = 0)))
-			j++;
+		s[j] = ft_word(str, set, &i, status);
+		j++;
 	}
-	tab[j] = NULL;
-	return (tab);
+	s[j] = NULL;
+	return (s);
 }

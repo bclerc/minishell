@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_check_n.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 08:40:16 by bclerc            #+#    #+#             */
-/*   Updated: 2018/11/20 17:58:47 by bclerc           ###   ########.fr       */
+/*   Created: 2021/11/07 17:09:05 by astrid            #+#    #+#             */
+/*   Updated: 2022/01/11 21:13:23 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(const char *str1, const char *str2)
-{
-	unsigned char	*s1;
-	unsigned char	*s2;
-	int				i;
+#include "minishell.h"
 
-	s1 = (unsigned char *)str1;
-	s2 = (unsigned char *)str2;
+char	*ft_check_n(char *str)
+{
+	int		i;
+	int		j;
+	char	**tmp;
+
 	i = 0;
-	while (s1[i] && s2[i])
+	tmp = ft_strsplit(str, ' ');
+	if (ft_strcmp(tmp[i], "echo") == 0)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
 		i++;
+		if (ft_strcmp(tmp[i], "-n") == 0)
+		{
+			j = 0;
+			while (tmp[i][j])
+			{
+				if (tmp[i][j++] != 'n')
+					return (ft_print("Error in specification\n", -1) && NULL);
+			}
+			tmp[i++] = "-n";
+			while (ft_strcmp(tmp[i], "-n") == 0)
+				tmp[i++] = NULL;
+		}
 	}
-	if ((!s1[i] && s2[i]) || (s1[i] && !s2[i]))
-		return (s1[i] - s2[i]);
-	return (0);
+	return (str);
 }

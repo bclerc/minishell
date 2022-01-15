@@ -6,33 +6,86 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:15:09 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 13:52:43 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 13:38:23 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
-// TODO:
-//	Foncionne quand la variable possede les memes lettres que le debut d'une variable dans l'env
-// 	Ex: LS retourn LSCOLOR,
-//je sais le regler mais la j'ai la flemme donc je vais le faire plus tard
-
-char *get_env_variable(char *var, char **envp)
+void	rebuild_env(t_env *tmp, t_env *last)
 {
-	int i;
-	int b;
+	if (last && tmp->next)
+		last->next = tmp->next;
+	else if (!last && tmp->next)
+		g_core->env = tmp->next;
+	else if (last && !tmp->next)
+		last->next = NULL;
+	else
+		g_core->env = NULL;
+}
 
-	i = 0;
-	while (envp[i])
+int	del_env_variable(char *var)
+{
+	t_env	*tmp;
+	t_env	*last;
+
+	tmp = g_core->env;
+	last = NULL;
+	while (tmp)
 	{
-		if (ft_strncmp(var, envp[i], ft_strlen(var) - 1) == 0)
+		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
 		{
-			b = 0;
-			while (envp[i][b] != '=')
-				b++;
-			return (ft_strdup(envp[i] + b + 1));			
+			rebuild_env(tmp, last);
+			free(tmp->value);
+			tmp->next = NULL;
+			free(tmp);
+			return (1);
 		}
-		i++;
+		last = tmp;
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+char	*get_env_variable_str(char *var)
+{
+	t_env	*tmp;
+	int		len;
+	int		i;
+
+	tmp = g_core->env;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
+		{
+			i = 0;
+			while (tmp->value[i] != '=')
+				i++;
+			return (tmp->value + i + 1);
+		}
+		tmp = tmp->next;
 	}
 	return (NULL);
+}
+
+char	*get_env_variable(char *var)
+{
+	t_env	*tmp;
+	int		i;
+
+	tmp = g_core->env;
+	if (!tmp)
+		return (NULL);
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->value, var, ft_strlen(var)) == 0)
+		{
+			i = 0;
+			while (tmp->value[i] != '=')
+				i++;
+			return (tmp->value + i + 1);
+		}
+		tmp = tmp->next;
+	}
+	return ("  ");
 }

@@ -3,50 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 12:13:13 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/12 15:34:52 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/11 12:32:28 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	copy_env(char **envp, t_env *env)
+int	is_eof(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (s[i] != -1)
 		i++;
-	env->export = (char **)malloc(sizeof(char *) * i + 1);
-	i = 0;
-	while (envp[i])
-	{
-		env->export[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	env->export[i] = 0;
-	return (1);
+	if (s[i] == -1)
+		return (1);
+	return (0);
 }
 
-int get_fd(char *path)
+int	mul_redir(t_cmd *cmd)
 {
-	int fd;
-	struct stat buffer;
+	t_redir	*tmp;
+	int		fd;
+
+	tmp = cmd->redir;
+	while (tmp)
+	{
+		if (!tmp->next)
+			fd = get_fd(tmp->fd_out, tmp->redir_std_out);
+		else
+		{
+			fd = get_fd(tmp->fd_out, tmp->redir_std_out);
+			close(fd);
+		}
+		tmp = tmp->next;
+	}
+	return (fd);
+}
+
+int	get_fd(char *path, int append)
+{
+	struct stat	buffer;
+	int			fd;
 
 	fd = 1;
 	if (path)
 	{
-		if (stat(path, &buffer) == 0)
-			fd = open(path, O_WRONLY);
+		if (access(path, F_OK))
+			fd = open(path, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+		else if (append == REDIR_APPEND_OUT)
+			fd = open(path, O_RDWR | O_APPEND);
+		else if (append == REDIR_OUT)
+			fd = open(path, O_RDWR | O_TRUNC);
 		else
-			fd = open(path, O_WRONLY | O_APPEND | O_CREAT, 0644);
+			fd = open(path, O_RDWR);
 	}
 	if (fd < 0)
 	{
-		printf("Something wrong (error: %d)...\n", fd);
-		exit (1);
+		printf("Something wrong (error: %d) : %s\n", fd, path);
+		perror("open: ");
+		exit (EXIT_FAILURE);
 	}
-	return (1);
+	return (fd);
 }

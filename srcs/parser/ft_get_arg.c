@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 09:55:35 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/25 09:53:57 by astrid           ###   ########.fr       */
+/*   Updated: 2022/01/14 10:56:44 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,94 +17,119 @@
 // stock arg
 int	ft_get_arg(char *str, t_arg *arg)
 {
+	int	ret;
+
 	ft_init_arg(arg, str);
-	ft_count_arg(str, arg);
-	ft_stock_arg(arg, str);
-	arg->start = 0;
-	if (ft_check_args(arg) == -1)
+	ret = ft_no(str);
+	if (ret != 0)
+	{
+		if (ret == -1)
+			return (ft_print("syntax error\n", -1) & -1);
+		else if (ret == -2)
+			return (ft_print("syntax error near unexpected token `newline'\n",
+					-1) & -1);
+	}
+	if (ft_quotes(str, arg) == -1)
 		return (-1);
+	if (ft_count_arg(str, arg) == -1)
+		return (-1);
+	if (ft_stock_arg(arg, str) == -1)
+		return (-1);
+	arg->start = 0;
 	return (0);
 }
 
 // determiner le nb d args (en fct des sep | < >)
-void	ft_count_arg(char *str, t_arg *arg)
+int	ft_count_arg(char *str, t_arg *arg)
 {
-	int		i;
+	int	i;
+	int	size;
 
 	i = 0;
-	while (str[i])
+	size = ft_strlen(str);
+	i = ft_begin_chevron(str, i, size, arg);
+	if (i < 0)
+		return (-1);
+	while (i < size)
 	{
-		if ((str[i] == '>' && str[i + 1] == '>') || 
-			(str[i] == '<' && str[i + 1] == '<'))
-		{
-			arg->count++;
-			i++;
-			if (str[i])
-				arg->count++;
-		}
-		else if	(str[i] == '>' || str[i] == '<' || str[i] == '|')
-		{
-			arg->count++;
-			if (str[i + 1])
-				arg->count++;
-		}	
+		i = ft_increase_quote(str, i);
+		if (((str[i] == '>' && str[i + 1] == '>')
+				|| (str[i] == '<' && str[i + 1] == '<')) && i != 0)
+			i = ft_count1(str, i, arg);
+		else if (i != 0 && ((str[i] == '>' && str[i + 1] != '>')
+				|| (str[i] == '<' && str[i + 1] != '<') || str[i] == '|'))
+			ft_count2(str, i, arg);
 		i++;
 	}
 	if (i == 0)
 		arg->count = 0;
+	return (0);
 }
 
 // recup args par chaines
 // + check args (quotes, no sep)
-void	ft_stock_arg(t_arg *arg, char *str)
+int	ft_stock_arg(t_arg *arg, char *str)
 {
-	int		c;
-	int		i;
-	char	*tmp;
-
-	c = 0;
-	i = -1;
-	arg->cmds = malloc(sizeof(char *) * (arg->count + 1));
+	arg->cmds = malloc(sizeof(char *) * (arg->count));
 	if (!arg->cmds)
-		return ;
-	while (str[++i])
+		return (1);
+	// arg->i = ft_special_chev(arg, str);
+	if (arg->i < 0)
+		return (1);
+	while (arg->i < ft_strlen(str))
 	{
-		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+		arg->i = ft_stock_i(str, arg->i);
+		if (str[arg->i] == '<' || str[arg->i] == '>' || str[arg->i] == '|')
 		{
-			arg->cmds[c] = ft_parse_arg(str, i, arg);
-			c++;
-			if (ft_check_char(str, i, c, arg) == -1)
-				return ;
-			else
-				i = ft_check_char(str, i, c, arg);	
-			arg->start = i;
-			c++;
+			arg->cmds[arg->c] = ft_parse_arg(str, arg->i - 1, arg);
+			if (!arg->cmds[arg->c])
+				return (1);
+			arg->c++;
+			arg->i = ft_check_char(str, arg->i, arg->c, arg);
+			if (arg->i == -1)
+				return (1);
+			ft_util_stockarg(arg);
 		}
+		arg->i++;
 	}
-	if (c != arg->count)
-		arg->cmds[c] = ft_nosep(i, str, arg);
+	if (arg->c != arg->count)
+		arg->cmds[arg->c] = ft_nosep(arg->i, str, arg);
+	return (0);
 }
 
-int	ft_check_args(t_arg *arg)
+int	ft_quotes(char *str, t_arg *arg)
 {
 	int	i;
-	int	j;
-	
+	int	size;
+
 	i = 0;
-	while (arg->cmds[i])
+	size = ft_strlen(str);
+	while (i < size)
 	{
-		j = 0;
-		while (arg->cmds[i][j])
-		{
-			if (arg->cmds[i][j] == '\'')
-				arg->count_quote++;
-			else if (arg->cmds[i][j] == '"')
-				arg->count_quotes++;
-			j++;
-		}
-		if (arg->count_quotes % 2 != 0 || arg->count_quote % 2 != 0)
-			return (ft_print("Error : There is an odd number of quotes\n", -1));
+		if (str[i] == '\'')
+			arg->count_quote++;
+		else if (str[i] == '"')
+			arg->count_quotes++;
 		i++;
 	}
+	if (arg->count_quotes % 2 != 0 || arg->count_quote % 2 != 0)
+		return (ft_print("Error : There is an odd number of quotes\n", -1));
 	return (0);
+}
+
+int	ft_increase_quote(char *str, int i)
+{
+	if (str[i] == '"')
+	{
+		i++;
+		while (str[i] != '"')
+			i++;
+	}
+	else if (str[i] == '\'')
+	{
+		i++;
+		while (str[i] != '\'')
+			i++;
+	}
+	return (i);
 }

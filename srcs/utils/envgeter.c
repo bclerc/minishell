@@ -6,94 +6,96 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 12:40:57 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/18 12:54:22 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 15:52:25 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+t_split	*find_start(t_split *start)
+{
+	while (start->next && start->next->value != ' ' && start->next->value != '$'
+		&& start->next->value != '"')
+		start = start->next;
+	return (start);
+}
+
+void
+	switch_list(t_split **start, t_split **next, t_split **end, t_split **tmp)
+{
+	*start = (*tmp)->next;
+	if ((*start)->value != '?')
+		*start = find_start(*start);
+	*next = (*start)->next;
+	(*start)->next = NULL;
+	*end = *start;
+	*start = (*tmp)->next;
+	free(*tmp);
+}
+
+char	*change_str(t_split *split, int status)
+{
+	t_split	*tmp;
+	t_split	*start;
+	t_split	*next;
+	t_split	*last;
+
+	start = NULL;
+	tmp = split;
+	last = tmp;
+	while (tmp)
+	{
+		if (tmp->value == '$' && tmp->next && tmp->next->value != ' '
+			&& last->value != '\'')
+		{
+			switch_list(&start, &next, (t_split *[1]){(&(t_split){})}, &tmp);
+			tmp = change_value(start, next, status);
+			if (split == last)
+				split = tmp;
+			else
+				last->next = tmp;
+		}	
+		last = tmp;
+		tmp = tmp->next;
+	}
+	return (to_string(split));
+}
+
 void	rm_split(char **split)
 {
 	int	i;
 
+	if (!split)
+		return ;
 	i = 0;
-	while (split[i])
+	while (split[i] != NULL)
 		i++;
 	while (i >= 0)
 	{
-		free(split[i]);
+		if (split[i])
+			free(split[i]);
 		i--;
 	}
 	free(split);
 }
 
-int		get_count(char **str)
+char	*transform_str(char *str, int status)
 {
-	int	i;
-	int	y;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		y = 0;
-		while (str[i][y])
-		{
-			count++;
-			y++;
-		}
-		i++;
-	}
-	return (count);
-}
-char	*build_str(char **str)
-{
-	char	*final_str;
-	int		count;
-	int		i;
-	int		y;
-
-	count = get_count(str);
-	final_str = (char*)malloc(sizeof(char) * count + 1);
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		y = 0;
-		while (str[i][y])
-		{
-			final_str[count] = str[i][y];
-			count++;
-			y++;
-		}
-		i++;
-	}
-	final_str[count] = 0;
-	return (final_str);
-}
-
-char	*transform_str(char *str, char **envp)
-{
-	int		i;
-	char	**split;
-	char	*env;
+	t_split	*test;
 	char	*ret;
+	int		i;
 
-	split = ft_strsplit_s(str, '$');
+	ret = 0;
+	test = get_str(str, ft_strlen(str));
+	ret = change_str(test, status);
+	printf("Retour de commande  %s \n", ret);
 	i = 0;
-	while (split[i])
+	while (ret[i])
 	{
-		if (split[i][0] == '$')
-		{
-			env = get_env_variable(split[i] + 1, envp);
-			if (env)
-				split[i] = env;
-		}
+		if (ret[i] != ' ')
+			return (ret);
 		i++;
 	}
-	ret = build_str(split);
-	rm_split(split);
-	free(str);
-	return (ret);
+	free(ret);
+	return (NULL);
 }

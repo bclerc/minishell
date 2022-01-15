@@ -3,96 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:26:09 by astrid            #+#    #+#             */
-/*   Updated: 2021/10/24 16:26:19 by astrid           ###   ########.fr       */
+/*   Updated: 2022/01/11 15:22:47 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parse_cd(t_arg *arg, char **cpy, int i, t_cmd *cmd)
+t_cmd	*ft_parse_builtins(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	int		j;
-	char	tmp;
+	t_cmd	*tmp;
+	t_cmd	*new;
 
-	j = 0;
-	cmd->nb = i;
-	cmd->cmd = ft_strdup(cpy[j]);
-	j++;
-	if (!cpy[j])
+	tmp = cmd;
+	while (cmd != NULL && cmd->next != NULL)
+		cmd = cmd->next;
+	new = malloc(sizeof(t_cmd));
+	if (!new)
+		return (NULL);
+	new->redir = NULL;
+	new = ft_fill_builtin(cpy, new, arg);
+	if (!new)
+		return (NULL);
+	if (tmp == NULL)
 	{
-		printf("cd1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-		return (ft_print("\n", -1));
+		new->prev = NULL;
+		tmp = new;
 	}
-	ft_cpy_msg(arg, cpy, i, j, cmd);
-	if (i == arg->count - 1)
-		cmd->std = 0;
-	else if (i < arg->count)
-		ft_std(arg, cmd, i + 1);
-	printf("cd2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-	cmd->next = NULL;
-	return (j);
+	else
+		cmd = ft_cmd_builtin(cmd, tmp, new);
+	return (tmp);
 }
 
-int	ft_parse_builtins(t_arg *arg, char **cpy, int i, t_cmd *cmd)
+t_cmd	*ft_parse_other(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	int	j;
+	t_cmd	*tmp;
+	t_cmd	*new;
 
-	j = 0;
-	cmd->nb = i;
-	cmd->cmd = ft_strdup(cpy[j]);
-	j++;
-	if (!cpy[j])
+	tmp = cmd;
+	while (cmd != NULL && cmd->next != NULL)
+		cmd = cmd->next;
+	new = malloc(sizeof(t_cmd));
+	if (!new)
+		return (NULL);
+	new->msg = NULL;
+	new->redir = NULL;
+	new = ft_fill_other(cpy, new, arg);
+	if (tmp == NULL)
 	{
-		printf("builtins1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-		return (ft_print("\n", -1));
+		new->prev = NULL;
+		tmp = new;
 	}
-			puts("che");
-	ft_cpy_msg(arg, cpy, i, j, cmd);
-	if (i == arg->count - 1)
-		cmd->std = 0;
-	else if (i < arg->count)
-		ft_std(arg, cmd, i + 1);
-	printf("builtins2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-	cmd->next = NULL;
-	return (j);
+	else
+		cmd = ft_cmd_builtin(cmd, tmp, new);
+	return (tmp);
 }
 
-int	ft_parse_other(t_arg *arg, char **cpy, int i, t_cmd *cmd)
-{
-	int	j;
-
-	j = 0;
-	cmd->nb = i;
-	cmd->cmd = ft_strdup(cpy[j]);
-	j++;
-	if (!cpy[j])
-	{
-		printf("other1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-		return (ft_print("\n", -1));
-	}
-	ft_cpy_msg(arg, cpy, i, j, cmd);
-	if (i == arg->count - 1)
-		cmd->std = 0;
-	else if (i < arg->count)
-		ft_std(arg, cmd, i + 1);
-	printf("other2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-	cmd->next = NULL;
-	return (j);
-}
-
-void	ft_std(t_arg *arg, t_cmd *cmd, int i)
+int	ft_std(t_arg *arg, int i)
 {
 	if (ft_strncmp(arg->cmds[i], "|", ft_strlen(arg->cmds[i])) == 0)
-		cmd->std = 1;
+		return (1);
 	else if (ft_strncmp(arg->cmds[i], ">", ft_strlen(arg->cmds[i])) == 0)
-		cmd->std = 2;
+		return (2);
 	else if (ft_strncmp(arg->cmds[i], ">>", ft_strlen(arg->cmds[i])) == 0)
-		cmd->std = 3;
+		return (3);
 	else if (ft_strncmp(arg->cmds[i], "<", ft_strlen(arg->cmds[i])) == 0)
-		cmd->std = 4;
+		return (4);
 	else if (ft_strncmp(arg->cmds[i], "<<", ft_strlen(arg->cmds[i])) == 0)
-		cmd->std = 5;
+		return (5);
+	return (0);
+}
+
+void	ft_fill_std(t_arg *arg, t_cmd *new)
+{
+	if (arg->i_cpy == arg->count - 1)
+		new->std = 0;
+	else if (arg->i_cpy < arg->count)
+		new->std = ft_std(arg, arg->i_cpy + 1);
 }

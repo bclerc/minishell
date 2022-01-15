@@ -3,75 +3,120 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:15:37 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/21 11:16:07 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 17:25:00 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-int execute_bin_commands(char **argv)
-{
-	int		ret;
-	int		status;
-	pid_t	pid;
-	pid_t	child;
-	char	**cmd;
-	char	*find;
-	char	*tmp;
+#include "../../include/minishell.h"
 
-	core.child = fork();
-	core.child_exist = 1;
-	if (core.child == 0)
+char	*read_folder(DIR *pdir, char *path, t_cmd *cmd)
+{
+	struct dirent	*pdirent;
+	char			*tmp;
+	char			*ret;
+
+	pdirent = readdir(pdir);
+	while (pdirent != NULL)
 	{
-		cmd = argv;
-		tmp = ft_strdup("/bin/");
-		find = ft_strjoin(tmp, argv[0]);
-		free(tmp);
-		ret = execve (find, cmd, 0);
-		if (ret < 0)
-			printf("%s: command not found\n", argv[0]);
-		free(find);
-		exit(-1);
+		if (ft_strcmp(cmd->cmd, pdirent->d_name) == 0)
+		{
+			tmp = ft_strjoin(path, "/");
+			ret = ft_strjoin(tmp, cmd->cmd);
+			free(tmp);
+			return (ret);
+		}
+		pdirent = readdir(pdir);
 	}
-	else{
-		 status;
-    	waitpid(core.child, &status, 0);
-		core.child_exist = 0;
-	}
+	return (NULL);
 }
 
-int	execute_commands(char *args, char **envp, char *path)
+char	*return_norm(DIR *pdir, char **path, char *ret)
 {
-	char	**argv;
-	char	*cmd;
-	int		ret;
+	closedir(pdir);
+	rm_split(path);
+	return (ret);
+}
 
-	argv = ft_strsplit(args, ' ');
-	cmd = argv[0];
-	ret = 0;
-	if (ft_strcmp(cmd, "cd") == 0)
-		ret = (cd(envp, argv[1]));
-	if (ft_strcmp(cmd, "echo") == 0)
-		ret = (echo(argv[1], path, 0));
-	if (ft_strcmp(cmd, "env") == 0)
-		ret = (env(envp, path));
-	if (ft_strcmp(cmd, "export") == 0)
-		ret = (export(envp, path));
-	if (ft_strcmp(cmd, "pwd") == 0)
-		ret = (pwd(path));
-	if (ft_strcmp(cmd, "unset") == 0)
-		ret = (1);											//pas fait
-	if (ft_strcmp(cmd, "exit") == 0)
+char	*get_executable_path(t_cmd *cmd)
+{
+	DIR				*pdir;
+	char			**path;
+	char			*ret;
+	int				i;
+
+	ret = get_env_variable("PATH");
+	path = ft_strsplit(ret, ':');
+	if (!path)
+		return (NULL);
+	i = 0;
+	while (path[i])
 	{
-		printf("\nGood Bye\n");
-		core.status = -1;
-		return (-1);
+		pdir = opendir(path[i]);
+		if (pdir != NULL)
+		{
+			ret = read_folder(pdir, path[i], cmd);
+			if (ret)
+				return (return_norm(pdir, path, ret));
+		}
+		i++;
+		closedir(pdir);
 	}
-	if (ret == 1)											// a refaire
-		return (ret);
-	execute_bin_commands(argv);
+	rm_split(path);
+	return (cmd->cmd);
+}
+
+int	exec(t_cmd *cmd)
+{
+	char	*path;
+	char	**argv;
+	char	**tab_env;
+	int		status;
+	int		i;
+
+	status = 1;
+	i = -1;
+	g_core->child_exist = 1;
+	argv = get_argv(cmd);
+	tab_env = env_to_char();
+	path = get_executable_path(cmd);
+	status = execve(path, argv, tab_env);
+	if (status < 0)
+	{
+		write(2, cmd->cmd, ft_strlen(cmd->cmd));
+		write(2, " command not found\n", 19);
+		rm_split(argv);
+		rm_split(tab_env);
+		exit(127);
+	}
 	rm_split(argv);
-	return (1);
+	rm_split(tab_env);
+	g_core->child_exist = 0;
+	return (status);
+}
+
+int	execute_commands(t_cmd *cmd, int status)
+{
+	int	ret;
+
+	ret = 1;
+	if (ft_strcmp(cmd->cmd, "cd") == 0)
+		ret = cd(cmd->msg);
+	else if (ft_strcmp(cmd->cmd, "echo") == 0)
+		echo(cmd);
+	else if (ft_strcmp(cmd->cmd, "env") == 0)
+		(env(NULL));
+	else if (ft_strcmp(cmd->cmd, "export") == 0)
+		(export(NULL, cmd->msg));
+	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
+		(pwd(NULL));
+	else if (ft_strcmp(cmd->cmd, "unset") == 0)
+		unset(cmd->msg);
+	else if (ft_strcmp(cmd->cmd, "exit") == 0)
+		ret = builtin_exit(cmd, status);
+	else
+		ret = exec(cmd);
+	return (ret);
 }

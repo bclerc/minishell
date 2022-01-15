@@ -6,148 +6,109 @@
 /*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:44:48 by bclerc            #+#    #+#             */
-/*   Updated: 2021/10/21 15:43:37 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/12 15:57:41 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	change_old_pwd(char **env)
+int	change_old_pwd(void)
 {
-	char *path;
-	char *tmp;
-	int i;
+	char	*path;
+	char	*tmp;
+	char	*ret;
 
-	i = 0;
-	while (env[i])
-	{
-		if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D'
-			&& env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D')
-			break ;
-		i++;
-	}
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("OLDPWD=");
-	env[i] = ft_strjoin(tmp, path);
+	if (!tmp)
+		return (-1);
+	del_env_variable("OLDPWD");
+	ret = ft_strjoin(tmp, path);
+	if (!ret)
+		return (-1);
+	add_env_variable(ret);
+	free(ret);
 	free(tmp);
 	free(path);
-	return i;
+	return (1);
 }
 
-char	*get_home(char **env)
+int	change_pwd(void)
 {
 	char	*path;
 	char	*tmp;
-	int		find;
-	int		i;
+	char	*ret;
 
-	i = 0;
-	find = 0;
-	while (env[i])
-	{
-		if (env[i][0] == 'H' && env[i][1] == 'O' && env[i][2] == 'M'
-			&& env[i][3] == 'E' && env[i][4] == '=')
-		{
-			find = 1;
-			break ;
-		}
-		i++;
-	}
-	if (!find)
-	{
-		printf("cd: home directory not set");
-		exit(0);
-	}
-	path = ft_strdup(&env[i][5]);
-	return path;
-}
-
-char	*get_oldpwd(char **env)
-{
-	char	*path;
-	char	*tmp;
-	int		find;
-	int		i;
-
-	i = 0;
-	find = 0;
-	while (env[i])
-	{
-		if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D'
-			&& env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D'
-			&& env[i][6] == '=')
-		{
-			find = 1;
-			break ;
-		}
-		i++;
-	}
-	if (!find)
-	{
-		printf("cd: old working directory not set");
-		exit(0);
-	}
-	path = ft_strdup(&env[i][5]);
-	return (path);
-}
-
-int	change_pwd(char **env)
-{
-	char	*path;
-	char	*tmp;
-	int 	find;
-	int		i;
-
-	i = 0;
-	find = 0;
-	while (env[i])
-	{
-		if (env[i][0] == 'P' && env[i][1] == 'W' && env[i][2] == 'D')
-		{
-			find = 1;
-			break ;
-		}
-		i++;
-	}
 	path = getcwd(NULL, 0);
 	tmp = ft_strdup("PWD=");
-	env[i] = ft_strjoin(tmp, path);
-	free(path);
+	if (!tmp)
+		return (-1);
+	del_env_variable("PWD");
+	ret = ft_strjoin(tmp, path);
+	if (!ret)
+		return (-1);
+	add_env_variable(ret);
+	free(ret);
 	free(tmp);
-	return (i);
+	free(path);
+	return (1);
 }
 
-
-int	cd(char **env, char *path)
+char	*get(char *path)
 {
-	struct stat t_sb;
+	char	*home;
+
+	if (path == 0)
+	{
+		if (get_env_variable("HOME") == NULL)
+			home = ft_strdup(getcwd(0, 0));
+		else
+			home = ft_strdup(get_env_variable("HOME"));
+	}
+	else if (path[0] == 45)
+	{
+		if (get_env_variable("OLDPWD") == NULL)
+			home = ft_strdup(getcwd(0, 0));
+		else
+			home = ft_strdup(get_env_variable("OLDPWD"));
+	}
+	else
+		home = ft_strdup(path);
+	return (home);
+}
+
+void	change_directory(char *path)
+{
+	change_old_pwd();
+	chdir(path);
+	change_pwd();
+}
+
+int	cd(char *path)
+{
+	struct stat	t_sb;
 	char		*home;
-	int i;
 	int			stats;
-	stats = stat(path, &t_sb);
+
+	home = get(path);
+	stats = stat(home, &t_sb);
 	if (stats == 0 && S_ISDIR(t_sb.st_mode))
 	{
-		if (access(path, W_OK && R_OK) == -1)
-		{
-			printf("cd: cannot access directory '%s': Permission denied (cheh)\n", path);
-			return (1);
-		}
-		change_old_pwd(env);
-		chdir(path);
-		i = change_pwd(env);			
+		if (!have_access(home, path))
+			return (126);
+		change_directory(home);
 	}
 	else if (path == NULL)
 	{
-		i = change_pwd(env);		
-		home = get_home(env);
-		chdir(home);
-		free(home);
-		change_old_pwd(env);
+		home = ft_strdup(get_env_variable("HOME"));
+		change_directory(home);
 	}
 	else
 	{
-		printf("cd: no such file or directory: %s\n", path);
+		printf("cd: no such file or directory: %s\n", home);
+		free(home);
 		return (1);
 	}
-	return (1);
+	free(home);
+	return (0);
 }

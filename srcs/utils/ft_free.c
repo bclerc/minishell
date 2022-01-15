@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:13:52 by user42            #+#    #+#             */
-/*   Updated: 2021/10/14 12:15:40 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/11 11:24:22 by bclerc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 void	ft_free_arg(t_arg *arg)
 {
-    int	i;
+	int	i;
+	int	c;
 
 	i = 0;
-	while (arg->cmds)
+	c = arg->count;
+	while (i < c)
 	{
-		free(arg->cmds);
+		free(arg->cmds[i]);
 		i++;
 	}
+	if (arg->cmds)
+		free(arg->cmds);
 }

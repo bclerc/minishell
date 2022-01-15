@@ -3,70 +3,116 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astrid <astrid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2021/10/24 15:26:31 by astrid           ###   ########.fr       */
+/*   Updated: 2022/01/14 18:04:55 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parse_echo(t_arg *arg, char **cpy, int i, t_cmd *cmd)
+t_cmd	*ft_parse_echo(t_arg *arg, char **cpy, t_cmd *cmd)
 {
-	int	j;
-	int	tmp;
+	t_cmd	*tmp;
+	t_cmd	*new;
 
-	j = 0;
-	tmp = i;
-	while (cpy[tmp])
-		tmp++;
-	cmd->cpy_nb = tmp;
-	printf("cpy_nb = %d i = %d\n", cmd->cpy_nb, i);
-	cmd->nb = i;
-	cmd->cmd = ft_strdup(cpy[j]);
-	//printf("arg = %p cmd = %p\n", &arg->cmds[i], &cmd->arg);
-	j++;
-	if (cpy[j])
+	tmp = cmd;
+	while (cmd != NULL && cmd->next != NULL)
+		cmd = cmd->next;
+	new = ft_fill_echo1(new, arg, cpy);
+	if (!new)
+		return (NULL);
+	if (cpy[arg->j])
+		new = ft_fill_echo2(cpy, arg, new);
+	if (!new)
+		return (NULL);
+	new->std = ft_fill_echostd(arg, new);
+	new->next = NULL;
+	if (tmp == NULL)
 	{
-		if (ft_strncmp(cpy[j], "-n", 2) == 0)
-		{
-			if (ft_check_n(cpy, cmd, j) == -1 )
-				return (-1);
-			j++;
-			if (cpy[j])
-				ft_cpy_msg(arg, cpy, i, j, cmd);
-			else if (!cpy[j])
-			{
-				printf("echo1 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-				return (ft_print("\n", -1) & -1);
-			}
-		}
-		else
-			ft_cpy_msg(arg, cpy, i, j, cmd);
-		printf("cmd_msg = %s\n", cmd->msg);
+		new->prev = NULL;
+		tmp = new;
 	}
-	printf("j = %d i = %d\n", j, i);
-	if (i == arg->count - 1)
-		cmd->std = 0;
-	else if (i < arg->count)
-		ft_std(arg, cmd, i + 1);
-	printf("echo2 : nb = %d, cmd = %s, spec = %s, msg = %s, std = %d j = %d\n", cmd->nb, cmd->cmd, cmd->spec, cmd->msg, cmd->std, j);
-	cmd->next = NULL;
-	return (j);
+	else
+		cmd = ft_cmd_builtin(cmd, tmp, new);
+	return (tmp);
 }
 
-int	ft_check_n(char **cpy, t_cmd *cmd, int i)
+int	ft_check_n(char **cpy, int i, t_arg *arg, t_cmd *new)
 {
-	int j;
+	int		j;
+	char	*tmp;
 
 	j = 1;
 	while (cpy[i][j])
 	{
+		if (cpy[i][j] == 'n')
+			arg->n++;
 		if (cpy[i][j] != 'n')
+		{
 			ft_print("Error in specification\n", -1);
+			return (1);
+		}	
 		j++;
 	}
-	cmd->spec = "-n";
+	new->spec = "-n";
+	arg->spec_n = 1;
 	return (0);
+}
+
+t_cmd	*ft_fill_echo1(t_cmd *new, t_arg *arg, char **cpy)
+{
+	int		tmp_nb;
+
+	new = malloc(sizeof(t_cmd));
+	if (!new)
+		return (NULL);
+	tmp_nb = arg->i_cpy;
+	new->redir = NULL;
+	new->msg = NULL;
+	new->spec = NULL;
+	while (cpy[tmp_nb])
+		tmp_nb++;
+	new->cpy_nb = tmp_nb;
+	new->builtin = 1;
+	new->cmd = ft_strdup(cpy[arg->j]);
+	if (!new->cmd)
+		return (NULL);
+	arg->j++;
+	return (new);
+}
+
+t_cmd	*ft_fill_echo2(char **cpy, t_arg *arg, t_cmd *new)
+{
+	if (ft_strncmp(cpy[arg->j], "-", 1) == 0)
+	{
+		if (ft_check_n(cpy, arg->j, arg, new) == 1)
+			return (NULL);
+		arg->j++;
+		if (cpy[arg->j])
+		{
+			new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
+			if (!new->msg)
+				return (NULL);
+		//printf("newmsg %p\n", new->msg);
+		}	
+	}
+	else
+	{
+		new->spec = NULL;
+		new->msg = ft_cpy_msg(arg, cpy, arg->j, new);
+		if (!new->msg)
+			return (NULL);
+	}
+	return (new);
+}
+
+int	ft_fill_echostd(t_arg *arg, t_cmd *new)
+{
+	if (arg->i_cpy == arg->count - 1)
+		new->std = 0;
+	else if (arg->i_cpy < arg->count)
+		new->std = ft_std(arg, arg->i_cpy + 1);
+	return (new->std);
 }
