@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:19:43 by user42            #+#    #+#             */
-/*   Updated: 2022/01/14 12:04:41 by asgaulti         ###   ########.fr       */
+/*   Updated: 2022/01/14 18:04:55 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,13 @@ t_cmd	*ft_fill_echo2(char **cpy, t_arg *arg, t_cmd *new)
 			new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
 			if (!new->msg)
 				return (NULL);
+		//printf("newmsg %p\n", new->msg);
 		}	
 	}
 	else
 	{
 		new->spec = NULL;
-		new->msg = ft_strdup(ft_cpy_msg(arg, cpy, arg->j, new));
+		new->msg = ft_cpy_msg(arg, cpy, arg->j, new);
 		if (!new->msg)
 			return (NULL);
 	}

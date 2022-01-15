@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:12:23 by bclerc            #+#    #+#             */
-/*   Updated: 2022/01/12 16:47:34 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 18:05:34 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	del_cmd(t_cmd *cmd)
 			del_cmd(cmd->next);
 		del_redir(cmd->redir);
 		if (cmd->msg != NULL)
+		// {printf("msg %s %p\n", cmd->msg, cmd->msg);
 			free(cmd->msg);
+			// }
 		if (cmd->cmd != NULL)
 			free(cmd->cmd);
 		cmd->next = NULL;

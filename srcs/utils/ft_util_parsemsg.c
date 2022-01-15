@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_util_parsemsg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bclerc <bclerc@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:38:22 by astrid            #+#    #+#             */
-/*   Updated: 2022/01/12 17:26:24 by bclerc           ###   ########.fr       */
+/*   Updated: 2022/01/14 17:38:27 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	*ft_special_cat(char *str, char *tmp, int i, int ret)
 	new = malloc(sizeof(char) * (size + 1));
 	if (!new)
 		return (NULL);
+	printf("new %p\n", new);
 	if (ret == -1)
 		new = ft_retneg(i, str, tmp, new);
 	else
